@@ -1,0 +1,36 @@
+{
+    "name": "SOLFIR LANDING",
+    "image": "alpine:3.17.1",
+    "remoteEnv": {
+      "GIT_NAME": "${localEnv:GIT_NAME}",
+      "GIT_EMAIL": "${localEnv:GIT_EMAIL}"
+    },
+    // Use 'forwardPorts' to make a list of ports inside the container available locally.
+    "forwardPorts": [
+      8000
+    ],
+    "extensions": [
+      "esbenp.prettier-vscode",
+      "eamodio.gitlens",
+      "wesbos.theme-cobalt2",
+      "foxundermoon.shell-format",
+      "mrmlnc.vscode-scss"
+  ],
+    "settings": {
+      "workbench.colorTheme": "Cobalt2",
+      "terminal.integrated.defaultProfile.linux": "zsh", 
+          "terminal.integrated.profiles.linux": {
+              "zsh": {
+                  "path": "/usr/bin/zsh"
+              }
+          }
+    },
+    // Use 'postCreateCommand' to run commands after the container is created.
+    "postCreateCommand": [
+      "/bin/bash",
+      "-c",
+      "source .devcontainer/postCreateCommand"
+    ],
+    // Connect with root user
+    "remoteUser": "root"
+  }
