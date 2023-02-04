@@ -1,0 +1,8 @@
+@import "/src/styles/component";
+
+
+.header {
+    display: flex;
+    height: 60px;
+    min-height: $header-height;
+}

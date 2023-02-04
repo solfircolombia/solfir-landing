@@ -1,0 +1,13 @@
+@import "../../styles/global"; // Importing global styles
+@import "../../styles/component"; // 
+
+.layout {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    .content {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+}
