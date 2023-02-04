@@ -9,13 +9,14 @@ const config: GatsbyConfig = {
   // If you use VSCode you can also use the GraphQL plugin
   // Learn more at: https://gatsby.dev/graphql-typegen
   graphqlTypegen: true,
+  // "gatsby-plugin-google-gtag" // TODO: add this plugin
   plugins: [{
     resolve: 'gatsby-source-contentful',
     options: {
       "accessToken": "qw_Tt0V0jpa-gnNjIWAjvH7kzPJ9UYfsO_mPHVQiNTo",
       "spaceId": "6chh7n2v3o9v"
     }
-  }, "gatsby-plugin-image", "gatsby-plugin-sharp", "gatsby-transformer-sharp", "gatsby-plugin-sass", "gatsby-plugin-google-gtag", "gatsby-plugin-sitemap", {
+  }, "gatsby-plugin-image", "gatsby-plugin-sharp", "gatsby-transformer-sharp", "gatsby-plugin-sass", "gatsby-plugin-sitemap", {
     resolve: 'gatsby-plugin-manifest',
     options: {
       "icon": "src/images/icon.png"
