@@ -35,7 +35,20 @@ const config: GatsbyConfig = {
       "path": "./src/pages/"
     },
     __key: "pages"
-  }]
+  },
+  {
+    resolve: `gatsby-plugin-alias-imports`,
+    options: {
+      alias: {
+        "@src": "src",
+        "@components": "src/components",
+      },
+      extensions: [
+        "ts","tsx"
+      ],
+    }
+  }
+]
 };
 
 export default config;
