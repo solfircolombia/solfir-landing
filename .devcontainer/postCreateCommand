@@ -1,0 +1,35 @@
+#!/bin/bash
+
+printf "\INSTALLING PACKAGES\n"
+apt update -y
+apt install -y sudo zsh openssh-server curl git vim
+apt install -y build-essential
+
+# Create ssh key
+printf "\nCREATING NEW KEY...\n"
+ssh-keygen -t ed25519 -C "$GIT_EMAIL" -f "$HOME/.ssh/id_ed25519" -q -N ""
+
+printf "\nCOPY THIS KEY: \n"
+cat $HOME/.ssh/id_ed25519.pub
+
+printf "\nCREATE A NEW KEY IN GITHUB\n"
+echo "https://github.com/settings/keys"
+
+# Setup Git Global Config
+git config --global user.name $GIT_NAME
+git config --global user.email $GIT_EMAIL
+# echo "SHOW GIT CONFIG"
+# git config --list
+
+# Install OHMYZSH
+printf "\nInstalling OHMYZSH...\n"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+
+mv $HOME/.bashrc $HOME/.bashrc.old
+
+printf "\nInstalling NVM...\n"
+cat .devcontainer/loadnvmrc >> $HOME/.zshrc
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+
+
+printf "\nSCRIPT COMPLETED!!\n"
