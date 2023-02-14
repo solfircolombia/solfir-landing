@@ -18,7 +18,7 @@ export const Footer: React.FC = () => {
         <footer className="footer">
             <div className="columns">
                 <div className="column">
-                    <Logo variant="light" />
+                    <Logo/>
                 </div>
                 <div className="column">
                     <Link className="menu-links-item" activeClassName="menu-links-item-active" to="/quienes-somos">Quienes somos</Link>

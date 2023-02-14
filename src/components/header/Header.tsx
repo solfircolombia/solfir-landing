@@ -5,6 +5,7 @@ import "./header.scss";
 import { Link, navigate } from "gatsby";
 import { useWindowDimensions } from "../../hooks/use-window-dimentions";
 import { MAX_SCREEN_WIDTH_SM } from "../..//constants/breakpoints.constants";
+import { SITE_LINKS } from "../../constants/links.constants";
 
 
 export const Header: React.FC = () => {
@@ -23,36 +24,31 @@ export const Header: React.FC = () => {
 
     return (
         <header className="header">
-            <Logo className={`header-logo ${menuExpanded ? 'header-logo--menu-expanded' : ''}`} />
-            <div className="menu" id="menu-links">
-                <div className="menu-icon">
-                    <Button
-                        aria-expanded={menuExpanded}
-                        aria-controls="menu-links"
-                        variant="light"
-                        btnStyle="rounded"
-                        size={buttonSize}
-                        onClickBtn={() => { toggleMenuExpandedState() }}
-                    >
-                        <Icon name={menuExpanded ? "close" : "menu"} color="black" size={buttonSize-20}></Icon>
-                    </Button>
-                </div>
-                {
-
-                    showLinks && <div className="menu-links" id="menu-links">
-                        <Link className="menu-links-item" activeClassName="menu-links-item-active" to="/quienes-somos">Quienes somos</Link>
-                        <Link className="menu-links-item" activeClassName="menu-links-item-active" to="/quienes-somos">Equipo de trabajo</Link>
-                        <Link className="menu-links-item" activeClassName="menu-links-item-active" to="/quienes-somos">Contactanos</Link>
-                        <Link className="menu-links-item" activeClassName="menu-links-item-active" to="/quienes-somos">Blog</Link>
-                        <Link className="menu-links-item" activeClassName="menu-links-item-active" to="/quienes-somos">Servicios</Link>
-                        <Link className="menu-links-item" activeClassName="menu-links-item-active" to="/quienes-somos">FAQ</Link>
-                        <Link className="menu-links-item" activeClassName="menu-links-item-active" to="/quienes-somos">Beneficios</Link>
-                        <Link className="menu-links-item" activeClassName="menu-links-item-active" to="/quienes-somos">Login</Link>
+            <div className="wrapper">
+                <Logo className={`header-logo ${menuExpanded ? 'header-logo--menu-expanded' : ''}`} />
+                <div className="menu" id="menu-links">
+                    <div className="menu-icon">
+                        <Button
+                            aria-expanded={menuExpanded}
+                            aria-controls="menu-links"
+                            variant="light"
+                            btnStyle="rounded"
+                            size={buttonSize}
+                            onClickBtn={() => { toggleMenuExpandedState() }}
+                        >
+                            <Icon name={menuExpanded ? "close" : "menu"} color="black" size={buttonSize - 20}></Icon>
+                        </Button>
                     </div>
-
-                }
-
-
+                    {
+                        showLinks && <div className="menu-links" id="menu-links">
+                            {
+                                SITE_LINKS.map(({ link, label }) => {
+                                    return (<Link className="menu-links-item" activeClassName="menu-links-item-active" to={link}>{label}</Link>)
+                                })
+                            }
+                        </div>
+                    }
+                </div>
             </div>
         </header>
     )
