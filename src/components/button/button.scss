@@ -1,0 +1,90 @@
+@import "../../styles/component";
+
+.button {
+    display: flex;
+
+    border-radius: 25px;
+    width: fit-content;
+    align-items: center;
+    color: white;
+    font-weight: 600;
+
+    &.regular {
+        padding: 10px 20px;
+    }
+
+    &.rounded {
+        padding: 10px;
+    }
+
+
+    &.primary {
+        background-color: $color-primary;
+        color: $white;
+        svg {
+            path {
+                fill: $white;
+            }
+        }
+    }
+
+    &.secondary {
+        background-color: $color-secondary;
+        color: $black;
+        svg {
+            path {
+                fill: $white;
+            }
+        }
+    }
+
+    &.tertiary {
+        background-color: $color-tertiary;
+        color: $white;
+        svg {
+            path {
+                fill: $white;
+            }
+        }
+    }
+
+    &.light {
+        background-color: $color-light;
+        color: $color-dark;
+        svg {
+            path {
+                fill: $color-dark;
+            }
+        }
+    }
+
+    &.dark {
+        background-color: $color-dark;
+        color: $color-light;
+        svg {
+            path {
+                fill: $color-dark;
+            }
+        }
+    }
+
+    &.small {
+        height: 40px;
+        border-radius: 20px;
+    }
+
+    &.medium {
+        height: 60px;
+        border-radius: 30px;
+    }
+
+    &.large {
+        height: 80px;
+        border-radius: 40px;
+    }
+
+    &:hover {
+        cursor: pointer;
+        box-shadow: $box-shadow-1;
+    }
+}

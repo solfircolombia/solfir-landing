@@ -1,0 +1,47 @@
+@import "../../styles/component";
+
+.logo {
+    display: flex;
+    font-size: 30px;
+    user-select: none;
+    padding: 5px;
+    text-decoration: none;
+
+    &:hover {
+        cursor: pointer;
+        color: $black;
+    }
+
+    .letter {
+        font-weight: 700;
+
+        color: $color-dark;
+
+        &.dark {
+            color: $color-dark;
+        }
+
+        &.light {
+            color: $white;
+        }
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    .bar {
+        color: $color-primary;
+
+        &.dark {
+            color: $color-dark;
+        }
+
+        &.light {
+            color: $white;
+        }
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}

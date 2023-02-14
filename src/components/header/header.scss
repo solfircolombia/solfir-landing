@@ -2,7 +2,96 @@
 
 
 .header {
+    @extend %cw;
     display: flex;
-    height: 60px;
+    align-items: center;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    background-color: white;
     min-height: $header-height;
+
+    .header-logo {
+        &--menu-expanded {
+            @include for-sm {
+                display: none;
+            }
+        }
+    }
+
+
+    .menu {
+        display: flex;
+        align-self: center;
+        margin-left: auto;
+
+        &-icon {
+            display: none;
+            margin-left: auto;
+            padding: 4px;
+            border-radius: 20px;
+            height: 100px;
+
+            &:hover {
+                cursor: pointer;
+            }
+
+            svg {
+                pointer-events: none;
+            }
+
+            @include for-sm {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+        }
+
+        &-links {
+
+            display: flex;
+            flex-flow: wrap;
+
+            &-item {
+                text-decoration: none;
+                font-size: 18px;
+                display: flex;
+                border-bottom: 3px solid $white;
+                user-select: none;
+                margin: 0 10px;
+
+                &-active {
+                    color: $color-primary;
+                    border-bottom: 3px solid $color-primary;
+                }
+
+                &:hover {
+                    border-bottom: 3px solid $color-primary;
+                    cursor: pointer;
+                }
+
+
+            }
+
+        }
+
+        @include for-sm {
+            & {
+                min-height: 100px;
+                justify-content: center;
+            }
+
+            &,
+            &-links {
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+            }
+        }
+    }
+
+    @include for-sm {
+        // flex-direction: column;
+    }
 }

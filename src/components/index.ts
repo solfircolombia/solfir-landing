@@ -1,10 +1,16 @@
-import { Header } from "./header/Header";
-import { Layout } from "./layout/Layout";
+import { Button } from "./button/Button";
 import { Footer } from "./footer/Footer";
+import { Header } from "./header/Header";
+import { Icon } from "./Icon/Icon";
+import { Layout } from "./layout/Layout";
+import { Logo } from "./logo/Logo";
 
 
 export {
-    Layout,
-    Header,
+    Button,
     Footer,
+    Header,
+    Icon,
+    Layout,
+    Logo,
 }

@@ -1,4 +1,29 @@
-// Set here global variables that might be used somwhere else; 
+$header-height: 120px;
+$footer-height: 400px;
 
-$header-height: 60px;
-$footer-height: 60px;
+// Box Shadows
+$box-shadow-1: 0px 14px 30px -15px rgb(0 0 0 / 75%);
+
+
+
+// ==== BREAKPOINTS 
+
+// XS Screens: Mobile devices, Phones
+$min-screen-width-xs: 320px;
+$max-screen-width-xs: 480px;
+
+// Small Screens: iPads, Tablets
+$min-screen-width-sm: 481px;
+$max-screen-width-sm: 768px;
+
+// Medium Screens: Small Screens, Laptops
+$min-screen-width-md: 769px;
+$max-screen-width-md: 1024px;
+
+// Large Screens: Desktops, large screens
+$min-screen-width-lg: 1025px;
+$max-screen-width-lg: 1200px;
+
+// XL Screens: Extra large screens, TV
+$min-screen-width-xl: 1201px;
+$max-screen-width-xl: 1440px;

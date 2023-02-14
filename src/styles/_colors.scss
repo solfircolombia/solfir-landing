@@ -1,1 +1,22 @@
 // Lets define palette here
+
+$white: #fff;
+$black: #000;
+$gray: #ccc;
+$gray-darker: #444;
+$gray-lighter: #e9e9e9;
+
+/* SCSS HSL */
+$razzmatazz: hsla(340, 71%, 54%, 1);
+$minion-yellow: hsla(52, 99%, 67%, 1);
+$y-in-mn-blue: hsla(215, 53%, 35%, 1);
+$opal: hsla(165, 22%, 70%, 1);
+$black-chocolate: hsla(39, 52%, 6%, 1);
+
+$color-primary: $razzmatazz;
+$color-secondary: $minion-yellow;
+$color-tertiary: $y-in-mn-blue;
+$color-dark: $black-chocolate;
+$color-light: $white;
+
+$whatsapp-color: #25D366;

@@ -1,0 +1,29 @@
+@mixin for-xs {
+    @media (max-width: $max-screen-width-xs) {
+        @content;
+    }
+}
+
+@mixin for-sm {
+    @media (max-width: $max-screen-width-sm) {
+        @content;
+    }
+}
+
+@mixin for-md {
+    @media (max-width: $max-screen-width-md) {
+        @content;
+    }
+}
+
+@mixin for-lg {
+    @media (max-width: $max-screen-width-lg) {
+        @content;
+    }
+}
+
+@mixin for-xl {
+    @media (max-width: $max-screen-width-xl) {
+        @content;
+    }
+}
