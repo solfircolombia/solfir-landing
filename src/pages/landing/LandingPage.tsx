@@ -87,7 +87,17 @@ const LandingPage: React.FC<PageProps> = (props) => {
             </div>
           </div>
         </section>
-
+        <section className="hireus">
+          <div className="wrapper">
+            <h2 className="hireus-title">
+              ¡Contratanos!
+            </h2>
+            <p className="hireus-text">
+              Con un equipo de expertos dedicados y años de experiencia, nos aseguramos de brindar soluciones óptimas para cada situación única. Contáctanos hoy para ver cómo podemos ayudarte a lograr la estabilidad financiera.
+            </p>
+            <Button variant="light" >Contratanos!</Button>
+          </div>
+        </section>
       </div>
     </Layout>
   )
