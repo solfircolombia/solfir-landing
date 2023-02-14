@@ -13,7 +13,8 @@ $y-in-mn-blue: hsla(215, 53%, 35%, 1);
 $opal: hsla(165, 22%, 70%, 1);
 $black-chocolate: hsla(39, 52%, 6%, 1);
 
-$color-primary: $razzmatazz;
+// $color-primary: $razzmatazz;
+$color-primary: var(--primary);
 $color-secondary: $minion-yellow;
 $color-tertiary: $y-in-mn-blue;
 $color-dark: $black-chocolate;

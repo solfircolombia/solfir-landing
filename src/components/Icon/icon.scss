@@ -1,4 +1,35 @@
+@import "/src/styles/component";
+
 .icon {
     min-width: 32px;
     min-height: 32px;
+
+    &--variant {
+        &-primary {
+            path {
+                fill: $color-primary;
+            }
+        }
+        &-secondary {
+            path {
+                fill: $color-secondary;
+            }
+        }
+        &-tertiary {
+            path {
+                fill: $color-tertiary;
+            }
+        }
+        &-dark {
+            path {
+                fill: $color-dark;
+            }
+        }
+        &-light {
+            path {
+                fill: $color-light;
+            }
+        }
+    }
+
 }

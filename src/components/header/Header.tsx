@@ -1,11 +1,11 @@
 import * as React from "react";
 import { useState } from "react";
+import { Link } from "gatsby";
 import { Button, Icon, Logo } from "@components";
-import "./header.scss";
-import { Link, navigate } from "gatsby";
+import {BREAKPOINTS, SITE_LINKS} from "@constants";
+
 import { useWindowDimensions } from "../../hooks/use-window-dimentions";
-import { MAX_SCREEN_WIDTH_SM } from "../..//constants/breakpoints.constants";
-import { SITE_LINKS } from "../../constants/links.constants";
+import "./header.scss";
 
 
 export const Header: React.FC = () => {
@@ -13,10 +13,8 @@ export const Header: React.FC = () => {
 
     const [menuExpanded, setMenuExpanded] = useState(false);
     const { width } = useWindowDimensions();
-    const showLinks = menuExpanded || width > MAX_SCREEN_WIDTH_SM;
+    const showLinks = menuExpanded || width > BREAKPOINTS.MAX_SCREEN_WIDTH_SM;
     const buttonSize: number = 50;
-    console.log("WIDTH", width);
-
 
     const toggleMenuExpandedState = () => {
         setMenuExpanded(!menuExpanded);
@@ -34,16 +32,16 @@ export const Header: React.FC = () => {
                             variant="light"
                             btnStyle="rounded"
                             size={buttonSize}
-                            onClickBtn={() => { toggleMenuExpandedState() }}
+                            onClick={() => { toggleMenuExpandedState() }}
                         >
-                            <Icon name={menuExpanded ? "close" : "menu"} color="black" size={buttonSize - 20}></Icon>
+                            <Icon name={menuExpanded ? "close" : "menu"} variant="dark" size={buttonSize - 20}></Icon>
                         </Button>
                     </div>
                     {
                         showLinks && <div className="menu-links" id="menu-links">
                             {
-                                SITE_LINKS.map(({ link, label }) => {
-                                    return (<Link className="menu-links-item" activeClassName="menu-links-item-active" to={link}>{label}</Link>)
+                                SITE_LINKS.map(({ link, label }, idx) => {
+                                    return (<Link key={idx} className="menu-links-item" activeClassName="menu-links-item-active" to={link}>{label}</Link>)
                                 })
                             }
                         </div>

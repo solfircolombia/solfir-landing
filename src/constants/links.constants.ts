@@ -1,5 +1,5 @@
 
-export const SITE_LINKS: { label: string, link: string }[] = [
+const SITE_LINKS: { label: string, link: string }[] = [
     {
         label: "Quienes Somos",
         link: "/quienes-somos"
@@ -33,3 +33,7 @@ export const SITE_LINKS: { label: string, link: string }[] = [
         link: "/precios",
     },
 ]
+
+export {
+    SITE_LINKS
+}

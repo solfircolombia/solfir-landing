@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import { Footer, Header, Icon } from "@components";
+import { Footer, Header, Icon, Settings } from "@components";
 import "./layout.scss";
 
 export const Layout: React.FC<{children: any}> = ({children}) => {
@@ -15,8 +15,9 @@ export const Layout: React.FC<{children: any}> = ({children}) => {
             <Footer></Footer>
             {/* <a className="bubble" target="_blank" href={`https://wa.me/${contactPhoneNumber}?text=${contactMsg}`}> */}
             <a className="bubble">
-                <Icon name="whatsapp" color="white"></Icon>
+                <Icon name="whatsapp" fill="white"></Icon>
             </a>
+            <Settings></Settings>
         </main>
     );  
 }

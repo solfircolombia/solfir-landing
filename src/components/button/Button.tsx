@@ -8,7 +8,6 @@ type ButtonProps = {
     variant?: Variant,
     textVariant?: Variant,
     size?: "small" | "medium" | "large" | number,
-    onClickBtn?: () => void,
     children?: React.ReactNode,
     className?: string,
 };
@@ -17,7 +16,6 @@ export const Button: React.FC<ButtonProps & React.ButtonHTMLAttributes<HTMLButto
     btnStyle = "regular",
     children,
     className,
-    onClickBtn,
     size = "medium",
     variant = "primary",
     textVariant = "primary",
@@ -26,12 +24,6 @@ export const Button: React.FC<ButtonProps & React.ButtonHTMLAttributes<HTMLButto
 
     const BASE_CLASS = "button"
     const sizeIsNumber: boolean = typeof size === "number";
-
-    const onClickButton = () => {
-        if (onClickBtn) {
-            onClickBtn();
-        }
-    }
 
     let btnStyles: React.CSSProperties = {};
 
@@ -45,7 +37,7 @@ export const Button: React.FC<ButtonProps & React.ButtonHTMLAttributes<HTMLButto
 
 
     return (
-        <button style={btnStyles} className={`${BASE_CLASS} ${BASE_CLASS}--style-${btnStyle} ${BASE_CLASS}--variant-${variant} ${ textVariant ?? `${BASE_CLASS}--variant-text-${textVariant}` } ${className ?? ''}`} onClick={onClickButton}>
+        <button style={btnStyles} className={`${BASE_CLASS} ${BASE_CLASS}--style-${btnStyle} ${BASE_CLASS}--variant-${variant} ${ textVariant ?? `${BASE_CLASS}--variant-text-${textVariant}` } ${className ?? ''}`} {...props}>
             {children}
         </button>
     )

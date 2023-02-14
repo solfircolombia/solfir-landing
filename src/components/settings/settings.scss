@@ -1,0 +1,89 @@
+@import "/src/styles/component";
+
+.settings {
+    $settings-bg-color: gray;
+    $settings-width: 200px;
+    $settings-height: 200px;
+    position: fixed;
+    display: flex;
+    right: calc($settings-width/2);
+    top: 200px;
+
+    &--open {
+        right: 0;
+        transition-property: right;
+        transition-duration: 1s;
+    }
+
+    &--closed {
+        right: calc(0px - $settings-width);
+        transition-property: right;
+        transition-duration: 1s;
+    }
+
+    &-tab {
+        display: flex;
+        background-color: transparent;
+
+        &-icon {
+            display: flex;
+            width: 30px;
+            height: 30px;
+            padding: 5px;
+            background-color: $settings-bg-color;
+            box-shadow: $box-shadow-1;
+        }
+    }
+
+    &-content {
+
+
+        align-items: center;
+        background-color: $settings-bg-color;
+        box-shadow: $box-shadow-1;
+        display: flex;
+        flex-direction: column;
+        height: $settings-height;
+        padding: 10px;
+
+
+        width: $settings-width;
+
+        &-themes {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            align-items: center;
+
+            &-box {
+                display: flex;
+                width: 100%;
+                justify-content: center;
+
+                &:hover {
+                    cursor: pointer;
+
+                    * {
+                        cursor: inherit;
+                    }
+                }
+
+                &-item {
+                    $box-size: 20px;
+                    width: $box-size;
+                    min-width: $box-size;
+                    max-height: $box-size;
+                    height: $box-size;
+                    min-height: $box-size;
+                    max-height: $box-size;
+                    margin: 2px;
+                    border: 1px solid gray;
+                }
+            }
+        }
+
+    }
+
+
+
+}

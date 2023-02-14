@@ -42,6 +42,8 @@ const config: GatsbyConfig = {
       alias: {
         "@src": "src",
         "@components": "src/components",
+        "@constants": "src/constants",
+        "@types": "src/types"
       },
       extensions: [
         "ts","tsx"

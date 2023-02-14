@@ -54,7 +54,7 @@ const LandingPage: React.FC<PageProps> = (props) => {
             <div className="banner-buttons">
               {/* <Button text="Contactanos" variant="primary" size="medium" onClickBtn={() => { goToSection("contactanos") }} /> */}
               <span className="separator"></span>
-              <Button variant="secondary" size="medium" onClickBtn={() => { goToSection("services") }} >
+              <Button variant="secondary" size="medium" onClick={() => { goToSection("services") }} >
                 Quiero saber mas
               </Button>
               <span className="separator"></span>
@@ -67,11 +67,11 @@ const LandingPage: React.FC<PageProps> = (props) => {
               Nuestros Servicios
             </h2>
             <div className="services-items">
-              {services.map(({serviceIcon, serviceName, serviceText }) => {
+              {services.map(({serviceIcon, serviceName, serviceText }, idx) => {
                 return (
-                  <div className="service-box">
+                  <div key={idx} className="service-box">
                     <div className="service-box-icon">
-                      <Icon name={serviceIcon} color="black" className="service-box-icon-icon" />
+                      <Icon name={serviceIcon} variant="dark" className="service-box-icon-icon" />
                     </div>
                     <div className="service-box-content">
                       <span className="service-box-content-title">
