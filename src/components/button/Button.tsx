@@ -1,47 +1,53 @@
 import * as React from "react";
 import "./button.scss";
 
+type Variant = "primary" | "secondary" | "tertiary" | "dark" | "light";
+
 type ButtonProps = {
     btnStyle?: "regular" | "rounded",
-    variant?: "primary" | "secondary" | "tertiary" | "dark" | "light",
+    variant?: Variant,
+    textVariant?: Variant,
     size?: "small" | "medium" | "large" | number,
     onClickBtn?: () => void,
     children?: React.ReactNode,
     className?: string,
 };
 
-export const Button: React.FC<ButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>> = ({ btnStyle = "regular", variant = "primary", size = "medium", onClickBtn, children, className, ...props }) => {
+export const Button: React.FC<ButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>> = ({
+    btnStyle = "regular",
+    children,
+    className,
+    onClickBtn,
+    size = "medium",
+    variant = "primary",
+    textVariant = "primary",
+    ...props
+}) => {
 
+    const BASE_CLASS = "button"
     const sizeIsNumber: boolean = typeof size === "number";
 
     const onClickButton = () => {
-        if(onClickBtn){
+        if (onClickBtn) {
             onClickBtn();
         }
     }
 
-    let btnStyles:React.CSSProperties = {
-        height: size,
-    }
+    let btnStyles: React.CSSProperties = {};
 
-    if(btnStyle === "rounded"){
+    if (sizeIsNumber && btnStyle === "rounded") {
         btnStyles = {
-            ...btnStyles,
-            width: size,
-            borderRadius: `${size as unknown as number/ 2}px`}
+            height: `${size}px`,
+            width: `${size}px`,
+            borderRadius: `${size as unknown as number / 2}px`
+        }
     }
 
-    if (sizeIsNumber) {
-        return (
-            <button style={btnStyles} className={`button ${btnStyle} ${variant} ${className ?? ''}`} onClick={onClickButton} {...props}>
-                {children}
-            </button>
-        )
-    } else {
-        return (
-            <button className={`button ${btnStyle} ${variant} ${size} ${className}`} onClick={onClickButton}>
-                {children}
-            </button>
-        )
-    }
+
+    return (
+        <button style={btnStyles} className={`${BASE_CLASS} ${BASE_CLASS}--style-${btnStyle} ${BASE_CLASS}--variant-${variant} ${ textVariant ?? `${BASE_CLASS}--variant-text-${textVariant}` } ${className ?? ''}`} onClick={onClickButton}>
+            {children}
+        </button>
+    )
+
 }
