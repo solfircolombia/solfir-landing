@@ -87,13 +87,13 @@ export const Settings: React.FC = () => {
                     {
                         Object.entries(THEMES).map(([themeName, theme]) => {
                             return (
-                                <div className={`${BASE_CLASS}-content-themes-wrapper`}>
+                                <div key={`key-${themeName}`} className={`${BASE_CLASS}-content-themes-wrapper`}>
                                     <small>{themeName}</small>
                                     <div onClick={() => { switchVars(themeName) }} className={`${BASE_CLASS}-content-themes-box`}>
                                         {Object.entries(theme).map(([k, v]) => {
                                             if (!k.includes("Contrast")) {
                                                 return (
-                                                    <span
+                                                    <span key={`key-${k}`}
                                                         className={`${BASE_CLASS}-content-themes-box-item`}
                                                         style={{ backgroundColor: v }}>
                                                     </span>

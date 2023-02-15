@@ -12,8 +12,14 @@ export const Header: React.FC = () => {
 
 
     const [menuExpanded, setMenuExpanded] = useState(false);
-    const { width } = useWindowDimensions();
-    const showLinks = menuExpanded || width > BREAKPOINTS.MAX_SCREEN_WIDTH_SM;
+    // Check if window is defined (so if in the browser or in node.js).
+    const isBrowser = typeof window !== "undefined"
+    let width;
+    if (isBrowser) {
+        const { width } = useWindowDimensions();
+    }
+
+    const showLinks = menuExpanded || (width ?? 0) > BREAKPOINTS.MAX_SCREEN_WIDTH_SM;
     const buttonSize: number = 50;
 
     const toggleMenuExpandedState = () => {
