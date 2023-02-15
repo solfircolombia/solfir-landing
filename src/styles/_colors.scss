@@ -15,9 +15,9 @@ $black-chocolate: hsla(39, 52%, 6%, 1);
 
 // $color-primary: $razzmatazz;
 $color-primary: var(--primary);
-$color-secondary: $minion-yellow;
-$color-tertiary: $y-in-mn-blue;
-$color-dark: $black-chocolate;
-$color-light: $white;
+$color-secondary: var(--secondary);
+$color-tertiary: var(--tertiary);
+$color-dark: var(--dark);
+$color-light: var(--light);
 
 $whatsapp-color: #25D366;

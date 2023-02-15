@@ -23,11 +23,18 @@ export const Settings: React.FC = () => {
             dark: "hsla(39, 52%, 6%, 1)"
         },
         {
-            primary: "hsla(23, 71%, 54%, 1)",
-            secondary: "hsla(152, 99%, 67%, 1)",
-            tertiary: "hsla(15, 53%, 35%, 1)",
+            primary: "hsla(222, 79%, 55%,1)",
+            secondary: "hsla(199, 100%, 50%,1)",
+            tertiary: "hsla(222, 79%, 35%,1)",
             light: "white",
-            dark: "hsla(200, 52%, 6%, 1)"
+            dark: "black"
+        },
+        {
+            primary: "hsla(27, 100%, 50%,1)",
+            secondary: "hsla(41, 97%, 53%,1)",
+            tertiary: "hsla(27, 100%, 30%,1)",
+            light: "white",
+            dark: "black"
         },
     ]
 
@@ -44,13 +51,9 @@ export const Settings: React.FC = () => {
     }
 
     return (
-        <div className={`${BASE_CLASS} ${ settingsOpen ? `${BASE_CLASS}--open` : `${BASE_CLASS}--closed`}`}>
-            <div className={`${BASE_CLASS}-tab`}>
-                <span className={`${BASE_CLASS}-tab-icon`} onClick={() => { toggleSettings() }}>
-                    <Icon name="settings" variant="dark"></Icon>
-                </span>
-            </div>
+        <div className={`${BASE_CLASS} ${settingsOpen ? `${BASE_CLASS}--open` : `${BASE_CLASS}--closed`}`}>
             <div className={`${BASE_CLASS}-content`}>
+                <h5>Colores</h5>
                 <div className={`${BASE_CLASS}-content-themes`}>
                     {
                         THEMES.map((theme: Theme) => {
@@ -65,7 +68,12 @@ export const Settings: React.FC = () => {
                         })
                     }
                 </div>
-
+            </div>
+            {/* Toggle */}
+            <div className={`${BASE_CLASS}-toggle`}>
+                <span className={`${BASE_CLASS}-toggle-icon`} onClick={() => { toggleSettings() }}>
+                    <Icon name="settings" variant="light"></Icon>
+                </span>
             </div>
         </div>
     );
