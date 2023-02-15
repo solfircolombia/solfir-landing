@@ -1,14 +1,17 @@
 type IconName =
+    "arrow-right" |
+    "close" |
     "facebook" |
-    "whatsapp" |
     "instagram" |
     "linkedin" |
-    "arrow-right" |
+    "mail" |
     "menu" |
-    "close" |
+    "phone"|
+    "place" |
     "settings" |
+    "text-decrease" |
     "text-increase" |
-    "text-decrease";
+    "whatsapp";
 
 export {
     IconName

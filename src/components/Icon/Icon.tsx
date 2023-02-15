@@ -15,14 +15,15 @@ export const Icon: React.FC<IconProps> = ({ name, fill, variant, size, className
     const BASE_CLASS = "icon";
 
     let defStyles: React.CSSProperties = {
-        minWidth: "100%",
-        minHeight: "100%"
+        width: "100%",
+        height: "100%"
     };
 
     if (size) {
         defStyles = {
-            minWidth: `${size}px`,
-            minHeight: `${size}px`
+            ...defStyles,
+            width: `${size}px`,
+            height: `${size}px`
         }
     }
 

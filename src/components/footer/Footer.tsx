@@ -4,7 +4,7 @@ import { Link } from "gatsby";
 import { Logo, Icon } from "@components";
 import { IconName } from "@types";
 import "./footer.scss";
-import { SITE_LINKS } from "../../constants/links.constants";
+import { SITE_LINKS, CONTACT_DATA } from "@constants";
 
 
 export const Footer: React.FC = () => {
@@ -18,32 +18,55 @@ export const Footer: React.FC = () => {
 
     return (
         <footer className="footer">
-            <div className="columns">
-                <div className="column">
+            <div className="wrapper">
+                <span className="footer-logo">
                     <Logo />
+                </span>
+                <div className="columns">
+                    <div className="column contact-info">
+                        <span className="column-title">Datos de contacto</span>
+                        <br />
+                        <span className="contact-info-item">
+                            <Icon name="mail" className="contact-info-item-icon" variant="primary"></Icon>
+                            <a className="footer-link" href={`mailto:${CONTACT_DATA.CONTACT_MAIL}`}>{CONTACT_DATA.CONTACT_MAIL}</a>
+                        </span>
+                        <span className="contact-info-item">
+                            <Icon name="phone" className="contact-info-item-icon" variant="primary"></Icon>
+                            <a className="footer-link" href={`tel:${CONTACT_DATA.CONTACT_PHONE}`}>{CONTACT_DATA.CONTACT_PHONE}</a>
+                        </span>
+                        <span className="contact-info-item">
+                            <Icon name="place" className="contact-info-item-icon" variant="primary"></Icon>
+                            <a className="footer-link" href="https://goo.gl/maps/UZ9S8g1y32B8voN9A">{CONTACT_DATA.CONTACT_ADDRESS}</a>
+                        </span>
+                    </div>
+                    <div className="column links">
+                    <span className="column-title">Enlaces</span>
+                    <br />
+                        {
+                            SITE_LINKS.map(({ link, label }, idx) => {
+                                return (<Link key={idx} className="links-item footer-link" activeClassName="footer-link-active" to={link}>{label}</Link>)
+                            })
+                        }
+                    </div>
                 </div>
-                <div className="column">
-                    <p>Contáctenos hoy mismo para programar una consulta gratuita y descubra cómo SOLFIR puede ayudarlo a alcanzar sus metas financieras. Estamos ansiosos de trabajar con usted para brindarle la solución financiera que necesita. ¡Hable con nosotros hoy mismo!</p>
-                </div>
-                <div className="column">
-                    {
-                        SITE_LINKS.map(({ link, label }, idx) => {
-                            return (<Link key={idx} className="menu-links-item" activeClassName="menu-links-item-active" to={link}>{label}</Link>)
-                        })
-                    }
-                </div>
-            </div>
-            <div className="social">
-                {socialData.map(({ name, link }, idx) => {
-                    return (
-                        <a key={idx} className="icon" href={link}>
-                            <Icon key={idx} name={name} size={48} variant="dark"></Icon>
-                        </a>
-                    );
-                })}
+                <div className="social">
+                <span className="social-title">Visitanos en nuestras redes sociales</span>
+                <div className="social-icons">
+                    {socialData.map(({ name, link }, idx) => {
+                        return (
+                            <a key={idx} className="social-icons-icon tooltip" href={link}>
+                                <span className="tooltiptext">{name.toLocaleUpperCase()}</span>
+                                <Icon key={idx} name={name} variant="primary"></Icon>
+                            </a>
+                        );
+                    })}
 
+                </div>
+                </div>
+                
+                <span className="trademark">{` SOLFIR Colombia SAS © Todos los derechos reservados | ${new Date().getFullYear()}`}  </span>
             </div>
-            <small className="trademark">Solfir Colombia SAS ® 2023</small>
+
         </footer>
     )
 }
