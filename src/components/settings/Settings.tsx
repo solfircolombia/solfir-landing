@@ -10,6 +10,7 @@ type Theme = Record<Variant | VariantContrast, string>;
 export const Settings: React.FC = () => {
 
     const [settingsOpen, setSettingsOpen] = useState(false);
+    const [textSize, setTextSize] = useState(19);
 
     const BASE_CLASS = "settings";
 
@@ -60,6 +61,20 @@ export const Settings: React.FC = () => {
         })
     }
 
+    const increaseTextSize = () => {
+        let newSize = textSize + 1;
+        updateTextSize(newSize);
+    }
+    const decreaseTextSize = () => {
+        let newSize = textSize - 1;
+        updateTextSize(newSize);
+    }
+
+    const updateTextSize = (size:number)=>{
+        setTextSize(size);
+        document.documentElement.style.setProperty(`--base-font-size`, `${size}px`);
+    }
+
     const toggleSettings = () => {
         setSettingsOpen(!settingsOpen);
     }
@@ -67,7 +82,7 @@ export const Settings: React.FC = () => {
     return (
         <div className={`${BASE_CLASS} ${settingsOpen ? `${BASE_CLASS}--open` : `${BASE_CLASS}--closed`}`}>
             <div className={`${BASE_CLASS}-content`}>
-                <h5>TEMAS</h5>
+                <p>COLORES PAGINA</p>
                 <div className={`${BASE_CLASS}-content-themes`}>
                     {
                         Object.entries(THEMES).map(([themeName, theme]) => {
@@ -90,6 +105,15 @@ export const Settings: React.FC = () => {
                             );
                         })
                     }
+                </div>
+                <p>TAMAÑO LETRA</p>
+                <div className={`${BASE_CLASS}-content-text`}>
+                    <span className={`${BASE_CLASS}-content-text-icon`} onClick={()=>{decreaseTextSize()}}>
+                        <Icon name="text-decrease" variant="light"></Icon>
+                    </span>
+                    <span className={`${BASE_CLASS}-content-text-icon`} onClick={()=>{increaseTextSize()}}>
+                        <Icon name="text-increase" variant="light"></Icon>
+                    </span>
                 </div>
             </div>
             {/* Toggle */}

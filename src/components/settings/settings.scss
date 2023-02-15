@@ -101,6 +101,27 @@
             }
         }
 
+        &-text {
+            display: flex;
+            align-items: center;
+            &-icon {
+                $text-icon-size: 40px;
+                display: flex;
+                align-items: center;
+                width: $text-icon-size;
+                height: $text-icon-size;
+                background-color: darken($color: $settings-bg-color, $amount: 10) ;
+                padding: 3px;
+                border-radius: 3px;
+                margin: 2px 10px;
+                &:hover {
+                    &,* {
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+
     }
 
 

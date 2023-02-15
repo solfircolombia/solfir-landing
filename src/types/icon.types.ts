@@ -6,7 +6,9 @@ type IconName =
     "arrow-right" |
     "menu" |
     "close" |
-    "settings";
+    "settings" |
+    "text-increase" |
+    "text-decrease";
 
 export {
     IconName
