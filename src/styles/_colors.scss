@@ -1,23 +1,38 @@
 // Lets define palette here
 
-$white: #fff;
-$black: #000;
-$gray: #ccc;
-$gray-darker: #444;
-$gray-lighter: #e9e9e9;
+//
+$light-white: hsl(0, 0%, 100%);
+
 
 /* SCSS HSL */
-$razzmatazz: hsla(340, 71%, 54%, 1);
-$minion-yellow: hsla(52, 99%, 67%, 1);
-$y-in-mn-blue: hsla(215, 53%, 35%, 1);
-$opal: hsla(165, 22%, 70%, 1);
-$black-chocolate: hsla(39, 52%, 6%, 1);
 
-// $color-primary: $razzmatazz;
+$black-chocolate: hsla(39, 52%, 6%, 1);
+$black-chocolate-contrast: $light-white;
+
+$light-white: $light-white;
+$light-white-contrast: $black-chocolate;
+
+$razzmatazz: hsla(340, 71%, 54%, 1);
+$razzmatazz-contrast: $light-white;
+
+$minion-yellow: hsla(52, 99%, 67%, 1);
+$minion-yellow-contrast: $black-chocolate;
+
+$y-in-mn-blue: hsla(215, 53%, 35%, 1);
+$y-in-mn-blue-contrast: $light-white;
+
+
 $color-primary: var(--primary);
 $color-secondary: var(--secondary);
 $color-tertiary: var(--tertiary);
 $color-dark: var(--dark);
 $color-light: var(--light);
+
+$color-primary-contrast: var(--primary-contrast);
+$color-secondary-contrast: var(--secondary-contrast);
+$color-tertiary-contrast: var(--tertiary-contrast);
+$color-dark-contrast: var(--dark-contrast);
+$color-light-contrast: var(--light-contrast);
+
 
 $whatsapp-color: #25D366;

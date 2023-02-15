@@ -86,9 +86,16 @@ a, button {
 // 
 
 :root {
+  // Palette
   --primary: #{$razzmatazz};
   --secondary: #{$minion-yellow};
   --tertiary: #{$y-in-mn-blue};
   --dark: #{$black-chocolate};
-  --light: #{$white};
+  --light: #{$light-white};
+  --primary-contrast: #{$razzmatazz-contrast};
+  --secondary-contrast: #{$minion-yellow-contrast};
+  --tertiary-contrast: #{$y-in-mn-blue-contrast};
+  --dark-contrast: #{$black-chocolate-contrast};
+  --light-contrast: #{$light-white-contrast};
+  // Font Size
 }

@@ -24,33 +24,33 @@
     &--variant {
         &-primary {
             background-color: $color-primary;
-            color: $white;
+            color: $light-white;
 
             svg {
                 path {
-                    fill: $white;
+                    fill: $light-white;
                 }
             }
         }
 
         &-secondary {
             background-color: $color-secondary;
-            color: $black;
+            color: $color-dark;
 
             svg {
                 path {
-                    fill: $white;
+                    fill: $light-white;
                 }
             }
         }
 
         &-tertiary {
             background-color: $color-tertiary;
-            color: $white;
+            color: $light-white;
 
             svg {
                 path {
-                    fill: $white;
+                    fill: $light-white;
                 }
             }
         }

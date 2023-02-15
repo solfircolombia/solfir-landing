@@ -1,8 +1,9 @@
 import { IconName } from "./icon.types";
-import { Variant } from "./variant.types";
+import { Variant, VariantContrast } from "./variant.types";
 
 
 export {
     Variant,
+    VariantContrast,
     IconName,
 }

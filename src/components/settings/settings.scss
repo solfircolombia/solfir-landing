@@ -2,8 +2,8 @@
 
 .settings {
     $settings-radius: 10px;
-    $settings-bg-color: white;
-    $settings-toggle-bg-color: rgb(0, 162, 255);
+    $settings-bg-color: hsl(202, 100%, 30%);
+    $settings-toggle-bg-color: hsl(202, 100%, 50%);
     $settings-width: 200px;
     $settings-height: 200px;
     $settings-transition-duration: 0.5s;
@@ -54,11 +54,11 @@
         background-color: $settings-bg-color;
         display: flex;
         flex-direction: column;
-        height: $settings-height;
         padding: 10px;
         border-top-right-radius: $settings-radius;
         border-bottom-right-radius: $settings-radius;
         box-shadow: $box-shadow-1;
+        color: white;
 
 
         width: $settings-width;
@@ -68,6 +68,11 @@
             flex-direction: column;
             width: 100%;
             align-items: center;
+
+            &-wrapper {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
 
             &-box {
                 display: flex;

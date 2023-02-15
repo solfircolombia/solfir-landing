@@ -1,11 +1,10 @@
 import * as React from "react"
 import { useState } from "react";
 import { Icon } from "@components";
-import { Variant } from "@types";
+import { Variant, VariantContrast } from "@types";
 import "./settings.scss";
 
-type Theme = Record<Variant, string>;
-
+type Theme = Record<Variant | VariantContrast, string>;
 
 
 export const Settings: React.FC = () => {
@@ -14,34 +13,49 @@ export const Settings: React.FC = () => {
 
     const BASE_CLASS = "settings";
 
-    const THEMES: Theme[] = [
-        {
+    const THEMES: Record<string, Theme> = {
+        "AIR": {
             primary: "hsla(340, 71%, 54%, 1)",
+            primaryContrast: "a",
             secondary: "hsla(52, 99%, 67%, 1)",
+            secondaryContrast: "",
             tertiary: "hsla(215, 53%, 35%, 1)",
+            tertiaryContrast: "",
             light: "white",
-            dark: "hsla(39, 52%, 6%, 1)"
-        },
-        {
-            primary: "hsla(222, 79%, 55%,1)",
-            secondary: "hsla(199, 100%, 50%,1)",
-            tertiary: "hsla(222, 79%, 35%,1)",
-            light: "white",
-            dark: "black"
-        },
-        {
-            primary: "hsla(27, 100%, 50%,1)",
-            secondary: "hsla(41, 97%, 53%,1)",
-            tertiary: "hsla(27, 100%, 30%,1)",
-            light: "white",
-            dark: "black"
-        },
-    ]
+            lightContrast: "",
+            dark: "hsla(39, 52%, 6%, 1)",
+            darkContrast: "",
 
-    const switchVars = (theme: Theme) => {
-        console.log("Switching");
-        (Object.keys(theme) as Array<Variant>).forEach((color) => {
-            const value = theme[color];
+        },
+        "AIR2": {
+            primary: "hsla(222, 79%, 55%,1)",
+            primaryContrast: "a",
+            secondary: "hsla(199, 100%, 50%,1)",
+            secondaryContrast: "",
+            tertiary: "hsla(222, 79%, 35%,1)",
+            tertiaryContrast: "",
+            light: "white",
+            lightContrast: "",
+            dark: "hsla(39, 52%, 6%, 1)",
+            darkContrast: "",
+        },
+        "AIR3": {
+            primary: "hsla(27, 100%, 50%,1)",
+            primaryContrast: "a",
+            secondary: "hsla(41, 97%, 53%,1)",
+            secondaryContrast: "",
+            tertiary: "hsla(27, 100%, 30%,1)",
+            tertiaryContrast: "",
+            light: "white",
+            lightContrast: "",
+            dark: "hsla(39, 52%, 6%, 1)",
+            darkContrast: "",
+        },
+    }
+
+    const switchVars = (themeName: string) => {
+        (Object.keys(THEMES[themeName]) as Array<Variant | VariantContrast>).forEach((color) => {
+            const value = THEMES[themeName][color];
             document.documentElement.style.setProperty(`--${color}`, value);
         })
     }
@@ -53,18 +67,27 @@ export const Settings: React.FC = () => {
     return (
         <div className={`${BASE_CLASS} ${settingsOpen ? `${BASE_CLASS}--open` : `${BASE_CLASS}--closed`}`}>
             <div className={`${BASE_CLASS}-content`}>
-                <h5>Colores</h5>
+                <h5>TEMAS</h5>
                 <div className={`${BASE_CLASS}-content-themes`}>
                     {
-                        THEMES.map((theme: Theme) => {
-                            return (<div onClick={() => { switchVars(theme) }} className={`${BASE_CLASS}-content-themes-box`}>
-                                {Object.entries(theme).map(([k, v]) => {
-                                    return (<span className={`${BASE_CLASS}-content-themes-box-item`} style={{
-                                        backgroundColor: v
-                                    }}
-                                    ></span>)
-                                })}
-                            </div>)
+                        Object.entries(THEMES).map(([themeName, theme]) => {
+                            return (
+                                <div className={`${BASE_CLASS}-content-themes-wrapper`}>
+                                    <small>{themeName}</small>
+                                    <div onClick={() => { switchVars(themeName) }} className={`${BASE_CLASS}-content-themes-box`}>
+                                        {Object.entries(theme).map(([k, v]) => {
+                                            if (!k.includes("Contrast")) {
+                                                return (
+                                                    <span
+                                                        className={`${BASE_CLASS}-content-themes-box-item`}
+                                                        style={{ backgroundColor: v }}>
+                                                    </span>
+                                                )
+                                            }
+                                        })}
+                                    </div>
+                                </div>
+                            );
                         })
                     }
                 </div>
