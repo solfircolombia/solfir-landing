@@ -2,64 +2,59 @@
 
 
 .header {
-    
+
     display: flex;
-    flex-direction: column;
     align-items: center;
     width: 100%;
+    justify-content: center;
+    box-shadow: 0 5px 10px -3px rgb(0 0 0 / 50%);
     position: fixed;
     top: 0;
     background-color: $color-light;
     min-height: $header-height;
+    z-index: 0;
+
+    &--expanded {
+        // height: 100vh;
+    }
 
     .wrapper {
         @extend %cw;
         display: flex;
         align-items: center;
+        width: 100%;
     }
 
-    .header-logo {
-        &--menu-expanded {
-            @include for-sm {
-                display: none;
-            }
-        }
-    }
-
-
-    .menu {
+    &-logo {
         display: flex;
-        align-self: center;
-        margin-left: 50px;
+        align-items: center;
+        justify-content: space-between;
+        margin-right: 30px; 
 
-        &-icon {
+        &-solfir {}
+
+        &-menu {
             display: none;
-            margin-left: auto;
-            padding: 4px;
-            border-radius: 20px;
-            height: 100px;
+        }
+    }
 
-            &:hover {
-                cursor: pointer;
-            }
+    &-links {
+        display: flex;
+        align-items: center;
+        width: 100%;
 
-            svg {
-                pointer-events: none;
-            }
 
-            @include for-sm {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
+        &-wrapper {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            flex-wrap: wrap;
         }
 
-        &-links {
-
+        // Styles for links in modal
+        &-modal {
             display: flex;
-            flex-flow: wrap;
-
+            flex-direction: column;
             &-item {
                 text-decoration: none;
                 font-size: 18px;
@@ -72,33 +67,146 @@
                     color: $color-primary;
                     border-bottom: 3px solid $color-primary;
                 }
-
-                &:hover {
-                    border-bottom: 3px solid $color-primary;
-                    cursor: pointer;
-                }
-
-
             }
-
         }
 
-        @include for-sm {
-            & {
-                min-height: 100px;
-                justify-content: center;
+        &-item {
+            text-decoration: none;
+            font-size: 18px;
+            display: flex;
+            border-bottom: 3px solid $light-white;
+            user-select: none;
+            margin: 0 10px;
+
+            &-active {
+                color: $color-primary;
+                border-bottom: 3px solid $color-primary;
             }
 
-            &,
-            &-links {
-                flex-direction: column;
-                align-items: center;
-                width: 100%;
+            &:hover {
+                border-bottom: 3px solid $color-primary;
+                cursor: pointer;
             }
+
+
         }
     }
 
     @include for-sm {
-        // flex-direction: column;
+
+        .wrapper {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        &-logo {
+            width: 100%;
+            
+            &-menu {
+                display: initial;
+            }
+        }
+
+        &-links {
+            display: none;
+        }
+        
     }
+
+    // display: flex;
+    // flex-direction: column;
+    // align-items: center;
+    // width: 100%;
+    // position: fixed;
+    // top: 0;
+    // background-color: $color-light;
+    // min-height: $header-height;
+
+    // .wrapper {
+    //     @extend %cw;
+    //     display: flex;
+    //     align-items: center;
+    // }
+
+    // .header-logo {
+    //     &--menu-expanded {
+    //         @include for-sm {
+    //             display: none;
+    //         }
+    //     }
+    // }
+
+
+    // .menu {
+    //     display: flex;
+    //     align-self: center;
+
+    //     &-links 
+
+    //     // &-icon {
+    //     //     display: none;
+    //     //     margin-left: auto;
+    //     //     padding: 4px;
+    //     //     border-radius: 20px;
+    //     //     height: 100px;
+
+    //     //     &:hover {
+    //     //         cursor: pointer;
+    //     //     }
+
+    //     //     svg {
+    //     //         pointer-events: none;
+    //     //     }
+
+    //     //     @include for-sm {
+    //     //         display: flex;
+    //     //         align-items: center;
+    //     //         justify-content: center;
+    //     //     }
+
+    //     // }
+
+    //     // &-links {
+
+    //     //     display: flex;
+    //     //     flex-flow: wrap;
+
+    //     //     &-item {
+    //     //         text-decoration: none;
+    //     //         font-size: 18px;
+    //     //         display: flex;
+    //     //         border-bottom: 3px solid $light-white;
+    //     //         user-select: none;
+    //     //         margin: 0 10px;
+
+    //     //         &-active {
+    //     //             color: $color-primary;
+    //     //             border-bottom: 3px solid $color-primary;
+    //     //         }
+
+    //     //         &:hover {
+    //     //             border-bottom: 3px solid $color-primary;
+    //     //             cursor: pointer;
+    //     //         }
+
+
+    //     //     }
+
+    //     // }
+
+    //     // @include for-sm {
+    //     //     & {
+    //     //         min-height: 100px;
+    //     //         justify-content: center;
+    //     //     }
+
+    //     //     &,
+    //     //     &-links {
+    //     //         flex-direction: column;
+    //     //         align-items: center;
+    //     //         width: 100%;
+    //     //     }
+    //     // }
+    // }
+
 }
