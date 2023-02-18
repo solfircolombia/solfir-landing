@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { Link } from "gatsby";
 import { Button, Icon, Logo } from "@components";
-import { BREAKPOINTS, SITE_LINKS } from "@constants";
+import { BREAKPOINTS, SITE_LINKS, LABELS } from "@constants";
 
 // import { useWindowDimensions } from "../../hooks/use-window-dimentions";
 import "./header.scss";
@@ -62,6 +62,7 @@ export const Header: React.FC = () => {
                     <div className="header-logo">
                         <Logo className={`header-logo-solfir`} />
                         <Button
+                            aria-label={LABELS.MENU_PRINCIPAL}
                             className={`header-logo-menu`}
                             variant="light"
                             btnStyle="rounded"
@@ -73,7 +74,7 @@ export const Header: React.FC = () => {
                     </div>
                     <div className="header-links">
                         {
-                            <div className="header-links-wrapper">
+                            <div className="header-links-wrapper" aria-label='Menu Links'>
                                 {
                                     SITE_LINKS.map(({ link, label }, idx) => {
                                         return (<Link key={idx} className="header-links-item" activeClassName="header-links-item-active" to={link}>{label}</Link>)
@@ -84,7 +85,7 @@ export const Header: React.FC = () => {
                     </div>
                 </div>
             </header>
-            {menuExpanded ? <Modal onCloseModal={() => { toggleMenuExpandedState() }}>{modalContent}</Modal> : null}
+            {menuExpanded ? <Modal ariaLabel='Ventana modal menu' onCloseModal={() => { toggleMenuExpandedState() }}>{modalContent}</Modal> : null}
         </>
     )
 }

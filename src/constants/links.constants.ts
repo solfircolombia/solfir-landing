@@ -1,7 +1,7 @@
 
 const SITE_LINKS: { label: string, link: string }[] = [
     {
-        label: "Quienes Somos",
+        label: "¿Quiénes Somos?",
         link: "/quienes-somos"
     },
     {

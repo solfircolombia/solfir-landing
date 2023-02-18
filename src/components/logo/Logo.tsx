@@ -16,7 +16,7 @@ export const Logo: React.FC<LogoProps> = ({variant = "regular", className}) => {
     };
 
     return (
-        <Link className={`logo ${className}`} to="/">
+        <Link role="navigation" aria-label="Solfir logo, Haz click para volver a la página inicial" className={`logo ${className}`} to="/">
             <span className={`bar ${variant}`}>|</span>
             <span className={`letter ${variant}`}>S</span>
             <span className={`bar ${variant}`}>|</span>

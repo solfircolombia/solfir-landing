@@ -52,6 +52,12 @@ const config: GatsbyConfig = {
         "ts","tsx"
       ],
     }
+  },
+  {
+    resolve: 'gatsby-plugin-html-attributes',
+    options: {
+      lang: 'es'
+    }
   }
 ]
 };

@@ -5,13 +5,14 @@ import { addPortalElement, getPortalParentElement, removePortalElement } from ".
 
 // Styles
 import "./modal.scss";
-import { KEY } from "@constants";
+import { KEY, LABELS } from "@constants";
 
 type ModalProps = {
-    onCloseModal: () => void
-}
+    onCloseModal: () => void,
+    ariaLabel?: string,
+};
 
-export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({ children, onCloseModal }) => {
+export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({ children, onCloseModal, ariaLabel }) => {
 
     const CONTAINER_CLASS_NAME = 'portal'
     const CONTAINER_ELEMENT_TAG = 'div';
@@ -33,18 +34,23 @@ export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({ children,
 
     let focusableElementIdx = 0;
 
-    const handleTabKey = (e: KeyboardEvent) => {
-        console.log("Tab");
-
+    const getFocusableElements = () => {
 
         const selectors: string[] = [
             'button',
             'a[href]'
         ]
 
-        const focusableModalElements = modalRef.current?.querySelectorAll(
+        return modalRef.current?.querySelectorAll(
             selectors.join(',')
         );
+        
+    }
+
+    const handleTabKey = (e: KeyboardEvent) => {
+        console.log("Tab");
+
+        const focusableModalElements = getFocusableElements();
 
         if (focusableModalElements) {
 
@@ -88,6 +94,9 @@ export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({ children,
         // Add portal
         addPortalElement(getPortalParentElement(), container);
 
+        // Add initial focusable element
+        getFocusableElements()[0].focus();
+
         // Add listeners
         function keyListener(e: KeyboardEvent) {
             const listener = keyListenersMap.get(e.key as KEY);
@@ -106,11 +115,20 @@ export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({ children,
         }
     }, []);
 
+
+  
+
     return ReactDOM.createPortal(
-        <div className={CLASS_NAME} ref={modalRef} >
+        <div
+            role="dialog"
+            aria-modal="true"
+            aria-label={ ariaLabel ?? LABELS.MODAL_DEFAULT}
+            className={CLASS_NAME}
+            ref={modalRef}
+        >
             <div className={`${CLASS_NAME}-wrapper`}>
                 <div className={`${CLASS_NAME}-header`} >
-                    <button className={`${CLASS_NAME}-header-close`} onClick={onCloseModal}>
+                    <button aria-label={LABELS.MENU_CERRAR} className={`${CLASS_NAME}-header-close`} onClick={onCloseModal}>
                         <Icon name='close' fill="black"></Icon>
                     </button>
                 </div>
