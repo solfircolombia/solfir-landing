@@ -1,9 +1,3 @@
-export const getContainerElement = (id: string): HTMLElement | null => {
-    console.log("getContainerElement id:", id);
-
-    return document.getElementById(id);
-}
-
 export const getPortalParentElement = (): HTMLElement | null => {
     console.log("getPortalParentElement");
     return document.getElementById('layout');
