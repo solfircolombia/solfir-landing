@@ -35,7 +35,8 @@ const config: GatsbyConfig = {
     resolve: 'gatsby-source-filesystem',
     options: {
       "name": "pages",
-      "path": "./src/pages/"
+      "path": "./src/pages/",
+      "ignore": [`**/*.scss`],
     },
     __key: "pages"
   },
@@ -49,7 +50,7 @@ const config: GatsbyConfig = {
         "@types": "src/types"
       },
       extensions: [
-        "ts","tsx"
+        "ts", "tsx"
       ],
     }
   },
@@ -59,7 +60,7 @@ const config: GatsbyConfig = {
       lang: 'es'
     }
   }
-]
+  ]
 };
 
 export default config;

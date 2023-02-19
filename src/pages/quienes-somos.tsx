@@ -1,7 +1,7 @@
 import * as React from "react"
 import type { HeadFC, PageProps } from "gatsby"
 import { Button, Layout, Logo } from "@components";
-import "./about.scss";
+import "./quienes-somos.scss";
 
 const AboutPage: React.FC<PageProps> = (props) => {
 
