@@ -4,7 +4,6 @@ import { Link } from "gatsby";
 import { Button, Icon, Logo } from "@components";
 import { BREAKPOINTS, SITE_LINKS, LABELS } from "@constants";
 
-// import { useWindowDimensions } from "../../hooks/use-window-dimentions";
 import "./header.scss";
 import { Modal } from '../modal/Modal';
 

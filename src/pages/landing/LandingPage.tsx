@@ -6,6 +6,8 @@ import "./landing.scss";
 
 const LandingPage: React.FC<PageProps> = (props) => {
 
+  const BASE_CLASS = "landing"
+
   const goToSection = (section: string) => {
     const element = document.getElementById(section);
     if (element) {
@@ -45,28 +47,28 @@ const LandingPage: React.FC<PageProps> = (props) => {
 
   return (
     <Layout>
-      <div className="landing">
-        <section className="banner" id="banner">
-          <div className="wrapper">
-            <h1 className="banner-title">
+      <div className={BASE_CLASS}>
+        <section className={`${BASE_CLASS}-banner`} id={`${BASE_CLASS}-banner`}>
+          <div className={`${BASE_CLASS}-wrapper`}>
+            <h1 className={`${BASE_CLASS}-banner-title`}>
               Vuelve a la estabilidad financiera con <span className="logo-placeholder"> <Logo /></span> expertos en insolvencia y reorganización empresarial
             </h1>
-            <div className="banner-buttons">
+            <div className={`${BASE_CLASS}-banner-buttons`}>
               {/* <Button text="Contactanos" variant="primary" size="medium" onClickBtn={() => { goToSection("contactanos") }} /> */}
               <span className="separator"></span>
-              <Button variant="secondary" size="medium" onClick={() => { goToSection("services") }} >
+              <Button variant="secondary" size="medium" onClick={() => { goToSection(`${BASE_CLASS}-banner`)}} >
                 Quiero saber mas
               </Button>
               <span className="separator"></span>
             </div>
           </div>
         </section>
-        <section className="services" id="services">
-          <div className="wrapper">
-            <h2 className="services-title">
+        <section className={`${BASE_CLASS}-services`} id={`${BASE_CLASS}-services`}>
+          <div className={`${BASE_CLASS}-wrapper`}>
+            <h2 className={`${BASE_CLASS}-services-title`}>
               Nuestros Servicios
             </h2>
-            <div className="services-items">
+            <div className={`${BASE_CLASS}-services-items`}>
               {services.map(({serviceIcon, serviceName, serviceText }, idx) => {
                 return (
                   <div key={idx} className="service-box">
@@ -87,12 +89,17 @@ const LandingPage: React.FC<PageProps> = (props) => {
             </div>
           </div>
         </section>
-        <section className="hireus">
-          <div className="wrapper">
-            <h2 className="hireus-title">
+        <section className={`${BASE_CLASS}-blog`}>
+          <div className={`${BASE_CLASS}-wrapper`}>
+          <h2 className={`${BASE_CLASS}-blog-title`}>Nuestro Blog</h2>
+          </div>
+        </section>
+        <section className={`${BASE_CLASS}-hireus`}>
+          <div className={`${BASE_CLASS}-wrapper`}>
+            <h2 className={`${BASE_CLASS}-hireus-title`}>
               ¡Contrátanos!
             </h2>
-            <p className="hireus-text">
+            <p className={`${BASE_CLASS}-hireus-text`}>
               Con un equipo de expertos dedicados y años de experiencia, nos aseguramos de brindar soluciones óptimas para cada situación única. Contáctanos hoy para ver cómo podemos ayudarte a lograr la estabilidad financiera.
             </p>
             <Button variant="light" >Contratanos!</Button>

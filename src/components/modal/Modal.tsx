@@ -14,7 +14,7 @@ type ModalProps = {
 
 export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({ children, onCloseModal, ariaLabel }) => {
 
-    const CONTAINER_CLASS_NAME = 'portal'
+    const CONTAINER_BASE_CLASS = 'portal'
     const CONTAINER_ELEMENT_TAG = 'div';
 
     const [container] = React.useState<HTMLElement>(() => {
@@ -22,13 +22,13 @@ export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({ children,
         // https://reactjs.org/docs/hooks-reference.html#lazy-initial-state
 
         const containerElement = document.createElement(CONTAINER_ELEMENT_TAG);
-        containerElement.classList.add(CONTAINER_CLASS_NAME);
-        containerElement.id = CONTAINER_CLASS_NAME;
+        containerElement.classList.add(CONTAINER_BASE_CLASS);
+        containerElement.id = CONTAINER_BASE_CLASS;
 
         return containerElement;
     });
 
-    const CLASS_NAME = 'modal';
+    const BASE_CLASS = 'modal';
 
     const modalRef = React.createRef<any>();
 
@@ -123,19 +123,19 @@ export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({ children,
             role="dialog"
             aria-modal="true"
             aria-label={ ariaLabel ?? LABELS.MODAL_DEFAULT}
-            className={CLASS_NAME}
+            className={BASE_CLASS}
             ref={modalRef}
         >
-            <div className={`${CLASS_NAME}-wrapper`}>
-                <div className={`${CLASS_NAME}-header`} >
-                    <button aria-label={LABELS.MENU_CERRAR} className={`${CLASS_NAME}-header-close`} onClick={onCloseModal}>
+            <div className={`${BASE_CLASS}-wrapper`}>
+                <div className={`${BASE_CLASS}-header`} >
+                    <button aria-label={LABELS.MENU_CERRAR} className={`${BASE_CLASS}-header-close`} onClick={onCloseModal}>
                         <Icon name='close' fill="black"></Icon>
                     </button>
                 </div>
-                <div className={`${CLASS_NAME}-content`}>
+                <div className={`${BASE_CLASS}-content`}>
                     {children}
                 </div>
-                <div className={`${CLASS_NAME}-footer`}>
+                <div className={`${BASE_CLASS}-footer`}>
                     <span>SOLFIR Colombia SAS</span>
                 </div>
             </div>
