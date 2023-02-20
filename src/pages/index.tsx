@@ -1,18 +1,20 @@
 import * as React from "react"
 import { graphql, HeadFC, PageProps } from "gatsby"
-import { renderRichText } from 'gatsby-source-contentful/rich-text'
 
 import { Button, Icon, Layout, Logo } from "@components";
 import { IconName } from "@types";
 import "./index.scss";
+import { BlogCard } from "@components";
+import { renderRichText } from "gatsby-source-contentful/rich-text";
 
 
-const LandingPage = ({data}:PageProps<Queries.LandingPageQuery>) => {
+const LandingPage = ({ data }: PageProps<Queries.LandingPageQuery>) => {
 
   console.log("DATA ", data);
-  
 
-  const BASE_CLASS = "landing"
+  const BLOG_POSTS = data.allContentfulBlogPost.nodes;
+
+  const BASE_CLASS = "landing";
 
   const goToSection = (section: string) => {
     const element = document.getElementById(section);
@@ -62,7 +64,7 @@ const LandingPage = ({data}:PageProps<Queries.LandingPageQuery>) => {
             <div className={`${BASE_CLASS}-banner-buttons`}>
               {/* <Button text="Contactanos" variant="primary" size="medium" onClickBtn={() => { goToSection("contactanos") }} /> */}
               <span className="separator"></span>
-              <Button variant="secondary" size="medium" onClick={() => { goToSection(`${BASE_CLASS}-banner`)}} >
+              <Button variant="secondary" size="medium" onClick={() => { goToSection(`${BASE_CLASS}-banner`) }} >
                 Quiero saber mas
               </Button>
               <span className="separator"></span>
@@ -75,7 +77,7 @@ const LandingPage = ({data}:PageProps<Queries.LandingPageQuery>) => {
               Nuestros Servicios
             </h2>
             <div className={`${BASE_CLASS}-services-items`}>
-              {services.map(({serviceIcon, serviceName, serviceText }, idx) => {
+              {services.map(({ serviceIcon, serviceName, serviceText }, idx) => {
                 return (
                   <div key={idx} className="service-box">
                     <div className="service-box-icon">
@@ -97,11 +99,12 @@ const LandingPage = ({data}:PageProps<Queries.LandingPageQuery>) => {
         </section>
         <section className={`${BASE_CLASS}-blog`}>
           <div className={`${BASE_CLASS}-wrapper`}>
-          <h2 className={`${BASE_CLASS}-blog-title`}>Nuestro Blog</h2>
-          <div>
-          <pre>{JSON.stringify(data, null, 2)}</pre>
-            
-          </div>
+            <h2 className={`${BASE_CLASS}-blog-title`}>Nuestro Blog</h2>
+            <div className={`${BASE_CLASS}-blog-posts`}>
+              {BLOG_POSTS.map((post) => {
+                return <BlogCard key={post.id} data={post}></BlogCard>
+              })}
+            </div>
           </div>
         </section>
         <section className={`${BASE_CLASS}-hireus`}>
@@ -124,13 +127,19 @@ export default LandingPage;
 
 export const query = graphql`
   query LandingPage {
-    allContentfulBlogPost {
+    allContentfulBlogPost(limit:10) {
       nodes {
         id
-        title
-        content {
-          raw
+        image {
+          gatsbyImageData(
+
+            placeholder: BLURRED
+            formats: [AUTO, WEBP, AVIF]
+          )
         }
+        summary
+        title
+        contentful_id
       }
       totalCount
     }

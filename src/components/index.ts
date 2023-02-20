@@ -1,3 +1,4 @@
+import { BlogCard } from "./blogCard/BlogCard";
 import { Button } from "./button/Button";
 import { Footer } from "./footer/Footer";
 import { Header } from "./header/Header";
@@ -15,4 +16,5 @@ export {
     Layout,
     Logo,
     Settings,
+    BlogCard
 }
