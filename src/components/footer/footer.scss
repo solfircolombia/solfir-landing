@@ -17,35 +17,32 @@
     }
 
     &-link {
-
-        text-decoration: none;
-        color: $color-dark;
-        border-bottom: 3px solid $color-light;
-
-        &:hover {
-            border-bottom: 3px solid $color-primary;
-        }
-
+        display: flex;
+        align-items: center;
+        @include anchor-styles("primary", "light");
         &-active {
-            color: $color-primary;
-            border-bottom: 3px solid $color-primary;
-            font-weight: bold;
+            @include anchor-styles("tertiary", "light");
+        }
+        &-icon {
+            margin-right: 10px;
+            height: 20px !important;
+            width: 20px !important;
         }
     }
 
-    .wrapper {
+    &-wrapper {
         @extend %cw;
         display: flex;
         flex-direction: column;
     }
 
-    .columns {
+    &-columns {
         display: flex;
         justify-content: space-around;
         width: 100%;
         margin-top: 30px;
 
-        .column {
+        &-column {
             display: flex;
             flex-direction: column;
             padding: 20px;
@@ -54,24 +51,7 @@
                 font-weight: bold;
             }
 
-            .contact-info {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                width: 100%;
-
-                &-item {
-                    display: flex;
-                    align-items: center;
-                    margin-bottom: 20px;
-
-                    &-icon {
-                        max-width: 32px;
-                        margin-right: 5px;
-                    }
-                }
-
-            }
+            
 
         }
 
@@ -108,11 +88,6 @@
         }
     }
 
-    .links {
-        &-item {
-            margin-bottom: 10px;
-        }
-    }
 
     .trademark {
         @extend %typography-small;
