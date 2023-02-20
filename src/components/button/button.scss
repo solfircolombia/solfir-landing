@@ -8,9 +8,6 @@
     color: white;
     font-weight: 600;
 
-    &:focus {
-        outline-color: $color-dark;
-    }
 
     // Button style
     &--style-regular {
@@ -35,9 +32,6 @@
                 }
             }
 
-            &:focus {
-                outline-color: $color-primary;
-            }
         }
 
         &-secondary {
@@ -50,9 +44,6 @@
                 }
             }
 
-            &:focus {
-                outline-color: $color-secondary;
-            }
         }
 
         &-tertiary {
@@ -63,10 +54,6 @@
                 path {
                     fill: $light-white;
                 }
-            }
-
-            &:focus {
-                outline-color: $color-tertiary;
             }
         }
 
@@ -79,10 +66,6 @@
                     fill: $color-dark;
                 }
             }
-
-            &:focus {
-                outline-color: $color-light;
-            }
         }
 
         &-dark {
@@ -93,10 +76,6 @@
                 path {
                     fill: $color-dark;
                 }
-            }
-
-            &:focus {
-                outline-color: $color-dark;
             }
         }
     }

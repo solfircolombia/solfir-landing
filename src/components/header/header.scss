@@ -14,10 +14,6 @@
     min-height: $header-height;
     z-index: 1;
 
-    &--expanded {
-        // height: 100vh;
-    }
-
     .wrapper {
         @extend %cw;
         display: flex;
@@ -29,7 +25,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-right: 30px; 
+        margin-right: 30px;
 
         &-solfir {}
 
@@ -55,37 +51,26 @@
         &-modal {
             display: flex;
             flex-direction: column;
+
             &-item {
-                text-decoration: none;
-                font-size: 18px;
-                display: flex;
-                border-bottom: 3px solid $light-white;
+                @include anchor-styles("primary", "light");
                 user-select: none;
-                margin: 0 10px;
+                margin: 10px 10px;
 
                 &-active {
-                    color: $color-primary;
-                    border-bottom: 3px solid $color-primary;
+                    @include anchor-styles("tertiary", "light");
                 }
             }
         }
 
         &-item {
-            text-decoration: none;
-            font-size: 18px;
-            display: flex;
-            border-bottom: 3px solid $light-white;
+            @extend %typography-p;
+            @include anchor-styles("primary", "light");
             user-select: none;
-            margin: 0 10px;
+            margin: 10px 10px;
 
             &-active {
-                color: $color-primary;
-                border-bottom: 3px solid $color-primary;
-            }
-
-            &:hover {
-                border-bottom: 3px solid $color-primary;
-                cursor: pointer;
+                @include anchor-styles("tertiary", "light");
             }
 
 
@@ -101,7 +86,7 @@
 
         &-logo {
             width: 100%;
-            
+
             &-menu {
                 display: initial;
             }
@@ -110,103 +95,6 @@
         &-links {
             display: none;
         }
-        
+
     }
-
-    // display: flex;
-    // flex-direction: column;
-    // align-items: center;
-    // width: 100%;
-    // position: fixed;
-    // top: 0;
-    // background-color: $color-light;
-    // min-height: $header-height;
-
-    // .wrapper {
-    //     @extend %cw;
-    //     display: flex;
-    //     align-items: center;
-    // }
-
-    // .header-logo {
-    //     &--menu-expanded {
-    //         @include for-sm {
-    //             display: none;
-    //         }
-    //     }
-    // }
-
-
-    // .menu {
-    //     display: flex;
-    //     align-self: center;
-
-    //     &-links 
-
-    //     // &-icon {
-    //     //     display: none;
-    //     //     margin-left: auto;
-    //     //     padding: 4px;
-    //     //     border-radius: 20px;
-    //     //     height: 100px;
-
-    //     //     &:hover {
-    //     //         cursor: pointer;
-    //     //     }
-
-    //     //     svg {
-    //     //         pointer-events: none;
-    //     //     }
-
-    //     //     @include for-sm {
-    //     //         display: flex;
-    //     //         align-items: center;
-    //     //         justify-content: center;
-    //     //     }
-
-    //     // }
-
-    //     // &-links {
-
-    //     //     display: flex;
-    //     //     flex-flow: wrap;
-
-    //     //     &-item {
-    //     //         text-decoration: none;
-    //     //         font-size: 18px;
-    //     //         display: flex;
-    //     //         border-bottom: 3px solid $light-white;
-    //     //         user-select: none;
-    //     //         margin: 0 10px;
-
-    //     //         &-active {
-    //     //             color: $color-primary;
-    //     //             border-bottom: 3px solid $color-primary;
-    //     //         }
-
-    //     //         &:hover {
-    //     //             border-bottom: 3px solid $color-primary;
-    //     //             cursor: pointer;
-    //     //         }
-
-
-    //     //     }
-
-    //     // }
-
-    //     // @include for-sm {
-    //     //     & {
-    //     //         min-height: 100px;
-    //     //         justify-content: center;
-    //     //     }
-
-    //     //     &,
-    //     //     &-links {
-    //     //         flex-direction: column;
-    //     //         align-items: center;
-    //     //         width: 100%;
-    //     //     }
-    //     // }
-    // }
-
 }
