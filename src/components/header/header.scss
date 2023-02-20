@@ -12,7 +12,7 @@
     top: 0;
     background-color: $color-light;
     min-height: $header-height;
-    z-index: 0;
+    z-index: 1;
 
     &--expanded {
         // height: 100vh;

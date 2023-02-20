@@ -2,12 +2,15 @@
 
 .button {
     display: flex;
-
     border-radius: 25px;
     width: fit-content;
     align-items: center;
     color: white;
     font-weight: 600;
+
+    &:focus {
+        outline-color: $color-dark;
+    }
 
     // Button style
     &--style-regular {
@@ -31,6 +34,10 @@
                     fill: $light-white;
                 }
             }
+
+            &:focus {
+                outline-color: $color-primary;
+            }
         }
 
         &-secondary {
@@ -41,6 +48,10 @@
                 path {
                     fill: $light-white;
                 }
+            }
+
+            &:focus {
+                outline-color: $color-secondary;
             }
         }
 
@@ -53,6 +64,10 @@
                     fill: $light-white;
                 }
             }
+
+            &:focus {
+                outline-color: $color-tertiary;
+            }
         }
 
         &-light {
@@ -64,6 +79,10 @@
                     fill: $color-dark;
                 }
             }
+
+            &:focus {
+                outline-color: $color-light;
+            }
         }
 
         &-dark {
@@ -74,6 +93,10 @@
                 path {
                     fill: $color-dark;
                 }
+            }
+
+            &:focus {
+                outline-color: $color-dark;
             }
         }
     }

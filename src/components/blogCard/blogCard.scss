@@ -3,38 +3,65 @@
 .blog-card {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     box-shadow: 0px 2px 5px 0px rgb(0 0 0 / 6%);
     width: 300px;
-    height: 400px;
     margin: 10px;
 
     &-image {
         width: 100%;
     }
+
     &-summary {
         display: flex;
         flex-direction: column;
         align-items: center;
         width: 100%;
         font-size: 14px;
+        padding: 16px;
 
         &-title {
-            padding: 5px 16px;
+            @extend %typography-small;
+            font-weight: bold;
+            flex: 1 1 auto;
         }
-        &-text{
-            padding: 5px 16px;
+
+        &-text {
+            @extend %typography-small;
             display: -webkit-box;
             -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;  
+            -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;
+            margin-top: 16px;
+
         }
     }
 
     &-actions {
         width: 100%;
+        padding: 16px;
         display: flex;
-    }
+        justify-content: flex-end;
 
+        &-link {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            vertical-align: middle;
+            border-bottom: 3px solid $color-light;
+            color: $color-primary;
+
+            &:hover {
+                border-bottom: 3px solid $color-primary;
+            }
+
+            &-icon {
+                margin-left: 10px;
+                fill: $color-primary;
+                width: 20px !important;
+                height: 20px !important;
+            }
+        }
+    }
 }

@@ -1,11 +1,9 @@
 import * as React from "react"
-// import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-import { renderRichText } from "gatsby-source-contentful/rich-text"
-
-
 
 import "./blogCard.scss";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
+import { Button, Icon } from "@components";
+import { Link } from "gatsby";
 
 
 type BlogCardProps = {
@@ -15,21 +13,8 @@ type BlogCardProps = {
 export const BlogCard: React.FC<BlogCardProps> = ({ data }) => {
     const BASE_CLASS = "blog-card";
 
-    let raw = data.content?.raw;
     let image = getImage(data.image);
     
-
-    // React.useEffect(()=>{
-        
-        
-    //     console.log("effect data", raw);
-    // }, [])
-
-    // console.log("Blogcard data, ", data);
-
-
-    
-
     return (
         <div className={BASE_CLASS}>
             <div className={`${BASE_CLASS}-image`}>
@@ -42,7 +27,10 @@ export const BlogCard: React.FC<BlogCardProps> = ({ data }) => {
                 </p>
             </div>
             <div className={`${BASE_CLASS}-actions`}>
-
+                <Link to="/" className={`${BASE_CLASS}-actions-link`}>
+                    Leer Mas
+                    <Icon name="arrow-right" className={`${BASE_CLASS}-actions-link-icon`}></Icon>
+                </Link>
             </div>
         </div>
     );

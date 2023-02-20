@@ -18,7 +18,7 @@ export const Button: React.FC<ButtonProps & React.ButtonHTMLAttributes<HTMLButto
     className,
     size = "medium",
     variant = "primary",
-    textVariant = "primary",
+    textVariant,
     ...props
 }) => {
 
@@ -37,7 +37,16 @@ export const Button: React.FC<ButtonProps & React.ButtonHTMLAttributes<HTMLButto
 
 
     return (
-        <button style={btnStyles} className={`${BASE_CLASS} ${BASE_CLASS}--style-${btnStyle} ${BASE_CLASS}--variant-${variant} ${ textVariant ? `${BASE_CLASS}--variant-text-${textVariant}` : '' } ${className ?? ''}`} {...props}>
+        <button
+            style={btnStyles}
+            className={
+                `${BASE_CLASS}
+                 ${BASE_CLASS}--style-${btnStyle}
+                 ${BASE_CLASS}--variant-${variant}
+                 ${BASE_CLASS}--size-${size}
+                 ${textVariant ? `${BASE_CLASS}--variant-text-${textVariant}` : ''}
+                 ${className ?? ''}`}
+            {...props}>
             {children}
         </button>
     )

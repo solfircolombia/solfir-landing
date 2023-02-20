@@ -1,11 +1,8 @@
 import * as React from "react"
 import { graphql, HeadFC, PageProps } from "gatsby"
-
-import { Button, Icon, Layout, Logo } from "@components";
+import { Button, Icon, Layout, Logo, BlogCard } from "@components";
 import { IconName } from "@types";
 import "./index.scss";
-import { BlogCard } from "@components";
-import { renderRichText } from "gatsby-source-contentful/rich-text";
 
 
 const LandingPage = ({ data }: PageProps<Queries.LandingPageQuery>) => {
