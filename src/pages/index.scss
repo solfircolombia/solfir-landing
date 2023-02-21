@@ -50,10 +50,21 @@
         @extend %section;
         background-color: $color-secondary;
 
+        #{$ref}-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        &-title {
+            margin-bottom: 60px;
+        }
+
         &-items {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
+            width: 100%;
 
             .service-box {
                 display: flex;
@@ -61,18 +72,13 @@
                 border-radius: 10px;
                 min-width: 300px;
                 max-width: 500px;
-                margin: 10px;
+                margin: 20px 10px;
 
                 $icon-title-height: 80px;
-
-                @include for-xs {
-                    $icon-title-height: 40px;    
-                }
 
                 &-icon {
                     align-items: center;
                     display: flex;
-                    height: $icon-title-height;
                     height: $icon-title-height;
                     justify-content: center;
                     padding: 16px;
@@ -80,14 +86,6 @@
                         $icon-size: 40px;
                         min-width: $icon-size;
                         min-height: $icon-size;
-
-                        @include for-lg {
-                            $icon-size: 80px;
-                            min-width: $icon-size;
-                            min-height: $icon-size;
-                        }
-
-                        
                     }
                 }
 
@@ -99,11 +97,20 @@
                         display: flex;
                         height: $icon-title-height;
                         align-items: center;
+                        margin-bottom: 20px;
                     }
 
                     &-text {
                         word-break: normal;
                     }
+                }
+
+                @include for-md {
+                    max-width: 100%;
+                }
+
+                @include for-xs {
+                    $icon-title-height: 40px;    
                 }
 
             }

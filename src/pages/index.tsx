@@ -24,29 +24,29 @@ const LandingPage = ({ data }: PageProps<Queries.LandingPageQuery>) => {
 
   const services: { serviceIcon: IconName, serviceName: string, serviceText: string }[] = [
     {
-      serviceIcon: "facebook",
-      serviceName: "Service Name",
-      serviceText: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt ipsa corporis, numquam aliquam vel saepe, facere provident praesentium velit, reiciendis alias laudantium deserunt incidunt veritatis dignissimos nihil neque ea atque!"
-    },
-    {
-      serviceIcon: "instagram",
-      serviceName: "Service Name",
-      serviceText: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt ipsa corporis, numquam aliquam vel saepe, facere provident praesentium velit, reiciendis alias laudantium deserunt incidunt veritatis dignissimos nihil neque ea atque!"
-    },
-    {
-      serviceIcon: "whatsapp",
-      serviceName: "Service Name",
-      serviceText: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt ipsa corporis, numquam aliquam vel saepe, facere provident praesentium velit, reiciendis alias laudantium deserunt incidunt veritatis dignissimos nihil neque ea atque!"
-    },
-    {
-      serviceIcon: "linkedin",
-      serviceName: "Service Name",
-      serviceText: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt ipsa corporis, numquam aliquam vel saepe, facere provident praesentium velit, reiciendis alias laudantium deserunt incidunt veritatis dignissimos nihil neque ea atque!"
+      serviceIcon: "arrow-right",
+      serviceName: "Reestructuración de deuda",
+      serviceText: "La reestructuración de deuda es un servicio que puede ayudar a las empresas a reducir su carga financiera y mejorar su flujo de efectivo. En SOLFIR, trabajamos con los clientes para revisar su deuda existente, identificar oportunidades para consolidar o reorganizar la deuda y negociar nuevos términos de pago con los acreedores."
     },
     {
       serviceIcon: "arrow-right",
-      serviceName: "Service Name",
-      serviceText: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt ipsa corporis, numquam aliquam vel saepe, facere provident praesentium velit, reiciendis alias laudantium deserunt incidunt veritatis dignissimos nihil neque ea atque!"
+      serviceName: "Asesoría financiera",
+      serviceText: "Nuestros expertos financieros pueden proporcionar asesoría financiera a las empresas en una amplia gama de temas, incluyendo la planificación financiera estratégica, la gestión de efectivo y la optimización de los presupuestos. Al trabajar con nosotros, las empresas pueden obtener una visión objetiva y experta de sus finanzas y tomar decisiones informadas y rentables."
+    },
+    {
+      serviceIcon: "arrow-right",
+      serviceName: "Evaluación de la viabilidad empresarial",
+      serviceText: "Para ayudar a las empresas a evaluar su situación financiera actual y las oportunidades de crecimiento futuro, ofrecemos una evaluación de la viabilidad empresarial. Nuestro equipo de expertos evalúa todos los aspectos de la empresa, incluyendo su posición en el mercado, su estructura de costos, su flujo de efectivo y su capacidad para competir en el mercado."
+    },
+    {
+      serviceIcon: "arrow-right",
+      serviceName: "Análisis de rentabilidad",
+      serviceText: "El análisis de rentabilidad es una herramienta crítica para que las empresas midan el rendimiento de sus operaciones y productos. En SOLFIR, podemos ayudar a las empresas a realizar un análisis de rentabilidad detallado, identificar las áreas donde se pueden mejorar los márgenes de beneficio y desarrollar planes para maximizar la rentabilidad a largo plazo."
+    },
+    {
+      serviceIcon: "arrow-right",
+      serviceName: "Planeación de crisis",
+      serviceText: "La planeación de crisis es un servicio importante que puede ayudar a las empresas a prepararse para situaciones imprevistas, como una recesión económica o un desastre natural. En SOLFIR, trabajamos con las empresas para desarrollar planes de contingencia, identificar áreas críticas de riesgo y desarrollar estrategias para minimizar los impactos de las crisis."
     },
   ]
 
