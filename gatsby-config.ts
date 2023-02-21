@@ -19,7 +19,24 @@ const config: GatsbyConfig = {
       "accessToken": "qw_Tt0V0jpa-gnNjIWAjvH7kzPJ9UYfsO_mPHVQiNTo",
       "spaceId": "6chh7n2v3o9v"
     }
-  }, "gatsby-plugin-image", "gatsby-plugin-sharp", "gatsby-transformer-sharp", "gatsby-plugin-sass", "gatsby-plugin-sitemap", {
+  }, "gatsby-plugin-image",{
+    resolve:  "gatsby-plugin-sharp",
+    options: {
+      defaults: {
+        formats: [`auto`, `webp`],
+        placeholder: `dominantColor`,
+        quality: 50,
+        breakpoints: [480, 768, 1024, 1200, 1440],
+        backgroundColor: `transparent`,
+        tracedSVGOptions: {},
+        blurredOptions: {},
+        jpgOptions: {},
+        pngOptions: {},
+        webpOptions: {},
+        avifOptions: {},
+      }
+    }
+  }, "gatsby-transformer-sharp", "gatsby-plugin-sass", "gatsby-plugin-sitemap", {
     resolve: 'gatsby-plugin-manifest',
     options: {
       "icon": "src/images/icon.png"

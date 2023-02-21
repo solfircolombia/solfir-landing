@@ -2,8 +2,9 @@ import * as React from "react"
 
 import "./blogCard.scss";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
-import { Button, Icon } from "@components";
+import { Icon } from "@components";
 import { Link } from "gatsby";
+import { STATIC_SITE_LINKS } from "@constants";
 
 
 type BlogCardProps = {
@@ -27,7 +28,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ data }) => {
                 </p>
             </div>
             <div className={`${BASE_CLASS}-actions`}>
-                <Link to="/" className={`${BASE_CLASS}-actions-link`}>
+                <Link to={`${STATIC_SITE_LINKS.BLOG}/${data.slug}`} className={`${BASE_CLASS}-actions-link`}>
                     Leer Mas
                     <Icon name="arrow-right" className={`${BASE_CLASS}-actions-link-icon`}></Icon>
                 </Link>

@@ -1,39 +1,52 @@
 
+enum STATIC_SITE_LINKS {
+    BLOG = "/blog",
+    ABOUT = "/quienes-somos",
+    TEAM = "/equipo",
+    CONTACT = "/contacto",
+    SERVICES = "/servicios",
+    FAQ = "/preguntas-frecuentes",
+    BENEFITS = "/beneficios",
+    PRICING = "/precios"
+
+}
+
 const SITE_LINKS: { label: string, link: string }[] = [
     {
         label: "¿Quiénes Somos?",
-        link: "/quienes-somos"
+        link: STATIC_SITE_LINKS.ABOUT
     },
     {
         label: "Equipo de trabajo",
-        link: "/equipo",
+        link: STATIC_SITE_LINKS.TEAM,
     },
     {
         label: "Contáctanos",
-        link: "/contacto",
+        link: STATIC_SITE_LINKS.CONTACT,
     },
     {
         label: "Blog",
-        link: "/blog",
+        link: STATIC_SITE_LINKS.BLOG,
     },
     {
         label: "Servicios",
-        link: "/servicios",
+        link: STATIC_SITE_LINKS.SERVICES,
     },
     {
         label: "Preguntas frecuentes",
-        link: "/faq",
+        link: STATIC_SITE_LINKS.FAQ,
     },
     {
         label: "Beneficios",
-        link: "/beneficios",
+        link: STATIC_SITE_LINKS.BENEFITS,
     },
     {
         label: "Precios",
-        link: "/precios",
+        link: STATIC_SITE_LINKS.PRICING,
     },
 ]
 
 export {
-    SITE_LINKS
+    SITE_LINKS,
+    STATIC_SITE_LINKS
 }

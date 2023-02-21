@@ -129,11 +129,11 @@ export const query = graphql`
         id
         image {
           gatsbyImageData(
-
             placeholder: BLURRED
             formats: [AUTO, WEBP, AVIF]
           )
         }
+        slug
         summary
         title
         contentful_id
