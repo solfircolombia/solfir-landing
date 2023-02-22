@@ -37,7 +37,7 @@ export const Footer: React.FC = () => {
                                 {CONTACT_DATA.CONTACT_PHONE}
                             </a>
 
-                            <a className={`${BASE_CLASS}-link`} href="https://goo.gl/maps/UZ9S8g1y32B8voN9A">
+                            <a className={`${BASE_CLASS}-link`} href={CONTACT_DATA.CONTACT_ADDRESS_MAPS_LINK}>
                                 <Icon name="place" className={`${BASE_CLASS}-link-icon`} variant="primary"></Icon>
                                 {CONTACT_DATA.CONTACT_ADDRESS}
                             </a>
