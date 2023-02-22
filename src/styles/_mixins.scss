@@ -54,3 +54,42 @@ $anchor-variant-color: (
         border-bottom: 3px solid map-get($anchor-variant-color, $variant);
     }
 }
+
+
+// Mixins for typography: This are created to be used inside media queries
+
+@mixin typography-p {
+    @extend %font-general;
+    margin-bottom: 1rem;
+}
+
+@mixin typography-h1 {
+    @extend %font-general;
+    margin-top: 0;
+    font-size: 3.052rem;
+}
+
+@mixin typography-h2 {
+    @extend %font-general;
+    font-size: 2.441rem;
+}
+
+@mixin typography-h3 {
+    @extend %font-general;
+    font-size: 1.953rem;
+}
+
+@mixin typography-h4 {
+    @extend %font-general;
+    font-size: 1.563rem;
+}
+
+@mixin typography-h5 {
+    @extend %font-general;
+    font-size: 1.25rem;
+}
+
+@mixin typography-small {
+    @extend %font-general;
+    font-size: 0.8rem;
+}

@@ -1,8 +1,9 @@
 import * as React from "react"
-import { graphql, HeadFC, PageProps } from "gatsby"
+import { graphql, HeadFC, navigate, PageProps } from "gatsby"
 import { Button, Icon, Layout, Logo, BlogCard } from "@components";
 import { IconName } from "@types";
 import "./index.scss";
+import { SITE_LINKS, STATIC_SITE_LINKS, STATIC_SITE_LABELS } from "@constants";
 
 
 const LandingPage = ({ data }: PageProps<Queries.LandingPageQuery>) => {
@@ -21,32 +22,31 @@ const LandingPage = ({ data }: PageProps<Queries.LandingPageQuery>) => {
     }
   }
 
+  const goToLink = (link: STATIC_SITE_LINKS) => {
+    navigate(link);
+  }
+
 
   const services: { serviceIcon: IconName, serviceName: string, serviceText: string }[] = [
     {
       serviceIcon: "arrow-right",
-      serviceName: "Reestructuración de deuda",
-      serviceText: "La reestructuración de deuda es un servicio que puede ayudar a las empresas a reducir su carga financiera y mejorar su flujo de efectivo. En SOLFIR, trabajamos con los clientes para revisar su deuda existente, identificar oportunidades para consolidar o reorganizar la deuda y negociar nuevos términos de pago con los acreedores."
+      serviceName: "Negociacion de deudas",
+      serviceText: "En SOLFIR ofrecemos un servicio de negociación de deudas para ayudar a nuestros clientes a encontrar plazos más convenientes y tasas de interés más bajas. Nuestros expertos en finanzas negocian con los acreedores en nombre de nuestros clientes, encontrando soluciones personalizadas para sus necesidades financieras. Si está luchando por pagar sus deudas y quiere encontrar una solución efectiva, en SOLFIR estamos listos para ayudarlo. Contáctenos hoy para comenzar a resolver sus problemas financieros de manera efectiva y duradera."
     },
     {
       serviceIcon: "arrow-right",
-      serviceName: "Asesoría financiera",
-      serviceText: "Nuestros expertos financieros pueden proporcionar asesoría financiera a las empresas en una amplia gama de temas, incluyendo la planificación financiera estratégica, la gestión de efectivo y la optimización de los presupuestos. Al trabajar con nosotros, las empresas pueden obtener una visión objetiva y experta de sus finanzas y tomar decisiones informadas y rentables."
+      serviceName: "Evitar remates y perdida de su patrimonio",
+      serviceText: "En SOLFIR entendemos que su patrimonio es valioso, y por eso ofrecemos un servicio especializado en evitar remates judiciales y la pérdida de su propiedad. Nuestros expertos legales trabajan en conjunto con nuestros asesores financieros para encontrar soluciones personalizadas a sus necesidades, permitiéndole mantener su propiedad y evitar una crisis financiera. Si está en riesgo de perder su patrimonio, contáctenos hoy para obtener asesoramiento legal y financiero efectivo y personalizado. En SOLFIR estamos dedicados a ayudar a nuestros clientes a proteger su patrimonio y a enfrentar los desafíos financieros con tranquilidad y confianza."
     },
     {
       serviceIcon: "arrow-right",
-      serviceName: "Evaluación de la viabilidad empresarial",
-      serviceText: "Para ayudar a las empresas a evaluar su situación financiera actual y las oportunidades de crecimiento futuro, ofrecemos una evaluación de la viabilidad empresarial. Nuestro equipo de expertos evalúa todos los aspectos de la empresa, incluyendo su posición en el mercado, su estructura de costos, su flujo de efectivo y su capacidad para competir en el mercado."
+      serviceName: "Acuerdos privados y liquidaciones patrimoniales",
+      serviceText: "En SOLFIR ofrecemos servicios de acuerdos privados y liquidaciones patrimoniales para ayudar a nuestros clientes a resolver conflictos financieros de manera efectiva y duradera. Nuestros expertos trabajan para encontrar soluciones personalizadas que se adapten a las necesidades únicas de cada cliente, negociando acuerdos privados y liquidaciones patrimoniales que les permitan alcanzar la estabilidad financiera y proteger su patrimonio. Si está enfrentando problemas financieros y desea encontrar una solución efectiva, en SOLFIR estamos listos para ayudarlo. Contáctenos hoy para obtener asesoramiento financiero y legal personalizado y efectivo."
     },
     {
       serviceIcon: "arrow-right",
-      serviceName: "Análisis de rentabilidad",
-      serviceText: "El análisis de rentabilidad es una herramienta crítica para que las empresas midan el rendimiento de sus operaciones y productos. En SOLFIR, podemos ayudar a las empresas a realizar un análisis de rentabilidad detallado, identificar las áreas donde se pueden mejorar los márgenes de beneficio y desarrollar planes para maximizar la rentabilidad a largo plazo."
-    },
-    {
-      serviceIcon: "arrow-right",
-      serviceName: "Planeación de crisis",
-      serviceText: "La planeación de crisis es un servicio importante que puede ayudar a las empresas a prepararse para situaciones imprevistas, como una recesión económica o un desastre natural. En SOLFIR, trabajamos con las empresas para desarrollar planes de contingencia, identificar áreas críticas de riesgo y desarrollar estrategias para minimizar los impactos de las crisis."
+      serviceName: "Recuperar su estabilidad financiera y tranquilidad",
+      serviceText: "En SOLFIR entendemos que la estabilidad financiera y la tranquilidad son fundamentales para una vida feliz y saludable. Es por eso que ofrecemos un servicio especializado en ayudar a nuestros clientes a recuperar su estabilidad financiera y tranquilidad. Nuestros expertos en finanzas trabajan en conjunto con nuestros abogados para encontrar soluciones personalizadas y efectivas para las necesidades financieras de cada cliente. Ya sea que esté luchando con deudas, enfrentando problemas legales o simplemente buscando encontrar una manera de mejorar su situación financiera, en SOLFIR estamos aquí para ayudarlo. Contáctenos hoy para obtener asesoramiento financiero y legal efectivo y personalizado y comience a recuperar su estabilidad financiera y tranquilidad."
     },
   ]
 
@@ -55,16 +55,13 @@ const LandingPage = ({ data }: PageProps<Queries.LandingPageQuery>) => {
       <div className={BASE_CLASS}>
         <section className={`${BASE_CLASS}-banner`} id={`${BASE_CLASS}-banner`}>
           <div className={`${BASE_CLASS}-wrapper`}>
-            <h1 className={`${BASE_CLASS}-banner-title`}>
-              Vuelve a la estabilidad financiera con <span className="logo-placeholder"> <Logo /></span> expertos en insolvencia y reorganización empresarial
-            </h1>
+            <span className={`${BASE_CLASS}-banner-title`}>
+              Vuelve a la estabilidad financiera con <b className={`${BASE_CLASS}-banner-title-solfir`} >SOLFIR</b> expertos en insolvencia y reorganización empresarial
+            </span>
             <div className={`${BASE_CLASS}-banner-buttons`}>
-              {/* <Button text="Contactanos" variant="primary" size="medium" onClickBtn={() => { goToSection("contactanos") }} /> */}
-              <span className="separator"></span>
-              <Button variant="secondary" size="medium" onClick={() => { goToSection(`${BASE_CLASS}-banner`) }} >
+              <Button variant="secondary" size="medium" onClick={() => { goToSection(`${BASE_CLASS}-services`) }} >
                 Quiero saber mas
               </Button>
-              <span className="separator"></span>
             </div>
           </div>
         </section>
@@ -77,12 +74,10 @@ const LandingPage = ({ data }: PageProps<Queries.LandingPageQuery>) => {
               {services.map(({ serviceIcon, serviceName, serviceText }, idx) => {
                 return (
                   <div key={idx} className="service-box">
-                    <div className="service-box-icon">
-                      <Icon name={serviceIcon} variant="dark" className="service-box-icon-icon" />
-                    </div>
                     <div className="service-box-content">
                       <span className="service-box-content-title">
-                        <h4>{serviceName}</h4>
+                        <Icon name={serviceIcon} variant="dark" className="service-box-content-title-icon" />
+                        {serviceName}
                       </span>
                       <div className="service-box-content-text">
                         {serviceText}
@@ -96,12 +91,22 @@ const LandingPage = ({ data }: PageProps<Queries.LandingPageQuery>) => {
         </section>
         <section className={`${BASE_CLASS}-blog`}>
           <div className={`${BASE_CLASS}-wrapper`}>
-            <h2 className={`${BASE_CLASS}-blog-title`}>Nuestro Blog</h2>
+            <span className={`${BASE_CLASS}-blog-title`}>Nuestro Blog</span>
+            <p className={`${BASE_CLASS}-blog-text`}>
+              Visita el blog de SOLFIR, donde encontrarás información útil y consejos financieros
+              para ayudarte a manejar mejor tus finanzas personales o empresariales. Además,
+              te mantendremos informado sobre temas de actualidad relacionados con la insolvencia
+              y otras cuestiones legales y financieras relevantes.</p>
             <div className={`${BASE_CLASS}-blog-posts`}>
               {BLOG_POSTS.map((post) => {
                 return <BlogCard key={post.id} data={post}></BlogCard>
               })}
             </div>
+            <Button
+              className={`${BASE_CLASS}-blog-cta`}
+              variant="primary"
+              onClick={() => { goToLink(STATIC_SITE_LINKS.BLOG) }}
+            > Ver todas las publicaciones </Button>
           </div>
         </section>
         <section className={`${BASE_CLASS}-hireus`}>
@@ -112,7 +117,12 @@ const LandingPage = ({ data }: PageProps<Queries.LandingPageQuery>) => {
             <p className={`${BASE_CLASS}-hireus-text`}>
               Con un equipo de expertos dedicados y años de experiencia, nos aseguramos de brindar soluciones óptimas para cada situación única. Contáctanos hoy para ver cómo podemos ayudarte a lograr la estabilidad financiera.
             </p>
-            <Button variant="light" >Contratanos!</Button>
+            <Button
+              variant="light"
+              className={`${BASE_CLASS}-hireus-cta`}
+              onClick={() => { goToLink(STATIC_SITE_LINKS.CONTACT) }}>
+                {STATIC_SITE_LABELS.CONTACT}
+            </Button>
           </div>
         </section>
       </div>

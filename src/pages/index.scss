@@ -2,6 +2,7 @@
 
 .landing {
 
+    // Create variable for self referencing
     $ref: &;
 
     %section {
@@ -25,22 +26,21 @@
         @extend %section;
 
         &-title {
+            @extend %typography-h1;
             text-align: center;
             word-wrap: break-word;
             overflow-wrap: break-word;
-            hyphens: auto;
 
-            .logo-placeholder {
-                display: inline-block;
-                vertical-align: text-bottom;
+            &-solfir {
+                color: $color-primary;
+            }
+            @include for-xs {
+                
             }
         }
 
-        .separator {
-            width: 20px;
-        }
-
         &-buttons {
+            margin-top: 50px;
             display: flex;
             justify-content: center;
         }
@@ -71,33 +71,28 @@
                 width: 100%;
                 border-radius: 10px;
                 min-width: 300px;
-                max-width: 500px;
                 margin: 20px 10px;
-
-                $icon-title-height: 80px;
-
-                &-icon {
-                    align-items: center;
-                    display: flex;
-                    height: $icon-title-height;
-                    justify-content: center;
-                    padding: 16px;
-                    &-icon {
-                        $icon-size: 40px;
-                        min-width: $icon-size;
-                        min-height: $icon-size;
-                    }
-                }
 
                 &-content {
                     display: flex;
                     flex-direction: column;
 
                     &-title {
+                        @extend %typography-h4;
+                        font-weight: bold;
                         display: flex;
-                        height: $icon-title-height;
                         align-items: center;
-                        margin-bottom: 20px;
+                        margin: 60px 0;
+                        &-icon {
+                            display: flex;
+                            margin-right: 20px;
+                            $icon-size: 40px;
+                            max-width: $icon-size !important;
+                            max-height: $icon-size !important;
+                            min-width: $icon-size !important;
+                            min-height: $icon-size !important;
+                        }
+                        
                     }
 
                     &-text {
@@ -110,7 +105,14 @@
                 }
 
                 @include for-xs {
-                    $icon-title-height: 40px;    
+                    &-content {
+                        &-title {
+                            text-align: center;
+                            &-icon {
+                                display: none
+                            }
+                        }    
+                    }
                 }
 
             }
@@ -120,15 +122,32 @@
 
     &-blog {
         @extend %section;
+        
+        #{$ref}-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
         &-title {
+            @extend %typography-h2;
             text-align: center
+        }
+
+        &-text {
+            // @extend %typography-p;
+            margin: 50px 0;
         }
 
         &-posts {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             flex-wrap: wrap;
             justify-content: center
+        }
+
+        &-cta {
+            margin-top: 60px;
         }
     }
     
@@ -151,6 +170,11 @@
         }
 
         &-text {
+            text-align: center;
+        }
+
+        &-cta {
+            margin-top: 60px;
             text-align: center;
         }
     }
