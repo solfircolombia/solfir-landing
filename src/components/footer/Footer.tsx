@@ -37,10 +37,11 @@ export const Footer: React.FC = () => {
                                 {CONTACT_DATA.CONTACT_PHONE}
                             </a>
 
-                            <a className={`${BASE_CLASS}-link`} href={CONTACT_DATA.CONTACT_ADDRESS_MAPS_LINK}>
+                            {/* TODO: Uncomment this once there is an office address defines */}
+                            {/* <a className={`${BASE_CLASS}-link`} href={CONTACT_DATA.CONTACT_ADDRESS_MAPS_LINK}>
                                 <Icon name="place" className={`${BASE_CLASS}-link-icon`} variant="primary"></Icon>
                                 {CONTACT_DATA.CONTACT_ADDRESS}
-                            </a>
+                            </a> */}
                     </div>
                     <div className={`${BASE_CLASS}-columns-column links`}>
                     <span  className={`${BASE_CLASS}-columns-column-title`}>Enlaces</span>
