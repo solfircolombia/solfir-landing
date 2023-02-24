@@ -60,12 +60,11 @@ $anchor-variant-color: (
 
 @mixin typography-p {
     @extend %font-general;
-    margin-bottom: 1rem;
+    font-size: 1rem;
 }
 
 @mixin typography-h1 {
     @extend %font-general;
-    margin-top: 0;
     font-size: 3.052rem;
 }
 

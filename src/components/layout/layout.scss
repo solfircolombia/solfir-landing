@@ -28,6 +28,12 @@
         align-items: center;
         justify-content: center;
 
+        .icon {
+            $icon-size: 60px;
+            max-width: $icon-size;
+            max-height: $icon-size;
+        }
+
         &:active {
             box-shadow: $box-shadow-1;
         }
@@ -39,7 +45,7 @@
             }
         }
 
-        top: calc(100vh - $size - 20px);
+        top: calc(100vh - $size - 80px);
         left: calc(100vw - $size - 20px);
     }
 

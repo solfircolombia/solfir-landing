@@ -8,23 +8,31 @@ import { STATIC_SITE_LINKS } from "@constants";
 
 
 type BlogCardProps = {
-    data: UnpackNodesType<Queries.LandingPageQuery["allContentfulBlogPost"]["nodes"]> ;
+    data: UnpackNodesType<Queries.LandingPageQuery["allContentfulBlogPost"]["nodes"]>;
+    layout?: "horizontal" | undefined;
+    className?: string;
 };
 
-export const BlogCard: React.FC<BlogCardProps> = ({ data }) => {
+export const BlogCard: React.FC<BlogCardProps> = ({ data, layout, className }) => {
     const BASE_CLASS = "blog-card";
 
     let image = getImage(data.image);
-    
+
     return (
-        <div className={BASE_CLASS}>
+        <div className={`${BASE_CLASS} ${layout ? `${BASE_CLASS}--horizontal` : ""} ${ className ?? '' }`}>
             <div className={`${BASE_CLASS}-image`}>
-                { image && <GatsbyImage image={image} alt="alt"></GatsbyImage> }
+                {image && <GatsbyImage objectFit="cover" image={image} alt="alt"></GatsbyImage>}
             </div>
             <div className={`${BASE_CLASS}-summary`}>
-                <span className={`${BASE_CLASS}-summary-title`} >{data?.title}</span>
+                <p className={`${BASE_CLASS}-summary-title`} >{data?.title}</p>
                 <p className={`${BASE_CLASS}-summary-text`}>
-                    {data.summary} 
+                    {data.summary}
+                </p>
+                <p className={`${BASE_CLASS}-summary-actions`}>
+                    <Link to={`${STATIC_SITE_LINKS.BLOG}/${data.slug}`} className={`${BASE_CLASS}-summary-actions-link`}>
+                        Leer Mas
+                        <Icon name="arrow-right" className={`${BASE_CLASS}-summary-actions-link-icon`}></Icon>
+                    </Link>
                 </p>
             </div>
             <div className={`${BASE_CLASS}-actions`}>

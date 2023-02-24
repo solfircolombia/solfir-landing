@@ -27,6 +27,8 @@
 
 }
 
+// Typograpy Placeholders
+
 %font-general {
     font-family: 'Inconsolata', monospace;
     font-weight: 400;
@@ -37,12 +39,11 @@
 
 %typography-p {
     @extend %font-general;
-    margin-bottom: 1rem;
+    font-size: 1rem;
 }
 
 %typography-h1 {
     @extend %font-general;
-    margin-top: 0;
     font-size: 3.052rem;
 }
 
@@ -69,4 +70,14 @@
 %typography-small {
     @extend %font-general;
     font-size: 0.8rem;
+}
+
+// Layout placeholders
+
+%section {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 100px 0;
 }
