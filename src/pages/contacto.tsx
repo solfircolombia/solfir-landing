@@ -1,4 +1,6 @@
 import { Button, Layout } from '@components';
+import { STATIC_SITE_LABELS } from '@constants';
+import { HeadFC } from 'gatsby';
 import React from 'react';
 import "./contacto.scss";
 
@@ -97,3 +99,5 @@ const Contacto: React.FC<any> = () => {
 }
 
 export default Contacto;
+
+export const Head: HeadFC = () => <title>SOLFIR - {STATIC_SITE_LABELS.CONTACT}</title>

@@ -8,7 +8,10 @@ enum STATIC_SITE_LINKS {
     SERVICES = "/servicios",
     FAQ = "/preguntas-frecuentes",
     BENEFITS = "/beneficios",
-    PRICING = "/precios"
+    PRICING = "/precios",
+    THANKS = "/gracias",
+    ERROR = "/error",
+    NOT_FOUND = "/pagina-no-encontrada",
 }
 
 enum STATIC_SITE_LABELS {
@@ -20,7 +23,10 @@ enum STATIC_SITE_LABELS {
     SERVICES = "Servicios",
     FAQ = "Preguntas frecuentes",
     BENEFITS = "Beneficios",
-    PRICING = "Precios"
+    PRICING = "Precios",
+    THANKS = "¡Gracias!",
+    ERROR = "Error",
+    NOT_FOUND = "Página no encontrada",
 }
 
 const SITE_LINKS: { label: string, link: string }[] = [

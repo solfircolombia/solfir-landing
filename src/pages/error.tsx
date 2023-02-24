@@ -1,11 +1,11 @@
-import { Button, Layout } from '@components';
-import { CONTACT_DATA, SITE_LINKS, STATIC_SITE_LABELS, STATIC_SITE_LINKS } from '@constants';
-import { Link } from 'gatsby';
 import React from 'react';
+import { HeadFC, Link, PageProps } from 'gatsby';
+import { Layout } from '@components';
+import { CONTACT_DATA, STATIC_SITE_LABELS, STATIC_SITE_LINKS } from '@constants';
 import "./error.scss";
 
 
-const Thanks: React.FC<any> = () => {
+const ErrorPage: React.FC<PageProps> = () => {
 
     const BASE_CLASS = 'error';
 
@@ -14,7 +14,7 @@ const Thanks: React.FC<any> = () => {
             <div className={BASE_CLASS}>
                 <div className={`${BASE_CLASS}-wrapper`} >
                     <div className={`${BASE_CLASS}-message-box`} >
-                        <span className={`${BASE_CLASS}-message-box-title`}>Ha ocurrido un error :(</span>
+                        <span className={`${BASE_CLASS}-message-box-title`}>Ha ocurrido un error</span>
                         <span className={`${BASE_CLASS}-message-box-text`} >
                             Si el error es persistente contactanos al siguiente correo electronico - 
                             <a className={`${BASE_CLASS}-message-box-text-mail`} href={`mailto:${CONTACT_DATA.CONTACT_MAIL_SUPPORT}`}> {CONTACT_DATA.CONTACT_MAIL_SUPPORT} </a>
@@ -27,4 +27,6 @@ const Thanks: React.FC<any> = () => {
     );
 }
 
-export default Thanks;
+export default ErrorPage;
+
+export const Head: HeadFC = () => <title>SOLFIR - {STATIC_SITE_LABELS.ERROR}</title>

@@ -151,4 +151,4 @@ export const query = graphql`
   }
 `;
 
-export const Head: HeadFC = () => <title>Home Page</title>
+export const Head: HeadFC = () => <title>SOLFIR - {STATIC_SITE_LABELS.HOME}</title>

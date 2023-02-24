@@ -1,11 +1,11 @@
-import { Button, Layout } from '@components';
-import { SITE_LINKS, STATIC_SITE_LABELS, STATIC_SITE_LINKS } from '@constants';
-import { Link } from 'gatsby';
 import React from 'react';
+import { HeadFC, Link, PageProps } from 'gatsby';
+import { Layout } from '@components';
+import { STATIC_SITE_LABELS, STATIC_SITE_LINKS } from '@constants';
 import "./gracias.scss";
 
 
-const Thanks: React.FC<any> = () => {
+const ThanksPage: React.FC<PageProps> = () => {
 
     const BASE_CLASS = 'gracias';
 
@@ -24,4 +24,6 @@ const Thanks: React.FC<any> = () => {
     );
 }
 
-export default Thanks;
+export default ThanksPage;
+
+export const Head: HeadFC = () => <title>SOLFIR - {STATIC_SITE_LABELS.THANKS}</title>
