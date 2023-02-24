@@ -1,5 +1,6 @@
 
 enum STATIC_SITE_LINKS {
+    HOME = "/",
     BLOG = "/blog",
     ABOUT = "/quienes-somos",
     TEAM = "/equipo",
@@ -11,6 +12,7 @@ enum STATIC_SITE_LINKS {
 }
 
 enum STATIC_SITE_LABELS {
+    HOME = "Inicio",
     BLOG = "Blog",
     ABOUT = "¿Quiénes Somos?",
     TEAM = "Equipo de trabajo",

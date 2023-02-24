@@ -11,7 +11,6 @@ type LogoProps = {
 export const Logo: React.FC<LogoProps> = ({variant = "regular", className}) => {
 
     const clickHandler = () => {
-        console.log("Redirect to home");
         navigate("/")
     };
 

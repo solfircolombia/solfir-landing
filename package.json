@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@mdx-js/react": "^2.2.1",
+    "@sendgrid/mail": "^7.7.0",
     "gatsby": "^5.5.0",
     "gatsby-plugin-alias-imports": "^1.0.5",
     "gatsby-plugin-google-gtag": "^5.5.0",

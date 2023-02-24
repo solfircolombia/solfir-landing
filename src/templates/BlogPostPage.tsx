@@ -13,8 +13,6 @@ const BlogPostPage: React.FC<{ data: Queries.BlogPostPageQuery }> = ({ data }) =
   let { contentfulBlogPost } = data;
   let image = getImage(contentfulBlogPost?.image!);
 
-
-  console.log("prosp", data);
   return (
     <Layout>
       <div className={BASE_CLASS}>

@@ -8,8 +8,6 @@ import { SITE_LINKS, STATIC_SITE_LINKS, STATIC_SITE_LABELS } from "@constants";
 
 const LandingPage = ({ data }: PageProps<Queries.LandingPageQuery>) => {
 
-  console.log("DATA ", data);
-
   const BLOG_POSTS = data.allContentfulBlogPost.nodes;
 
   const BASE_CLASS = "landing";

@@ -14,7 +14,7 @@ const BlogPage: React.FC<PageProps<Queries.BlogPageQuery>> = ({data}) => {
             <div className={BASE_CLASS}>
                 <div className={`${BASE_CLASS}-header`}>
                    <div className={`${BASE_CLASS}-wrapper`}>
-                    <span className={`${BASE_CLASS}-header-title`}>Bienvenidos al blog de SOLFIR</span>
+                    <span className={`${BASE_CLASS}-header-title`}>Bienvenidos a nuestro Blog</span>
                    </div>
                 </div>
                 <div className={`${BASE_CLASS}-welcome-text`}>

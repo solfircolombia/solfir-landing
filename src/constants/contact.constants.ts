@@ -1,4 +1,5 @@
 const CONTACT_MAIL = "solfircolombia@gmail.com";
+const CONTACT_MAIL_SUPPORT = "solfircolombia@outlook.com";
 const CONTACT_PHONE = "3004699379";
 const CONTACT_ADDRESS = "Calle 74 #15-80, Oficina 308";
 const CONTACT_ADDRESS_MAPS_LINK = "https://goo.gl/maps/ChIJwdsSZ1maP44Rrxbuy1_7cWY";
@@ -10,6 +11,7 @@ const CONTACT_WHATSAPP_LINK = `https://wa.me/${CONTACT_WHATSAPP_PHONE}?text=${CO
 
 export {
     CONTACT_MAIL,
+    CONTACT_MAIL_SUPPORT,
     CONTACT_PHONE,
     CONTACT_ADDRESS,
     CONTACT_ADDRESS_MAPS_LINK,

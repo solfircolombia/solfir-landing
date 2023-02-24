@@ -18,7 +18,6 @@ export const Header: React.FC = () => {
     const isBrowser = typeof window !== "undefined"
 
     const updateShowLinks = (menuExpanded: boolean) => {
-        console.log("MenuExpanded", menuExpanded);
 
         if (isBrowser) {
             width = global.window.innerWidth;

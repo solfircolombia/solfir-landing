@@ -48,7 +48,6 @@ export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({ children,
     }
 
     const handleTabKey = (e: KeyboardEvent) => {
-        console.log("Tab");
 
         const focusableModalElements = getFocusableElements();
 
