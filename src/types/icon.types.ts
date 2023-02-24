@@ -11,7 +11,8 @@ type IconName =
     "settings" |
     "text-decrease" |
     "text-increase" |
-    "whatsapp";
+    "whatsapp" |
+    "twitter";
 
 export {
     IconName

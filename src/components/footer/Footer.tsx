@@ -12,11 +12,11 @@ export const Footer: React.FC = () => {
     const BASE_CLASS = "footer";
 
     const socialData: Array<{ name: IconName, link: string }> = [
+        { name: "instagram", link: "https://instagram.com/solfircolombia" },
         { name: "facebook", link: "https://facebook.com" },
-        { name: "instagram", link: "https://instagram.com" },
-        { name: "linkedin", link: "https://linkedin.com" },
-        { name: "whatsapp", link: "https://whatsapp.com" },
-    ]
+        { name: "linkedin", link: "https://www.linkedin.com/in/solfir-colombia-80663a267/" },
+        { name: "twitter", link: "https://twitter.com/solfircolombia" }
+    ];
 
     return (
         <footer className={BASE_CLASS}>
