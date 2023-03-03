@@ -1,77 +1,76 @@
-@import "../../styles/component";
+@import '../../styles/component';
 
 .maintenance {
-    padding: 10px;
-    position: absolute;
-    top: 0;
-    left: 0;
+  padding: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  color: $color-dark;
+
+  &-logo {
+    height: 100px;
+  }
+  &-message {
+    @extend %typography-h1;
+    color: $scorpion;
+    display: flex;
+    align-items: center;
+    margin: 40px 0;
+    text-align: center;
+    &-loader {
+      margin-left: 10px;
+      height: 50px;
+    }
+  }
+
+  &-social {
+    height: 50px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: 100vh;
-    width: 100vw;
-    color: $color-dark;
 
+    &-message {
+      text-align: center;
+      margin: 40px 0;
+    }
+
+    &-icons {
+      display: flex;
+      margin: 30px 0;
+      justify-content: center;
+      &-icon {
+        height: 40px;
+        width: 40px;
+        margin: 0 10px;
+        &:hover {
+          transform: translate(0px, -5px);
+          cursor: pointer;
+
+          * {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+
+  @include for-xs {
     &-logo {
-        height: 100px;
+      height: 60px;
     }
     &-message {
-        @extend %typography-h1;
-        color: $scorpion;
-        display: flex;
-        align-items: center;
-        margin: 40px 0;
-        text-align: center;
-        &-loader {
-            margin-left: 10px;
-            height: 50px;
-        }
+      @include typography-h4;
+      &-loader {
+        margin-left: 10px;
+        height: 30px;
+      }
     }
-
-    &-social {
-        height: 50px;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        &-message {
-            text-align: center;
-            margin: 40px 0;
-        }
-
-        &-icons {
-            display: flex;
-            margin: 30px 0;
-            justify-content: center;
-            &-icon {
-                height: 40px;
-                width: 40px;
-                margin: 0 10px;
-                &:hover {
-                    transform: translate(0px, -5px);
-                    cursor: pointer;
-
-                    * {
-                        cursor: pointer;
-                    }
-                }
-            }
-
-        }
-    }
-
-    @include for-xs {
-        &-logo {
-            height: 60px;
-        }
-        &-message {
-            @include typography-h4;
-            &-loader {
-                margin-left: 10px;
-                height: 30px;
-            }
-        }
-    }
+  }
 }

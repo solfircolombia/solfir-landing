@@ -1,4 +1,4 @@
-@import "../../styles/component";
+@import '../../styles/component';
 .loader {
   $ref: &;
 
@@ -10,6 +10,6 @@
   }
 
   &--primary {
-      fill: $color-primary;
+    fill: $color-primary;
   }
 }

@@ -1,117 +1,107 @@
-@import "/src/styles/component";
+@import '/src/styles/component';
 
 .footer {
-    color: $color-tertiary-contrast;
-    background-color: $color-tertiary;
+  color: $color-tertiary-contrast;
+  background-color: $color-tertiary;
+  display: flex;
+  flex-direction: column;
+  min-height: $footer-height;
+  width: 100%;
+  align-items: center;
+  padding-top: 50px;
+
+  &-logo {
     display: flex;
-    flex-direction: column;
-    min-height: $footer-height;
     width: 100%;
     align-items: center;
-    padding-top: 50px;
+  }
 
+  &-link {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    @include anchor-styles('light', 'tertiary');
+    &-active {
+      @include anchor-styles('light', 'tertiary');
+    }
+    &-icon {
+      margin-right: 10px;
+      height: 20px !important;
+      width: 20px !important;
+    }
+  }
+
+  &-wrapper {
+    @extend %cw;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-columns {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 30px;
+
+    &-column {
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+
+      &-title {
+        font-weight: bold;
+        margin: 40px 0;
+      }
+    }
+  }
+
+  .social {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &-title {
+      font-weight: bold;
+      margin: 30px 0;
+    }
+
+    &-icons {
+      display: flex;
+      margin: 30px 0;
+      &-icon {
+        height: 40px;
+        width: 40px;
+        margin: 0 10px;
+        &:hover {
+          transform: translate(0px, -5px);
+          cursor: pointer;
+
+          * {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+
+  .trademark {
+    @extend %typography-small;
+    margin: 50px 0;
+    align-self: center;
+    text-align: center;
+  }
+
+  @include for-sm {
     &-logo {
-        display: flex;
-        width: 100%;
-        align-items: center;
+      flex-direction: column;
+      align-items: center;
     }
-
-    &-link {
-        display: flex;
-        align-items: center;
-        margin: 10px 0;
-        @include anchor-styles("light", "tertiary");
-        &-active {
-            @include anchor-styles("light", "tertiary");
-        }
-        &-icon {
-            margin-right: 10px;
-            height: 20px !important;
-            width: 20px !important;
-        }
-    }
-
-    &-wrapper {
-        @extend %cw;
-        display: flex;
-        flex-direction: column;
-    }
-
     &-columns {
-        display: flex;
-        justify-content: space-around;
-        width: 100%;
-        margin-top: 30px;
-
-        &-column {
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-
-            &-title {
-                font-weight: bold;
-                margin: 40px 0;
-            }
-
-            
-
-        }
-
-    }
-
-    .social {
-
-        display: flex;
-        flex-direction: column;
+      flex-direction: column;
+      align-items: center;
+      &-column {
         align-items: center;
-
-        &-title {
-            font-weight: bold;
-            margin: 30px 0;
-        }
-
-        &-icons {
-            display: flex;
-            margin: 30px 0;
-            &-icon {
-                height: 40px;
-                width: 40px;
-                margin: 0 10px;
-                &:hover {
-                    transform: translate(0px, -5px);
-                    cursor: pointer;
-
-                    * {
-                        cursor: pointer;
-                    }
-                }
-            }
-
-        }
+      }
     }
-
-
-    .trademark {
-        @extend %typography-small;
-        margin: 50px 0;
-        align-self: center;
-        text-align: center;
-    }
-
-
-    @include for-sm {
-        &-logo {
-            flex-direction: column;
-            align-items: center;
-        }
-        &-columns {
-            flex-direction: column;
-            align-items: center;
-            &-column {
-                align-items: center;
-            }
-        }
-    }
-
-
+  }
 }

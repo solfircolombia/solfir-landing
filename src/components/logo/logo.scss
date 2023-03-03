@@ -1,70 +1,68 @@
-@import "../../styles/component";
+@import '../../styles/component';
 
 .logo {
-    display: flex;
-    font-size: 30px;
-    -webkit-user-select: none;
-    user-select: none;
-    padding: 5px;
-    text-decoration: none;
-    height: inherit;
+  display: flex;
+  font-size: 30px;
+  -webkit-user-select: none;
+  user-select: none;
+  padding: 5px;
+  text-decoration: none;
+  height: inherit;
 
-    &:hover {
-        * {
-            cursor: pointer;
-        }   
+  &:hover {
+    * {
+      cursor: pointer;
     }
+  }
 }
 
 .logo-full-horizontal {
+  $ref: &;
 
-    $ref:&;
+  height: 100%;
+  width: 100%;
 
-    height: 100%;
-    width: 100%;
-
-    &--regular {
-        #{$ref}-letters {
-            fill: $scorpion;
-        }
-    
-        #{$ref}-hands-contrast {
-            fill: $color-light;
-        }
-    
-        #{$ref}-letter-o {
-            fill: $color-secondary;
-        }
-    
-        #{$ref}-hands {
-            fill: $color-secondary;
-        }
-    
-        #{$ref}-clip-path {
-            clip-path: url(#b);
-        }
+  &--regular {
+    #{$ref}-letters {
+      fill: $scorpion;
     }
 
-    &--tertiary {
-        #{$ref}-letters {
-            fill: $color-light;
-        }
-    
-        #{$ref}-hands-contrast {
-            fill: $color-tertiary;
-        }
-    
-        #{$ref}-letter-o {
-            fill: $color-light;
-        }
-    
-        #{$ref}-hands {
-            fill: $color-light;
-        }
-    
-        #{$ref}-clip-path {
-            clip-path: url(#b);
-        }
+    #{$ref}-hands-contrast {
+      fill: $color-light;
     }
 
+    #{$ref}-letter-o {
+      fill: $color-secondary;
+    }
+
+    #{$ref}-hands {
+      fill: $color-secondary;
+    }
+
+    #{$ref}-clip-path {
+      clip-path: url(#b);
+    }
+  }
+
+  &--tertiary {
+    #{$ref}-letters {
+      fill: $color-light;
+    }
+
+    #{$ref}-hands-contrast {
+      fill: $color-tertiary;
+    }
+
+    #{$ref}-letter-o {
+      fill: $color-light;
+    }
+
+    #{$ref}-hands {
+      fill: $color-light;
+    }
+
+    #{$ref}-clip-path {
+      clip-path: url(#b);
+    }
+  }
 }

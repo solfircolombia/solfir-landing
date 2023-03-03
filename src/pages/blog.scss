@@ -1,67 +1,59 @@
-@import "../styles/component";
+@import '../styles/component';
 
 .blog {
+  $ref: &;
 
-    $ref: &;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
+  %blog-section {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    padding: 50px 0;
     align-items: center;
+  }
 
-    %blog-section {
+  &-wrapper {
+    @extend %cw;
+  }
+
+  &-header {
+    @extend %blog-section;
+    padding: 40px 0; // Override from %section
+    margin-top: 50px;
+    text-align: center;
+    background-color: $color-primary;
+    &-title {
+      @extend %typography-h1;
+      color: $color-primary-contrast;
+    }
+  }
+
+  &-welcome-text {
+    @extend %blog-section;
+  }
+
+  &-posts {
+    display: flex;
+    flex-direction: column;
+
+    &-title {
+      margin-bottom: 40px;
+    }
+
+    &-items {
+      @extend %section;
+      padding-top: 0;
+      #{$ref}-wrapper {
         display: flex;
         flex-direction: column;
-        width: 100%;
-        padding: 50px 0;
-        align-items: center;
+      }
+
+      &-card {
+        margin-top: 40px;
+      }
     }
-
-    &-wrapper {
-        @extend %cw;
-    }
-
-    &-header {
-        @extend %blog-section;
-        padding: 40px 0; // Override from %section
-        margin-top: 50px;
-        text-align: center;
-        background-color: $color-primary;
-        &-title {
-            @extend %typography-h1;
-            color: $color-primary-contrast;
-        }
-    }
-
-    &-welcome-text {
-        @extend %blog-section;
-        
-    }
-
-    &-posts {
-
-        display: flex;
-        flex-direction: column;
-
-        &-title {
-            margin-bottom: 40px;
-
-        }
-
-
-        &-items {
-            @extend %section;
-            padding-top: 0;
-            #{$ref}-wrapper {
-                display: flex;
-                flex-direction: column;
-            }
-
-            &-card {
-                margin-top: 40px;
-            }
-
-        }
-    }
-
-   
+  }
 }

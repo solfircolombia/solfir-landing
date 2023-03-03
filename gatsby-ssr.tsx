@@ -1,6 +1,6 @@
-import * as React from "react"
+import * as React from 'react';
 
-export const onRenderBody = ({ setHeadComponents }:{setHeadComponents:any}) => {
+export const onRenderBody = ({ setHeadComponents }: { setHeadComponents: any }) => {
   setHeadComponents([
     <link
       rel="preload"
@@ -42,5 +42,5 @@ export const onRenderBody = ({ setHeadComponents }:{setHeadComponents:any}) => {
       crossOrigin="anonymous"
       key="Champagne&LimousinesItalic"
     />,
-  ])
-}
+  ]);
+};

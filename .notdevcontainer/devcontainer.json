@@ -6,9 +6,7 @@
     "GIT_EMAIL": "${localEnv:GIT_EMAIL}"
   },
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  "forwardPorts": [
-    8000
-  ],
+  "forwardPorts": [8000],
   "customizations": {
     "vscode": {
       "extensions": [
@@ -30,11 +28,7 @@
     }
   },
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": [
-    "/bin/bash",
-    "-c",
-    "source .devcontainer/postCreateCommand"
-  ],
+  "postCreateCommand": ["/bin/bash", "-c", "source .devcontainer/postCreateCommand"],
   // Connect with root user
   "remoteUser": "root"
 }

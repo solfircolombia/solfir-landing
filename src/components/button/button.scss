@@ -1,154 +1,149 @@
-@import "../../styles/component";
+@import '../../styles/component';
 
 .button {
-    display: flex;
-    border-radius: 25px;
-    width: fit-content;
-    align-items: center;
-    color: white;
-    font-weight: 600;
+  display: flex;
+  border-radius: 25px;
+  width: fit-content;
+  align-items: center;
+  color: white;
+  font-weight: 600;
 
+  // Button style
+  &--style-regular {
+    padding: 10px 20px;
+  }
 
-    // Button style
-    &--style-regular {
-        padding: 10px 20px;
+  &--style-rounded {
+    padding: 10px;
+  }
+
+  // Variant
+
+  &--variant {
+    &-primary {
+      background-color: $color-primary;
+      color: $color-light;
+
+      svg {
+        path {
+          fill: $color-light;
+        }
+      }
     }
 
-    &--style-rounded {
-        padding: 10px;
+    &-secondary {
+      background-color: $color-secondary;
+      color: $color-dark;
+
+      svg {
+        path {
+          fill: $color-light;
+        }
+      }
     }
 
+    &-tertiary {
+      background-color: $color-tertiary;
+      color: $color-light;
 
-    // Variant
-
-    &--variant {
-        &-primary {
-            background-color: $color-primary;
-            color: $color-light;
-
-            svg {
-                path {
-                    fill: $color-light;
-                }
-            }
-
+      svg {
+        path {
+          fill: $color-light;
         }
-
-        &-secondary {
-            background-color: $color-secondary;
-            color: $color-dark;
-
-            svg {
-                path {
-                    fill: $color-light;
-                }
-            }
-
-        }
-
-        &-tertiary {
-            background-color: $color-tertiary;
-            color: $color-light;
-
-            svg {
-                path {
-                    fill: $color-light;
-                }
-            }
-        }
-
-        &-light {
-            background-color: $color-light;
-            color: $color-dark;
-
-            svg {
-                path {
-                    fill: $color-dark;
-                }
-            }
-        }
-
-        &-dark {
-            background-color: $color-dark;
-            color: $color-light;
-
-            svg {
-                path {
-                    fill: $color-dark;
-                }
-            }
-        }
+      }
     }
 
-    &--variant-text {
-        &-primary {
-            color: $color-primary;
-            svg {
-                path {
-                    fill: $color-primary;
-                }
-            }
-        }
+    &-light {
+      background-color: $color-light;
+      color: $color-dark;
 
-        &-secondary {
-            color: $color-secondary;
-            svg {
-                path {
-                    fill: $color-secondary;
-                }
-            }
+      svg {
+        path {
+          fill: $color-dark;
         }
-
-        &-tertiary {
-            color: $color-tertiary;
-            svg {
-                path {
-                    fill: $color-tertiary;
-                }
-            }
-        }
-
-        &-light {
-            color: $color-light;
-            svg {
-                path {
-                    fill: $color-light;
-                }
-            }
-        }
-
-        &-dark {
-            color: $color-dark;
-            svg {
-                path {
-                    fill: $color-dark;
-                }
-            }
-        }
+      }
     }
 
+    &-dark {
+      background-color: $color-dark;
+      color: $color-light;
 
-    // Size
+      svg {
+        path {
+          fill: $color-dark;
+        }
+      }
+    }
+  }
 
-    &--size-small {
-        height: 40px;
-        border-radius: 20px;
+  &--variant-text {
+    &-primary {
+      color: $color-primary;
+      svg {
+        path {
+          fill: $color-primary;
+        }
+      }
     }
 
-    &--size-medium {
-        height: 60px;
-        border-radius: 30px;
+    &-secondary {
+      color: $color-secondary;
+      svg {
+        path {
+          fill: $color-secondary;
+        }
+      }
     }
 
-    &--size-large {
-        height: 80px;
-        border-radius: 40px;
+    &-tertiary {
+      color: $color-tertiary;
+      svg {
+        path {
+          fill: $color-tertiary;
+        }
+      }
     }
 
-    // Other styles
-
-    &:hover {
-        cursor: pointer;
-        box-shadow: $box-shadow-1;
+    &-light {
+      color: $color-light;
+      svg {
+        path {
+          fill: $color-light;
+        }
+      }
     }
+
+    &-dark {
+      color: $color-dark;
+      svg {
+        path {
+          fill: $color-dark;
+        }
+      }
+    }
+  }
+
+  // Size
+
+  &--size-small {
+    height: 40px;
+    border-radius: 20px;
+  }
+
+  &--size-medium {
+    height: 60px;
+    border-radius: 30px;
+  }
+
+  &--size-large {
+    height: 80px;
+    border-radius: 40px;
+  }
+
+  // Other styles
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: $box-shadow-1;
+  }
 }

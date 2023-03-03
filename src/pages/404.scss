@@ -1,39 +1,36 @@
-@import "../styles/component";
+@import '../styles/component';
 
 .pagina-no-encontrada {
+  $ref: &;
 
-    $ref: &;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 
+  &-wrapper {
+    @extend %cw;
+  }
+
+  &-message-box {
     display: flex;
-    align-items: center;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 200px 0;
 
-    &-wrapper {
-        @extend %cw;
+    &-title {
+      text-align: center;
+      @extend %typography-h2;
+    }
+    &-text {
+      text-align: center;
+      margin-top: 10px;
+      @extend %typography-p;
     }
 
-    &-message-box {
-
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        margin: 200px 0;
-
-        &-title {
-            text-align: center;
-            @extend %typography-h2;
-        }
-        &-text {
-            text-align: center;
-            margin-top: 10px;
-            @extend %typography-p;
-        }
-
-        &-back {
-            color: $color-primary;
-            margin-top: 30px;
-        }
+    &-back {
+      color: $color-primary;
+      margin-top: 30px;
     }
-
+  }
 }

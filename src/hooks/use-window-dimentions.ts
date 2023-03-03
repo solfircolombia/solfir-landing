@@ -4,7 +4,7 @@ function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;
   return {
     width,
-    height
+    height,
   };
 }
 
@@ -23,6 +23,4 @@ function useWindowDimensions() {
   return windowDimensions;
 }
 
-export {
-  useWindowDimensions
-}
+export { useWindowDimensions };
