@@ -1,9 +1,7 @@
 enum KEY {
-    ENTER = "Enter",
-    ESCAPE = "Escape",
-    TAB = "Tab"
+    ENTER = 'Enter',
+    ESCAPE = 'Escape',
+    TAB = 'Tab',
 }
 
-export {
-    KEY
-}
+export { KEY };

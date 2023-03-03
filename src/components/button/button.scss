@@ -1,4 +1,4 @@
-@import "../../styles/component";
+@import '../../styles/component';
 
 .button {
     display: flex;
@@ -8,7 +8,6 @@
     color: white;
     font-weight: 600;
 
-
     // Button style
     &--style-regular {
         padding: 10px 20px;
@@ -17,7 +16,6 @@
     &--style-rounded {
         padding: 10px;
     }
-
 
     // Variant
 
@@ -31,7 +29,6 @@
                     fill: $color-light;
                 }
             }
-
         }
 
         &-secondary {
@@ -43,7 +40,6 @@
                     fill: $color-light;
                 }
             }
-
         }
 
         &-tertiary {
@@ -126,7 +122,6 @@
             }
         }
     }
-
 
     // Size
 

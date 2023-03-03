@@ -1,4 +1,4 @@
-@import "../../styles/component";
+@import '../../styles/component';
 
 .logo {
     display: flex;
@@ -12,13 +12,12 @@
     &:hover {
         * {
             cursor: pointer;
-        }   
+        }
     }
 }
 
 .logo-full-horizontal {
-
-    $ref:&;
+    $ref: &;
 
     height: 100%;
     width: 100%;
@@ -27,19 +26,19 @@
         #{$ref}-letters {
             fill: $scorpion;
         }
-    
+
         #{$ref}-hands-contrast {
             fill: $color-light;
         }
-    
+
         #{$ref}-letter-o {
             fill: $color-secondary;
         }
-    
+
         #{$ref}-hands {
             fill: $color-secondary;
         }
-    
+
         #{$ref}-clip-path {
             clip-path: url(#b);
         }
@@ -49,22 +48,21 @@
         #{$ref}-letters {
             fill: $color-light;
         }
-    
+
         #{$ref}-hands-contrast {
             fill: $color-tertiary;
         }
-    
+
         #{$ref}-letter-o {
             fill: $color-light;
         }
-    
+
         #{$ref}-hands {
             fill: $color-light;
         }
-    
+
         #{$ref}-clip-path {
             clip-path: url(#b);
         }
     }
-
 }

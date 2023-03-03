@@ -1,5 +1,5 @@
-@import "../../styles/component"; // 
-@import "../../styles/global"; // Importing global styles
+@import '../../styles/component'; //
+@import '../../styles/global'; // Importing global styles
 
 .layout {
     display: flex;
@@ -7,8 +7,6 @@
     height: 100%;
     align-items: center;
     padding-top: $header-height;
-
-    
 
     .content {
         width: 100%;
@@ -48,5 +46,4 @@
         top: calc(100vh - $size - 80px);
         left: calc(100vw - $size - 20px);
     }
-
 }

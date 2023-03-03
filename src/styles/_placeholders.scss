@@ -1,6 +1,5 @@
 // Content Wrapper
 %cw {
-
     width: 100%;
     max-width: calc($max-screen-width-xl - 300px);
     padding: 16px;
@@ -24,7 +23,6 @@
     @include for-xs {
         max-width: calc($max-screen-width-xs - 32px);
     }
-
 }
 
 // Typograpy Placeholders

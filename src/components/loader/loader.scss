@@ -1,15 +1,15 @@
-@import "../../styles/component";
+@import '../../styles/component';
 .loader {
-  $ref: &;
+    $ref: &;
 
-  height: 100%;
-  width: 100%;
+    height: 100%;
+    width: 100%;
 
-  &-circle {
-    fill: $scorpion;
-  }
+    &-circle {
+        fill: $scorpion;
+    }
 
-  &--primary {
-      fill: $color-primary;
-  }
+    &--primary {
+        fill: $color-primary;
+    }
 }

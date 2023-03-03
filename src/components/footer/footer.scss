@@ -1,4 +1,4 @@
-@import "/src/styles/component";
+@import '/src/styles/component';
 
 .footer {
     color: $color-tertiary-contrast;
@@ -20,9 +20,9 @@
         display: flex;
         align-items: center;
         margin: 10px 0;
-        @include anchor-styles("light", "tertiary");
+        @include anchor-styles('light', 'tertiary');
         &-active {
-            @include anchor-styles("light", "tertiary");
+            @include anchor-styles('light', 'tertiary');
         }
         &-icon {
             margin-right: 10px;
@@ -52,15 +52,10 @@
                 font-weight: bold;
                 margin: 40px 0;
             }
-
-            
-
         }
-
     }
 
     .social {
-
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -86,10 +81,8 @@
                     }
                 }
             }
-
         }
     }
-
 
     .trademark {
         @extend %typography-small;
@@ -97,7 +90,6 @@
         align-self: center;
         text-align: center;
     }
-
 
     @include for-sm {
         &-logo {
@@ -112,6 +104,4 @@
             }
         }
     }
-
-
 }

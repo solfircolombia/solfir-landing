@@ -1,40 +1,34 @@
 {
-  "name": "SOLFIR LANDING",
-  "image": "ubuntu:22.04", // Using this version instead of 23:04 due to default python version
-  "remoteEnv": {
-    "GIT_NAME": "${localEnv:GIT_NAME}",
-    "GIT_EMAIL": "${localEnv:GIT_EMAIL}"
-  },
-  // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  "forwardPorts": [
-    8000
-  ],
-  "customizations": {
-    "vscode": {
-      "extensions": [
-        "esbenp.prettier-vscode",
-        "eamodio.gitlens",
-        "wesbos.theme-cobalt2",
-        "foxundermoon.shell-format",
-        "mrmlnc.vscode-scss"
-      ],
-      "settings": {
-        "workbench.colorTheme": "Cobalt2",
-        "terminal.integrated.defaultProfile.linux": "zsh",
-        "terminal.integrated.profiles.linux": {
-          "zsh": {
-            "path": "/usr/bin/zsh"
-          }
+    "name": "SOLFIR LANDING",
+    "image": "ubuntu:22.04", // Using this version instead of 23:04 due to default python version
+    "remoteEnv": {
+        "GIT_NAME": "${localEnv:GIT_NAME}",
+        "GIT_EMAIL": "${localEnv:GIT_EMAIL}"
+    },
+    // Use 'forwardPorts' to make a list of ports inside the container available locally.
+    "forwardPorts": [8000],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "esbenp.prettier-vscode",
+                "eamodio.gitlens",
+                "wesbos.theme-cobalt2",
+                "foxundermoon.shell-format",
+                "mrmlnc.vscode-scss"
+            ],
+            "settings": {
+                "workbench.colorTheme": "Cobalt2",
+                "terminal.integrated.defaultProfile.linux": "zsh",
+                "terminal.integrated.profiles.linux": {
+                    "zsh": {
+                        "path": "/usr/bin/zsh"
+                    }
+                }
+            }
         }
-      }
-    }
-  },
-  // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": [
-    "/bin/bash",
-    "-c",
-    "source .devcontainer/postCreateCommand"
-  ],
-  // Connect with root user
-  "remoteUser": "root"
+    },
+    // Use 'postCreateCommand' to run commands after the container is created.
+    "postCreateCommand": ["/bin/bash", "-c", "source .devcontainer/postCreateCommand"],
+    // Connect with root user
+    "remoteUser": "root"
 }

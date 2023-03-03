@@ -1,20 +1,23 @@
-import * as React from "react";
-import ReactDOM from "react-dom";
-import { Icon } from "@components";
-import { addPortalElement, getPortalParentElement, removePortalElement } from "./helpers";
+import * as React from 'react';
+import ReactDOM from 'react-dom';
+import { Icon } from '@components';
+import { addPortalElement, getPortalParentElement, removePortalElement } from './helpers';
 
 // Styles
-import "./modal.scss";
-import { KEY, LABELS } from "@constants";
+import './modal.scss';
+import { KEY, LABELS } from '@constants';
 
 type ModalProps = {
-    onCloseModal: () => void,
-    ariaLabel?: string,
+    onCloseModal: () => void;
+    ariaLabel?: string;
 };
 
-export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({ children, onCloseModal, ariaLabel }) => {
-
-    const CONTAINER_BASE_CLASS = 'portal'
+export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({
+    children,
+    onCloseModal,
+    ariaLabel,
+}) => {
+    const CONTAINER_BASE_CLASS = 'portal';
     const CONTAINER_ELEMENT_TAG = 'div';
 
     const [container] = React.useState<HTMLElement>(() => {
@@ -35,24 +38,15 @@ export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({ children,
     let focusableElementIdx = 0;
 
     const getFocusableElements = () => {
+        const selectors: string[] = ['button', 'a[href]'];
 
-        const selectors: string[] = [
-            'button',
-            'a[href]'
-        ]
-
-        return modalRef.current?.querySelectorAll(
-            selectors.join(',')
-        );
-        
-    }
+        return modalRef.current?.querySelectorAll(selectors.join(','));
+    };
 
     const handleTabKey = (e: KeyboardEvent) => {
-
         const focusableModalElements = getFocusableElements();
 
         if (focusableModalElements) {
-
             const firstElement = focusableModalElements[0];
             const lastElement = focusableModalElements[focusableModalElements.length - 1];
 
@@ -66,7 +60,6 @@ export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({ children,
                     focusableElementIdx++;
                     focusableModalElements[focusableElementIdx].focus();
                 }
-
             }
             //  Should move to prev focusable element
             if (e.shiftKey) {
@@ -80,12 +73,12 @@ export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({ children,
             }
             e.preventDefault();
         }
-
-
     };
 
-    const keyListenersMap: Map<KEY, any> = new Map([[KEY.ESCAPE, onCloseModal], [KEY.TAB, handleTabKey]]);
-
+    const keyListenersMap: Map<KEY, any> = new Map([
+        [KEY.ESCAPE, onCloseModal],
+        [KEY.TAB, handleTabKey],
+    ]);
 
     React.useEffect(() => {
         // Execute on init
@@ -101,7 +94,7 @@ export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({ children,
             const listener = keyListenersMap.get(e.key as KEY);
             return listener && listener(e);
         }
-        document.addEventListener("keydown", keyListener);
+        document.addEventListener('keydown', keyListener);
 
         return () => {
             // Execute on destroy
@@ -110,34 +103,34 @@ export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({ children,
             removePortalElement(getPortalParentElement(), container);
 
             // Remove listeners
-            document.removeEventListener("keydown", keyListener);
-        }
+            document.removeEventListener('keydown', keyListener);
+        };
     }, []);
-
-
-  
 
     return ReactDOM.createPortal(
         <div
             role="dialog"
             aria-modal="true"
-            aria-label={ ariaLabel ?? LABELS.MODAL_DEFAULT}
+            aria-label={ariaLabel ?? LABELS.MODAL_DEFAULT}
             className={BASE_CLASS}
             ref={modalRef}
         >
             <div className={`${BASE_CLASS}-wrapper`}>
-                <div className={`${BASE_CLASS}-header`} >
-                    <button aria-label={LABELS.MENU_CERRAR} className={`${BASE_CLASS}-header-close`} onClick={onCloseModal}>
-                        <Icon name='close' fill="black"></Icon>
+                <div className={`${BASE_CLASS}-header`}>
+                    <button
+                        aria-label={LABELS.MENU_CERRAR}
+                        className={`${BASE_CLASS}-header-close`}
+                        onClick={onCloseModal}
+                    >
+                        <Icon name="close" fill="black"></Icon>
                     </button>
                 </div>
-                <div className={`${BASE_CLASS}-content`}>
-                    {children}
-                </div>
+                <div className={`${BASE_CLASS}-content`}>{children}</div>
                 <div className={`${BASE_CLASS}-footer`}>
                     <span>SOLFIR Colombia SAS</span>
                 </div>
             </div>
-        </div>
-        , container);
-}
+        </div>,
+        container
+    );
+};

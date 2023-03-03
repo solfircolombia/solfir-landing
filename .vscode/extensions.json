@@ -1,7 +1,3 @@
 {
-    "recommendations": [
-        "mrmlnc.vscode-scss",
-        "mhutchie.git-graph",
-        "eamodio.gitlens"
-    ],
+    "recommendations": ["mrmlnc.vscode-scss", "mhutchie.git-graph", "eamodio.gitlens"]
 }

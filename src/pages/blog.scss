@@ -1,7 +1,6 @@
-@import "../styles/component";
+@import '../styles/component';
 
 .blog {
-
     $ref: &;
 
     display: flex;
@@ -34,19 +33,15 @@
 
     &-welcome-text {
         @extend %blog-section;
-        
     }
 
     &-posts {
-
         display: flex;
         flex-direction: column;
 
         &-title {
             margin-bottom: 40px;
-
         }
-
 
         &-items {
             @extend %section;
@@ -59,9 +54,6 @@
             &-card {
                 margin-top: 40px;
             }
-
         }
     }
-
-   
 }

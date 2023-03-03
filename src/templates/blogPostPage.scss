@@ -1,4 +1,4 @@
-@import "../styles/component";
+@import '../styles/component';
 
 .blog-post-page {
     @extend %cw;
@@ -12,9 +12,7 @@
         object-fit: cover;
     }
     &-title {
-
     }
     &-content {
-
     }
 }

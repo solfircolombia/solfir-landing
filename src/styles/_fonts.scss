@@ -1,57 +1,54 @@
-@import url("https://fonts.googleapis.com/css?family=Inconsolata:400,700");
+@import url('https://fonts.googleapis.com/css?family=Inconsolata:400,700');
 
-$inconsolata: "Inconsolata";
+$inconsolata: 'Inconsolata';
 
 @font-face {
-  font-family: "Modern20";
-  font-weight: 100 900;
-  font-display: swap;
-  font-style: normal;
-  font-named-instance: "Regular";
-  src: url(/fonts/Modern20.ttf) format("truetype");
+    font-family: 'Modern20';
+    font-weight: 100 900;
+    font-display: swap;
+    font-style: normal;
+    font-named-instance: 'Regular';
+    src: url(/fonts/Modern20.ttf) format('truetype');
 }
 
-$modern20: "Modern20";
-
+$modern20: 'Modern20';
 
 // Font Faces Champagne&Limousines
 
 @font-face {
-  font-family: "Champagne&Limousines";
-  font-weight: 100 400;
-  font-display: swap;
-  font-style: normal;
-  font-named-instance: "Regular";
-  src: url(/fonts/Champagne&Limousines.ttf) format("truetype");
+    font-family: 'Champagne&Limousines';
+    font-weight: 100 400;
+    font-display: swap;
+    font-style: normal;
+    font-named-instance: 'Regular';
+    src: url(/fonts/Champagne&Limousines.ttf) format('truetype');
 }
 
 @font-face {
-    font-family: "Champagne&Limousines";
+    font-family: 'Champagne&Limousines';
     font-weight: 500 900;
     font-display: swap;
     font-style: normal;
-    font-named-instance: "Bold";
-    src: url(/fonts/Champagne&LimousinesBold.ttf) format("truetype");
+    font-named-instance: 'Bold';
+    src: url(/fonts/Champagne&LimousinesBold.ttf) format('truetype');
 }
 
 @font-face {
-    font-family: "Champagne&Limousines";
+    font-family: 'Champagne&Limousines';
     font-weight: 400;
     font-display: swap;
     font-style: italic;
-    font-named-instance: "Italic";
-    src: url(/fonts/Champagne&LimousinesItalic.ttf) format("truetype");
-  }
+    font-named-instance: 'Italic';
+    src: url(/fonts/Champagne&LimousinesItalic.ttf) format('truetype');
+}
 
-  @font-face {
-    font-family: "Champagne&Limousines";
+@font-face {
+    font-family: 'Champagne&Limousines';
     font-weight: 600;
     font-display: swap;
     font-style: italic;
-    font-named-instance: "Italic";
-    src: url(/fonts/Champagne&LimousinesBoldItalic.ttf) format("truetype");
-  }
+    font-named-instance: 'Italic';
+    src: url(/fonts/Champagne&LimousinesBoldItalic.ttf) format('truetype');
+}
 
-
-
-$champlimo: "Champagne&Limousines";
+$champlimo: 'Champagne&Limousines';

@@ -32,16 +32,16 @@
 // $variant must be ( primary, secondary, tertiary, dark, light )
 
 $anchor-variant-color: (
-  primary: $color-primary,
-  secondary: $color-secondary,
-  tertiary: $color-tertiary,
-  dark: $color-dark,
-  light: $color-light,
+    primary: $color-primary,
+    secondary: $color-secondary,
+    tertiary: $color-tertiary,
+    dark: $color-dark,
+    light: $color-light,
 );
 
 // $variant will determine the links and border
 // $bg-variant will determine the background where the anchor is used
-@mixin anchor-styles($variant, $bg-variant){
+@mixin anchor-styles($variant, $bg-variant) {
     @extend %typography-p;
     text-decoration: none;
     color: map-get($anchor-variant-color, $variant);
@@ -54,7 +54,6 @@ $anchor-variant-color: (
         border-bottom: 3px solid map-get($anchor-variant-color, $variant);
     }
 }
-
 
 // Mixins for typography: This are created to be used inside media queries
 

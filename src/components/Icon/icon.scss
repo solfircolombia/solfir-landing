@@ -1,7 +1,6 @@
-@import "/src/styles/component";
+@import '/src/styles/component';
 
 .icon {
-    
     &--variant {
         &-primary {
             path {
@@ -29,5 +28,4 @@
             }
         }
     }
-
 }

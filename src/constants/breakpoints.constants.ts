@@ -29,4 +29,4 @@ export {
     MAX_SCREEN_WIDTH_LG,
     MIN_SCREEN_WIDTH_XL,
     MAX_SCREEN_WIDTH_XL,
-}
+};

@@ -1,5 +1,4 @@
-@import "/src/styles/component";
-
+@import '/src/styles/component';
 
 %blog-card-link-icon {
     margin-left: 10px;
@@ -60,7 +59,6 @@
             overflow: hidden;
             text-overflow: ellipsis;
             margin-top: 16px;
-
         }
 
         &-actions {
@@ -75,13 +73,12 @@
         justify-content: flex-end;
 
         &-link {
-            @extend %blog-card-link;        
+            @extend %blog-card-link;
             &-icon {
                 @extend %blog-card-link-icon;
             }
         }
     }
-
 
     &--horizontal {
         $img-size: 300px;
@@ -94,27 +91,25 @@
         #{$ref}-actions {
             display: none;
         }
-        
+
         #{$ref}-image {
             max-width: $img-size;
             height: $img-size;
         }
         #{$ref}-summary {
-
             display: flex;
             flex-direction: column;
             min-height: 100%;
-           
+
             &-title {
                 @extend %typography-h5;
-                margin-bottom: 1rem
+                margin-bottom: 1rem;
             }
 
             &-text {
                 @extend %typography-p;
-                display: initial
+                display: initial;
             }
-
 
             &-actions {
                 @extend %typography-p;
@@ -124,9 +119,9 @@
                 display: flex;
                 justify-self: flex-end;
                 justify-content: flex-end;
-                
+
                 &-link {
-                    @extend %blog-card-link;        
+                    @extend %blog-card-link;
                     &-icon {
                         @extend %blog-card-link-icon;
                     }
@@ -134,5 +129,4 @@
             }
         }
     }
-
 }
