@@ -9,6 +9,13 @@ import { SITE_LINKS, STATIC_SITE_LINKS, STATIC_SITE_LABELS } from "@constants";
 const LandingPage = ({ data }: PageProps<Queries.LandingPageQuery>) => {
 
   const BLOG_POSTS = data.allContentfulBlogPost.nodes;
+  const SERVICES: { serviceIcon: IconName, serviceName: string, serviceText: string }[] = data.allContentfulService.edges.map(
+    ( { node } ) => ({
+      serviceIcon: node.icon as IconName || '',
+      serviceName: node.title || '',
+      serviceText: node.description?.description || '',
+    })
+  );
 
   const BASE_CLASS = "landing";
 
@@ -25,28 +32,6 @@ const LandingPage = ({ data }: PageProps<Queries.LandingPageQuery>) => {
   }
 
 
-  const services: { serviceIcon: IconName, serviceName: string, serviceText: string }[] = [
-    {
-      serviceIcon: "arrow-right",
-      serviceName: "Negociacion de deudas",
-      serviceText: "En SOLFIR ofrecemos un servicio de negociación de deudas para ayudar a nuestros clientes a encontrar plazos más convenientes y tasas de interés más bajas. Nuestros expertos en finanzas negocian con los acreedores en nombre de nuestros clientes, encontrando soluciones personalizadas para sus necesidades financieras. Si está luchando por pagar sus deudas y quiere encontrar una solución efectiva, en SOLFIR estamos listos para ayudarlo. Contáctenos hoy para comenzar a resolver sus problemas financieros de manera efectiva y duradera."
-    },
-    {
-      serviceIcon: "arrow-right",
-      serviceName: "Evitar remates y perdida de su patrimonio",
-      serviceText: "En SOLFIR entendemos que su patrimonio es valioso, y por eso ofrecemos un servicio especializado en evitar remates judiciales y la pérdida de su propiedad. Nuestros expertos legales trabajan en conjunto con nuestros asesores financieros para encontrar soluciones personalizadas a sus necesidades, permitiéndole mantener su propiedad y evitar una crisis financiera. Si está en riesgo de perder su patrimonio, contáctenos hoy para obtener asesoramiento legal y financiero efectivo y personalizado. En SOLFIR estamos dedicados a ayudar a nuestros clientes a proteger su patrimonio y a enfrentar los desafíos financieros con tranquilidad y confianza."
-    },
-    {
-      serviceIcon: "arrow-right",
-      serviceName: "Acuerdos privados y liquidaciones patrimoniales",
-      serviceText: "En SOLFIR ofrecemos servicios de acuerdos privados y liquidaciones patrimoniales para ayudar a nuestros clientes a resolver conflictos financieros de manera efectiva y duradera. Nuestros expertos trabajan para encontrar soluciones personalizadas que se adapten a las necesidades únicas de cada cliente, negociando acuerdos privados y liquidaciones patrimoniales que les permitan alcanzar la estabilidad financiera y proteger su patrimonio. Si está enfrentando problemas financieros y desea encontrar una solución efectiva, en SOLFIR estamos listos para ayudarlo. Contáctenos hoy para obtener asesoramiento financiero y legal personalizado y efectivo."
-    },
-    {
-      serviceIcon: "arrow-right",
-      serviceName: "Recuperar su estabilidad financiera y tranquilidad",
-      serviceText: "En SOLFIR entendemos que la estabilidad financiera y la tranquilidad son fundamentales para una vida feliz y saludable. Es por eso que ofrecemos un servicio especializado en ayudar a nuestros clientes a recuperar su estabilidad financiera y tranquilidad. Nuestros expertos en finanzas trabajan en conjunto con nuestros abogados para encontrar soluciones personalizadas y efectivas para las necesidades financieras de cada cliente. Ya sea que esté luchando con deudas, enfrentando problemas legales o simplemente buscando encontrar una manera de mejorar su situación financiera, en SOLFIR estamos aquí para ayudarlo. Contáctenos hoy para obtener asesoramiento financiero y legal efectivo y personalizado y comience a recuperar su estabilidad financiera y tranquilidad."
-    },
-  ]
 
   return (
     <Layout>
@@ -69,7 +54,7 @@ const LandingPage = ({ data }: PageProps<Queries.LandingPageQuery>) => {
               Nuestros Servicios
             </h2>
             <div className={`${BASE_CLASS}-services-items`}>
-              {services.map(({ serviceIcon, serviceName, serviceText }, idx) => {
+              {SERVICES.map(({ serviceIcon, serviceName, serviceText }, idx) => {
                 return (
                   <div key={idx} className="service-box">
                     <div className="service-box-content">
@@ -119,7 +104,7 @@ const LandingPage = ({ data }: PageProps<Queries.LandingPageQuery>) => {
               variant="light"
               className={`${BASE_CLASS}-hireus-cta`}
               onClick={() => { goToLink(STATIC_SITE_LINKS.CONTACT) }}>
-                {STATIC_SITE_LABELS.CONTACT}
+              {STATIC_SITE_LABELS.CONTACT}
             </Button>
           </div>
         </section>
@@ -147,6 +132,17 @@ export const query = graphql`
         contentful_id
       }
       totalCount
+    }
+    allContentfulService(limit:3) {
+      edges {
+        node {
+          icon
+          title
+          description {
+            description
+          }
+        }
+      }
     }
   }
 `;
