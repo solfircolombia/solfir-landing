@@ -18,7 +18,7 @@ export const Logo: React.FC<LogoProps> = ({variant = "regular", className}) => {
 
 
     return (
-        <div className={`${BASE_CLASS} ${className}`}>
+        <div className={`${BASE_CLASS} ${className ?? ''}`} onClick={()=>{ clickHandler() }}>
             <LogoFullHorizontal variant={variant}></LogoFullHorizontal>
         </div>
     )
