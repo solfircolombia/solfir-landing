@@ -1,18 +1,18 @@
 @import '../styles/component';
 
 .blog-post-page {
-  @extend %cw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  align-self: center;
-  &-image {
+    @extend %cw;
     display: flex;
-    height: 300px;
-    object-fit: cover;
-  }
-  &-title {
-  }
-  &-content {
-  }
+    flex-direction: column;
+    align-items: center;
+    align-self: center;
+    &-image {
+        display: flex;
+        height: 300px;
+        object-fit: cover;
+    }
+    &-title {
+    }
+    &-content {
+    }
 }

@@ -1,80 +1,80 @@
 // Content Wrapper
 %cw {
-  width: 100%;
-  max-width: calc($max-screen-width-xl - 300px);
-  padding: 16px;
+    width: 100%;
+    max-width: calc($max-screen-width-xl - 300px);
+    padding: 16px;
 
-  @include for-xl {
-    max-width: calc($max-screen-width-xl - 350px);
-  }
+    @include for-xl {
+        max-width: calc($max-screen-width-xl - 350px);
+    }
 
-  @include for-lg {
-    max-width: calc($max-screen-width-lg - 250px);
-  }
+    @include for-lg {
+        max-width: calc($max-screen-width-lg - 250px);
+    }
 
-  @include for-md {
-    max-width: calc($max-screen-width-md - 200px);
-  }
+    @include for-md {
+        max-width: calc($max-screen-width-md - 200px);
+    }
 
-  @include for-sm {
-    max-width: calc($max-screen-width-sm - 100px);
-  }
+    @include for-sm {
+        max-width: calc($max-screen-width-sm - 100px);
+    }
 
-  @include for-xs {
-    max-width: calc($max-screen-width-xs - 32px);
-  }
+    @include for-xs {
+        max-width: calc($max-screen-width-xs - 32px);
+    }
 }
 
 // Typograpy Placeholders
 
 %font-general {
-  font-weight: 400;
-  line-height: 1.3;
-  margin-inline: 0 0;
-  margin-block: 0 0;
+    font-weight: 400;
+    line-height: 1.3;
+    margin-inline: 0 0;
+    margin-block: 0 0;
 }
 
 %typography-p {
-  @extend %font-general;
-  font-size: 1rem;
+    @extend %font-general;
+    font-size: 1rem;
 }
 
 %typography-h1 {
-  @extend %font-general;
-  font-size: 3.052rem;
+    @extend %font-general;
+    font-size: 3.052rem;
 }
 
 %typography-h2 {
-  @extend %font-general;
-  font-size: 2.441rem;
+    @extend %font-general;
+    font-size: 2.441rem;
 }
 
 %typography-h3 {
-  @extend %font-general;
-  font-size: 1.953rem;
+    @extend %font-general;
+    font-size: 1.953rem;
 }
 
 %typography-h4 {
-  @extend %font-general;
-  font-size: 1.563rem;
+    @extend %font-general;
+    font-size: 1.563rem;
 }
 
 %typography-h5 {
-  @extend %font-general;
-  font-size: 1.25rem;
+    @extend %font-general;
+    font-size: 1.25rem;
 }
 
 %typography-small {
-  @extend %font-general;
-  font-size: 0.8rem;
+    @extend %font-general;
+    font-size: 0.8rem;
 }
 
 // Layout placeholders
 
 %section {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding: 100px 0;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 100px 0;
 }

@@ -1,125 +1,125 @@
 @import '/src/styles/component';
 
 .settings {
-  $settings-radius: 10px;
-  $settings-bg-color: hsl(202, 100%, 30%);
-  $settings-toggle-bg-color: hsl(202, 100%, 50%);
-  $settings-width: 200px;
-  $settings-height: 200px;
-  $settings-transition-duration: 0.5s;
-  position: fixed;
-  display: flex;
-  left: calc($settings-width/2);
-  top: 200px;
-
-  &--open {
-    left: 0;
-    transition-property: left;
-    transition-duration: $settings-transition-duration;
-  }
-
-  &--closed {
-    left: calc(0px - $settings-width);
-    transition-property: left;
-    transition-duration: $settings-transition-duration;
-  }
-
-  &-toggle {
+    $settings-radius: 10px;
+    $settings-bg-color: hsl(202, 100%, 30%);
+    $settings-toggle-bg-color: hsl(202, 100%, 50%);
+    $settings-width: 200px;
+    $settings-height: 200px;
+    $settings-transition-duration: 0.5s;
+    position: fixed;
     display: flex;
-    background-color: transparent;
-    padding-top: 10px;
+    left: calc($settings-width/2);
+    top: 200px;
 
-    &-icon {
-      display: flex;
-      width: 30px;
-      height: 30px;
-      padding: 5px;
-      background-color: $settings-toggle-bg-color;
-      border-top-right-radius: $settings-radius;
-      border-bottom-right-radius: $settings-radius;
-      box-shadow: 0 0 9px 0 rgb(0 0 0 / 10%);
-
-      &:hover {
-        &,
-        svg,
-        path {
-          cursor: pointer;
-        }
-      }
+    &--open {
+        left: 0;
+        transition-property: left;
+        transition-duration: $settings-transition-duration;
     }
-  }
 
-  &-content {
-    align-items: center;
-    background-color: $settings-bg-color;
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    border-top-right-radius: $settings-radius;
-    border-bottom-right-radius: $settings-radius;
-    box-shadow: $box-shadow-1;
-    color: white;
+    &--closed {
+        left: calc(0px - $settings-width);
+        transition-property: left;
+        transition-duration: $settings-transition-duration;
+    }
 
-    width: $settings-width;
-
-    &-themes {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      align-items: center;
-
-      &-wrapper {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-      }
-
-      &-box {
+    &-toggle {
         display: flex;
-        width: 100%;
-        justify-content: center;
-        align-items: center;
+        background-color: transparent;
+        padding-top: 10px;
 
-        &:hover {
-          cursor: pointer;
+        &-icon {
+            display: flex;
+            width: 30px;
+            height: 30px;
+            padding: 5px;
+            background-color: $settings-toggle-bg-color;
+            border-top-right-radius: $settings-radius;
+            border-bottom-right-radius: $settings-radius;
+            box-shadow: 0 0 9px 0 rgb(0 0 0 / 10%);
 
-          * {
-            cursor: inherit;
-          }
+            &:hover {
+                &,
+                svg,
+                path {
+                    cursor: pointer;
+                }
+            }
         }
-
-        &-item {
-          $box-size: 20px;
-          width: $box-size;
-          min-width: $box-size;
-          max-height: $box-size;
-          height: $box-size;
-          min-height: $box-size;
-          max-height: $box-size;
-          margin: 2px 0;
-        }
-      }
     }
 
-    &-text {
-      display: flex;
-      align-items: center;
-      &-icon {
-        $text-icon-size: 40px;
+    &-content {
+        align-items: center;
+        background-color: $settings-bg-color;
         display: flex;
-        align-items: center;
-        width: $text-icon-size;
-        height: $text-icon-size;
-        background-color: darken($color: $settings-bg-color, $amount: 10);
-        padding: 3px;
-        border-radius: 3px;
-        margin: 2px 10px;
-        &:hover {
-          &,
-          * {
-            cursor: pointer;
-          }
+        flex-direction: column;
+        padding: 10px;
+        border-top-right-radius: $settings-radius;
+        border-bottom-right-radius: $settings-radius;
+        box-shadow: $box-shadow-1;
+        color: white;
+
+        width: $settings-width;
+
+        &-themes {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            align-items: center;
+
+            &-wrapper {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+
+            &-box {
+                display: flex;
+                width: 100%;
+                justify-content: center;
+                align-items: center;
+
+                &:hover {
+                    cursor: pointer;
+
+                    * {
+                        cursor: inherit;
+                    }
+                }
+
+                &-item {
+                    $box-size: 20px;
+                    width: $box-size;
+                    min-width: $box-size;
+                    max-height: $box-size;
+                    height: $box-size;
+                    min-height: $box-size;
+                    max-height: $box-size;
+                    margin: 2px 0;
+                }
+            }
         }
-      }
+
+        &-text {
+            display: flex;
+            align-items: center;
+            &-icon {
+                $text-icon-size: 40px;
+                display: flex;
+                align-items: center;
+                width: $text-icon-size;
+                height: $text-icon-size;
+                background-color: darken($color: $settings-bg-color, $amount: 10);
+                padding: 3px;
+                border-radius: 3px;
+                margin: 2px 10px;
+                &:hover {
+                    &,
+                    * {
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
     }
-  }
 }

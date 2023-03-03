@@ -2,48 +2,48 @@
 @import '../../styles/global'; // Importing global styles
 
 .layout {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  align-items: center;
-  padding-top: $header-height;
-
-  .content {
-    width: 100%;
     display: flex;
     flex-direction: column;
     height: 100%;
-  }
-
-  .bubble {
-    $size: 80px;
-    width: $size;
-    height: $size;
-    border-radius: calc($size / 2);
-    background-color: $whatsapp-color;
-    position: fixed;
-    display: flex;
     align-items: center;
-    justify-content: center;
+    padding-top: $header-height;
 
-    .icon {
-      $icon-size: 60px;
-      max-width: $icon-size;
-      max-height: $icon-size;
+    .content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
     }
 
-    &:active {
-      box-shadow: $box-shadow-1;
-    }
+    .bubble {
+        $size: 80px;
+        width: $size;
+        height: $size;
+        border-radius: calc($size / 2);
+        background-color: $whatsapp-color;
+        position: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
-    &:hover {
-      cursor: pointer;
-      * {
-        cursor: pointer;
-      }
-    }
+        .icon {
+            $icon-size: 60px;
+            max-width: $icon-size;
+            max-height: $icon-size;
+        }
 
-    top: calc(100vh - $size - 80px);
-    left: calc(100vw - $size - 20px);
-  }
+        &:active {
+            box-shadow: $box-shadow-1;
+        }
+
+        &:hover {
+            cursor: pointer;
+            * {
+                cursor: pointer;
+            }
+        }
+
+        top: calc(100vh - $size - 80px);
+        left: calc(100vw - $size - 20px);
+    }
 }

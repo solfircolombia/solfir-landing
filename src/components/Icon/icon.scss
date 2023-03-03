@@ -1,31 +1,31 @@
 @import '/src/styles/component';
 
 .icon {
-  &--variant {
-    &-primary {
-      path {
-        fill: $color-primary;
-      }
+    &--variant {
+        &-primary {
+            path {
+                fill: $color-primary;
+            }
+        }
+        &-secondary {
+            path {
+                fill: $color-secondary;
+            }
+        }
+        &-tertiary {
+            path {
+                fill: $color-tertiary;
+            }
+        }
+        &-dark {
+            path {
+                fill: $color-dark;
+            }
+        }
+        &-light {
+            path {
+                fill: $color-light;
+            }
+        }
     }
-    &-secondary {
-      path {
-        fill: $color-secondary;
-      }
-    }
-    &-tertiary {
-      path {
-        fill: $color-tertiary;
-      }
-    }
-    &-dark {
-      path {
-        fill: $color-dark;
-      }
-    }
-    &-light {
-      path {
-        fill: $color-light;
-      }
-    }
-  }
 }

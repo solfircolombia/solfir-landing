@@ -1,132 +1,132 @@
 @import '/src/styles/component';
 
 %blog-card-link-icon {
-  margin-left: 10px;
-  fill: $color-primary;
-  width: 20px !important;
-  height: 20px !important;
+    margin-left: 10px;
+    fill: $color-primary;
+    width: 20px !important;
+    height: 20px !important;
 }
 
 %blog-card-link {
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  vertical-align: middle;
-  border-bottom: 3px solid $color-light;
-  color: $color-primary;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    vertical-align: middle;
+    border-bottom: 3px solid $color-light;
+    color: $color-primary;
 
-  &:hover {
-    border-bottom: 3px solid $color-primary;
-  }
+    &:hover {
+        border-bottom: 3px solid $color-primary;
+    }
 }
 
 .blog-card {
-  $ref: &;
+    $ref: &;
 
-  display: flex;
-  flex-direction: column;
-  width: 300px;
-  margin: 10px;
-  box-shadow: $box-shadow-2;
-
-  &:hover {
-    box-shadow: $box-shadow-4;
-  }
-
-  &-image {
-    width: 100%;
-  }
-
-  &-summary {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 100%;
-    font-size: 14px;
-    padding: 16px;
+    width: 300px;
+    margin: 10px;
+    box-shadow: $box-shadow-2;
 
-    &-title {
-      @extend %typography-small;
-      font-weight: bold;
-      flex: 1 1 auto;
+    &:hover {
+        box-shadow: $box-shadow-4;
     }
 
-    &-text {
-      @extend %typography-small;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      margin-top: 16px;
+    &-image {
+        width: 100%;
+    }
+
+    &-summary {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        font-size: 14px;
+        padding: 16px;
+
+        &-title {
+            @extend %typography-small;
+            font-weight: bold;
+            flex: 1 1 auto;
+        }
+
+        &-text {
+            @extend %typography-small;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-top: 16px;
+        }
+
+        &-actions {
+            display: none;
+        }
     }
 
     &-actions {
-      display: none;
-    }
-  }
-
-  &-actions {
-    width: 100%;
-    padding: 16px;
-    display: flex;
-    justify-content: flex-end;
-
-    &-link {
-      @extend %blog-card-link;
-      &-icon {
-        @extend %blog-card-link-icon;
-      }
-    }
-  }
-
-  &--horizontal {
-    $img-size: 300px;
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 100%;
-    max-height: $img-size;
-
-    #{$ref}-actions {
-      display: none;
-    }
-
-    #{$ref}-image {
-      max-width: $img-size;
-      height: $img-size;
-    }
-    #{$ref}-summary {
-      display: flex;
-      flex-direction: column;
-      min-height: 100%;
-
-      &-title {
-        @extend %typography-h5;
-        margin-bottom: 1rem;
-      }
-
-      &-text {
-        @extend %typography-p;
-        display: initial;
-      }
-
-      &-actions {
-        @extend %typography-p;
-        display: flex;
         width: 100%;
         padding: 16px;
         display: flex;
-        justify-self: flex-end;
         justify-content: flex-end;
 
         &-link {
-          @extend %blog-card-link;
-          &-icon {
-            @extend %blog-card-link-icon;
-          }
+            @extend %blog-card-link;
+            &-icon {
+                @extend %blog-card-link-icon;
+            }
         }
-      }
     }
-  }
+
+    &--horizontal {
+        $img-size: 300px;
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 100%;
+        max-height: $img-size;
+
+        #{$ref}-actions {
+            display: none;
+        }
+
+        #{$ref}-image {
+            max-width: $img-size;
+            height: $img-size;
+        }
+        #{$ref}-summary {
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;
+
+            &-title {
+                @extend %typography-h5;
+                margin-bottom: 1rem;
+            }
+
+            &-text {
+                @extend %typography-p;
+                display: initial;
+            }
+
+            &-actions {
+                @extend %typography-p;
+                display: flex;
+                width: 100%;
+                padding: 16px;
+                display: flex;
+                justify-self: flex-end;
+                justify-content: flex-end;
+
+                &-link {
+                    @extend %blog-card-link;
+                    &-icon {
+                        @extend %blog-card-link-icon;
+                    }
+                }
+            }
+        }
+    }
 }

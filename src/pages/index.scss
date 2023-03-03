@@ -1,168 +1,168 @@
 @import '../styles/component';
 
 .landing {
-  // Create variable for self referencing
-  $ref: &;
+    // Create variable for self referencing
+    $ref: &;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-  &-wrapper {
-    @extend %cw;
-  }
-
-  &-banner {
-    @extend %section;
-
-    &-title {
-      @extend %typography-h1;
-      display: block;
-      width: 100%;
-      text-align: center;
-      word-wrap: break-word;
-      overflow-wrap: break-word;
-
-      &-solfir {
-        color: $color-primary;
-      }
-      @include for-xs {
-        @include typography-h2;
-      }
+    &-wrapper {
+        @extend %cw;
     }
 
-    &-buttons {
-      margin-top: 50px;
-      display: flex;
-      justify-content: center;
-    }
-  }
+    &-banner {
+        @extend %section;
 
-  &-services {
-    @extend %section;
-    background-color: $color-secondary;
+        &-title {
+            @extend %typography-h1;
+            display: block;
+            width: 100%;
+            text-align: center;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
 
-    #{$ref}-wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+            &-solfir {
+                color: $color-primary;
+            }
+            @include for-xs {
+                @include typography-h2;
+            }
+        }
 
-    &-title {
-      margin-bottom: 60px;
-    }
-
-    &-items {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      width: 100%;
-
-      .service-box {
-        display: flex;
-        width: 100%;
-        border-radius: 10px;
-        min-width: 300px;
-        margin: 20px 10px;
-
-        &-content {
-          display: flex;
-          flex-direction: column;
-
-          &-title {
-            @extend %typography-h4;
-            font-weight: bold;
+        &-buttons {
+            margin-top: 50px;
             display: flex;
+            justify-content: center;
+        }
+    }
+
+    &-services {
+        @extend %section;
+        background-color: $color-secondary;
+
+        #{$ref}-wrapper {
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            margin: 60px 0;
-            &-icon {
-              display: flex;
-              margin-right: 20px;
-              $icon-size: 40px;
-              max-width: $icon-size !important;
-              max-height: $icon-size !important;
-              min-width: $icon-size !important;
-              min-height: $icon-size !important;
+        }
+
+        &-title {
+            margin-bottom: 60px;
+        }
+
+        &-items {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+
+            .service-box {
+                display: flex;
+                width: 100%;
+                border-radius: 10px;
+                min-width: 300px;
+                margin: 20px 10px;
+
+                &-content {
+                    display: flex;
+                    flex-direction: column;
+
+                    &-title {
+                        @extend %typography-h4;
+                        font-weight: bold;
+                        display: flex;
+                        align-items: center;
+                        margin: 60px 0;
+                        &-icon {
+                            display: flex;
+                            margin-right: 20px;
+                            $icon-size: 40px;
+                            max-width: $icon-size !important;
+                            max-height: $icon-size !important;
+                            min-width: $icon-size !important;
+                            min-height: $icon-size !important;
+                        }
+                    }
+
+                    &-text {
+                        word-break: normal;
+                    }
+                }
+
+                @include for-md {
+                    max-width: 100%;
+                }
+
+                @include for-xs {
+                    &-content {
+                        &-title {
+                            text-align: center;
+                            &-icon {
+                                display: none;
+                            }
+                        }
+                    }
+                }
             }
-          }
+        }
+    }
 
-          &-text {
-            word-break: normal;
-          }
+    &-blog {
+        @extend %section;
+
+        #{$ref}-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        @include for-md {
-          max-width: 100%;
+        &-title {
+            @extend %typography-h2;
+            text-align: center;
         }
 
-        @include for-xs {
-          &-content {
-            &-title {
-              text-align: center;
-              &-icon {
-                display: none;
-              }
-            }
-          }
+        &-text {
+            // @extend %typography-p;
+            margin: 50px 0;
         }
-      }
-    }
-  }
 
-  &-blog {
-    @extend %section;
+        &-posts {
+            display: flex;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
 
-    #{$ref}-wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    &-title {
-      @extend %typography-h2;
-      text-align: center;
+        &-cta {
+            margin-top: 60px;
+        }
     }
 
-    &-text {
-      // @extend %typography-p;
-      margin: 50px 0;
+    &-hireus {
+        @extend %section;
+
+        #{$ref}-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        background-color: $color-primary;
+        color: $color-light;
+
+        &-title {
+            text-align: center;
+        }
+
+        &-text {
+            text-align: center;
+        }
+
+        &-cta {
+            margin-top: 60px;
+            text-align: center;
+        }
     }
-
-    &-posts {
-      display: flex;
-      align-items: flex-start;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    &-cta {
-      margin-top: 60px;
-    }
-  }
-
-  &-hireus {
-    @extend %section;
-
-    #{$ref}-wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    background-color: $color-primary;
-    color: $color-light;
-
-    &-title {
-      text-align: center;
-    }
-
-    &-text {
-      text-align: center;
-    }
-
-    &-cta {
-      margin-top: 60px;
-      text-align: center;
-    }
-  }
 }

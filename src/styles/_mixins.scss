@@ -1,93 +1,93 @@
 @mixin for-xs {
-  @media (max-width: $max-screen-width-xs) {
-    @content;
-  }
+    @media (max-width: $max-screen-width-xs) {
+        @content;
+    }
 }
 
 @mixin for-sm {
-  @media (max-width: $max-screen-width-sm) {
-    @content;
-  }
+    @media (max-width: $max-screen-width-sm) {
+        @content;
+    }
 }
 
 @mixin for-md {
-  @media (max-width: $max-screen-width-md) {
-    @content;
-  }
+    @media (max-width: $max-screen-width-md) {
+        @content;
+    }
 }
 
 @mixin for-lg {
-  @media (max-width: $max-screen-width-lg) {
-    @content;
-  }
+    @media (max-width: $max-screen-width-lg) {
+        @content;
+    }
 }
 
 @mixin for-xl {
-  @media (max-width: $max-screen-width-xl) {
-    @content;
-  }
+    @media (max-width: $max-screen-width-xl) {
+        @content;
+    }
 }
 
 // Mixin for anchor styles
 // $variant must be ( primary, secondary, tertiary, dark, light )
 
 $anchor-variant-color: (
-  primary: $color-primary,
-  secondary: $color-secondary,
-  tertiary: $color-tertiary,
-  dark: $color-dark,
-  light: $color-light,
+    primary: $color-primary,
+    secondary: $color-secondary,
+    tertiary: $color-tertiary,
+    dark: $color-dark,
+    light: $color-light,
 );
 
 // $variant will determine the links and border
 // $bg-variant will determine the background where the anchor is used
 @mixin anchor-styles($variant, $bg-variant) {
-  @extend %typography-p;
-  text-decoration: none;
-  color: map-get($anchor-variant-color, $variant);
-  border-bottom: 3px solid map-get($anchor-variant-color, $bg-variant);
-  &:hover {
-    border-bottom: 3px solid map-get($anchor-variant-color, $variant);
-    cursor: pointer;
-  }
-  &:focus {
-    border-bottom: 3px solid map-get($anchor-variant-color, $variant);
-  }
+    @extend %typography-p;
+    text-decoration: none;
+    color: map-get($anchor-variant-color, $variant);
+    border-bottom: 3px solid map-get($anchor-variant-color, $bg-variant);
+    &:hover {
+        border-bottom: 3px solid map-get($anchor-variant-color, $variant);
+        cursor: pointer;
+    }
+    &:focus {
+        border-bottom: 3px solid map-get($anchor-variant-color, $variant);
+    }
 }
 
 // Mixins for typography: This are created to be used inside media queries
 
 @mixin typography-p {
-  @extend %font-general;
-  font-size: 1rem;
+    @extend %font-general;
+    font-size: 1rem;
 }
 
 @mixin typography-h1 {
-  @extend %font-general;
-  font-size: 3.052rem;
+    @extend %font-general;
+    font-size: 3.052rem;
 }
 
 @mixin typography-h2 {
-  @extend %font-general;
-  font-size: 2.441rem;
+    @extend %font-general;
+    font-size: 2.441rem;
 }
 
 @mixin typography-h3 {
-  @extend %font-general;
-  font-size: 1.953rem;
+    @extend %font-general;
+    font-size: 1.953rem;
 }
 
 @mixin typography-h4 {
-  @extend %font-general;
-  font-size: 1.563rem;
+    @extend %font-general;
+    font-size: 1.563rem;
 }
 
 @mixin typography-h5 {
-  @extend %font-general;
-  font-size: 1.25rem;
+    @extend %font-general;
+    font-size: 1.25rem;
 }
 
 @mixin typography-small {
-  @extend %font-general;
-  font-size: 0.8rem;
+    @extend %font-general;
+    font-size: 0.8rem;
 }

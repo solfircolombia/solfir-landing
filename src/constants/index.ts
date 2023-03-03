@@ -6,12 +6,12 @@ import { KEY } from './keyboard.constants';
 import { SOCIAL_LINKS } from './social.constants';
 
 export {
-  SITE_LINKS,
-  STATIC_SITE_LINKS,
-  STATIC_SITE_LABELS,
-  BREAKPOINTS,
-  CONTACT_DATA,
-  LABELS,
-  KEY,
-  SOCIAL_LINKS,
+    SITE_LINKS,
+    STATIC_SITE_LINKS,
+    STATIC_SITE_LABELS,
+    BREAKPOINTS,
+    CONTACT_DATA,
+    LABELS,
+    KEY,
+    SOCIAL_LINKS,
 };
