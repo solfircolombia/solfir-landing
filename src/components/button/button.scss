@@ -24,11 +24,11 @@
     &--variant {
         &-primary {
             background-color: $color-primary;
-            color: $light-white;
+            color: $color-light;
 
             svg {
                 path {
-                    fill: $light-white;
+                    fill: $color-light;
                 }
             }
 
@@ -40,7 +40,7 @@
 
             svg {
                 path {
-                    fill: $light-white;
+                    fill: $color-light;
                 }
             }
 
@@ -48,11 +48,11 @@
 
         &-tertiary {
             background-color: $color-tertiary;
-            color: $light-white;
+            color: $color-light;
 
             svg {
                 path {
-                    fill: $light-white;
+                    fill: $color-light;
                 }
             }
         }

@@ -22,23 +22,23 @@ export const Footer: React.FC = () => {
         <footer className={BASE_CLASS}>
             <div className={`${BASE_CLASS}-wrapper`}>
                 <span className={`${BASE_CLASS}-logo`}>
-                    <Logo />
+                    <Logo variant="tertiary"/>
                 </span>
                 <div className={`${BASE_CLASS}-columns`}>
                     <div className={`${BASE_CLASS}-columns-column contact-info`}>
                         <span className={`${BASE_CLASS}-columns-column-title`}>Datos de contacto</span>
                         <br />
                             <a className={`${BASE_CLASS}-link`} href={`mailto:${CONTACT_DATA.CONTACT_MAIL}`}>
-                                <Icon name="mail" className={`${BASE_CLASS}-link-icon`} variant="primary"></Icon>
+                                <Icon name="mail" className={`${BASE_CLASS}-link-icon`} variant="light"></Icon>
                                 {CONTACT_DATA.CONTACT_MAIL}
                             </a>
                             <a className={`${BASE_CLASS}-link`} href={`tel:${CONTACT_DATA.CONTACT_PHONE}`}>
-                                <Icon name="phone" className={`${BASE_CLASS}-link-icon`} variant="primary"></Icon>
+                                <Icon name="phone" className={`${BASE_CLASS}-link-icon`} variant="light"></Icon>
                                 {CONTACT_DATA.CONTACT_PHONE}
                             </a>
 
                             <a className={`${BASE_CLASS}-link`} href={CONTACT_DATA.CONTACT_ADDRESS_MAPS_LINK}>
-                                <Icon name="place" className={`${BASE_CLASS}-link-icon`} variant="primary"></Icon>
+                                <Icon name="place" className={`${BASE_CLASS}-link-icon`} variant="light"></Icon>
                                 {CONTACT_DATA.CONTACT_ADDRESS}
                             </a>
                     </div>
@@ -58,8 +58,8 @@ export const Footer: React.FC = () => {
                     {socialData.map(({ name, link }, idx) => {
                         return (
                             <a key={idx} className="social-icons-icon tooltip" href={link}>
-                                <span className="tooltiptext">{name.toLocaleUpperCase()}</span>
-                                <Icon key={idx} name={name} variant="primary"></Icon>
+                                <span className="tooltiptext tooltiptext--tertiary">{name.toLocaleUpperCase()}</span>
+                                <Icon key={idx} name={name} variant="light"></Icon>
                             </a>
                         );
                     })}

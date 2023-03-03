@@ -14,16 +14,28 @@
 
 :root {
   // Palette
-  --primary: #{$razzmatazz};
-  --secondary: #{$minion-yellow};
-  --tertiary: #{$y-in-mn-blue};
-  --dark: #{$black-chocolate};
-  --light: #{$light-white};
-  --primary-contrast: #{$razzmatazz-contrast};
-  --secondary-contrast: #{$minion-yellow-contrast};
-  --tertiary-contrast: #{$y-in-mn-blue-contrast};
-  --dark-contrast: #{$black-chocolate-contrast};
-  --light-contrast: #{$light-white-contrast};
+  --primary: #{$cerise-red};
+  --primary-contrast: #{$cerise-red-contrast-1};
+
+  --secondary: #{$sun-yellow};
+  --secondary-contrast: #{$sun-yellow-contrast-1};
+  --secondary-contrast-2: #{$sun-yellow-contrast-2};
+
+  --tertiary: #{$prussian-blue};
+  --tertiary-contrast: #{$prussian-blue-contrast-1};
+  --tertiary-contrast-2: #{$prussian-blue-contrast-2};
+
+  
+  --dark: #{$el-paso};
+  --dark-contrast-1: #{$el-paso-contrast-1};
+  --dark-contrast-2: #{$el-paso-contrast-2};
+  
+
+  --light: #{$sugar-cane};
+  --light-contrast-1: #{$sugar-cane-contrast-1};
+
+  --transparent: transparent;
+
   // Font Size
   --base-font-size: 19px;
 }
@@ -129,6 +141,12 @@ a, button {
   /* Fade in tooltip */
   opacity: 0;
   transition: opacity 0.3s;
+
+  &--tertiary{
+    background-color: $color-tertiary;
+    color: $color-tertiary-contrast;
+  }
+
 }
 
 /* Tooltip arrow */

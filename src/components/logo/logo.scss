@@ -3,45 +3,67 @@
 .logo {
     display: flex;
     font-size: 30px;
+    -webkit-user-select: none;
     user-select: none;
     padding: 5px;
     text-decoration: none;
 
     &:hover {
-        cursor: pointer;
-        color: $color-dark;
-    }
-
-    .letter {
-        font-weight: 700;
-
-        color: $color-dark;
-
-        &.dark {
-            color: $color-dark;
-        }
-
-        &.light {
-            color: $light-white;
-        }
-
-        &:hover {
+        * {
             cursor: pointer;
+        }   
+    }
+}
+
+.logo-full-horizontal {
+
+    $ref:&;
+
+    height: 100%;
+    width: 100%;
+
+    &--regular {
+        #{$ref}-letters {
+            fill: $scorpion;
+        }
+    
+        #{$ref}-hands-contrast {
+            fill: $color-light;
+        }
+    
+        #{$ref}-letter-o {
+            fill: $color-secondary;
+        }
+    
+        #{$ref}-hands {
+            fill: $color-secondary;
+        }
+    
+        #{$ref}-clip-path {
+            clip-path: url(#b);
         }
     }
-    .bar {
-        color: $color-primary;
 
-        &.dark {
-            color: $color-dark;
+    &--tertiary {
+        #{$ref}-letters {
+            fill: $color-light;
         }
-
-        &.light {
-            color: $light-white;
+    
+        #{$ref}-hands-contrast {
+            fill: $color-tertiary;
         }
-
-        &:hover {
-            cursor: pointer;
+    
+        #{$ref}-letter-o {
+            fill: $color-light;
+        }
+    
+        #{$ref}-hands {
+            fill: $color-light;
+        }
+    
+        #{$ref}-clip-path {
+            clip-path: url(#b);
         }
     }
+
 }

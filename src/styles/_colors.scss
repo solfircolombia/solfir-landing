@@ -1,32 +1,37 @@
-// Lets define palette here
 
-//
-$light-white: hsl(0, 0%, 100%);
+$sugar-cane: hsla(120, 100%, 100%, 1);
+$sun-yellow: hsla(41, 96%, 53%, 1);
+
+$prussian-blue: hsla(212, 98%, 16%, 1);
+$prussian-blue-contrast-1: $sugar-cane;
+$prussian-blue-contrast-2: $sun-yellow;
+
+$el-paso: hsla(49, 57%, 5%, 1);
+$el-paso-contrast-1: $sugar-cane;
+$el-paso-contrast-2: $sun-yellow;
+
+$sun-yellow: $sun-yellow;
+$sun-yellow-contrast-1: $sugar-cane;
+$sun-yellow-contrast-2: $el-paso;
 
 
-/* SCSS HSL */
+$sugar-cane: $sugar-cane;
+$sugar-cane-contrast-1: $el-paso;
 
-$black-chocolate: hsla(39, 52%, 6%, 1);
-$black-chocolate-contrast: $light-white;
+$cerise-red: hsla(340, 72%, 54%, 1);
+$cerise-red-contrast-1: $sugar-cane;
 
-$light-white: $light-white;
-$light-white-contrast: $black-chocolate;
-
-$razzmatazz: hsla(340, 71%, 54%, 1);
-$razzmatazz-contrast: $light-white;
-
-$minion-yellow: hsla(52, 99%, 67%, 1);
-$minion-yellow-contrast: $black-chocolate;
-
-$y-in-mn-blue: hsla(215, 53%, 35%, 1);
-$y-in-mn-blue-contrast: $light-white;
-
+// Additional colors
+$finn: hsla(320, 42%, 32%, 1);
+$scorpion: hsla(300, 1%, 38%, 1);
+$whatsapp-color: #25D366;
 
 $color-primary: var(--primary);
 $color-secondary: var(--secondary);
 $color-tertiary: var(--tertiary);
 $color-dark: var(--dark);
 $color-light: var(--light);
+$color-transparent: var(--transparent);
 
 $color-primary-contrast: var(--primary-contrast);
 $color-secondary-contrast: var(--secondary-contrast);
@@ -35,4 +40,3 @@ $color-dark-contrast: var(--dark-contrast);
 $color-light-contrast: var(--light-contrast);
 
 
-$whatsapp-color: #25D366;

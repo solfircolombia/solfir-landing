@@ -1,8 +1,8 @@
 @import "/src/styles/component";
 
 .footer {
-    color: $color-dark;
-    background-color: $color-light;
+    color: $color-tertiary-contrast;
+    background-color: $color-tertiary;
     display: flex;
     flex-direction: column;
     min-height: $footer-height;
@@ -20,9 +20,9 @@
         display: flex;
         align-items: center;
         margin: 10px 0;
-        @include anchor-styles("primary", "light");
+        @include anchor-styles("light", "tertiary");
         &-active {
-            @include anchor-styles("tertiary", "light");
+            @include anchor-styles("light", "tertiary");
         }
         &-icon {
             margin-right: 10px;
