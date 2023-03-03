@@ -1,0 +1,15 @@
+@import "../../styles/component";
+.loader {
+  $ref: &;
+
+  height: 100%;
+  width: 100%;
+
+  &-circle {
+    fill: $scorpion;
+  }
+
+  &--primary {
+      fill: $color-primary;
+  }
+}

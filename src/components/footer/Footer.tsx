@@ -1,22 +1,13 @@
 import * as React from "react";
 import { Link } from "gatsby";
-
 import { Logo, Icon } from "@components";
-import { IconName } from "@types";
+import { SITE_LINKS, CONTACT_DATA, SOCIAL_LINKS } from "@constants";
 import "./footer.scss";
-import { SITE_LINKS, CONTACT_DATA } from "@constants";
 
 
 export const Footer: React.FC = () => {
 
     const BASE_CLASS = "footer";
-
-    const socialData: Array<{ name: IconName, link: string }> = [
-        { name: "instagram", link: "https://instagram.com/solfircolombia" },
-        { name: "facebook", link: "https://facebook.com" },
-        { name: "linkedin", link: "https://www.linkedin.com/in/solfir-colombia-80663a267/" },
-        { name: "twitter", link: "https://twitter.com/solfircolombia" }
-    ];
 
     return (
         <footer className={BASE_CLASS}>
@@ -55,7 +46,7 @@ export const Footer: React.FC = () => {
                 <div className="social">
                 <span className="social-title">Visitanos en nuestras redes sociales</span>
                 <div className="social-icons">
-                    {socialData.map(({ name, link }, idx) => {
+                    {SOCIAL_LINKS.map(({ name, link }, idx) => {
                         return (
                             <a key={idx} className="social-icons-icon tooltip" href={link}>
                                 <span className="tooltiptext tooltiptext--tertiary">{name.toLocaleUpperCase()}</span>

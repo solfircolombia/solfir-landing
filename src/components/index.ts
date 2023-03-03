@@ -6,6 +6,8 @@ import { Icon } from "./Icon/Icon";
 import { Layout } from "./layout/Layout";
 import { Logo } from "./logo/Logo";
 import { Settings } from "./settings/Settings";
+import { Loader } from "./loader/Loader";
+import { Maintenance } from "./maintenance/Maintenance";
 
 
 export {
@@ -16,5 +18,7 @@ export {
     Layout,
     Logo,
     Settings,
-    BlogCard
+    BlogCard,
+    Loader,
+    Maintenance,
 }
