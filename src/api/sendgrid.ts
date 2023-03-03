@@ -8,7 +8,7 @@ sendgrid.setApiKey(apiKey);
 
 const message: any = {
     //Your authorized email from SendGrid
-    from: process.env.SENDGRID_AUTHORIZED_EMAIL,
+    from: 'andres@solfir.com.co',
     to: 'andres.artunduaga@outlook.com',
 };
 
