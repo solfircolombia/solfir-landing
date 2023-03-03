@@ -32,7 +32,7 @@
   
 
   --light: #{$sugar-cane};
-  --light-contrast-1: #{$sugar-cane-contrast-1};
+  --light-contrast: #{$sugar-cane-contrast-1};
 
   --transparent: transparent;
 
@@ -115,54 +115,57 @@ a, button {
 
 // TOOLTIP
 
-/* Tooltip container */
 .tooltip {
+  
   position: relative;
   display: inline-block;
-}
 
-/* Tooltip text */
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 120px;
-  background-color: $color-primary;
-  color: $color-primary-contrast;
-  text-align: center;
-  padding: 5px 0;
-  border-radius: 6px;
-
-  /* Position the tooltip text */
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -60px;
-
-  /* Fade in tooltip */
-  opacity: 0;
-  transition: opacity 0.3s;
-
-  &--tertiary{
-    background-color: $color-tertiary;
-    color: $color-tertiary-contrast;
+  &:hover {
+    .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
   }
 
+  .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: $color-primary;
+    color: $color-primary-contrast;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+  
+    /* Position the tooltip text */
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+  
+    /* Fade in tooltip */
+    opacity: 0;
+    transition: opacity 0.3s;
+  
+    &::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: $color-primary transparent transparent transparent;
+    }
+  
+    &--tertiary{
+      background-color: $color-light;
+      color: $color-light-contrast;
+      &::after {
+        border-color: $color-light transparent transparent transparent;
+      }
+    }
+  
+  }
 }
 
-/* Tooltip arrow */
-.tooltip .tooltiptext::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: $color-primary transparent transparent transparent;
-}
-
-/* Show the tooltip text when you mouse over the tooltip container */
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-  opacity: 1;
-}
