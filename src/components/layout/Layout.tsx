@@ -6,7 +6,7 @@ import "./layout.scss";
 
 export const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
 
-    const MAINTENANCE = process.env.MAINTENANCE || true;
+    const MAINTENANCE = process.env.MAINTENANCE || false;
 
     return (
         <main className="layout" id="layout">
