@@ -15,7 +15,10 @@ const TO_EMAIL = process.env.SOLFIR_CONTACT_REQUEST_EMAIL || 'solfircolombia@out
 const TEMPLATE_ID = process.env.SENDGRID_CONTACT_REQUEST_TEMPLATE_ID;
 
 const message: MailData = {
-    from: FROM_EMAIL,
+    from: {
+        email: FROM_EMAIL,
+        name: 'SOLFIR - Página de contacto',
+    },
     to: TO_EMAIL,
 };
 
