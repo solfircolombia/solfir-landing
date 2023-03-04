@@ -34,6 +34,23 @@ const Contacto: React.FC<any> = () => {
                                 <div className={`${BASE_CLASS}-form-box-form-group`}>
                                     <label
                                         className={`${BASE_CLASS}-form-box-form-group-label`}
+                                        htmlFor="service"
+                                    >
+                                        Selecciona el servicio que requieres:
+                                    </label>
+                                    <select name="clientService" id="service">
+                                        <option value="" disabled selected hidden>
+                                            Selecciona un servicio
+                                        </option>
+                                        <option value="Insolvencia">Insolvencia</option>
+                                        <option value="Reorganizacion">Reorganizacion</option>
+                                        <option value="Liquidacion">Liquidacion</option>
+                                        <option value="Otro">Otro</option>
+                                    </select>
+                                </div>
+                                <div className={`${BASE_CLASS}-form-box-form-group`}>
+                                    <label
+                                        className={`${BASE_CLASS}-form-box-form-group-label`}
                                         htmlFor="name"
                                     >
                                         Nombre:
@@ -99,7 +116,7 @@ const Contacto: React.FC<any> = () => {
                                     </label>
                                     <textarea
                                         className={`${BASE_CLASS}-form-box-form-group-textarea`}
-                                        name="text"
+                                        name="clientMessage"
                                         id="text"
                                         required
                                     />
