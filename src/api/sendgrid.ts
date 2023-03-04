@@ -1,3 +1,4 @@
+import { MailData } from '@sendgrid/helpers/classes/mail';
 import { GatsbyFunctionRequest, GatsbyFunctionResponse } from 'gatsby';
 
 const sendgrid = require('@sendgrid/mail');
@@ -6,10 +7,28 @@ const sendgrid = require('@sendgrid/mail');
 const apiKey = process.env.SENDGRID_API_KEY || '';
 sendgrid.setApiKey(apiKey);
 
-const message: any = {
-    //Your authorized email from SendGrid
-    from: 'andres@solfir.com.co',
-    to: 'andres.artunduaga@outlook.com',
+const FROM_EMAIL =
+    process.env.SENDGRID_AUTHORIZED_DOMAIN_EMAIL ||
+    process.env.SENDGRID_AUTHORIZED_EMAIL ||
+    'solfircolombia@outlook.com';
+const TO_EMAIL = process.env.SOLFIR_CONTACT_REQUEST_EMAIL || 'solfircolombia@outlook.com';
+const TEMPLATE_ID = process.env.SENDGRID_CONTACT_REQUEST_TEMPLATE_ID;
+
+const message: MailData = {
+    from: FROM_EMAIL,
+    to: TO_EMAIL,
+};
+
+const getDynamicTemplateData = (req: GatsbyFunctionRequest) => {
+    if (req.body) {
+        return {
+            name: req.body.clientName,
+            message: req.body.clientMessage,
+            phone: req.body.clientPhone,
+            email: req.body.clientEmail,
+            service: req.body.clientService,
+        };
+    }
 };
 
 const handler = (req: GatsbyFunctionRequest, res: GatsbyFunctionResponse) => {
@@ -18,13 +37,11 @@ const handler = (req: GatsbyFunctionRequest, res: GatsbyFunctionResponse) => {
             res.json({ message: 'Try with POST method' });
         }
 
-        if (req.body) {
-            // message.to = req.body.clientName
-            // message.to = req.body.clientEmail
-            // message.to = req.body.phoneNumber
-            message.subject = req.body.subject;
-            message.text = req.body.text;
-            message.html = req.body.text;
+        if (req.body && TEMPLATE_ID) {
+            (message.templateId = TEMPLATE_ID),
+                (message.dynamicTemplateData = getDynamicTemplateData(req));
+        } else {
+            res.json({ message: 'TEMPLATE_ID not defined' });
         }
 
         return sendgrid.send(message).then(
@@ -44,7 +61,5 @@ const handler = (req: GatsbyFunctionRequest, res: GatsbyFunctionResponse) => {
         res.redirect('/error');
     }
 };
-
-// module.exports = handler
 
 export default handler;
