@@ -74,6 +74,7 @@ const config: GatsbyConfig = {
                     '@src': 'src',
                     '@components': 'src/components',
                     '@constants': 'src/constants',
+                    '@shared': 'src/shared',
                     '@types': 'src/types',
                 },
                 extensions: ['ts', 'tsx'],

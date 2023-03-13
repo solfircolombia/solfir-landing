@@ -1,7 +1,8 @@
+import React from 'react';
+import { HeadFC } from 'gatsby';
 import { Button, Layout } from '@components';
 import { STATIC_SITE_LABELS } from '@constants';
-import { HeadFC } from 'gatsby';
-import React from 'react';
+import { Utils } from '@shared';
 import './contacto.scss';
 
 const Contacto: React.FC<any> = () => {
@@ -38,8 +39,8 @@ const Contacto: React.FC<any> = () => {
                                     >
                                         Selecciona el servicio que requieres:
                                     </label>
-                                    <select name="clientService" id="service">
-                                        <option value="" disabled selected hidden>
+                                    <select name="clientService" defaultValue={''} id="service">
+                                        <option value="" disabled hidden>
                                             Selecciona un servicio
                                         </option>
                                         <option value="Insolvencia">Insolvencia</option>
@@ -141,4 +142,4 @@ const Contacto: React.FC<any> = () => {
 
 export default Contacto;
 
-export const Head: HeadFC = () => <title>SOLFIR - {STATIC_SITE_LABELS.CONTACT}</title>;
+export const Head: HeadFC = () => Utils.getTitle(STATIC_SITE_LABELS.CONTACT);
