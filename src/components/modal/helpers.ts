@@ -10,10 +10,16 @@ export const addPortalElement = (el: HTMLElement | null, container: HTMLElement)
 };
 
 export const removePortalElement = (el: HTMLElement | null, container: HTMLElement | null) => {
-    if (container) {
-        if (el) {
+    try {
+        if (container && el) {
             el?.removeChild(container);
         }
+        document.body.style.overflow = 'initial'; // To enable the background scrolling
+    } catch (error: unknown) {
+        if (error instanceof DOMException) {
+            console.log('Cannot find child element');
+        } else if (error instanceof Error) {
+            console.error('Modal helper error: ', error.message);
+        }
     }
-    document.body.style.overflow = 'initial'; // To enable the background scrolling
 };
