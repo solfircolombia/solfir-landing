@@ -14,7 +14,6 @@ export const removePortalElement = (el: HTMLElement | null, container: HTMLEleme
         if (container && el) {
             el?.removeChild(container);
         }
-        document.body.style.overflow = 'initial'; // To enable the background scrolling
     } catch (error: unknown) {
         if (error instanceof DOMException) {
             console.log('Cannot find child element');
@@ -22,4 +21,5 @@ export const removePortalElement = (el: HTMLElement | null, container: HTMLEleme
             console.error('Modal helper error: ', error.message);
         }
     }
+    document.body.style.overflow = 'initial'; // To enable the background scrolling
 };
