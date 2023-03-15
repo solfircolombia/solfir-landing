@@ -2,8 +2,11 @@ import type { GatsbyConfig } from 'gatsby';
 
 const config: GatsbyConfig = {
     siteMetadata: {
-        title: `solfir-landing`,
-        siteUrl: `https://www.yourdomain.tld`,
+        title: `SOLFIR COLOMBIA`,
+        siteUrl: `https://solfir.com.co`,
+        description: `Soluciones Financieras, Insolvencias y Reorganizaciones`,
+        twitterUsername: `@SolfirColombia`,
+        image: `/images/seoimage.jpg`,
     },
     flags: {
         DEV_SSR: true,
@@ -46,7 +49,7 @@ const config: GatsbyConfig = {
         {
             resolve: 'gatsby-plugin-manifest',
             options: {
-                icon: 'src/images/icon.png',
+                icon: 'src/images/favicon.svg',
             },
         },
         'gatsby-plugin-mdx',
@@ -75,6 +78,7 @@ const config: GatsbyConfig = {
                     '@components': 'src/components',
                     '@constants': 'src/constants',
                     '@shared': 'src/shared',
+                    '@hooks': 'src/hooks',
                     '@types': 'src/types',
                 },
                 extensions: ['ts', 'tsx'],

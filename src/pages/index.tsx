@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { graphql, HeadFC, navigate, PageProps } from 'gatsby';
-import { Button, Icon, Layout, Logo, BlogCard } from '@components';
+import { Button, Icon, Layout, Logo, BlogCard, SEO } from '@components';
 import { IconName } from '@types';
 import './index.scss';
 import { SITE_LINKS, STATIC_SITE_LINKS, STATIC_SITE_LABELS } from '@constants';
@@ -160,4 +160,10 @@ export const query = graphql`
     }
 `;
 
-export const Head: HeadFC = () => <title>SOLFIR - {STATIC_SITE_LABELS.HOME}</title>;
+export const Head: HeadFC = () => (
+    <SEO
+        title={STATIC_SITE_LABELS.HOME}
+        description={'Expertos en insolvencia y Reorganizacion'}
+        pathname={'/'}
+    />
+);

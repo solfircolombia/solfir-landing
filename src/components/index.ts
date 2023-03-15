@@ -8,5 +8,6 @@ import { Logo } from './logo/Logo';
 import { Settings } from './settings/Settings';
 import { Loader } from './loader/Loader';
 import { Maintenance } from './maintenance/Maintenance';
+import { SEO } from './seo/SEO';
 
-export { Button, Footer, Header, Icon, Layout, Logo, Settings, BlogCard, Loader, Maintenance };
+export { Button, Footer, Header, Icon, Layout, Logo, Settings, BlogCard, Loader, Maintenance, SEO };
