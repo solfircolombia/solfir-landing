@@ -2,6 +2,7 @@ import React from 'react';
 import { HeadFC, Link, PageProps } from 'gatsby';
 import { Layout, SEO } from '@components';
 import { STATIC_SITE_LABELS, STATIC_SITE_LINKS } from '@constants';
+import { Utils } from '@shared';
 import './servicios.scss';
 
 const ThanksPage: React.FC<PageProps> = () => {
@@ -29,4 +30,4 @@ const ThanksPage: React.FC<PageProps> = () => {
 
 export default ThanksPage;
 
-export const Head: HeadFC = () => <SEO title={STATIC_SITE_LABELS.SERVICES} />;
+export const Head: HeadFC = () => <SEO {...Utils.getSEOProps(STATIC_SITE_LINKS.SERVICES)} />;

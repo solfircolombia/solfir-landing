@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { graphql, HeadFC, PageProps } from 'gatsby';
 import { Layout, BlogCard, SEO } from '@components';
-import { STATIC_SITE_LABELS } from '@constants';
+import { STATIC_SITE_LINKS } from '@constants';
+import { Utils } from '@shared';
 import './blog.scss';
 
 const BlogPage: React.FC<PageProps<Queries.BlogPageQuery>> = ({ data }) => {
@@ -79,4 +80,4 @@ export const query = graphql`
 
 export default BlogPage;
 
-export const Head: HeadFC = () => <SEO title={STATIC_SITE_LABELS.BLOG} />;
+export const Head: HeadFC = () => <SEO {...Utils.getSEOProps(STATIC_SITE_LINKS.CONTACT)} />;

@@ -1,12 +1,7 @@
 import React, { PropsWithChildren, ReactNode } from 'react';
 import { useSiteMetadata } from '@hooks';
 import { Utils } from '@shared';
-
-type SEOProps = {
-    title: string;
-    description?: string;
-    pathname?: string;
-};
+import { SEOProps } from '@types';
 
 export const SEO: React.FC<PropsWithChildren<SEOProps>> = ({
     title,

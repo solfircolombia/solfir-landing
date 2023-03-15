@@ -4,14 +4,16 @@ import * as CONTACT_DATA from './contact.constants';
 import * as LABELS from './labels.constants';
 import { KEY } from './keyboard.constants';
 import { SOCIAL_LINKS } from './social.constants';
+import { SEO_DATA } from './seo.constants';
 
 export {
-    SITE_LINKS,
-    STATIC_SITE_LINKS,
-    STATIC_SITE_LABELS,
     BREAKPOINTS,
     CONTACT_DATA,
-    LABELS,
     KEY,
+    LABELS,
+    SEO_DATA,
+    SITE_LINKS,
     SOCIAL_LINKS,
+    STATIC_SITE_LABELS,
+    STATIC_SITE_LINKS,
 };

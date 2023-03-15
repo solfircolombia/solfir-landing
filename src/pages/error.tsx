@@ -2,6 +2,7 @@ import React from 'react';
 import { HeadFC, Link, PageProps } from 'gatsby';
 import { Layout, SEO } from '@components';
 import { CONTACT_DATA, STATIC_SITE_LABELS, STATIC_SITE_LINKS } from '@constants';
+import { Utils } from '@shared';
 import './error.scss';
 
 const ErrorPage: React.FC<PageProps> = () => {
@@ -38,4 +39,4 @@ const ErrorPage: React.FC<PageProps> = () => {
 
 export default ErrorPage;
 
-export const Head: HeadFC = () => <SEO title={STATIC_SITE_LABELS.ERROR} />;
+export const Head: HeadFC = () => <SEO {...Utils.getSEOProps(STATIC_SITE_LINKS.ERROR)} />;

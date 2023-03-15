@@ -2,8 +2,9 @@ import * as React from 'react';
 import { graphql, HeadFC, navigate, PageProps } from 'gatsby';
 import { Button, Icon, Layout, Logo, BlogCard, SEO } from '@components';
 import { IconName } from '@types';
+import { Utils } from '@shared';
+import { STATIC_SITE_LINKS, STATIC_SITE_LABELS } from '@constants';
 import './index.scss';
-import { SITE_LINKS, STATIC_SITE_LINKS, STATIC_SITE_LABELS } from '@constants';
 
 const LandingPage = ({ data }: PageProps<Queries.LandingPageQuery>) => {
     const BLOG_POSTS = data.allContentfulBlogPost.nodes;
@@ -160,4 +161,4 @@ export const query = graphql`
     }
 `;
 
-export const Head: HeadFC = () => <SEO title={STATIC_SITE_LABELS.HOME} />;
+export const Head: HeadFC = () => <SEO {...Utils.getSEOProps(STATIC_SITE_LINKS.HOME)} />;

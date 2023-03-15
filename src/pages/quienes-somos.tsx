@@ -1,8 +1,9 @@
 import * as React from 'react';
 import type { HeadFC, PageProps } from 'gatsby';
-import { Button, Layout, Logo, SEO } from '@components';
+import { Layout, SEO } from '@components';
+import { STATIC_SITE_LINKS } from '@constants';
+import { Utils } from '@shared';
 import './quienes-somos.scss';
-import { STATIC_SITE_LABELS } from '@constants';
 
 const AboutPage: React.FC<PageProps> = (props) => {
     return (
@@ -29,4 +30,4 @@ const AboutPage: React.FC<PageProps> = (props) => {
 
 export default AboutPage;
 
-export const Head: HeadFC = () => <SEO title={STATIC_SITE_LABELS.ABOUT} />;
+export const Head: HeadFC = () => <SEO {...Utils.getSEOProps(STATIC_SITE_LINKS.ABOUT)} />;
