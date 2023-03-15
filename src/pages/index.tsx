@@ -160,10 +160,4 @@ export const query = graphql`
     }
 `;
 
-export const Head: HeadFC = () => (
-    <SEO
-        title={STATIC_SITE_LABELS.HOME}
-        description={'Expertos en insolvencia y Reorganizacion'}
-        pathname={'/'}
-    />
-);
+export const Head: HeadFC = () => <SEO title={STATIC_SITE_LABELS.HOME} />;

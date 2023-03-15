@@ -1,6 +1,6 @@
 import React from 'react';
 import { HeadFC, Link, PageProps } from 'gatsby';
-import { Layout } from '@components';
+import { Layout, SEO } from '@components';
 import { CONTACT_DATA, STATIC_SITE_LABELS, STATIC_SITE_LINKS } from '@constants';
 import './error.scss';
 
@@ -38,4 +38,4 @@ const ErrorPage: React.FC<PageProps> = () => {
 
 export default ErrorPage;
 
-export const Head: HeadFC = () => <title>SOLFIR - {STATIC_SITE_LABELS.ERROR}</title>;
+export const Head: HeadFC = () => <SEO title={STATIC_SITE_LABELS.ERROR} />;

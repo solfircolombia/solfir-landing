@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { graphql, HeadFC, PageProps } from 'gatsby';
-import { Layout, BlogCard } from '@components';
+import { Layout, BlogCard, SEO } from '@components';
 import { STATIC_SITE_LABELS } from '@constants';
 import './blog.scss';
 
@@ -79,4 +79,4 @@ export const query = graphql`
 
 export default BlogPage;
 
-export const Head: HeadFC = () => <title>SOLFIR - {STATIC_SITE_LABELS.BLOG}</title>;
+export const Head: HeadFC = () => <SEO title={STATIC_SITE_LABELS.BLOG} />;

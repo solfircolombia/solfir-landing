@@ -1,6 +1,6 @@
 import * as React from 'react';
 import type { HeadFC, PageProps } from 'gatsby';
-import { Button, Layout, Logo } from '@components';
+import { Button, Layout, Logo, SEO } from '@components';
 import './quienes-somos.scss';
 import { STATIC_SITE_LABELS } from '@constants';
 
@@ -29,4 +29,4 @@ const AboutPage: React.FC<PageProps> = (props) => {
 
 export default AboutPage;
 
-export const Head: HeadFC = () => <title>SOLFIR - {STATIC_SITE_LABELS.ABOUT}</title>;
+export const Head: HeadFC = () => <SEO title={STATIC_SITE_LABELS.ABOUT} />;

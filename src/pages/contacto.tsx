@@ -1,6 +1,6 @@
 import React from 'react';
 import { HeadFC } from 'gatsby';
-import { Button, Layout } from '@components';
+import { Button, Layout, SEO } from '@components';
 import { STATIC_SITE_LABELS } from '@constants';
 import { Utils } from '@shared';
 import './contacto.scss';
@@ -142,4 +142,4 @@ const Contacto: React.FC<any> = () => {
 
 export default Contacto;
 
-export const Head: HeadFC = () => Utils.getTitle(STATIC_SITE_LABELS.CONTACT);
+export const Head: HeadFC = () => <SEO title={STATIC_SITE_LABELS.CONTACT} />;

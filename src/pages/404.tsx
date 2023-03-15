@@ -1,6 +1,6 @@
 import React from 'react';
 import { HeadFC, Link, PageProps } from 'gatsby';
-import { Layout } from '@components';
+import { Layout, SEO } from '@components';
 import { STATIC_SITE_LABELS, STATIC_SITE_LINKS } from '@constants';
 import './404.scss';
 
@@ -31,4 +31,4 @@ const NotFoundPage: React.FC<PageProps> = () => {
 
 export default NotFoundPage;
 
-export const Head: HeadFC = () => <title>SOLFIR - {STATIC_SITE_LABELS.NOT_FOUND}</title>;
+export const Head: HeadFC = () => <SEO title={STATIC_SITE_LABELS.NOT_FOUND} />;

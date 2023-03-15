@@ -14,7 +14,7 @@ enum STATIC_SITE_LINKS {
 }
 
 enum STATIC_SITE_LABELS {
-    HOME = 'Inicio',
+    HOME = 'SOLFIR',
     BLOG = 'Blog',
     ABOUT = '¿Quiénes Somos?',
     TEAM = 'Equipo de trabajo',

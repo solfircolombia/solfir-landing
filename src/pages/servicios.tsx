@@ -1,6 +1,6 @@
 import React from 'react';
 import { HeadFC, Link, PageProps } from 'gatsby';
-import { Layout } from '@components';
+import { Layout, SEO } from '@components';
 import { STATIC_SITE_LABELS, STATIC_SITE_LINKS } from '@constants';
 import './servicios.scss';
 
@@ -29,4 +29,4 @@ const ThanksPage: React.FC<PageProps> = () => {
 
 export default ThanksPage;
 
-export const Head: HeadFC = () => <title>SOLFIR - {STATIC_SITE_LABELS.SERVICES}</title>;
+export const Head: HeadFC = () => <SEO title={STATIC_SITE_LABELS.SERVICES} />;
