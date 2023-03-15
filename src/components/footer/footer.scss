@@ -14,6 +14,8 @@
         display: flex;
         width: 100%;
         align-items: center;
+        height: 70px;
+        justify-content: center;
     }
 
     &-link {
@@ -50,7 +52,8 @@
 
             &-title {
                 font-weight: bold;
-                margin: 40px 0;
+                @extend %typography-h5;
+                margin: 20px 0;
             }
         }
     }
@@ -91,6 +94,26 @@
         text-align: center;
     }
 
+    .contact-info {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 30px;
+
+        &-title {
+            display: flex;
+            align-items: center;
+
+            &-icon {
+                margin-right: 10px;
+                height: 20px !important;
+                width: 20px !important;
+            }
+        }
+        &-link {
+            margin-left: 30px;
+        }
+    }
+
     @include for-sm {
         &-logo {
             flex-direction: column;
@@ -101,6 +124,17 @@
             align-items: center;
             &-column {
                 align-items: center;
+            }
+        }
+
+        &-link {
+            text-align: center;
+        }
+
+        .contact-info {
+            align-items: center;
+            &-link {
+                margin-left: 0;
             }
         }
     }

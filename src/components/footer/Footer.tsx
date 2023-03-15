@@ -14,45 +14,61 @@ export const Footer: React.FC = () => {
                     <Logo variant="tertiary" />
                 </span>
                 <div className={`${BASE_CLASS}-columns`}>
-                    <div className={`${BASE_CLASS}-columns-column contact-info`}>
+                    <div className={`${BASE_CLASS}-columns-column`}>
                         <span className={`${BASE_CLASS}-columns-column-title`}>
                             Datos de contacto
                         </span>
                         <br />
-                        <a
-                            className={`${BASE_CLASS}-link`}
-                            href={`mailto:${CONTACT_DATA.CONTACT_MAIL}`}
-                        >
-                            <Icon
-                                name="mail"
-                                className={`${BASE_CLASS}-link-icon`}
-                                variant="light"
-                            ></Icon>
-                            {CONTACT_DATA.CONTACT_MAIL}
-                        </a>
-                        <a
-                            className={`${BASE_CLASS}-link`}
-                            href={`tel:${CONTACT_DATA.CONTACT_PHONE}`}
-                        >
-                            <Icon
-                                name="phone"
-                                className={`${BASE_CLASS}-link-icon`}
-                                variant="light"
-                            ></Icon>
-                            {CONTACT_DATA.CONTACT_PHONE}
-                        </a>
+                        <div className="contact-info">
+                            <span className="contact-info-title">
+                                <Icon
+                                    name="mail"
+                                    className="contact-info-title-icon"
+                                    variant="light"
+                                ></Icon>
+                                Correo electrónico
+                            </span>
+                            <a
+                                className={`${BASE_CLASS}-link contact-info-link`}
+                                href={`mailto:${CONTACT_DATA.CONTACT_MAIL}`}
+                            >
+                                {CONTACT_DATA.CONTACT_MAIL}
+                            </a>
+                        </div>
 
-                        <a
-                            className={`${BASE_CLASS}-link`}
-                            href={CONTACT_DATA.CONTACT_ADDRESS_MAPS_LINK}
-                        >
-                            <Icon
-                                name="place"
-                                className={`${BASE_CLASS}-link-icon`}
-                                variant="light"
-                            ></Icon>
-                            {CONTACT_DATA.CONTACT_ADDRESS}
-                        </a>
+                        <div className="contact-info">
+                            <span className="contact-info-title">
+                                <Icon
+                                    name="phone"
+                                    className="contact-info-title-icon"
+                                    variant="light"
+                                ></Icon>
+                                Teléfono
+                            </span>
+                            <a
+                                className={`${BASE_CLASS}-link contact-info-link`}
+                                href={`tel:${CONTACT_DATA.CONTACT_PHONE}`}
+                            >
+                                {CONTACT_DATA.CONTACT_PHONE}
+                            </a>
+                        </div>
+
+                        <div className="contact-info">
+                            <span className="contact-info-title">
+                                <Icon
+                                    name="place"
+                                    className="contact-info-title-icon"
+                                    variant="light"
+                                ></Icon>
+                                Ubicación
+                            </span>
+                            <a
+                                className={`${BASE_CLASS}-link contact-info-link`}
+                                href={CONTACT_DATA.CONTACT_ADDRESS_MAPS_LINK}
+                            >
+                                {CONTACT_DATA.CONTACT_ADDRESS}
+                            </a>
+                        </div>
                     </div>
                     <div className={`${BASE_CLASS}-columns-column links`}>
                         <span className={`${BASE_CLASS}-columns-column-title`}>Enlaces</span>
