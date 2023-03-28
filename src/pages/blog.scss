@@ -11,7 +11,7 @@
         display: flex;
         flex-direction: column;
         width: 100%;
-        padding: 50px 0;
+        padding: 20px 0;
         align-items: center;
     }
 
@@ -21,7 +21,6 @@
 
     &-header {
         @extend %blog-section;
-        padding: 40px 0; // Override from %section
         margin-top: 50px;
         text-align: center;
         background-color: $color-primary;
@@ -40,6 +39,7 @@
         flex-direction: column;
 
         &-title {
+            @extend %typography-h3;
             margin-bottom: 40px;
         }
 
@@ -53,6 +53,24 @@
 
             &-card {
                 margin-top: 40px;
+            }
+        }
+    }
+
+    @include for-sm {
+        &-header {
+            padding: 10px 0;
+            &-title {
+                @include typography-h2;
+            }
+        }
+
+        &-posts {
+            &-items {
+                padding-bottom: 50px;
+            }
+            &-title {
+                @include typography-h4;
             }
         }
     }

@@ -36,7 +36,7 @@ const BlogPage: React.FC<PageProps<Queries.BlogPageQuery>> = ({ data }) => {
 
                 <div className={`${BASE_CLASS}-posts`}>
                     <div className={`${BASE_CLASS}-wrapper`}>
-                        <h3 className={`${BASE_CLASS}-posts-title`}>Últimas publicaciones</h3>
+                        <span className={`${BASE_CLASS}-posts-title`}>Últimas publicaciones</span>
                         <span className={`${BASE_CLASS}-posts-items`}>
                             {BLOG_POSTS.map((post) => {
                                 return (
