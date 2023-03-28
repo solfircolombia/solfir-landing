@@ -48,20 +48,16 @@
         &-title {
             @extend %typography-small;
             font-weight: bold;
-            flex: 1 1 auto;
         }
 
         &-text {
             @extend %typography-small;
             display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
             margin-top: 16px;
         }
 
         &-actions {
+            flex: 1 1 auto;
             display: none;
         }
     }
@@ -86,7 +82,7 @@
         flex-direction: row;
         width: 100%;
         height: 100%;
-        max-height: $img-size;
+        // max-height: $img-size;
 
         #{$ref}-actions {
             display: none;
@@ -94,7 +90,8 @@
 
         #{$ref}-image {
             max-width: $img-size;
-            height: $img-size;
+            max-height: 100%;
+            overflow: hidden;
         }
         #{$ref}-summary {
             display: flex;
@@ -119,6 +116,7 @@
                 display: flex;
                 justify-self: flex-end;
                 justify-content: flex-end;
+                align-items: flex-end;
 
                 &-link {
                     @extend %blog-card-link;
@@ -126,6 +124,15 @@
                         @extend %blog-card-link-icon;
                     }
                 }
+            }
+        }
+
+        @include for-sm {
+            flex-direction: column;
+            #{$ref}-image {
+                max-width: 100%;
+                max-height: $img-size;
+                overflow: hidden;
             }
         }
     }

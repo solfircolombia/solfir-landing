@@ -63,9 +63,11 @@ export const query = graphql`
                 id
                 image {
                     gatsbyImageData(
+                        layout: CONSTRAINED
                         placeholder: BLURRED
                         formats: [AUTO, WEBP, AVIF]
-                        aspectRatio: 1
+                        resizingBehavior: FILL
+                        aspectRatio: 0.9
                     )
                 }
                 slug
