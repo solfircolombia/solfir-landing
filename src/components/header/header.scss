@@ -50,6 +50,7 @@
         &-modal {
             display: flex;
             flex-direction: column;
+            justify-content: center;
 
             &-item {
                 @include anchor-styles('primary', 'light');
