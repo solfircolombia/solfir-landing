@@ -46,4 +46,8 @@
         top: calc(100vh - $size - 80px);
         left: calc(100vw - $size - 20px);
     }
+
+    @include for-sm {
+        padding-top: $header-height-sm;
+    }
 }
