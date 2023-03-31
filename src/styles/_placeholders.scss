@@ -3,6 +3,7 @@
     width: 100%;
     max-width: calc($max-screen-width-xl - 300px);
     padding: 16px;
+    background-color: transparent;
 
     @include for-xl {
         max-width: calc($max-screen-width-xl - 350px);
