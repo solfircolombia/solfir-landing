@@ -2,7 +2,7 @@ import * as React from 'react';
 import { graphql } from 'gatsby';
 import { renderRichText } from 'gatsby-source-contentful/rich-text';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-import { Layout } from '@components';
+import { Layout, RecentPosts } from '@components';
 import './blogPostPage.scss';
 
 const BlogPostPage: React.FC<{ data: Queries.BlogPostPageQuery }> = ({ data }) => {
@@ -10,19 +10,45 @@ const BlogPostPage: React.FC<{ data: Queries.BlogPostPageQuery }> = ({ data }) =
 
     let { contentfulBlogPost } = data;
     let image = getImage(contentfulBlogPost?.image!);
+    const formatDate = (date: string | null | undefined) => {
+        if (date) {
+            // return new Date(date).toDateString();
+            return new Date(date).toLocaleDateString('es', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+            });
+        }
+    };
 
     return (
         <Layout>
             <div className={BASE_CLASS}>
-                <div className={`${BASE_CLASS}-image`}>
-                    {contentfulBlogPost?.image && (
-                        <GatsbyImage image={image!} objectFit="cover" alt="alt"></GatsbyImage>
-                    )}
+                <span className={`${BASE_CLASS}-title`}>{contentfulBlogPost?.title}</span>
+                <div className={`${BASE_CLASS}-date-author`}>
+                    {formatDate(contentfulBlogPost?.date)} | Autor -{' '}
+                    {contentfulBlogPost?.author?.name}
                 </div>
-                <h1 className={`${BASE_CLASS}-title`}>{contentfulBlogPost?.title}</h1>
-                <div className={`${BASE_CLASS}-content`}>
-                    {contentfulBlogPost?.content &&
-                        renderRichText(contentfulBlogPost?.content as any)}
+                <div className={`${BASE_CLASS}-main`}>
+                    <div className={`${BASE_CLASS}-main-content`}>
+                        <div className={`${BASE_CLASS}-main-content-image`}>
+                            {contentfulBlogPost?.image && (
+                                <GatsbyImage
+                                    image={image!}
+                                    objectFit="cover"
+                                    alt="alt"
+                                ></GatsbyImage>
+                            )}
+                        </div>
+                        <div className={`${BASE_CLASS}-content-text`}>
+                            {contentfulBlogPost?.content &&
+                                renderRichText(contentfulBlogPost?.content as any)}
+                        </div>
+                    </div>
+                    <div className={`${BASE_CLASS}-recent-posts`}>
+                        <RecentPosts />
+                    </div>
                 </div>
             </div>
         </Layout>
@@ -36,8 +62,17 @@ export const query = graphql`
             title
             slug
             summary
+            date
             image {
-                gatsbyImageData(height: 300, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
+                gatsbyImageData(
+                    placeholder: BLURRED
+                    formats: [AUTO, WEBP, AVIF]
+                    layout: CONSTRAINED
+                    resizingBehavior: FILL
+                )
+            }
+            author {
+                name
             }
             content {
                 raw

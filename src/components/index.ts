@@ -9,5 +9,19 @@ import { Settings } from './settings/Settings';
 import { Loader } from './loader/Loader';
 import { Maintenance } from './maintenance/Maintenance';
 import { SEO } from './seo/SEO';
+import { RecentPosts } from './recentPosts/RecentPosts';
 
-export { Button, Footer, Header, Icon, Layout, Logo, Settings, BlogCard, Loader, Maintenance, SEO };
+export {
+    Button,
+    Footer,
+    Header,
+    Icon,
+    Layout,
+    Logo,
+    Settings,
+    BlogCard,
+    Loader,
+    Maintenance,
+    SEO,
+    RecentPosts,
+};
