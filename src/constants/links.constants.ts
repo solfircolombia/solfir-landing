@@ -33,10 +33,10 @@ const SITE_LINKS: { label: string; link: string }[] = [
         label: STATIC_SITE_LABELS.ABOUT,
         link: STATIC_SITE_LINKS.ABOUT,
     },
-    // {
-    //     label: STATIC_SITE_LABELS.TEAM,
-    //     link: STATIC_SITE_LINKS.TEAM,
-    // },
+    {
+        label: STATIC_SITE_LABELS.TEAM,
+        link: STATIC_SITE_LINKS.TEAM,
+    },
     {
         label: STATIC_SITE_LABELS.CONTACT,
         link: STATIC_SITE_LINKS.CONTACT,

@@ -29,5 +29,32 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions 
         }
     );
 
-    await Promise.all([createBlogPostPromise]);
+    // Profiles
+
+    const teamMembersQuery = await graphql<Queries.TeamMemberCreatePagesQuery>(`
+        query TeamMemberCreatePages {
+            allContentfulTeamMember {
+                nodes {
+                    id
+                    slug
+                }
+            }
+        }
+    `);
+
+    const teamMembersTemplate = path.resolve('./src/templates/TeamMemberPage.tsx');
+
+    const createTeamMemberPromise = teamMembersQuery.data?.allContentfulTeamMember.nodes?.map(
+        (teamMemberData) => {
+            createPage({
+                path: `equipo/${teamMemberData.slug}`,
+                component: teamMembersTemplate,
+                context: {
+                    id: teamMemberData.id,
+                },
+            });
+        }
+    );
+
+    await Promise.all([createBlogPostPromise, createTeamMemberPromise]);
 };
