@@ -1,0 +1,55 @@
+@import '../styles/component';
+
+.equipo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &-wrapper {
+        @extend %cw;
+        display: flex;
+        justify-content: center;
+    }
+    &-card {
+        background-color: $color-secondary;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        box-shadow: $box-shadow-3;
+        padding: 20px;
+        max-width: 290px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        &-image {
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        &-data {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 10px 0;
+
+            &-name {
+                @extend %typography-h5;
+                text-align: center;
+                font-weight: bold;
+                color: $color-tertiary;
+            }
+            &-role {
+                @extend %typography-small;
+                text-align: center;
+                margin-bottom: 20px;
+                color: $color-tertiary;
+            }
+            &-link {
+                display: flex;
+                align-items: center;
+                @extend %typography-p;
+                @include anchor-styles('tertiary', 'tertiary');
+                user-select: none;
+            }
+        }
+    }
+}
