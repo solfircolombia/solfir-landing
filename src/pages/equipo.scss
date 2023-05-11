@@ -9,6 +9,7 @@
         @extend %cw;
         display: flex;
         justify-content: center;
+        flex-wrap: wrap;
     }
     &-card {
         background-color: $color-secondary;
@@ -21,6 +22,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        margin: 10px;
+
         &-image {
             border-radius: 50%;
             overflow: hidden;
