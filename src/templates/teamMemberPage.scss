@@ -16,7 +16,7 @@
         max-width: 290px;
         background-color: $color-tertiary;
         border-radius: 10px;
-        max-height: 400px;
+        height: fit-content;
         box-shadow: $box-shadow-5;
         position: sticky;
         top: calc($header-height + 56px);
