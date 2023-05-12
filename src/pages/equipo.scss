@@ -22,9 +22,13 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin: 10px;
+        margin: 15px;
+        &:hover {
+            box-shadow: $box-shadow-5;
+        }
 
         &-image {
+            border: 3px solid $color-tertiary;
             border-radius: 50%;
             overflow: hidden;
         }

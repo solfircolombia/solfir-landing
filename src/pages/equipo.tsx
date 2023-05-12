@@ -22,7 +22,47 @@ const Equipo: React.FC<PageProps<Queries.TeamPageQuery>> = ({ data }) => {
         <Layout>
             <div className={BASE_CLASS}>
                 <div className={`${BASE_CLASS}-wrapper`}>
-                    <div>Equipo de trabajo</div>
+                    <h1>Equipo de trabajo</h1>
+                </div>
+                <div className={`${BASE_CLASS}-wrapper`}>
+                    <p>
+                        Conoce a nuestro equipo de trabajo. En SOLFIR, nos enorgullece contar con un
+                        grupo de profesionales altamente capacitados y comprometidos en brindar
+                        servicios legales excepcionales a nuestros clientes. Nuestro equipo está
+                        formado por abogados con una amplia experiencia en diversas áreas del
+                        derecho, quienes trabajan de manera colaborativa y enfocada en los mejores
+                        intereses de quienes confían en nosotros.
+                    </p>
+
+                    <p>
+                        Cada miembro de nuestro equipo posee un profundo conocimiento de su
+                        especialización legal, lo que nos permite ofrecer un asesoramiento integral
+                        y estratégico en cada caso que atendemos. Además, nos mantenemos
+                        actualizados con los cambios y desarrollos en la legislación para
+                        asegurarnos de proporcionar soluciones jurídicas efectivas y adaptadas a las
+                        necesidades particulares de nuestros clientes.
+                    </p>
+
+                    <p>
+                        No solo nos distingue nuestra experiencia y conocimiento jurídico, sino
+                        también nuestra dedicación a la excelencia en el servicio al cliente.
+                        Valoramos la confianza que nuestros clientes depositan en nosotros y nos
+                        esforzamos por establecer relaciones sólidas y duraderas basadas en la
+                        transparencia, la comunicación abierta y el respeto mutuo.
+                    </p>
+
+                    <p>
+                        Estamos comprometidos con la defensa de los derechos y los intereses de
+                        nuestros clientes, y nuestro equipo está aquí para ofrecerte un respaldo
+                        legal sólido y un apoyo integral en tus asuntos legales.
+                    </p>
+
+                    <p>
+                        Gracias por visitar nuestra página y conocer a nuestro equipo de trabajo.
+                        Esperamos tener la oportunidad de servirte y ayudarte en tus necesidades
+                        legales. No dudes en contactarnos para obtener más información o programar
+                        una consulta. Estaremos encantados de ayudarte.
+                    </p>
                 </div>
                 <div className={`${BASE_CLASS}-wrapper`}>
                     {TeamMembers.map((member) => {
@@ -63,7 +103,7 @@ const Equipo: React.FC<PageProps<Queries.TeamPageQuery>> = ({ data }) => {
 
 export const query = graphql`
     query TeamPage {
-        allContentfulTeamMember {
+        allContentfulTeamMember(sort: { position: ASC }) {
             nodes {
                 id
                 slug
