@@ -8,7 +8,7 @@ export const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
 
     return (
         <main className="layout" id="layout">
-            {MAINTENANCE && <Maintenance />}
+            {/* {MAINTENANCE && <Maintenance />} */}
             {!MAINTENANCE && (
                 <>
                     <Header></Header>

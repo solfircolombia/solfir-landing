@@ -75,7 +75,7 @@ const TeamMemberPage: React.FC<{ data: Queries.TeamMemberPageQuery }> = ({ data 
                                 renderRichText(contentfulTeamMember?.description as any)}
                         </div>
 
-                        {/* <div className={`${BASE_CLASS}-resume-experience`}>
+                        <div className={`${BASE_CLASS}-resume-experience`}>
                             <span className={`${BASE_CLASS}-resume-experience-title`}>
                                 Experiencia
                             </span>
@@ -126,7 +126,7 @@ const TeamMemberPage: React.FC<{ data: Queries.TeamMemberPageQuery }> = ({ data 
                                     </div>
                                 );
                             })}
-                        </div> */}
+                        </div>
                     </div>
                 </div>
             </div>
