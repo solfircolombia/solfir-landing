@@ -13,16 +13,15 @@
 
 :root {
     // Palette
-    --primary: #{$cerise-red};
-    --primary-contrast: #{$cerise-red-contrast-1};
+    --primary: #{$prussian-blue};
+    --primary-contrast: #{$prussian-blue-contrast-1};
 
     --secondary: #{$sun-yellow};
     --secondary-contrast: #{$sun-yellow-contrast-1};
     --secondary-contrast-2: #{$sun-yellow-contrast-2};
 
-    --tertiary: #{$prussian-blue};
-    --tertiary-contrast: #{$prussian-blue-contrast-1};
-    --tertiary-contrast-2: #{$prussian-blue-contrast-2};
+    --tertiary: #{$cerise-red};
+    --tertiary-contrast: #{$cerise-red-contrast-1};
 
     --dark: #{$el-paso};
     --dark-contrast-1: #{$el-paso-contrast-1};
