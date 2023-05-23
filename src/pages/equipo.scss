@@ -28,7 +28,7 @@
         }
 
         &-image {
-            border: 3px solid $color-tertiary;
+            border: 3px solid $color-primary;
             border-radius: 50%;
             overflow: hidden;
         }
@@ -42,19 +42,19 @@
                 @extend %typography-h5;
                 text-align: center;
                 font-weight: bold;
-                color: $color-tertiary;
+                color: $color-primary;
             }
             &-role {
                 @extend %typography-small;
                 text-align: center;
                 margin-bottom: 20px;
-                color: $color-tertiary;
+                color: $color-primary;
             }
             &-link {
                 display: flex;
                 align-items: center;
                 @extend %typography-p;
-                @include anchor-styles('tertiary', 'tertiary');
+                @include anchor-styles('primary', 'secondary');
                 user-select: none;
             }
         }

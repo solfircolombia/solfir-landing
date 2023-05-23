@@ -14,7 +14,7 @@
 
     &-main {
         max-width: 290px;
-        background-color: $color-tertiary;
+        background-color: $color-primary;
         border-radius: 10px;
         height: fit-content;
         box-shadow: $box-shadow-5;
@@ -83,7 +83,7 @@
     }
 
     &-resume {
-        background-color: $color-tertiary;
+        background-color: $color-primary;
         color: $color-light;
         display: flex;
         flex-direction: column;
