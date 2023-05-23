@@ -45,14 +45,18 @@ $anchor-variant-color: (
     @extend %typography-p;
     text-decoration: none;
     color: map-get($anchor-variant-color, $variant);
-    border-bottom: 3px solid map-get($anchor-variant-color, $bg-variant);
+    @include anchor-border-styles($bg-variant);
     &:hover {
-        border-bottom: 3px solid map-get($anchor-variant-color, $variant);
+        @include anchor-border-styles($variant);
         cursor: pointer;
     }
     &:focus {
-        border-bottom: 3px solid map-get($anchor-variant-color, $variant);
+        @include anchor-border-styles($variant);
     }
+}
+
+@mixin anchor-border-styles($variant) {
+    border-bottom: 3px solid map-get($anchor-variant-color, $variant);
 }
 
 // Mixins for typography: This are created to be used inside media queries
