@@ -115,7 +115,7 @@ const LandingPage = ({ data }: PageProps<Queries.LandingPageQuery>) => {
                             financiera.
                         </p>
                         <Button
-                            variant="light"
+                            variant="primary"
                             className={`${BASE_CLASS}-hireus-cta`}
                             onClick={() => {
                                 goToLink(STATIC_SITE_LINKS.CONTACT);
