@@ -39,14 +39,23 @@ const Contacto: React.FC<any> = () => {
                                     >
                                         Selecciona el servicio que requieres:
                                     </label>
-                                    <select name="clientService" defaultValue={''} id="service">
+                                    <select
+                                        className={`${BASE_CLASS}-form-box-form-group-select`}
+                                        name="clientService"
+                                        defaultValue={''}
+                                        id="service"
+                                    >
                                         <option value="" disabled hidden>
                                             Selecciona un servicio
                                         </option>
-                                        <option value="Insolvencia">Insolvencia</option>
-                                        <option value="Reorganizacion">Reorganizacion</option>
-                                        <option value="Liquidacion">Liquidacion</option>
-                                        <option value="Otro">Otro</option>
+                                        <option value="Insolvencia">
+                                            Insolvencia de persona natural no comerciante
+                                        </option>
+                                        <option value="Reorganizacion">
+                                            Reorganización Empresarial
+                                        </option>
+                                        <option value="Liquidacion">Liquidacion Patrimonial</option>
+                                        <option value="Otro">Otros Servicios</option>
                                     </select>
                                 </div>
                                 <div className={`${BASE_CLASS}-form-box-form-group`}>
@@ -97,20 +106,6 @@ const Contacto: React.FC<any> = () => {
                                 <div className={`${BASE_CLASS}-form-box-form-group`}>
                                     <label
                                         className={`${BASE_CLASS}-form-box-form-group-label`}
-                                        htmlFor="subject"
-                                    >
-                                        Motivo de la consulta:
-                                    </label>
-                                    <input
-                                        className={`${BASE_CLASS}-form-box-form-group-input`}
-                                        name="subject"
-                                        id="subject"
-                                        required
-                                    />
-                                </div>
-                                <div className={`${BASE_CLASS}-form-box-form-group`}>
-                                    <label
-                                        className={`${BASE_CLASS}-form-box-form-group-label`}
                                         htmlFor="text"
                                     >
                                         Mensaje:
@@ -126,7 +121,7 @@ const Contacto: React.FC<any> = () => {
                                     <Button
                                         className={`${BASE_CLASS}-form-box-form-group-submit`}
                                         type="submit"
-                                        variant="secondary"
+                                        variant="primary"
                                     >
                                         Enviar Mensaje
                                     </Button>
