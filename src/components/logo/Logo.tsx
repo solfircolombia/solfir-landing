@@ -2,9 +2,10 @@ import * as React from 'react';
 import './logo.scss';
 import { Link, navigate } from 'gatsby';
 import { LogoFullHorizontal } from './LogoFullHorizontal';
+import { Variant } from '@types';
 
 type LogoProps = {
-    variant?: 'regular' | 'tertiary';
+    variant?: 'regular' | Variant;
     size?: number;
     className?: string;
 };

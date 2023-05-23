@@ -1,8 +1,9 @@
 import * as React from 'react';
 import './logo.scss';
+import { Variant } from '@types';
 
 export type LogoFullHorizontalProps = {
-    variant: 'regular' | 'tertiary';
+    variant: 'regular' | Variant;
 };
 
 export const LogoFullHorizontal: React.FC<LogoFullHorizontalProps> = ({ variant = 'regular' }) => {

@@ -11,7 +11,7 @@ export const Footer: React.FC = () => {
         <footer className={BASE_CLASS}>
             <div className={`${BASE_CLASS}-wrapper`}>
                 <span className={`${BASE_CLASS}-logo`}>
-                    <Logo variant="tertiary" />
+                    <Logo variant="primary" />
                 </span>
                 <div className={`${BASE_CLASS}-columns`}>
                     <div className={`${BASE_CLASS}-columns-column`}>
