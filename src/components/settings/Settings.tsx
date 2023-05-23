@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Icon } from '@components';
 import { Variant, VariantContrast } from '@types';
 import './settings.scss';
+import { COLORS } from '@constants';
 
 type Theme = Record<Variant | VariantContrast, string>;
 
@@ -13,41 +14,29 @@ export const Settings: React.FC = () => {
     const BASE_CLASS = 'settings';
 
     const THEMES: Record<string, Theme> = {
-        AIR: {
-            primary: 'hsla(340, 71%, 54%, 1)',
-            primaryContrast: 'a',
-            secondary: 'hsla(52, 99%, 67%, 1)',
-            secondaryContrast: '',
-            tertiary: 'hsla(215, 53%, 35%, 1)',
-            tertiaryContrast: '',
-            light: 'white',
-            lightContrast: '',
-            dark: 'hsla(39, 52%, 6%, 1)',
-            darkContrast: '',
+        SOLFIR_1: {
+            primary: COLORS.COLOR_PRUSSIAN_BLUE,
+            primaryContrast: COLORS.COLOR_SUGAR_CANE,
+            secondary: COLORS.COLOR_SUN_YELLOW,
+            secondaryContrast: COLORS.COLOR_EL_PASO,
+            tertiary: COLORS.COLOR_CERISE_RED,
+            tertiaryContrast: COLORS.COLOR_EL_PASO,
+            light: COLORS.COLOR_SUGAR_CANE,
+            lightContrast: COLORS.COLOR_EL_PASO,
+            dark: COLORS.COLOR_EL_PASO,
+            darkContrast: COLORS.COLOR_SUGAR_CANE,
         },
-        AIR2: {
-            primary: 'hsla(222, 79%, 55%,1)',
-            primaryContrast: 'a',
-            secondary: 'hsla(199, 100%, 50%,1)',
-            secondaryContrast: '',
-            tertiary: 'hsla(222, 79%, 35%,1)',
-            tertiaryContrast: '',
-            light: 'white',
-            lightContrast: '',
-            dark: 'hsla(39, 52%, 6%, 1)',
-            darkContrast: '',
-        },
-        AIR3: {
-            primary: 'hsla(27, 100%, 50%,1)',
-            primaryContrast: 'a',
-            secondary: 'hsla(41, 97%, 53%,1)',
-            secondaryContrast: '',
-            tertiary: 'hsla(27, 100%, 30%,1)',
-            tertiaryContrast: '',
-            light: 'white',
-            lightContrast: '',
-            dark: 'hsla(39, 52%, 6%, 1)',
-            darkContrast: '',
+        SOLFIR_2: {
+            primary: COLORS.COLOR_EL_PASO,
+            primaryContrast: COLORS.COLOR_SUGAR_CANE,
+            secondary: COLORS.COLOR_SUN_YELLOW,
+            secondaryContrast: COLORS.COLOR_EL_PASO,
+            tertiary: COLORS.COLOR_FINN,
+            tertiaryContrast: COLORS.COLOR_SUGAR_CANE,
+            light: COLORS.COLOR_SUGAR_CANE,
+            lightContrast: COLORS.COLOR_EL_PASO,
+            dark: COLORS.COLOR_EL_PASO,
+            darkContrast: COLORS.COLOR_SUGAR_CANE,
         },
     };
 

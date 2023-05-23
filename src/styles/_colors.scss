@@ -2,22 +2,19 @@ $sugar-cane: hsla(120, 100%, 100%, 1);
 $sun-yellow: hsla(41, 96%, 53%, 1);
 
 $prussian-blue: hsla(212, 98%, 16%, 1);
-$prussian-blue-contrast-1: $sugar-cane;
-$prussian-blue-contrast-2: $sun-yellow;
+$prussian-blue-contrast: $sugar-cane;
 
 $el-paso: hsla(49, 57%, 5%, 1);
-$el-paso-contrast-1: $sugar-cane;
-$el-paso-contrast-2: $sun-yellow;
+$el-paso-contrast: $sugar-cane;
 
 $sun-yellow: $sun-yellow;
-$sun-yellow-contrast-1: $el-paso;
-$sun-yellow-contrast-2: $sugar-cane;
+$sun-yellow-contrast: $el-paso;
 
 $sugar-cane: $sugar-cane;
-$sugar-cane-contrast-1: $el-paso;
+$sugar-cane-contrast: $el-paso;
 
 $cerise-red: hsla(340, 72%, 54%, 1);
-$cerise-red-contrast-1: $sugar-cane;
+$cerise-red-contrast: $sugar-cane;
 
 // Additional colors
 $finn: hsla(320, 42%, 32%, 1);
@@ -31,8 +28,8 @@ $color-dark: var(--dark);
 $color-light: var(--light);
 $color-transparent: var(--transparent);
 
-$color-primary-contrast: var(--primary-contrast);
-$color-secondary-contrast: var(--secondary-contrast);
-$color-tertiary-contrast: var(--tertiary-contrast);
-$color-dark-contrast: var(--dark-contrast);
-$color-light-contrast: var(--light-contrast);
+$color-primary-contrast: var(--primaryContrast);
+$color-secondary-contrast: var(--secondaryContrast);
+$color-tertiary-contrast: var(--tertiaryContrast);
+$color-dark-contrast: var(--darkContrast);
+$color-light-contrast: var(--lightContrast);
