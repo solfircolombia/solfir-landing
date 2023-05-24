@@ -68,7 +68,7 @@ const Equipo: React.FC<PageProps<Queries.TeamPageQuery>> = ({ data }) => {
                     {TeamMembers.map((member) => {
                         let avatar = getImage(member.avatar);
                         return (
-                            <div className={`${BASE_CLASS}-card`}>
+                            <div key={member.id} className={`${BASE_CLASS}-card`}>
                                 <div className={`${BASE_CLASS}-card-image`}>
                                     {avatar && (
                                         <GatsbyImage
