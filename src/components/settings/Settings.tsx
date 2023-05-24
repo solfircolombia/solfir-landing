@@ -72,7 +72,7 @@ export const Settings: React.FC = () => {
             }`}
         >
             <div className={`${BASE_CLASS}-content`}>
-                <p>COLORES PAGINA</p>
+                <p>SELECCIONE PALETA DE COLORES</p>
                 <div className={`${BASE_CLASS}-content-themes`}>
                     {Object.entries(THEMES).map(([themeName, theme]) => {
                         return (
@@ -80,7 +80,6 @@ export const Settings: React.FC = () => {
                                 key={`key-${themeName}`}
                                 className={`${BASE_CLASS}-content-themes-wrapper`}
                             >
-                                <small>{themeName}</small>
                                 <div
                                     onClick={() => {
                                         switchVars(themeName);
@@ -111,7 +110,7 @@ export const Settings: React.FC = () => {
                             decreaseTextSize();
                         }}
                     >
-                        <Icon name="text-decrease" variant="light"></Icon>
+                        <Icon name="text-decrease" variant="dark"></Icon>
                     </span>
                     <span
                         className={`${BASE_CLASS}-content-text-icon`}
@@ -119,7 +118,7 @@ export const Settings: React.FC = () => {
                             increaseTextSize();
                         }}
                     >
-                        <Icon name="text-increase" variant="light"></Icon>
+                        <Icon name="text-increase" variant="dark"></Icon>
                     </span>
                 </div>
             </div>
