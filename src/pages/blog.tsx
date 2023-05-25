@@ -21,7 +21,7 @@ const BlogPage: React.FC<PageProps<Queries.BlogPageQuery>> = ({ data }) => {
                 </div>
                 <div className={`${BASE_CLASS}-welcome-text`}>
                     <div className={`${BASE_CLASS}-wrapper`}>
-                        <span className={`${BASE_CLASS}-welcome-text-content`}>
+                        <p>
                             Aquí encontrarás información útil y consejos financieros para ayudarte a
                             manejar mejor tus finanzas personales o empresariales. Además, te
                             mantendremos informado sobre temas de actualidad relacionados con la
@@ -30,7 +30,7 @@ const BlogPage: React.FC<PageProps<Queries.BlogPageQuery>> = ({ data }) => {
                             decisiones informadas y positivas para el futuro financiero. Únete a
                             nosotros en esta aventura financiera y descubre cómo podemos ayudarte a
                             lograr una mayor estabilidad financiera y tranquilidad.
-                        </span>
+                        </p>
                     </div>
                 </div>
 

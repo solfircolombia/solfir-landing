@@ -41,7 +41,7 @@ const LandingPage = ({ data }: PageProps<Queries.LandingPageQuery>) => {
                         </span>
                         <div className={`${BASE_CLASS}-banner-buttons`}>
                             <Button
-                                variant="secondary"
+                                variant="primary"
                                 size="medium"
                                 onClick={() => {
                                     goToSection(`${BASE_CLASS}-services`);
