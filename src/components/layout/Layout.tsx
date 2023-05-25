@@ -14,7 +14,12 @@ export const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
                     <Header></Header>
                     <div className="content">{children}</div>
                     <Footer></Footer>
-                    <a className="bubble" target="_blank" href={CONTACT_DATA.CONTACT_WHATSAPP_LINK}>
+                    <a
+                        className="bubble"
+                        target="_blank"
+                        href={CONTACT_DATA.CONTACT_WHATSAPP_LINK}
+                        aria-label="Click aqui para abrir un chat con uno de nuestros asesores"
+                    >
                         <Icon className="icon" name="whatsapp" fill="white"></Icon>
                     </a>
                 </>

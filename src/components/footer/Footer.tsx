@@ -92,11 +92,16 @@ export const Footer: React.FC = () => {
                     <div className="social-icons">
                         {SOCIAL_LINKS.map(({ name, link }, idx) => {
                             return (
-                                <a key={idx} className="social-icons-icon tooltip" href={link}>
+                                <a
+                                    key={idx}
+                                    className="social-icons-icon tooltip"
+                                    href={link}
+                                    aria-label={`Click aqui para ir a nuestra cuenta de ${name}`}
+                                >
                                     <span className="tooltiptext tooltiptext--tertiary">
                                         {name.toLocaleUpperCase()}
                                     </span>
-                                    <Icon key={idx} name={name} variant="light"></Icon>
+                                    <Icon key={idx} name={name} variant="secondary"></Icon>
                                 </a>
                             );
                         })}

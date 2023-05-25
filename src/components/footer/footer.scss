@@ -22,9 +22,10 @@
         display: flex;
         align-items: center;
         margin: 10px 0;
-        @include anchor-styles('light', 'primary');
+        max-width: fit-content;
+        @include anchor-styles('secondary', 'primary');
         &-active {
-            @include anchor-styles('light', 'primary');
+            @include anchor-styles('secondary', 'secondary');
         }
         &-icon {
             margin-right: 10px;
@@ -102,6 +103,7 @@
         &-title {
             display: flex;
             align-items: center;
+            font-weight: bold;
 
             &-icon {
                 margin-right: 10px;
