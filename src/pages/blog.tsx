@@ -19,19 +19,18 @@ const BlogPage: React.FC<PageProps<Queries.BlogPageQuery>> = ({ data }) => {
                         </span>
                     </div>
                 </div>
-                <div className={`${BASE_CLASS}-welcome-text`}>
-                    <div className={`${BASE_CLASS}-wrapper`}>
-                        <p>
-                            Aquí encontrarás información útil y consejos financieros para ayudarte a
-                            manejar mejor tus finanzas personales o empresariales. Además, te
-                            mantendremos informado sobre temas de actualidad relacionados con la
-                            insolvencia y otras cuestiones legales y financieras relevantes. En
-                            SOLFIR, creemos que el conocimiento financiero es la clave para tomar
-                            decisiones informadas y positivas para el futuro financiero. Únete a
-                            nosotros en esta aventura financiera y descubre cómo podemos ayudarte a
-                            lograr una mayor estabilidad financiera y tranquilidad.
-                        </p>
-                    </div>
+
+                <div className={`${BASE_CLASS}-wrapper`}>
+                    <p>
+                        Aquí encontrarás información útil y consejos financieros para ayudarte a
+                        manejar mejor tus finanzas personales o empresariales. Además, te
+                        mantendremos informado sobre temas de actualidad relacionados con la
+                        insolvencia y otras cuestiones legales y financieras relevantes. En SOLFIR,
+                        creemos que el conocimiento financiero es la clave para tomar decisiones
+                        informadas y positivas para el futuro financiero. Únete a nosotros en esta
+                        aventura financiera y descubre cómo podemos ayudarte a lograr una mayor
+                        estabilidad financiera y tranquilidad.
+                    </p>
                 </div>
 
                 <div className={`${BASE_CLASS}-posts`}>

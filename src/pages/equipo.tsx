@@ -21,8 +21,10 @@ const Equipo: React.FC<PageProps<Queries.TeamPageQuery>> = ({ data }) => {
     return (
         <Layout>
             <div className={BASE_CLASS}>
-                <div className={`${BASE_CLASS}-wrapper`}>
-                    <h1>Equipo de trabajo</h1>
+                <div className={`${BASE_CLASS}-header`}>
+                    <div className={`${BASE_CLASS}-wrapper`}>
+                        <span className={`${BASE_CLASS}-header-title`}>Equipo de trabajo</span>
+                    </div>
                 </div>
                 <div className={`${BASE_CLASS}-wrapper`}>
                     <p>

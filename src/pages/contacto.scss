@@ -16,10 +16,14 @@
         flex-direction: column;
         align-items: center;
         width: 100%;
-        background-color: $color-secondary;
-        color: $color-light-contrast;
+        background-color: $color-primary;
+        color: $color-primary-contrast;
         text-align: center;
         margin: 50px 0;
+
+        &-title {
+            @extend %typography-h1;
+        }
 
         #{$ref}-wrapper {
             display: flex;
@@ -59,10 +63,12 @@
                     display: flex;
                     flex-direction: column;
                     margin-bottom: 20px;
+
                     &-label {
                         margin-bottom: 10px;
                         font-weight: bold;
                     }
+
                     &-select {
                         appearance: none;
                         border: 1px solid $color-primary;
@@ -70,6 +76,7 @@
                         border-radius: 5px;
                         width: 100%;
                     }
+
                     &-input {
                         flex: 1;
                         margin-right: 20px;
@@ -79,6 +86,7 @@
                         border-radius: 5px;
                         width: 100%;
                     }
+
                     &-textarea {
                         width: 100%;
                         appearance: none;
@@ -87,10 +95,19 @@
                         padding: 10px;
                         border-radius: 5px;
                     }
+
                     &-submit {
                         align-self: center;
                     }
                 }
+            }
+        }
+    }
+
+    @include for-sm {
+        &-header {
+            &-title {
+                @include typography-h2;
             }
         }
     }

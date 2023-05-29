@@ -6,11 +6,18 @@ import { Utils } from '@shared';
 import './servicios.scss';
 
 const ThanksPage: React.FC<PageProps> = () => {
-    const BASE_CLASS = 'gracias';
+    const BASE_CLASS = 'servicios';
 
     return (
         <Layout>
             <div className={BASE_CLASS}>
+                <div className={`${BASE_CLASS}-header`}>
+                    <div className={`${BASE_CLASS}-wrapper`}>
+                        <span className={`${BASE_CLASS}-header-title`}>
+                            Conoce nuestros servicios
+                        </span>
+                    </div>
+                </div>
                 <div className={`${BASE_CLASS}-wrapper`}>
                     <div className={`${BASE_CLASS}-message-box`}>
                         <span className={`${BASE_CLASS}-message-box-title`}>Servicios</span>

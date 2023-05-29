@@ -13,11 +13,7 @@ const Contacto: React.FC<any> = () => {
             <div className={BASE_CLASS}>
                 <div className={`${BASE_CLASS}-header`}>
                     <div className={`${BASE_CLASS}-wrapper`}>
-                        <h1>
-                            ¿Necesitas una consulta?
-                            <br />
-                            Envianos un mensaje
-                        </h1>
+                        <span className={`${BASE_CLASS}-header-title`}>Envianos un mensaje</span>
                     </div>
                 </div>
 

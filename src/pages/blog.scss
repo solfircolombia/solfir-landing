@@ -7,20 +7,15 @@
     flex-direction: column;
     align-items: center;
 
-    %blog-section {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        padding: 20px 0;
-        align-items: center;
-    }
-
     &-wrapper {
         @extend %cw;
     }
 
     &-header {
-        @extend %blog-section;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
         margin-top: 50px;
         text-align: center;
         background-color: $color-primary;
@@ -28,10 +23,6 @@
             @extend %typography-h1;
             color: $color-primary-contrast;
         }
-    }
-
-    &-welcome-text {
-        @extend %blog-section;
     }
 
     &-posts {
