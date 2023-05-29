@@ -9,6 +9,9 @@
 
     &-wrapper {
         @extend %cw;
+        p {
+            text-align: justify;
+        }
     }
 
     &-header {

@@ -87,6 +87,8 @@
                     }
 
                     &-text {
+                        @extend %typography-p;
+                        text-align: justify;
                         word-break: normal;
                     }
                 }
@@ -124,13 +126,12 @@
         }
 
         &-text {
-            // @extend %typography-p;
             margin: 50px 0;
         }
 
         &-posts {
             display: flex;
-            align-items: flex-start;
+            align-items: stretch;
             flex-wrap: wrap;
             justify-content: center;
         }

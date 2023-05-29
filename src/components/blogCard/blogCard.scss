@@ -53,6 +53,7 @@
 
         &-text {
             @extend %typography-small;
+            text-align: justify;
             display: -webkit-box;
             margin-top: 16px;
         }
@@ -68,6 +69,7 @@
         padding: 16px;
         display: flex;
         justify-content: flex-end;
+        margin-top: auto;
 
         &-link {
             @extend %blog-card-link;
