@@ -14,7 +14,7 @@ enum STATIC_SITE_LINKS {
 }
 
 enum STATIC_SITE_LABELS {
-    HOME = 'SOLFIR',
+    HOME = 'Inicio',
     BLOG = 'Blog',
     ABOUT = '¿Quiénes Somos?',
     TEAM = 'Equipo de trabajo',
@@ -29,6 +29,10 @@ enum STATIC_SITE_LABELS {
 }
 
 const SITE_LINKS: { label: string; link: string }[] = [
+    {
+        label: STATIC_SITE_LABELS.HOME,
+        link: STATIC_SITE_LINKS.HOME,
+    },
     {
         label: STATIC_SITE_LABELS.ABOUT,
         link: STATIC_SITE_LINKS.ABOUT,
