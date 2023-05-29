@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { graphql } from 'gatsby';
+import { Link, graphql } from 'gatsby';
 import { renderRichText } from 'gatsby-source-contentful/rich-text';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { Layout, RecentPosts } from '@components';
+import { STATIC_SITE_LINKS } from '@constants';
 import './blogPostPage.scss';
 
 const BlogPostPage: React.FC<{ data: Queries.BlogPostPageQuery }> = ({ data }) => {
@@ -28,7 +29,10 @@ const BlogPostPage: React.FC<{ data: Queries.BlogPostPageQuery }> = ({ data }) =
                 <span className={`${BASE_CLASS}-title`}>{contentfulBlogPost?.title}</span>
                 <div className={`${BASE_CLASS}-date-author`}>
                     {formatDate(contentfulBlogPost?.date)} | Autor -{' '}
-                    {contentfulBlogPost?.author?.name}
+                    <Link to={`${STATIC_SITE_LINKS.TEAM}/${contentfulBlogPost?.author?.slug}`}>
+                        {' '}
+                        {contentfulBlogPost?.author?.name}{' '}
+                    </Link>
                 </div>
                 <div className={`${BASE_CLASS}-main`}>
                     <div className={`${BASE_CLASS}-main-content`}>
@@ -73,6 +77,7 @@ export const query = graphql`
             }
             author {
                 name
+                slug
             }
             content {
                 raw
