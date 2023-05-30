@@ -92,7 +92,21 @@
         @extend %typography-small;
         margin: 50px 0;
         align-self: center;
-        text-align: center;
+    }
+
+    .credits {
+        @extend %typography-small;
+        align-self: center;
+        span {
+            margin: 20px 0;
+        }
+        a {
+            @include anchor-styles('secondary', 'primary');
+            @extend %typography-small;
+            &:hover {
+                border-width: 2px;
+            }
+        }
     }
 
     .contact-info {

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link } from 'gatsby';
 import { Logo, Icon } from '@components';
-import { SITE_LINKS, CONTACT_DATA, SOCIAL_LINKS } from '@constants';
+import { SITE_LINKS, CONTACT_DATA, SOCIAL_LINKS, CREDIT_LINKS } from '@constants';
 import './footer.scss';
 
 export const Footer: React.FC = () => {
@@ -109,7 +109,22 @@ export const Footer: React.FC = () => {
                 </div>
 
                 <span className="trademark">
-                    {` SOLFIR Colombia SAS © Todos los derechos reservados | ${new Date().getFullYear()}`}{' '}
+                    <span>
+                        {`SOLFIR - Soluciones financieras y reorganizaciones S.A.S © Todos los derechos reservados | ${new Date().getFullYear()}`}{' '}
+                    </span>
+                </span>
+
+                <span className="credits">
+                    {CREDIT_LINKS.map((credit) => {
+                        return (
+                            <span>
+                                {credit.role}{' '}
+                                <a href={credit.link} target="_blank" rel="noopener noreferrer">
+                                    {credit.label}
+                                </a>
+                            </span>
+                        );
+                    })}
                 </span>
             </div>
         </footer>

@@ -1,4 +1,4 @@
-import { SITE_LINKS, STATIC_SITE_LABELS, STATIC_SITE_LINKS } from './links.constants';
+import { SITE_LINKS, STATIC_SITE_LABELS, STATIC_SITE_LINKS, CREDIT_LINKS } from './links.constants';
 import * as BREAKPOINTS from './breakpoints.constants';
 import * as CONTACT_DATA from './contact.constants';
 import * as LABELS from './labels.constants';
@@ -17,5 +17,6 @@ export {
     SOCIAL_LINKS,
     STATIC_SITE_LABELS,
     STATIC_SITE_LINKS,
+    CREDIT_LINKS,
     COLORS,
 };

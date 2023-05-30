@@ -67,4 +67,27 @@ const SITE_LINKS: { label: string; link: string }[] = [
     // },
 ];
 
-export { SITE_LINKS, STATIC_SITE_LINKS, STATIC_SITE_LABELS };
+const CREDIT_LINKS: { role: string; label: string; link: string }[] = [
+    {
+        role: 'Creado por',
+        label: 'R2N',
+        link: 'https://r2n.dev',
+    },
+    {
+        role: ' - Diseño por',
+        label: 'Leidy Zuñiga',
+        link: 'https://www.behance.net/leidyZ',
+    },
+    {
+        role: ' - Producciones audiovisuales por',
+        label: 'Alexis Madroñero',
+        link: '',
+    },
+    {
+        role: ' - Stock photos de',
+        label: 'Unsplash',
+        link: 'https://unsplash.com/license',
+    },
+];
+
+export { SITE_LINKS, STATIC_SITE_LINKS, STATIC_SITE_LABELS, CREDIT_LINKS };
