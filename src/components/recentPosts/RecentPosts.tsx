@@ -42,7 +42,7 @@ export const RecentPosts: React.FC<any> = () => {
             <div className={`${BASE_CLASS}-wrapper`}>
                 {data.allContentfulBlogPost.edges.map(({ node }) => {
                     return (
-                        <div className={`${BASE_CLASS}-card`}>
+                        <div key={node.id} className={`${BASE_CLASS}-card`}>
                             <div className={`${BASE_CLASS}-card-img`}>
                                 {node?.image && (
                                     <GatsbyImage
@@ -52,7 +52,9 @@ export const RecentPosts: React.FC<any> = () => {
                                     ></GatsbyImage>
                                 )}
                             </div>
-                            <span className={`${BASE_CLASS}-card-title`}>{node.title}</span>
+                            <span key={`span-${node.id}`} className={`${BASE_CLASS}-card-title`}>
+                                {node.title}
+                            </span>
                             <Link
                                 to={`${STATIC_SITE_LINKS.BLOG}/${node.slug}`}
                                 className={`${BASE_CLASS}-card-link`}

@@ -117,7 +117,7 @@ export const Footer: React.FC = () => {
                 <span className="credits">
                     {CREDIT_LINKS.map((credit) => {
                         return (
-                            <span>
+                            <span key={credit.label}>
                                 {credit.role}{' '}
                                 <a href={credit.link} target="_blank" rel="noopener noreferrer">
                                     {credit.label}
