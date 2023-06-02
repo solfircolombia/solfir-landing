@@ -54,4 +54,78 @@
             margin-top: 30px;
         }
     }
+
+    .card-wrapper {
+        display: flex;
+        align-items: stretch;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .service-card {
+        width: 300px;
+        margin: 30px;
+
+        &-title {
+            @extend %typography-h5;
+            font-weight: 500;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        &-icon {
+            fill: $color-secondary;
+            margin: 30px 0;
+        }
+
+        &-button {
+            margin: 30px 0;
+        }
+
+        &-text {
+        }
+    }
+}
+// Need to put styles outside main class because this is render in a portal < see Modal component >
+.service-modal {
+    max-width: 800px;
+    &-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &-logo {
+            height: 60px !important;
+            margin: 30px 0;
+        }
+
+        &-title {
+            @extend %typography-h5;
+            font-weight: 500;
+            text-align: center;
+        }
+        &-text {
+            text-align: justify;
+            padding: 20px;
+        }
+        &-contact {
+            margin-top: 20px;
+
+            &-btn {
+                margin-top: 20px;
+            }
+        }
+        // Tweak to avoid hidden bottom padding due to overflow
+        &-gap {
+            width: 20px;
+            min-height: 20px;
+        }
+    }
+    .modal-content {
+        overflow: auto;
+        padding: 20px;
+    }
 }
