@@ -11,6 +11,7 @@ import { Maintenance } from './maintenance/Maintenance';
 import { SEO } from './seo/SEO';
 import { RecentPosts } from './recentPosts/RecentPosts';
 import { Card } from './card/Card';
+import { Modal } from './modal/Modal';
 
 export {
     Button,
@@ -26,4 +27,5 @@ export {
     SEO,
     RecentPosts,
     Card,
+    Modal,
 };

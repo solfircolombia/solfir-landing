@@ -37,7 +37,9 @@
         display: flex;
         align-items: center;
         width: 100%;
-        justify-content: flex-end;
+        justify-content: space-between;
+        border-bottom: 1px solid rgba($color: $scorpion, $alpha: 0.2);
+        height: $header-height;
 
         &-close {
             display: flex;
@@ -45,6 +47,14 @@
             height: 30px;
             width: 30px;
             margin: 20px;
+        }
+
+        &-logo {
+            height: 60px !important;
+        }
+
+        @include for-sm {
+            height: $header-height-sm;
         }
     }
 
@@ -55,5 +65,15 @@
 
     &-footer {
         display: flex;
+        border-top: 1px solid rgba($color: $scorpion, $alpha: 0.2);
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        padding: 5px 0;
+
+        &-icon {
+            height: 48px;
+        }
     }
 }

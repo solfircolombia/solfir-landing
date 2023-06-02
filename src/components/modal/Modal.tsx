@@ -1,21 +1,23 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import { Icon } from '@components';
+import { Icon, Logo } from '@components';
 import { addPortalElement, getPortalParentElement, removePortalElement } from './helpers';
 
 // Styles
 import './modal.scss';
-import { KEY, LABELS } from '@constants';
+import { KEY, LABELS, SOCIAL_LINKS } from '@constants';
 
 type ModalProps = {
     onCloseModal: () => void;
     ariaLabel?: string;
+    customClass?: string;
 };
 
 export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({
     children,
     onCloseModal,
     ariaLabel,
+    customClass,
 }) => {
     const CONTAINER_BASE_CLASS = 'portal';
     const CONTAINER_ELEMENT_TAG = 'div';
@@ -115,8 +117,9 @@ export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({
             className={BASE_CLASS}
             ref={modalRef}
         >
-            <div className={`${BASE_CLASS}-wrapper`}>
+            <div className={`${BASE_CLASS}-wrapper  ${customClass ?? ''}`}>
                 <div className={`${BASE_CLASS}-header`}>
+                    <Logo className={`${BASE_CLASS}-header-logo`}></Logo>
                     <button
                         aria-label={LABELS.MENU_CERRAR}
                         className={`${BASE_CLASS}-header-close`}
@@ -127,7 +130,18 @@ export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({
                 </div>
                 <div className={`${BASE_CLASS}-content`}>{children}</div>
                 <div className={`${BASE_CLASS}-footer`}>
-                    <span>SOLFIR Colombia SAS</span>
+                    {SOCIAL_LINKS.map(({ name, link }, idx) => {
+                        return (
+                            <a
+                                key={idx}
+                                className={`${BASE_CLASS}-footer-icon`}
+                                href={link}
+                                aria-label={`Click aqui para ir a nuestra cuenta de ${name}`}
+                            >
+                                <Icon key={idx} name={name} variant="primary"></Icon>
+                            </a>
+                        );
+                    })}
                 </div>
             </div>
         </div>,
