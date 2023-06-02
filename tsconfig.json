@@ -112,6 +112,7 @@
         "./gatsby-node.ts",
         "./gatsby-config.ts",
         "./gatsby-ssr.tsx",
+        "./gatsby-browser.tsx",
         "./plugins/**/*",
         "src/gatsby-types.d.ts",
         "src/custom.d.ts"

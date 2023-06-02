@@ -5,11 +5,13 @@ import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { Layout, RecentPosts } from '@components';
 import { STATIC_SITE_LINKS } from '@constants';
 import './blogPostPage.scss';
+import { useContentfulLiveUpdates } from '@contentful/live-preview/react';
 
 const BlogPostPage: React.FC<{ data: Queries.BlogPostPageQuery }> = ({ data }) => {
     const BASE_CLASS = 'blog-post-page';
 
-    let { contentfulBlogPost } = data;
+    let { contentfulBlogPost } = useContentfulLiveUpdates(data);
+
     let image = getImage(contentfulBlogPost?.image!);
     const formatDate = (date: string | null | undefined) => {
         if (date) {

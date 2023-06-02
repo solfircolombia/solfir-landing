@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Footer, Header, Icon, Settings, Maintenance } from '@components';
 import { CONTACT_DATA } from '@constants';
+import '@contentful/live-preview/style.css';
 import './layout.scss';
 
 export const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
