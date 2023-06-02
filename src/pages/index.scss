@@ -52,6 +52,10 @@
             margin-bottom: 60px;
         }
 
+        &-cta {
+            margin-top: 50px;
+        }
+
         &-items {
             display: flex;
             flex-wrap: wrap;
@@ -74,7 +78,7 @@
                         font-weight: bold;
                         display: flex;
                         align-items: center;
-                        margin: 60px 0;
+                        margin: 10px 0;
                         &-icon {
                             display: flex;
                             margin-right: 20px;

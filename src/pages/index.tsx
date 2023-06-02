@@ -68,14 +68,21 @@ const LandingPage = ({ data }: PageProps<Queries.LandingPageQuery>) => {
                                                 />
                                                 {serviceName}
                                             </span>
-                                            <div className="service-box-content-text">
-                                                {serviceText}
-                                            </div>
                                         </div>
                                     </div>
                                 );
                             })}
                         </div>
+                        <Button
+                            className={`${BASE_CLASS}-services-cta`}
+                            variant="primary"
+                            onClick={() => {
+                                navigate(STATIC_SITE_LINKS.SERVICES);
+                            }}
+                        >
+                            {' '}
+                            Conoce todos nuestros servicios{' '}
+                        </Button>
                     </div>
                 </section>
                 <section className={`${BASE_CLASS}-blog`}>

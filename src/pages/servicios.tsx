@@ -29,7 +29,7 @@ const ServicesPage = ({ data }: PageProps<Queries.ServicesPageQuery>) => {
                 <span className="service-modal-content-title">{s.serviceName}</span>
                 <p className="service-modal-content-text">{s.serviceText}</p>
                 <p className="service-modal-content-contact">
-                    ¿Deseas saber mas sobre este servicio?
+                    ¿Te encuentras interesado en este servicio?
                 </p>
                 <Button
                     className="service-modal-content-contact-btn"
