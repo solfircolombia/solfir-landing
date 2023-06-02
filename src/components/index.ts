@@ -10,6 +10,7 @@ import { Loader } from './loader/Loader';
 import { Maintenance } from './maintenance/Maintenance';
 import { SEO } from './seo/SEO';
 import { RecentPosts } from './recentPosts/RecentPosts';
+import { Card } from './card/Card';
 
 export {
     Button,
@@ -24,4 +25,5 @@ export {
     Maintenance,
     SEO,
     RecentPosts,
+    Card,
 };
