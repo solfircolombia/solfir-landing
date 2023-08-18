@@ -1,11 +1,11 @@
 const CONTACT_MAIL = 'contacto@solfir.com.co';
 const CONTACT_MAIL_SUPPORT = 'andres.artunduaga@solfir.com.co';
 const CONTACT_PHONE = '3008178461';
-const CONTACT_ADDRESS = 'Carrera 13 # 96-67, Oficina 209, Edificio Akori';
+const CONTACT_ADDRESS = 'Calle 98 # 15-17 Oficina 301, Edificio Manhattan Center, Bogota DC';
 
 // Use this web to generate the place id https://developers.google.com/maps/documentation/places/web-service/place-id
 const CONTACT_ADDRESS_MAPS_LINK =
-    'https://www.google.com/maps/place/Edificio+Akori+Of.+605/@4.681006,-74.0474791,20.82z/data=!4m6!3m5!1s0x8e3f9a96ab4f05bb:0xdbb6f071bf4c2850!8m2!3d4.6810201!4d-74.0475245!16s%2Fg%2F11dxk_mfw7';
+    'https://www.google.com/maps/place/EDIFICIO%E2%80%A2MANHATTAN.CENTER,+Cl.+98+%2315-17,+Localidad+de+Chapinero,+Bogot%C3%A1/@4.6830466,-74.0515491,17z/data=!3m1!4b1!4m6!3m5!1s0x8e3f9a9437b4fabd:0xc537c7c5276ae064!8m2!3d4.6830413!4d-74.0489688!16s%2Fg%2F11f3tvjv8m?entry=ttu';
 
 const CONTACT_WHATSAPP_PHONE = `+57${CONTACT_PHONE}`;
 

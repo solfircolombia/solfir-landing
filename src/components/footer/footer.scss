@@ -92,11 +92,13 @@
         @extend %typography-small;
         margin: 50px 0;
         align-self: center;
+        text-align: center;
     }
 
     .credits {
         @extend %typography-small;
         align-self: center;
+        text-align: center;
         span {
             margin: 20px 0;
         }
@@ -126,6 +128,7 @@
             }
         }
         &-link {
+            max-width: 300px;
             margin-left: 30px;
         }
     }
