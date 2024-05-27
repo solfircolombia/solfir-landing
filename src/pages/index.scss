@@ -13,7 +13,11 @@
     }
 
     &-banner {
-        @extend %section;
+        // background-image: url('https://picsum.photos/id/1/800/1200');
+        // filter: opacity(0.8);
+        // background-color: $color-primary;
+        // background-repeat: no-repeat;
+        // background-position: center;
 
         &-title {
             @extend %typography-h1;

@@ -1,10 +1,10 @@
-$sugar-cane: hsla(120, 100%, 100%, 1);
-$sun-yellow: hsla(41, 96%, 53%, 1);
+$sugar-cane: #ffffff;
+$sun-yellow: #fab114;
 
-$prussian-blue: hsla(212, 98%, 16%, 1);
+$prussian-blue: #012651;
 $prussian-blue-contrast: $sugar-cane;
 
-$el-paso: hsla(49, 57%, 5%, 1);
+$el-paso: #141105;
 $el-paso-contrast: $sugar-cane;
 
 $sun-yellow: $sun-yellow;
@@ -13,13 +13,13 @@ $sun-yellow-contrast: $el-paso;
 $sugar-cane: $sugar-cane;
 $sugar-cane-contrast: $el-paso;
 
-$cerise-red: hsla(340, 72%, 54%, 1);
+$cerise-red: #de356e;
 $cerise-red-contrast: $sugar-cane;
 
 // Additional colors
-$finn: hsla(320, 42%, 32%, 1);
-$scorpion: hsla(300, 1%, 38%, 1);
-$whatsapp-color: #25d366;
+$finn: #742f5d;
+$scorpion: #626062;
+$whatsapp-color: hsl(142, 70%, 49%);
 
 $color-primary: var(--primary);
 $color-secondary: var(--secondary);

@@ -12,6 +12,7 @@ import { SEO } from './seo/SEO';
 import { RecentPosts } from './recentPosts/RecentPosts';
 import { Card } from './card/Card';
 import { Modal } from './modal/Modal';
+import { PageSection } from './pageSection/PageSection';
 
 export {
     Button,
@@ -28,4 +29,5 @@ export {
     RecentPosts,
     Card,
     Modal,
+    PageSection,
 };
