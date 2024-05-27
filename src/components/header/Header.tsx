@@ -61,12 +61,12 @@ export const Header: React.FC<HeaderProps> = ({ setBgTransparent = false }) => {
 
     return (
         <>
-            <header className={`header ${!setBgTransparent ? 'header--fixed' : ''}`}>
+            <header className={`header ${setBgTransparent ? 'header--transparent' : ''}`}>
                 <div className="wrapper">
                     <div className="header-logo">
                         <Logo
                             className={`header-logo-solfir`}
-                            variant={!setBgTransparent ? 'regular' : 'primary'}
+                            variant={setBgTransparent ? 'primary' : 'regular'}
                         />
                         <Button
                             aria-label={LABELS.MENU_PRINCIPAL}
@@ -93,11 +93,13 @@ export const Header: React.FC<HeaderProps> = ({ setBgTransparent = false }) => {
                                         <Link
                                             key={idx}
                                             className={`header-links-item ${
-                                                !setBgTransparent ? 'header-links-item--fixed' : ''
+                                                setBgTransparent
+                                                    ? 'header-links-item--transparent'
+                                                    : ''
                                             }`}
                                             activeClassName={`header-links-item-active ${
-                                                !setBgTransparent
-                                                    ? 'header-links-item-active--fixed'
+                                                setBgTransparent
+                                                    ? 'header-links-item-active--transparent'
                                                     : ''
                                             }`}
                                             to={link}

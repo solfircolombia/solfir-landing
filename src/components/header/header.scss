@@ -6,16 +6,16 @@
     width: 100%;
     justify-content: center;
     top: 0;
-    background-color: $color-transparent;
+    background-color: $color-light;
     min-height: $header-height;
     position: fixed;
     z-index: 2;
+    box-shadow: 0 5px 10px -3px rgb(0 0 0 / 50%);
     transition: all 0.5s ease;
 
-    &--fixed {
-        z-index: 2;
-        box-shadow: 0 5px 10px -3px rgb(0 0 0 / 50%);
-        background-color: $color-light;
+    &--transparent {
+        background-color: $color-transparent;
+        box-shadow: none;
         transition: all 0.5s ease;
     }
 
@@ -70,18 +70,19 @@
 
         &-item {
             @extend %typography-p;
-            @include anchor-styles('light', 'none');
+
+            @include anchor-styles('primary', 'light');
             user-select: none;
             margin: 10px 10px;
 
-            &--fixed {
-                @include anchor-styles('primary', 'light');
+            &--transparent {
+                @include anchor-styles('light', 'none');
             }
 
             &-active {
-                @include anchor-styles('light', 'light');
-                &--fixed {
-                    @include anchor-styles('primary', 'primary');
+                @include anchor-styles('primary', 'primary');
+                &--transparent {
+                    @include anchor-styles('light', 'light');
                 }
             }
         }
@@ -90,6 +91,7 @@
     @include for-sm {
         height: $header-height-sm;
         min-height: $header-height-sm;
+
         .wrapper {
             flex-direction: column;
             align-items: center;
