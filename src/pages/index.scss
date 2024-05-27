@@ -13,22 +13,25 @@
     }
 
     &-banner {
-        // background-image: url('https://picsum.photos/id/1/800/1200');
-        // filter: opacity(0.8);
-        // background-color: $color-primary;
-        // background-repeat: no-repeat;
-        // background-position: center;
+        background-image: url('/images/BGSOLFIR1.jpg');
+        background-size: cover;
+
+        padding-top: calc($header-height + 100px);
+        background-color: $color-primary;
 
         &-title {
             @extend %typography-h1;
+            color: $color-light;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
             display: block;
             width: 100%;
             text-align: center;
             word-wrap: break-word;
             overflow-wrap: break-word;
+            font-weight: bold;
 
             &-solfir {
-                color: $color-primary;
+                color: $color-secondary;
             }
             @include for-xs {
                 @include typography-h2;
@@ -44,13 +47,7 @@
 
     &-services {
         @extend %section;
-        background-color: $color-secondary;
-
-        #{$ref}-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+        background-color: $color-light;
 
         &-title {
             margin-bottom: 60px;
@@ -121,6 +118,7 @@
 
     &-blog {
         @extend %section;
+        background-color: $color-light-2;
 
         #{$ref}-wrapper {
             display: flex;
@@ -151,15 +149,8 @@
 
     &-hireus {
         @extend %section;
-
-        #{$ref}-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        background-color: $color-secondary;
-        color: $color-secondary-contrast;
+        background-color: $color-light;
+        color: $color-light-contrast;
 
         &-title {
             text-align: center;

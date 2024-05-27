@@ -29,7 +29,7 @@
 }
 
 // Mixin for anchor styles
-// $variant must be ( primary, secondary, tertiary, dark, light )
+// $variant must be ( primary, secondary, tertiary, dark, light, none )
 
 $anchor-variant-color: (
     primary: $color-primary,
@@ -37,6 +37,7 @@ $anchor-variant-color: (
     tertiary: $color-tertiary,
     dark: $color-dark,
     light: $color-light,
+    none: transparent,
 );
 
 // $variant will determine the links and border

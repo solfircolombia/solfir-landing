@@ -47,7 +47,7 @@ const LandingPage = ({ data }: PageProps<Queries.LandingPageQuery>) => {
                     </span>
                     <div className={`${BASE_CLASS}-banner-buttons`}>
                         <Button
-                            variant="primary"
+                            variant="secondary"
                             size="medium"
                             onClick={() => {
                                 goToSection(`${BASE_CLASS}-services`);
@@ -79,7 +79,7 @@ const LandingPage = ({ data }: PageProps<Queries.LandingPageQuery>) => {
                     </div>
                     <Button
                         className={`${BASE_CLASS}-services-cta`}
-                        variant="primary"
+                        variant="secondary"
                         onClick={() => {
                             navigate(STATIC_SITE_LINKS.SERVICES);
                         }}
@@ -104,7 +104,7 @@ const LandingPage = ({ data }: PageProps<Queries.LandingPageQuery>) => {
                     </div>
                     <Button
                         className={`${BASE_CLASS}-blog-cta`}
-                        variant="primary"
+                        variant="secondary"
                         onClick={() => {
                             goToLink(STATIC_SITE_LINKS.BLOG);
                         }}
@@ -121,7 +121,7 @@ const LandingPage = ({ data }: PageProps<Queries.LandingPageQuery>) => {
                         ver cómo podemos ayudarte a lograr la estabilidad financiera.
                     </p>
                     <Button
-                        variant="primary"
+                        variant="secondary"
                         className={`${BASE_CLASS}-hireus-cta`}
                         onClick={() => {
                             goToLink(STATIC_SITE_LINKS.CONTACT);

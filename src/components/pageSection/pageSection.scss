@@ -16,5 +16,6 @@
     &__wrapper {
         @extend %cw;
         z-index: 1;
+        position: relative;
     }
 }

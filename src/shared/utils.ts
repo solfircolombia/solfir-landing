@@ -12,4 +12,16 @@ function getSEOProps(page: STATIC_SITE_LINKS): SEOProps {
     return SEO_DATA[page];
 }
 
-export { getTitle, getSEOProps };
+const handleScroll = (
+    callback: (isGreaterThanThreshold: boolean) => void,
+    threshold: number = 20
+) => {
+    return () => {
+        const scrollPosition =
+            window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
+        const scrollThreshold = threshold;
+        callback(scrollPosition > scrollThreshold);
+    };
+};
+
+export { getTitle, getSEOProps, handleScroll };

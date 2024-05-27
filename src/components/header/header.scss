@@ -5,16 +5,23 @@
     align-items: center;
     width: 100%;
     justify-content: center;
-    box-shadow: 0 5px 10px -3px rgb(0 0 0 / 50%);
-    position: fixed;
     top: 0;
-    background-color: $color-light;
+    background-color: $color-transparent;
     min-height: $header-height;
+    position: fixed;
     z-index: 2;
+    transition: all 0.5s ease;
+
+    &--fixed {
+        z-index: 2;
+        box-shadow: 0 5px 10px -3px rgb(0 0 0 / 50%);
+        background-color: $color-light;
+        transition: all 0.5s ease;
+    }
 
     .wrapper {
         @extend %cw;
-        display: flex;
+        flex-direction: row;
         align-items: center;
         width: 100%;
     }
@@ -63,13 +70,19 @@
 
         &-item {
             @extend %typography-p;
-            @include anchor-styles('primary', 'light');
+            @include anchor-styles('light', 'none');
             user-select: none;
             margin: 10px 10px;
 
-            &-active {
+            &--fixed {
                 @include anchor-styles('primary', 'light');
-                @include anchor-border-styles('primary');
+            }
+
+            &-active {
+                @include anchor-styles('light', 'light');
+                &--fixed {
+                    @include anchor-styles('primary', 'primary');
+                }
             }
         }
     }

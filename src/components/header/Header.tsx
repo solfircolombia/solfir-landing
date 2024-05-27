@@ -7,7 +7,11 @@ import { BREAKPOINTS, SITE_LINKS, LABELS } from '@constants';
 import './header.scss';
 import { Modal } from '../modal/Modal';
 
-export const Header: React.FC = () => {
+type HeaderProps = {
+    setBgTransparent?: boolean;
+};
+
+export const Header: React.FC<HeaderProps> = ({ setBgTransparent = false }) => {
     const [menuExpanded, setMenuExpanded] = useState(false);
     const [showLinks, setShowLinks] = useState(false);
     let width: number;
@@ -44,7 +48,7 @@ export const Header: React.FC = () => {
                 return (
                     <Link
                         key={idx}
-                        className="header-links-modal-item"
+                        className={`header-links-modal-item`}
                         activeClassName="header-links-modal-item-active"
                         to={link}
                     >
@@ -57,10 +61,13 @@ export const Header: React.FC = () => {
 
     return (
         <>
-            <header className={`header`}>
+            <header className={`header ${!setBgTransparent ? 'header--fixed' : ''}`}>
                 <div className="wrapper">
                     <div className="header-logo">
-                        <Logo className={`header-logo-solfir`} />
+                        <Logo
+                            className={`header-logo-solfir`}
+                            variant={!setBgTransparent ? 'regular' : 'primary'}
+                        />
                         <Button
                             aria-label={LABELS.MENU_PRINCIPAL}
                             className={`header-logo-menu`}
@@ -85,8 +92,14 @@ export const Header: React.FC = () => {
                                     return (
                                         <Link
                                             key={idx}
-                                            className="header-links-item"
-                                            activeClassName="header-links-item-active"
+                                            className={`header-links-item ${
+                                                !setBgTransparent ? 'header-links-item--fixed' : ''
+                                            }`}
+                                            activeClassName={`header-links-item-active ${
+                                                !setBgTransparent
+                                                    ? 'header-links-item-active--fixed'
+                                                    : ''
+                                            }`}
                                             to={link}
                                         >
                                             {label}
