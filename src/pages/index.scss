@@ -63,55 +63,8 @@
             justify-content: center;
             width: 100%;
 
-            .service-box {
-                display: flex;
-                width: 100%;
-                border-radius: 10px;
-                min-width: 300px;
-                margin: 20px 10px;
-
-                &-content {
-                    display: flex;
-                    flex-direction: column;
-
-                    &-title {
-                        @extend %typography-h4;
-                        font-weight: bold;
-                        display: flex;
-                        align-items: center;
-                        margin: 10px 0;
-                        &-icon {
-                            display: flex;
-                            margin-right: 20px;
-                            $icon-size: 40px;
-                            max-width: $icon-size !important;
-                            max-height: $icon-size !important;
-                            min-width: $icon-size !important;
-                            min-height: $icon-size !important;
-                        }
-                    }
-
-                    &-text {
-                        @extend %typography-p;
-                        text-align: justify;
-                        word-break: normal;
-                    }
-                }
-
-                @include for-md {
-                    max-width: 100%;
-                }
-
-                @include for-xs {
-                    &-content {
-                        &-title {
-                            text-align: center;
-                            &-icon {
-                                display: none;
-                            }
-                        }
-                    }
-                }
+            &-card {
+                margin-bottom: 20px;
             }
         }
     }

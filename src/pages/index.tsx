@@ -1,20 +1,23 @@
 import * as React from 'react';
 import { graphql, HeadFC, navigate, PageProps } from 'gatsby';
-import { Button, Icon, Layout, Logo, BlogCard, SEO, PageSection } from '@components';
+import { Button, Icon, Layout, Logo, BlogCard, SEO, PageSection, ServiceCard } from '@components';
 import { IconName } from '@types';
 import { Utils } from '@shared';
 import { STATIC_SITE_LINKS, STATIC_SITE_LABELS } from '@constants';
 import './index.scss';
 import { getImage, IGatsbyImageData } from 'gatsby-plugin-image';
+import { Service } from '@types';
 
 const LandingPage = ({ data }: PageProps<Queries.LandingPageQuery>) => {
     const BLOG_POSTS = data.allContentfulBlogPost.nodes;
-    const SERVICES: { serviceIcon: IconName; serviceName: string; serviceText: string }[] =
-        data.allContentfulService.edges.map(({ node }) => ({
-            serviceIcon: (node.icon as IconName) || '',
-            serviceName: node.title || '',
-            serviceText: node.description?.description || '',
-        }));
+    const SERVICES: Service[] = data.allContentfulService.edges.map(({ node }): Service => {
+        return {
+            icon: node?.icon as IconName,
+            title: node.title as string,
+            description: node.description?.description as string,
+            image: node.image ? getImage(node.image) : undefined,
+        };
+    });
 
     const IMAGES: Array<IGatsbyImageData | undefined> = data.allContentfulMedia.edges.map(
         ({ node }) => {
@@ -60,22 +63,15 @@ const LandingPage = ({ data }: PageProps<Queries.LandingPageQuery>) => {
                 <PageSection classes={`${BASE_CLASS}-services`} id={`${BASE_CLASS}-services`}>
                     <h2 className={`${BASE_CLASS}-services-title`}>Nuestros Servicios</h2>
                     <div className={`${BASE_CLASS}-services-items`}>
-                        {SERVICES.map(({ serviceIcon, serviceName, serviceText }, idx) => {
-                            return (
-                                <div key={idx} className="service-box">
-                                    <div className="service-box-content">
-                                        <span className="service-box-content-title">
-                                            <Icon
-                                                name={serviceIcon}
-                                                variant="dark"
-                                                className="service-box-content-title-icon"
-                                            />
-                                            {serviceName}
-                                        </span>
-                                    </div>
-                                </div>
-                            );
-                        })}
+                        {SERVICES.map((service, idx) => (
+                            <ServiceCard
+                                key={idx}
+                                service={service}
+                                classes={`${BASE_CLASS}-services-items-card`}
+                                imagePosition="end"
+                                direction="vertical"
+                            ></ServiceCard>
+                        ))}
                     </div>
                     <Button
                         className={`${BASE_CLASS}-services-cta`}
@@ -152,13 +148,16 @@ export const query = graphql`
             }
             totalCount
         }
-        allContentfulService(limit: 3) {
+        allContentfulService(limit: 10) {
             edges {
                 node {
                     icon
                     title
                     description {
                         description
+                    }
+                    image {
+                        gatsbyImageData
                     }
                 }
             }

@@ -13,6 +13,7 @@ import { RecentPosts } from './recentPosts/RecentPosts';
 import { Card } from './card/Card';
 import { Modal } from './modal/Modal';
 import { PageSection } from './pageSection/PageSection';
+import { ServiceCard } from './serviceCard/ServiceCard';
 
 export {
     Button,
@@ -30,4 +31,5 @@ export {
     Card,
     Modal,
     PageSection,
+    ServiceCard,
 };
