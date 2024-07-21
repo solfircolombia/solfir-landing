@@ -13,11 +13,7 @@
     }
 
     &-banner {
-        background-image: url('/images/BGSOLFIR1.jpg');
-        background-size: cover;
-
         padding-top: calc($header-height + 100px);
-        background-color: $color-primary;
 
         &-title {
             @extend %typography-h1;

@@ -19,11 +19,11 @@ const LandingPage = ({ data }: PageProps<Queries.LandingPageQuery>) => {
         };
     });
 
-    const IMAGES: Array<IGatsbyImageData | undefined> = data.allContentfulMedia.edges.map(
-        ({ node }) => {
-            return node.mediaFile ? getImage(node.mediaFile) : undefined;
-        }
-    );
+    const BANNER_IMAGE: IGatsbyImageData | undefined = data.contentfulMedia?.mediaFile
+        ? getImage(data.contentfulMedia.mediaFile)
+        : undefined;
+
+    console.log('IMAGES', BANNER_IMAGE);
 
     const BASE_CLASS = 'landing';
 
@@ -42,7 +42,11 @@ const LandingPage = ({ data }: PageProps<Queries.LandingPageQuery>) => {
     return (
         <Layout>
             <div className={BASE_CLASS}>
-                <PageSection classes={`${BASE_CLASS}-banner`} id={`${BASE_CLASS}-banner`}>
+                <PageSection
+                    image={BANNER_IMAGE}
+                    classes={`${BASE_CLASS}-banner`}
+                    id={`${BASE_CLASS}-banner`}
+                >
                     <span className={`${BASE_CLASS}-banner-title`}>
                         Vuelve a la estabilidad financiera con{' '}
                         <b className={`${BASE_CLASS}-banner-title-solfir`}>SOLFIR</b> expertos en
@@ -165,16 +169,12 @@ export const query = graphql`
                 }
             }
         }
-        allContentfulMedia {
-            edges {
-                node {
-                    id
-                    mediaFile {
-                        gatsbyImageData
-                    }
-                    description
-                }
+        contentfulMedia(description: { eq: "Foto Grupal Para Landing Page" }) {
+            id
+            mediaFile {
+                gatsbyImageData
             }
+            description
         }
     }
 `;

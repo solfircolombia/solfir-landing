@@ -74,11 +74,6 @@ const CREDIT_LINKS: { role: string; label: string; link: string }[] = [
         link: 'https://r2n.dev',
     },
     {
-        role: ' - Diseño por',
-        label: 'Leidy Zuñiga',
-        link: 'https://www.behance.net/leidyZ',
-    },
-    {
         role: ' - Producciones audiovisuales por',
         label: 'Alexis Madroñero',
         link: '',
