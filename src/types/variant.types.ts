@@ -6,4 +6,6 @@ type VariantContrast =
     | 'darkContrast'
     | 'lightContrast';
 
-export { Variant, VariantContrast };
+type LogoVariant = 'dark' | 'light';
+
+export { Variant, VariantContrast, LogoVariant };

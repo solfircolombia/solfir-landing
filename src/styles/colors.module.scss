@@ -1,0 +1,18 @@
+@import './colors';
+
+:export {
+    // primary: "red"
+    primary: $color-primary;
+    secondary: $color-secondary;
+    tertiary: $color-tertiary;
+    dark: $color-dark;
+    light: $color-light;
+    light2: $color-light-2;
+    transparent: $color-transparent;
+
+    primaryContrast: $color-primary-contrast;
+    secondaryContrast: $color-secondary-contrast;
+    tertiaryContrast: $color-tertiary-contrast;
+    darkContrast: $color-dark-contrast;
+    lightContrast: $color-light-contrast;
+}

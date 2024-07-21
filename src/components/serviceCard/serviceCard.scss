@@ -2,12 +2,12 @@
 
 .service-card {
     display: flex;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 16px;
     align-items: stretch;
-    overflow: hidden;
     height: 100%;
     max-height: 400px;
+    background-color: $color-transparent;
+    width: 80%;
 
     &--vertical {
         flex-direction: column;
@@ -18,11 +18,15 @@
     }
 
     &-image {
-        $size: 400px;
+        $size: 300px;
         height: $size;
         min-height: $size;
         width: $size;
         min-width: $size;
+        box-shadow: -10px 10px 0px $color-primary;
+        border-radius: 10px;
+        overflow: hidden;
+        margin: 20px 0;
 
         &-gatsby {
             height: 100%;

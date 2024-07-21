@@ -80,6 +80,7 @@ const config: GatsbyConfig = {
                     '@shared': 'src/shared',
                     '@hooks': 'src/hooks',
                     '@types': 'src/types',
+                    '@styles': 'src/styles',
                 },
                 extensions: ['ts', 'tsx'],
             },

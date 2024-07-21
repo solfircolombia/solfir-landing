@@ -2,15 +2,16 @@ import * as React from 'react';
 import './logo.scss';
 import { Link, navigate } from 'gatsby';
 import { LogoFullHorizontal } from './LogoFullHorizontal';
-import { Variant } from '@types';
+import { LogoVariant } from '@types';
+import LogoHorizontal from './LogoHorizontal';
 
 type LogoProps = {
-    variant?: 'regular' | Variant;
+    variant?: LogoVariant;
     size?: number;
     className?: string;
 };
 
-export const Logo: React.FC<LogoProps> = ({ variant = 'regular', className }) => {
+export const Logo: React.FC<LogoProps> = ({ variant = 'light', className }) => {
     const BASE_CLASS = 'logo';
     const clickHandler = () => {
         navigate('/');
@@ -23,7 +24,8 @@ export const Logo: React.FC<LogoProps> = ({ variant = 'regular', className }) =>
                 clickHandler();
             }}
         >
-            <LogoFullHorizontal variant={variant}></LogoFullHorizontal>
+            <LogoHorizontal variant={variant}></LogoHorizontal>
+            {/* <LogoFullHorizontal variant={variant}></LogoFullHorizontal> */}
         </div>
     );
 };

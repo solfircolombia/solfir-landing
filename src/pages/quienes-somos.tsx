@@ -32,6 +32,28 @@ const AboutPage: React.FC<PageProps> = (props) => {
                         acción que se adapte a sus necesidades y objetivos.
                     </p>
                 </div>
+
+                <div className={`${BASE_CLASS}-header`}>
+                    <div className={`${BASE_CLASS}-wrapper`}>
+                        <span className={`${BASE_CLASS}-header-title`}>Nuestros Valores</span>
+                    </div>
+                </div>
+
+                <div className={`${BASE_CLASS}-wrapper`}>
+                    <p>
+                        Bienvenido a SOLFIR, su solución de servicios financieros para la
+                        insolvencia y la reorganización. Como expertos en finanzas y reorganización
+                        empresarial, estamos dedicados a brindar soluciones efectivas y
+                        personalizadas para aquellos que enfrentan desafíos financieros.
+                    </p>
+                    <p>
+                        Ofrecemos una amplia gama de servicios, incluyendo asesoramiento sobre
+                        insolvencia, reorganización empresarial, y servicios financieros en general.
+                        Nuestro equipo de profesionales experimentados trabaja de cerca con nuestros
+                        clientes para comprender sus situaciones únicas y desarrollar un plan de
+                        acción que se adapte a sus necesidades y objetivos.
+                    </p>
+                </div>
             </div>
         </Layout>
     );

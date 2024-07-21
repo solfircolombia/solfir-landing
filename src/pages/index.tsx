@@ -63,15 +63,18 @@ const LandingPage = ({ data }: PageProps<Queries.LandingPageQuery>) => {
                 <PageSection classes={`${BASE_CLASS}-services`} id={`${BASE_CLASS}-services`}>
                     <h2 className={`${BASE_CLASS}-services-title`}>Nuestros Servicios</h2>
                     <div className={`${BASE_CLASS}-services-items`}>
-                        {SERVICES.map((service, idx) => (
-                            <ServiceCard
-                                key={idx}
-                                service={service}
-                                classes={`${BASE_CLASS}-services-items-card`}
-                                imagePosition="end"
-                                direction="vertical"
-                            ></ServiceCard>
-                        ))}
+                        {SERVICES.map((service, idx) => {
+                            const isOdd = idx % 2 === 0;
+                            return (
+                                <ServiceCard
+                                    key={idx}
+                                    service={service}
+                                    classes={`${BASE_CLASS}-services-items-card`}
+                                    imagePosition={isOdd ? 'start' : 'end'}
+                                    direction="horizontal"
+                                ></ServiceCard>
+                            );
+                        })}
                     </div>
                     <Button
                         className={`${BASE_CLASS}-services-cta`}

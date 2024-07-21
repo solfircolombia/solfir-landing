@@ -66,7 +66,7 @@ export const Header: React.FC<HeaderProps> = ({ setBgTransparent = false }) => {
                     <div className="header-logo">
                         <Logo
                             className={`header-logo-solfir`}
-                            variant={setBgTransparent ? 'primary' : 'regular'}
+                            variant={setBgTransparent ? 'dark' : 'light'}
                         />
                         <Button
                             aria-label={LABELS.MENU_PRINCIPAL}
