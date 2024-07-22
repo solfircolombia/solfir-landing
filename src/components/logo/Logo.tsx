@@ -7,11 +7,11 @@ import LogoHorizontal from './LogoHorizontal';
 
 type LogoProps = {
     variant?: LogoVariant;
-    size?: number;
+    scale?: number;
     className?: string;
 };
 
-export const Logo: React.FC<LogoProps> = ({ variant = 'light', className }) => {
+export const Logo: React.FC<LogoProps> = ({ variant = 'light', className, scale = 1 }) => {
     const BASE_CLASS = 'logo';
     const clickHandler = () => {
         navigate('/');
@@ -24,7 +24,7 @@ export const Logo: React.FC<LogoProps> = ({ variant = 'light', className }) => {
                 clickHandler();
             }}
         >
-            <LogoHorizontal variant={variant}></LogoHorizontal>
+            <LogoHorizontal variant={variant} scale={scale}></LogoHorizontal>
             {/* <LogoFullHorizontal variant={variant}></LogoFullHorizontal> */}
         </div>
     );

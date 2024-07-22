@@ -6,6 +6,7 @@ import { BREAKPOINTS, SITE_LINKS, LABELS } from '@constants';
 
 import './header.scss';
 import { Modal } from '../modal/Modal';
+import { useWindowDimentions } from '@hooks';
 
 type HeaderProps = {
     setBgTransparent?: boolean;
@@ -26,12 +27,22 @@ export const Header: React.FC<HeaderProps> = ({ setBgTransparent = false }) => {
         }
     };
 
+    const windowDimentions = useWindowDimentions();
+
+    const getLogoScale = () => {
+        return windowDimentions.isSM || windowDimentions.isXS ? 0.8 : 1;
+    };
+
     const handleResize = () => {
         updateShowLinks(menuExpanded);
     };
 
     useEffect(() => {
         global.window.addEventListener('resize', handleResize);
+
+        return () => {
+            global.window.removeEventListener('resize', handleResize);
+        };
     }, [showLinks]);
 
     const buttonSize: number = 50;
@@ -67,6 +78,7 @@ export const Header: React.FC<HeaderProps> = ({ setBgTransparent = false }) => {
                         <Logo
                             className={`header-logo-solfir`}
                             variant={setBgTransparent ? 'dark' : 'light'}
+                            scale={getLogoScale()}
                         />
                         <Button
                             aria-label={LABELS.MENU_PRINCIPAL}

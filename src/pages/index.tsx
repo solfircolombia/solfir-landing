@@ -7,6 +7,7 @@ import { STATIC_SITE_LINKS, STATIC_SITE_LABELS } from '@constants';
 import './index.scss';
 import { getImage, IGatsbyImageData } from 'gatsby-plugin-image';
 import { Service } from '@types';
+import { useWindowDimentions } from '@hooks';
 
 const LandingPage = ({ data }: PageProps<Queries.LandingPageQuery>) => {
     const BLOG_POSTS = data.allContentfulBlogPost.nodes;
@@ -23,9 +24,9 @@ const LandingPage = ({ data }: PageProps<Queries.LandingPageQuery>) => {
         ? getImage(data.contentfulMedia.mediaFile)
         : undefined;
 
-    console.log('IMAGES', BANNER_IMAGE);
-
     const BASE_CLASS = 'landing';
+
+    const { isXS, isSM } = useWindowDimentions();
 
     return (
         <Layout>
@@ -62,7 +63,7 @@ const LandingPage = ({ data }: PageProps<Queries.LandingPageQuery>) => {
                                     service={service}
                                     classes={`${BASE_CLASS}-services-items-card`}
                                     imagePosition={isOdd ? 'start' : 'end'}
-                                    direction="horizontal"
+                                    direction={isXS || isSM ? 'vertical' : 'horizontal'}
                                 ></ServiceCard>
                             );
                         })}

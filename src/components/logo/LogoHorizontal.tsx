@@ -4,6 +4,7 @@ import { LogoVariant } from '@types';
 
 export type LogoHorizontalProps = {
     variant: LogoVariant;
+    scale?: number;
 };
 
 type LogoHorizontalColors = {
@@ -13,7 +14,7 @@ type LogoHorizontalColors = {
     oLetter: string;
 };
 
-const LogoHorizontal: React.FC<LogoHorizontalProps> = ({ variant }) => {
+const LogoHorizontal: React.FC<LogoHorizontalProps> = ({ variant, scale = 1 }) => {
     const BASE_CLASS = 'logo-horizontal';
 
     const getVariantColors = (): LogoHorizontalColors => {
@@ -44,10 +45,20 @@ const LogoHorizontal: React.FC<LogoHorizontalProps> = ({ variant }) => {
 
     const parts = getVariantColors();
 
+    const getScaledValues = () => {
+        if (scale < 0) {
+            throw new Error('Scale must be a positive number');
+        }
+        return {
+            width: 249.99998 * scale,
+            height: 55 * scale,
+        };
+    };
+
     return (
         <svg
-            width="249.99998"
-            height="55"
+            width={getScaledValues().width}
+            height={getScaledValues().height}
             viewBox="0 0 66.145827 14.552092"
             version="1.1"
             id="svg1"

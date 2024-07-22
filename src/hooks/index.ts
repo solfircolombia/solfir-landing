@@ -1,3 +1,2 @@
-import { useSiteMetadata } from './use-site-metadata';
-
-export { useSiteMetadata };
+export * from './use-site-metadata';
+export * from './use-window-dimentions';
