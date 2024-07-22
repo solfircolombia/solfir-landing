@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { HeadFC, Link, PageProps, graphql, navigate } from 'gatsby';
 import { Button, Card, Icon, Layout, SEO, Modal, Logo } from '@components';
 import { SITE_LINKS, STATIC_SITE_LABELS, STATIC_SITE_LINKS } from '@constants';
-import { Utils } from '@shared';
+import { getSEOProps } from '@shared';
 import './servicios.scss';
 import { IconName } from '@types';
 
@@ -116,4 +116,4 @@ export const query = graphql`
 
 export default ServicesPage;
 
-export const Head: HeadFC = () => <SEO {...Utils.getSEOProps(STATIC_SITE_LINKS.SERVICES)} />;
+export const Head: HeadFC = () => <SEO {...getSEOProps(STATIC_SITE_LINKS.SERVICES)} />;

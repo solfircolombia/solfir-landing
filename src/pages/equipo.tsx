@@ -2,7 +2,7 @@ import React from 'react';
 import { HeadFC, Link, PageProps, graphql } from 'gatsby';
 import { Button, Icon, Layout, SEO } from '@components';
 import { STATIC_SITE_LINKS } from '@constants';
-import { Utils } from '@shared';
+import { getSEOProps } from '@shared';
 import './equipo.scss';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
@@ -127,4 +127,4 @@ export const query = graphql`
 
 export default Equipo;
 
-export const Head: HeadFC = () => <SEO {...Utils.getSEOProps(STATIC_SITE_LINKS.TEAM)} />;
+export const Head: HeadFC = () => <SEO {...getSEOProps(STATIC_SITE_LINKS.TEAM)} />;

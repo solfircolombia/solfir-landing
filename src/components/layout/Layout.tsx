@@ -3,7 +3,7 @@ import { useLocation } from '@reach/router';
 import { Footer, Header, Icon, Settings, Maintenance } from '@components';
 import { CONTACT_DATA } from '@constants';
 import './layout.scss';
-import { Utils } from '@shared';
+import { handleScroll } from '@shared';
 
 export const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
     const MAINTENANCE = process.env.MAINTENANCE || false;
@@ -12,14 +12,12 @@ export const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
 
     const [isScrolled, setIsScrolled] = React.useState(false);
 
-    const useTransparentHeader = location.pathname === '/' && !isScrolled;
-
-    console.log('useTransparentHeader', useTransparentHeader);
+    const useTransparentHeader = !isScrolled;
 
     React.useEffect(() => {
-        window.addEventListener('scroll', Utils.handleScroll(setIsScrolled));
+        window.addEventListener('scroll', handleScroll(setIsScrolled));
         return () => {
-            window.removeEventListener('scroll', Utils.handleScroll(setIsScrolled));
+            window.removeEventListener('scroll', handleScroll(setIsScrolled));
         };
     }, []);
 

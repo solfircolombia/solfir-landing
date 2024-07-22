@@ -36,7 +36,14 @@
 }
 
 html {
-    font-family: $champlimo;
+    font-family: Arial, Helvetica, sans-serif; // Fallback
+    // font-family: $lato;
+    font-family: $opensans;
+    // font-family: $inter;
+    // font-family: $roboto;
+    // font-family: $raleway;
+    // font-family: $champlimo;
+
     font-size: var(--base-font-size);
 }
 

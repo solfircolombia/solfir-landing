@@ -2,7 +2,7 @@ import React from 'react';
 import { HeadFC, Link, PageProps } from 'gatsby';
 import { Layout, SEO } from '@components';
 import { STATIC_SITE_LABELS, STATIC_SITE_LINKS } from '@constants';
-import { Utils } from '@shared';
+import { getSEOProps } from '@shared';
 import './404.scss';
 
 const NotFoundPage: React.FC<PageProps> = () => {
@@ -32,4 +32,4 @@ const NotFoundPage: React.FC<PageProps> = () => {
 
 export default NotFoundPage;
 
-export const Head: HeadFC = () => <SEO {...Utils.getSEOProps(STATIC_SITE_LINKS.CONTACT)} />;
+export const Head: HeadFC = () => <SEO {...getSEOProps(STATIC_SITE_LINKS.CONTACT)} />;

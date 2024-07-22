@@ -11,6 +11,7 @@
     display: flex;
     left: calc($settings-width/2);
     top: 200px;
+    z-index: 1;
 
     &--open {
         left: 0;

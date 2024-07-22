@@ -2,7 +2,7 @@ import * as React from 'react';
 import { graphql, HeadFC, navigate, PageProps } from 'gatsby';
 import { Button, Icon, Layout, Logo, BlogCard, SEO, PageSection, ServiceCard } from '@components';
 import { IconName } from '@types';
-import { Utils } from '@shared';
+import { goToLink, goToSection, getSEOProps } from '@shared';
 import { STATIC_SITE_LINKS, STATIC_SITE_LABELS } from '@constants';
 import './index.scss';
 import { getImage, IGatsbyImageData } from 'gatsby-plugin-image';
@@ -27,18 +27,6 @@ const LandingPage = ({ data }: PageProps<Queries.LandingPageQuery>) => {
 
     const BASE_CLASS = 'landing';
 
-    const goToSection = (section: string) => {
-        const element = document.getElementById(section);
-        if (element) {
-            // 👇 Will scroll smoothly to the top of the next section
-            element.scrollIntoView({ behavior: 'smooth' });
-        }
-    };
-
-    const goToLink = (link: STATIC_SITE_LINKS) => {
-        navigate(link);
-    };
-
     return (
         <Layout>
             <div className={BASE_CLASS}>
@@ -48,9 +36,8 @@ const LandingPage = ({ data }: PageProps<Queries.LandingPageQuery>) => {
                     id={`${BASE_CLASS}-banner`}
                 >
                     <span className={`${BASE_CLASS}-banner-title`}>
-                        Vuelve a la estabilidad financiera con{' '}
-                        <b className={`${BASE_CLASS}-banner-title-solfir`}>SOLFIR</b> expertos en
-                        insolvencia y reorganización empresarial
+                        Con <span className={`${BASE_CLASS}-banner-title-solfir`}>SOLFIR</span>,
+                        obtén asesoría legal integral y especializada para cada desafío jurídico.
                     </span>
                     <div className={`${BASE_CLASS}-banner-buttons`}>
                         <Button
@@ -179,4 +166,4 @@ export const query = graphql`
     }
 `;
 
-export const Head: HeadFC = () => <SEO {...Utils.getSEOProps(STATIC_SITE_LINKS.HOME)} />;
+export const Head: HeadFC = () => <SEO {...getSEOProps(STATIC_SITE_LINKS.HOME)} />;

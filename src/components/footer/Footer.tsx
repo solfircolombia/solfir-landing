@@ -11,7 +11,7 @@ export const Footer: React.FC = () => {
         <footer className={BASE_CLASS}>
             <div className={`${BASE_CLASS}-wrapper`}>
                 <span className={`${BASE_CLASS}-logo`}>
-                    <Logo variant="primary" />
+                    <Logo variant="dark" />
                 </span>
                 <div className={`${BASE_CLASS}-columns`}>
                     <div className={`${BASE_CLASS}-columns-column`}>
@@ -110,7 +110,7 @@ export const Footer: React.FC = () => {
 
                 <span className="trademark">
                     <span>
-                        {`SOLFIR - Soluciones financieras y reorganizaciones S.A.S © Todos los derechos reservados | ${new Date().getFullYear()}`}{' '}
+                        {`SOLFIR S.A.S © Todos los derechos reservados | ${new Date().getFullYear()}`}{' '}
                     </span>
                 </span>
 

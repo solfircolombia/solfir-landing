@@ -46,6 +46,7 @@
         background-color: $color-light;
 
         &-title {
+            @extend %typography-h2;
             margin-bottom: 60px;
         }
 

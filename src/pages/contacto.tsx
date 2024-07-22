@@ -2,7 +2,7 @@ import React from 'react';
 import { HeadFC } from 'gatsby';
 import { Button, Layout, SEO } from '@components';
 import { STATIC_SITE_LINKS } from '@constants';
-import { Utils } from '@shared';
+import { getSEOProps } from '@shared';
 import './contacto.scss';
 
 const Contacto: React.FC<any> = () => {
@@ -133,4 +133,4 @@ const Contacto: React.FC<any> = () => {
 
 export default Contacto;
 
-export const Head: HeadFC = () => <SEO {...Utils.getSEOProps(STATIC_SITE_LINKS.CONTACT)} />;
+export const Head: HeadFC = () => <SEO {...getSEOProps(STATIC_SITE_LINKS.CONTACT)} />;

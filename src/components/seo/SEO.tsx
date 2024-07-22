@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, ReactNode } from 'react';
 import { useSiteMetadata } from '@hooks';
-import { Utils } from '@shared';
+import { getTitle } from '@shared';
 import { SEOProps } from '@types';
 
 export const SEO: React.FC<PropsWithChildren<SEOProps>> = ({
@@ -27,7 +27,7 @@ export const SEO: React.FC<PropsWithChildren<SEOProps>> = ({
 
     return (
         <>
-            {Utils.getTitle(seo.title)}
+            {getTitle(seo.title)}
             <meta name="description" content={seo.description} />
             <meta name="image" content={seo.image} />
             <meta name="twitter:card" content="summary_large_image" />
