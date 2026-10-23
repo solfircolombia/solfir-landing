@@ -32,7 +32,7 @@
     },
     "dependencies": {
         "@astrojs/check": "^0.9.12",
-        "@astrojs/node": "^9.5.5",
+        "@astrojs/netlify": "^6.6.5",
         "@astrojs/sitemap": "^3.7.4",
         "@contentful/rich-text-html-renderer": "^17.2.3",
         "@contentful/rich-text-types": "^17.2.7",
@@ -44,6 +44,7 @@
     "allowScripts": {
         "esbuild@0.25.12": true,
         "esbuild@0.27.7": true,
+        "esbuild@0.28.1": true,
         "sharp@0.34.5": true
     }
 }

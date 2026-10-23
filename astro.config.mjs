@@ -1,15 +1,7 @@
 import { defineConfig, envField } from 'astro/config';
-import node from '@astrojs/node';
+import netlify from '@astrojs/netlify';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
-
-// Portable default: Node standalone serves the prerendered site and the
-// on-demand contact endpoint. Swap the adapter without changing pages:
-//   import netlify from '@astrojs/netlify';
-//   adapter: netlify(),
-//   import vercel from '@astrojs/vercel';
-//   adapter: vercel(),
-const adapter = node({ mode: 'standalone' });
 
 const site = process.env.PUBLIC_SITE_URL || 'https://solfir.com.co';
 const siteHostname = (() => {
@@ -23,16 +15,18 @@ const siteHostname = (() => {
 export default defineConfig({
     site,
     output: 'static',
-    adapter,
+    // imageCDN stays off so Contentful images are still optimized at build time
+    // with Astro's sharp pipeline (AVIF and WebP in dist/).
+    adapter: netlify({ imageCDN: false }),
     trailingSlash: 'always',
-    // Astro 5 only trusts the Host header when it matches allowedDomains.
-    // Without this, on-demand form posts are checked against http://localhost
-    // and browsers get a 403. Include the public host and local dev hosts.
+    // Astro trusts the request host only when it matches this list. Netlify
+    // preview and branch deploys use *.netlify.app; production uses the public host.
     security: {
         checkOrigin: true,
         allowedDomains: [
             { hostname: siteHostname },
             { hostname: `www.${siteHostname}` },
+            { hostname: '**.netlify.app' },
             { hostname: 'localhost' },
             { hostname: '127.0.0.1' },
         ],

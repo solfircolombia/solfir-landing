@@ -86,27 +86,37 @@ Custom fonts from `public/fonts` are Champagne & Limousines (the UI face) and Mo
 
 ## Deploy
 
-The default adapter is `@astrojs/node` in `standalone` mode. It serves the prerendered files and the contact endpoint in one process:
+The site is hosted on Netlify. `@astrojs/netlify` prerenders every page and publishes the contact route as a Netlify Function. `netlify.toml` sets the build:
 
-```bash
-npm run build
-HOST=0.0.0.0 PORT=4321 node --env-file=.env ./dist/server/entry.mjs
+```toml
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "24"
 ```
 
-`node` does not load `.env` by itself. On a host, set the variables in the process environment (or pass `--env-file`). Contentful variables are used only while `astro build` prerenders pages. SendGrid variables are read when `/api/sendgrid/` handles a request. `PUBLIC_GA_MEASUREMENT_ID` and `MAINTENANCE` are inlined at build time.
+Connect the repository in the Netlify UI and leave the build command and publish directory on those values. Node 24 matches `.nvmrc`.
 
-The current production site is served by Netlify. This repo uses the Node adapter because the next host is not fixed. To move to Netlify or Vercel, change the adapter import in `astro.config.mjs` and install that adapter. Pages and the contact route stay the same. A static-only host will not run the contact endpoint.
+In **Site configuration → Environment variables**, add the variables from the table above. Scope them like this:
 
-```js
-import netlify from '@astrojs/netlify';
-// adapter: netlify(),
-```
+| Variable                               | Netlify scope |
+| -------------------------------------- | ------------- |
+| `CONTENTFUL_SPACE_ID`                  | Builds        |
+| `CONTENTFUL_ACCESS_TOKEN`              | Builds        |
+| `CONTENTFUL_ENVIRONMENT`               | Builds        |
+| `PUBLIC_SITE_URL`                      | Builds        |
+| `MAINTENANCE`                          | Builds        |
+| `PUBLIC_GA_MEASUREMENT_ID`             | Builds        |
+| `SENDGRID_API_KEY`                     | Functions     |
+| `SENDGRID_AUTHORIZED_DOMAIN_EMAIL`     | Functions     |
+| `SENDGRID_AUTHORIZED_EMAIL`            | Functions     |
+| `SOLFIR_CONTACT_REQUEST_EMAIL`         | Functions     |
+| `SENDGRID_CONTACT_REQUEST_TEMPLATE_ID` | Functions     |
 
-```js
-import vercel from '@astrojs/vercel';
-// adapter: vercel(),
-```
+Build-scoped values are inlined or read while `astro build` prerenders the pages. Function-scoped values are read when `/api/sendgrid/` handles a request, so SendGrid can change without rebuilding the HTML. Mark the Contentful token and every SendGrid value as secret. Use a new Contentful delivery token; the one that used to live in `gatsby-config.ts` is in git history and must be rotated.
 
-A purely static host that only uploads HTML will not run `/api/sendgrid/`.
+`npm run preview` serves the production build locally, including the contact function. Static pages are written to `dist/`. The on-demand contact route is bundled as a Netlify Function at `.netlify/v1/functions/ssr/` (`preferStatic`, so existing HTML is served as files and `/api/sendgrid/` is handled by the function). Contentful images stay on Astro’s build-time image pipeline (`imageCDN: false`), not Netlify Image CDN.
 
-Astro checks the `Origin` header on that post. The Node server only trusts the incoming `Host` when it is listed in `security.allowedDomains` in `astro.config.mjs` (the public site host, `www`, `localhost`, and `127.0.0.1`). Behind a reverse proxy, forward `X-Forwarded-Proto` and `X-Forwarded-Host` (or `Host`) for the public URL. Otherwise the browser’s origin will not match and the form returns 403.
+Astro checks the `Origin` header on the form post. `security.allowedDomains` in `astro.config.mjs` allows the public site host, `www`, `*.netlify.app` (production subdomain, deploy previews, and branch deploys), `localhost`, and `127.0.0.1`. A post from any other origin returns 403.
