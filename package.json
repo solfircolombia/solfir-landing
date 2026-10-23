@@ -39,6 +39,8 @@
         "@astrojs/sitemap": "^3.7.4",
         "@contentful/rich-text-html-renderer": "^17.2.3",
         "@contentful/rich-text-types": "^17.2.7",
+        "@fontsource-variable/fraunces": "^5.3.0",
+        "@fontsource-variable/plus-jakarta-sans": "^5.3.0",
         "@sendgrid/mail": "^8.1.6",
         "@tailwindcss/vite": "^4.3.3",
         "astro": "^5.18.2",

@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Button from '../components/Button.astro';
 import Icon from '../components/Icon.astro';
 import BlogCard from '../components/BlogCard.astro';
+import Hero from '../components/Hero.astro';
 import { getBlogPosts, getMedia, getServices } from '../lib/contentful';
 import { LABELS, PAGE_SEO, PATHS } from '../lib/site';
 
@@ -16,20 +17,16 @@ if (!Array.isArray(media)) {
 
 <Layout seo={PAGE_SEO.home}>
     <div class="landing">
-        <section class="landing-banner" id="landing-banner">
-            <div class="landing-wrapper">
-                <h1 class="landing-banner-title">
-                    Vuelve a la estabilidad financiera con{' '}
-                    <b class="landing-banner-title-solfir">SOLFIR</b> expertos en insolvencia y
-                    reorganización empresarial
-                </h1>
-                <div class="landing-banner-buttons">
-                    <Button variant="primary" size="medium" href="#landing-services">
-                        Quiero saber mas
-                    </Button>
-                </div>
-            </div>
-        </section>
+        <Hero>
+            <Fragment slot="title">
+                Vuelve a la estabilidad financiera con{' '}
+                <b class="landing-banner-title-solfir">SOLFIR</b> expertos en insolvencia y
+                reorganización empresarial
+            </Fragment>
+            <Button variant="primary" size="medium" href="#landing-services">
+                Quiero saber mas
+            </Button>
+        </Hero>
         <section class="landing-services" id="landing-services">
             <div class="landing-wrapper">
                 <h2 class="landing-services-title">Nuestros Servicios</h2>

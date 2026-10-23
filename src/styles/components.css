@@ -1,0 +1,303 @@
+/*
+  Migrated surfaces: global type, header, nav, buttons, focus, footer, hero,
+  and the settings panel. Later rules beat the legacy site.css declarations.
+  Cards, service bands, team, and the contact form keep their old look.
+  A dark-canvas shim keeps those light surfaces readable.
+*/
+
+:root {
+    --base-font-size: calc(19px * var(--semantic-font-scale, 1));
+}
+
+html {
+    font-family: var(--semantic-font-body);
+}
+
+body {
+    background: var(--semantic-color-bg);
+    color: var(--semantic-color-text);
+    font-family: inherit;
+    line-height: 1.5;
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--semantic-font-display);
+    font-weight: 560;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+}
+
+h1 {
+    font-size: var(--primitive-font-size-display);
+}
+
+h2 {
+    font-size: var(--primitive-font-size-3xl);
+}
+
+h3 {
+    font-size: var(--primitive-font-size-2xl);
+}
+
+h4 {
+    font-size: var(--primitive-font-size-xl);
+}
+
+h5 {
+    font-size: var(--primitive-font-size-lg);
+}
+
+.footer h2,
+h2.social-title {
+    font-family: var(--semantic-font-body);
+    letter-spacing: 0;
+}
+
+.header {
+    background-color: var(--component-header-bg);
+    color: var(--component-header-text);
+}
+
+.header .header-links-item,
+.header .header-links-item-active,
+.header .header-links-item:hover,
+.header .header-links-item:focus {
+    color: var(--component-nav-link);
+    border-bottom-color: transparent;
+}
+
+.header .header-links-item-active,
+.header .header-links-item:hover,
+.header .header-links-item:focus-visible {
+    border-bottom-color: var(--component-nav-underline);
+}
+
+/* The mobile dialog stays a light surface, so its underline stays navy. */
+.header-links-modal .header-links-modal-item,
+.header-links-modal .header-links-modal-item-active,
+.header-links-modal .header-links-modal-item:hover,
+.header-links-modal .header-links-modal-item:focus {
+    color: var(--semantic-color-on-light);
+    border-bottom-color: transparent;
+}
+
+.header-links-modal .header-links-modal-item-active,
+.header-links-modal .header-links-modal-item:hover,
+.header-links-modal .header-links-modal-item:focus-visible {
+    border-bottom-color: var(--semantic-color-on-light);
+}
+
+[data-theme='dark'] .header .logo-full-horizontal--regular .logo-full-horizontal-letters,
+[data-contrast='high'][data-theme='dark']
+    .header
+    .logo-full-horizontal--regular
+    .logo-full-horizontal-letters {
+    fill: var(--component-header-text);
+}
+
+[data-contrast='high'][data-theme='light']
+    .header
+    .logo-full-horizontal--regular
+    .logo-full-horizontal-letters {
+    fill: var(--primitive-color-black);
+}
+
+.button.button--variant-primary {
+    background-color: var(--component-button-bg);
+    color: var(--component-button-text);
+}
+
+.button.button--variant-primary svg path {
+    fill: var(--component-button-text);
+}
+
+.button.button--variant-secondary {
+    background-color: var(--semantic-color-accent);
+    color: var(--semantic-color-on-accent);
+}
+
+.button.button--variant-secondary svg path {
+    fill: var(--semantic-color-on-accent);
+}
+
+.footer {
+    background-color: var(--component-footer-bg);
+    color: var(--component-footer-text);
+}
+
+.footer .footer-link,
+.footer .footer-link-active,
+.footer .credits a {
+    color: var(--component-footer-link);
+}
+
+.footer .footer-link,
+.footer .footer-link-active,
+.footer .footer-link:hover,
+.footer .footer-link:focus {
+    border-bottom-color: transparent;
+}
+
+.footer .footer-link-active,
+.footer .footer-link:hover,
+.footer .footer-link:focus-visible,
+.footer .footer-link-active:hover,
+.footer .footer-link-active:focus {
+    border-bottom-color: var(--component-footer-link);
+}
+
+.hero .hero-title {
+    font-family: var(--semantic-font-display);
+    font-size: var(--primitive-font-size-display);
+    font-weight: 560;
+    letter-spacing: -0.03em;
+    line-height: 1.12;
+    color: var(--semantic-color-text);
+}
+
+.hero .hero-title .landing-banner-title-solfir {
+    color: var(--semantic-color-emphasis);
+    font-weight: 650;
+}
+
+.hero[data-hero='image'] {
+    gap: var(--primitive-space-6);
+}
+
+.hero-image {
+    display: block;
+    width: min(100%, 1140px);
+    max-height: 28rem;
+    object-fit: cover;
+    border-radius: var(--primitive-radius-lg);
+}
+
+.settings--closed,
+.settings--open {
+    transition-duration: var(--primitive-motion-slow);
+    transition-timing-function: var(--primitive-ease);
+}
+
+.settings--closed {
+    left: calc(-1 * var(--component-settings-width));
+}
+
+.settings-content {
+    align-items: stretch;
+    width: var(--component-settings-width);
+    max-height: calc(100vh - 220px);
+    overflow: auto;
+    background: var(--component-footer-bg);
+    color: var(--component-footer-text);
+    gap: var(--primitive-space-4);
+}
+
+.settings-group {
+    width: 100%;
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.settings-group legend {
+    margin-bottom: var(--primitive-space-2);
+    font-family: var(--semantic-font-body);
+    font-size: var(--primitive-font-size-xs);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.settings-choices {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--primitive-space-2);
+}
+
+.settings-choice {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    padding: 0.35rem 0.7rem;
+    border-radius: var(--primitive-radius-md);
+    background: var(--primitive-color-white);
+    color: var(--primitive-color-navy);
+    font-family: var(--semantic-font-body);
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.settings-choice input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.settings-choice:has(input:checked),
+.settings-contrast[aria-pressed='true'] {
+    background: var(--primitive-color-yellow);
+    color: var(--primitive-color-ink);
+}
+
+.settings-contrast {
+    width: 100%;
+}
+
+.settings-choice:has(input:focus-visible),
+.settings-contrast:focus-visible {
+    outline: var(--component-focus-width) solid var(--component-focus-color);
+    outline-offset: var(--component-focus-offset);
+    box-shadow: 0 0 0 var(--component-focus-width) var(--component-focus-halo);
+}
+
+/* Light surfaces that are not on tokens yet. Body text is light in dark themes,
+   so these keep ink text. Yellow bands keep ink text on the accent fill. */
+[data-theme='dark']
+    :is(
+        .blog-card,
+        .recent-posts-card,
+        .card,
+        .contact-form-box,
+        .modal-wrapper,
+        .settings-content-text-icon
+    ) {
+    color: var(--semantic-color-on-light);
+}
+
+[data-theme='dark']
+    :is(
+        .landing-services,
+        .landing-hireus,
+        .equipo-card,
+        .team-member-page-main-primary,
+        .button.button--variant-secondary
+    ) {
+    color: var(--semantic-color-on-accent);
+}
+
+[data-theme='dark'] .content a:not(.button) {
+    color: var(--semantic-color-text);
+}
+
+[data-theme='dark']
+    :is(.blog-card, .recent-posts-card, .card, .contact-form-box, .modal-wrapper)
+    a:not(.button) {
+    color: var(--semantic-color-on-light);
+}
+
+[data-theme='dark']
+    :is(.landing-services, .landing-hireus, .equipo-card, .team-member-page-main-primary)
+    a:not(.button) {
+    color: var(--semantic-color-on-accent);
+}

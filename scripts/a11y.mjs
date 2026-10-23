@@ -18,6 +18,7 @@ const types = {
     '.webp': 'image/webp',
     '.avif': 'image/avif',
     '.ttf': 'font/ttf',
+    '.woff2': 'font/woff2',
     '.xml': 'application/xml',
     '.json': 'application/json',
     '.txt': 'text/plain; charset=utf-8',
@@ -118,14 +119,22 @@ const paths = [
     '/gracias/',
     '/error/',
     '/404/',
+    '/design-system/',
 ].filter(Boolean);
+
+const themePasses = [
+    { name: 'dark', theme: 'dark', contrast: '' },
+    { name: 'high-contrast', theme: 'light', contrast: 'high' },
+    { name: 'high-contrast-dark', theme: 'dark', contrast: 'high' },
+];
+const themePaths = new Set(['/', '/contacto/', '/design-system/']);
 
 const server = await listen();
 const browser = await chromium.launch();
 const failures = [];
 
 try {
-    const context = await browser.newContext();
+    const context = await browser.newContext({ colorScheme: 'light' });
     const page = await context.newPage();
     for (const path of paths) {
         const url = `http://127.0.0.1:${port}${path}`;
@@ -163,21 +172,40 @@ try {
             );
         }
 
-        const results = await new AxeBuilder({ page })
-            .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
-            .analyze();
-        for (const violation of results.violations) {
-            const nodes = violation.nodes
-                .slice(0, 3)
-                .map((node) => node.target.join(' '))
-                .join(' | ');
-            failures.push(
-                `${path}: ${violation.id} (${violation.impact}) ${violation.help} — ${nodes}`
-            );
+        const report = async (label) => {
+            const results = await new AxeBuilder({ page })
+                .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
+                .analyze();
+            for (const violation of results.violations) {
+                const nodes = violation.nodes
+                    .slice(0, 3)
+                    .map((node) => node.target.join(' '))
+                    .join(' | ');
+                failures.push(
+                    `${label}: ${violation.id} (${violation.impact}) ${violation.help} — ${nodes}`
+                );
+            }
+            console.log(`${label}: ${results.violations.length} axe violations`);
+            return results.violations.length;
+        };
+
+        await report(path);
+        console.log(`${path}: headings ${levels.join('.')}`);
+
+        if (themePaths.has(path)) {
+            for (const pass of themePasses) {
+                await page.evaluate(({ theme, contrast }) => {
+                    document.documentElement.dataset.theme = theme;
+                    document.documentElement.dataset.themeMode = theme;
+                    if (contrast) {
+                        document.documentElement.dataset.contrast = contrast;
+                    } else {
+                        delete document.documentElement.dataset.contrast;
+                    }
+                }, pass);
+                await report(`${path} [${pass.name}]`);
+            }
         }
-        console.log(
-            `${path}: ${results.violations.length} axe violations, headings ${levels.join('.')}`
-        );
     }
 } finally {
     await browser.close();
