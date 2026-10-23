@@ -1,0 +1,39 @@
+---
+import { LABELS } from '../lib/site';
+import Icon from './Icon.astro';
+import Logo from './Logo.astro';
+import SocialLinks from './SocialLinks.astro';
+
+interface Props {
+    id: string;
+    label?: string;
+    labelledBy?: string;
+}
+
+const { id, label, labelledBy } = Astro.props;
+---
+
+<div
+    id={id}
+    class="modal"
+    role="dialog"
+    aria-modal="true"
+    aria-label={labelledBy ? undefined : label}
+    aria-labelledby={labelledBy}
+    hidden
+>
+    <div class="modal-panel">
+        <div class="modal-header">
+            <Logo />
+            <button type="button" class="modal-close" data-modal-close aria-label={LABELS.closeMenu}>
+                <Icon name="close" />
+            </button>
+        </div>
+        <div class="modal-body">
+            <slot />
+        </div>
+        <div class="modal-footer">
+            <SocialLinks variant="primary" />
+        </div>
+    </div>
+</div>

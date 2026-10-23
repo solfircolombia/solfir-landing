@@ -9,7 +9,7 @@ interface Props {
 const { image } = Astro.props;
 ---
 
-<section class="landing-banner hero" id="landing-banner" data-hero={image ? 'image' : 'type'}>
+<section class="hero" id="landing-banner" data-hero={image ? 'image' : 'type'}>
     {
         image && (
             <img
@@ -22,11 +22,11 @@ const { image } = Astro.props;
             />
         )
     }
-    <div class="landing-wrapper">
-        <h1 class="landing-banner-title hero-title">
+    <div class="container">
+        <h1 class="hero-title">
             <slot name="title" />
         </h1>
-        <div class="landing-banner-buttons">
+        <div class="hero-actions">
             <slot />
         </div>
     </div>

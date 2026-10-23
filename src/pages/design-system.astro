@@ -1,6 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import BlogCard from '../components/BlogCard.astro';
 import Button from '../components/Button.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import TeamCard from '../components/TeamCard.astro';
+import { getBlogPosts, getServices, getTeamMembers } from '../lib/contentful';
+import { teamPath } from '../lib/site';
 import { contrastRatio, formatRatio, meetsAa } from '../lib/contrast';
 import { palette, themeSamples } from '../lib/palette';
 
@@ -25,6 +30,10 @@ const spaces = [
     ['8', 'var(--primitive-space-8)'],
     ['10', 'var(--primitive-space-10)'],
 ] as const;
+
+const samplePost = (await getBlogPosts())[0];
+const sampleService = (await getServices())[0];
+const sampleMember = (await getTeamMembers())[0];
 
 const primitives = [
     ['Navy', palette.navy],
@@ -178,6 +187,71 @@ const primitives = [
                 <span class="ds-radius ds-radius-pill">pill</span>
             </div>
             <p class="ds-shadow">Sombra 3, el mismo token que las tarjetas.</p>
+        </section>
+
+        <section class="ds-section" aria-labelledby="ds-library">
+            <h2 id="ds-library">Biblioteca</h2>
+            <p>
+                Tarjetas, prosa, formulario, bandas y modales usan los tokens semánticos. El patrón
+                geométrico es una máscara del lienzo, más suave en el tema oscuro.
+            </p>
+            <h3>Tarjeta de blog</h3>
+            {samplePost && <BlogCard post={samplePost} />}
+            <h3>Tarjeta de servicio</h3>
+            {
+                sampleService && (
+                    <ServiceCard
+                        title={sampleService.title}
+                        description={sampleService.description}
+                        icon={sampleService.icon}
+                        heading="h3"
+                    />
+                )
+            }
+            <h3>Tarjeta de equipo</h3>
+            {
+                sampleMember && (
+                    <TeamCard
+                        name={sampleMember.name}
+                        role={sampleMember.role}
+                        href={teamPath(sampleMember.slug)}
+                        avatar={sampleMember.avatar}
+                        heading="h3"
+                    />
+                )
+            }
+            <h3>Prosa</h3>
+            <div class="prose">
+                <p>
+                    El cuerpo del artículo usa Plus Jakarta Sans, interlineado 1.7 y enlaces
+                    subrayados del color del texto.
+                </p>
+                <h4>Un subtítulo de artículo</h4>
+                <p>Fraunces queda en los títulos. El amarillo no se usa como color de texto.</p>
+            </div>
+            <h3>Campo con error</h3>
+            <form class="surface-card form-card" action="#ds-library">
+                <div class="field">
+                    <label class="field-label" for="ds-email">
+                        Correo
+                        <abbr title="obligatorio">*</abbr>
+                    </label>
+                    <input
+                        class="field-control"
+                        id="ds-email"
+                        type="email"
+                        value="correo-invalido"
+                        aria-invalid="true"
+                        aria-describedby="ds-email-error"
+                    />
+                    <p class="field-error" id="ds-email-error">Ingresa un correo electrónico válido.</p>
+                </div>
+            </form>
+            <h3>Banda de acento</h3>
+            <div class="band band-accent">
+                <p>Texto de tinta sobre el acento. El botón inverso sigue en navy.</p>
+                <Button variant="inverse">Contáctanos</Button>
+            </div>
         </section>
     </article>
 </Layout>

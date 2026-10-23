@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import BlogCard from '../../components/BlogCard.astro';
+import PageHeader from '../../components/PageHeader.astro';
 import { getBlogPosts } from '../../lib/contentful';
 import { PAGE_SEO } from '../../lib/site';
 
@@ -8,32 +9,24 @@ const posts = await getBlogPosts();
 ---
 
 <Layout seo={PAGE_SEO.blog}>
-    <div class="blog">
-        <div class="blog-header">
-            <div class="blog-wrapper">
-                <h1 class="blog-header-title">Bienvenidos a nuestro Blog</h1>
-            </div>
-        </div>
-        <div class="blog-wrapper">
-            <p>
-                Aquí encontrarás información útil y consejos financieros para ayudarte a manejar
-                mejor tus finanzas personales o empresariales. Además, te mantendremos informado
-                sobre temas de actualidad relacionados con la insolvencia y otras cuestiones legales
-                y financieras relevantes. En SOLFIR, creemos que el conocimiento financiero es la
-                clave para tomar decisiones informadas y positivas para el futuro financiero. Únete
-                a nosotros en esta aventura financiera y descubre cómo podemos ayudarte a lograr una
-                mayor estabilidad financiera y tranquilidad.
-            </p>
-        </div>
-        <div class="blog-posts">
-            <div class="blog-wrapper">
-                <h2 class="blog-posts-title">Últimas publicaciones</h2>
-                <span class="blog-posts-items">
-                    {posts.map((post) => (
-                        <BlogCard post={post} layout="horizontal" class="blog-posts-items-card" />
-                    ))}
-                </span>
-            </div>
-        </div>
+    <PageHeader title="Bienvenidos a nuestro Blog" />
+    <div class="container prose">
+        <p>
+            Aquí encontrarás información útil y consejos financieros para ayudarte a manejar mejor
+            tus finanzas personales o empresariales. Además, te mantendremos informado sobre temas
+            de actualidad relacionados con la insolvencia y otras cuestiones legales y financieras
+            relevantes. En SOLFIR, creemos que el conocimiento financiero es la clave para tomar
+            decisiones informadas y positivas para el futuro financiero. Únete a nosotros en esta
+            aventura financiera y descubre cómo podemos ayudarte a lograr una mayor estabilidad
+            financiera y tranquilidad.
+        </p>
     </div>
+    <section class="band">
+        <div class="container">
+            <h2 class="section-title">Últimas publicaciones</h2>
+            <div class="stack">
+                {posts.map((post) => <BlogCard post={post} layout="horizontal" />)}
+            </div>
+        </div>
+    </section>
 </Layout>

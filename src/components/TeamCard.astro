@@ -1,0 +1,28 @@
+---
+import type { ContentImage as ContentImageData } from '../lib/contentful';
+import ContentImage from './ContentImage.astro';
+
+interface Props {
+    name: string;
+    role: string;
+    href: string;
+    avatar: ContentImageData | null;
+    heading?: 'h2' | 'h3';
+}
+
+const { name, role, href, avatar, heading = 'h2' } = Astro.props;
+const Heading = heading;
+---
+
+<article class="surface-card team-card">
+    {
+        avatar && (
+            <div class="card-media">
+                <ContentImage image={avatar} alt="" widths={[250, 400]} sizes="168px" />
+            </div>
+        )
+    }
+    <Heading class="card-title">{name}</Heading>
+    {role && <p class="card-text">{role}</p>}
+    <a class="card-link" href={href}>Ver perfil</a>
+</article>

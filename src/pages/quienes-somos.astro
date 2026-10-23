@@ -1,29 +1,24 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
 import { PAGE_SEO } from '../lib/site';
 ---
 
 <Layout seo={PAGE_SEO.about}>
-    <div class="about">
-        <div class="about-header">
-            <div class="about-wrapper">
-                <h1 class="about-header-title">Quienes somos</h1>
-            </div>
-        </div>
-        <div class="about-wrapper">
-            <p>
-                Bienvenido a SOLFIR, su solución de servicios financieros para la insolvencia y la
-                reorganización. Como expertos en finanzas y reorganización empresarial, estamos
-                dedicados a brindar soluciones efectivas y personalizadas para aquellos que
-                enfrentan desafíos financieros.
-            </p>
-            <p>
-                Ofrecemos una amplia gama de servicios, incluyendo asesoramiento sobre insolvencia,
-                reorganización empresarial, y servicios financieros en general. Nuestro equipo de
-                profesionales experimentados trabaja de cerca con nuestros clientes para comprender
-                sus situaciones únicas y desarrollar un plan de acción que se adapte a sus
-                necesidades y objetivos.
-            </p>
-        </div>
+    <PageHeader title="Quienes somos" />
+    <div class="container prose" style="margin-bottom: 3rem">
+        <p>
+            Bienvenido a SOLFIR, su solución de servicios financieros para la insolvencia y la
+            reorganización. Como expertos en finanzas y reorganización empresarial, estamos
+            dedicados a brindar soluciones efectivas y personalizadas para aquellos que enfrentan
+            desafíos financieros.
+        </p>
+        <p>
+            Ofrecemos una amplia gama de servicios, incluyendo asesoramiento sobre insolvencia,
+            reorganización empresarial, y servicios financieros en general. Nuestro equipo de
+            profesionales experimentados trabaja de cerca con nuestros clientes para comprender sus
+            situaciones únicas y desarrollar un plan de acción que se adapte a sus necesidades y
+            objetivos.
+        </p>
     </div>
 </Layout>

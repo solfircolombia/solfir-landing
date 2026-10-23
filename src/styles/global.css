@@ -4,14 +4,11 @@
 @import '@fontsource-variable/plus-jakarta-sans/wght.css';
 @import '@fontsource-variable/fraunces/wght.css';
 @import './tokens.css';
-@import './site.css';
 @import './components.css';
 
 /*
   Tailwind utilities reference the token custom properties (`@theme inline`),
   so a theme change on [data-theme] updates the utilities too.
-  Breakpoints stay fixed. Legacy --primary / --secondary / --light in site.css
-  stay on the light brand values; migrated surfaces read the semantic tokens.
 */
 @theme {
     --breakpoint-xs: 480px;
@@ -37,6 +34,8 @@
     --color-navy: var(--primitive-color-navy);
     --color-yellow: var(--primitive-color-yellow);
     --color-ink: var(--primitive-color-ink);
+    --color-surface: var(--semantic-color-surface);
+    --color-border: var(--semantic-color-border);
 
     --text-xs: var(--primitive-font-size-xs);
     --text-sm: var(--primitive-font-size-sm);
@@ -61,140 +60,10 @@
 
     --spacing-header: var(--component-header-height);
     --spacing-header-sm: var(--component-header-height-sm);
-    --spacing-footer: 400px;
-}
-
-/* Astro image output and interaction fixes layered on the ported stylesheet. */
-.modal[hidden] {
-    display: none !important;
-}
-
-.modal {
-    position: fixed;
-    inset: 0;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    transform: none;
-    z-index: 30;
-}
-
-.settings {
-    z-index: 20;
-}
-
-.header-logo .logo,
-.footer-logo .logo,
-.modal-header-logo {
-    height: 70px;
-    width: auto;
-}
-
-.header-logo .logo-full-horizontal,
-.footer-logo .logo-full-horizontal,
-.modal-header-logo .logo-full-horizontal {
-    width: auto;
-    height: 100%;
-}
-
-.blog-card-image picture,
-.blog-card-image img,
-.recent-posts-card-img picture,
-.recent-posts-card-img img,
-.equipo-card-image picture,
-.equipo-card-image img,
-.blog-post-page-main-content-image picture,
-.blog-post-page-main-content-image img,
-.team-member-page-main-primary-avatar picture,
-.team-member-page-main-primary-avatar img {
-    display: block;
-    width: 100%;
-    object-fit: cover;
-}
-
-.blog-card-image img {
-    height: auto;
-}
-
-.blog-card--horizontal .blog-card-image img {
-    aspect-ratio: 0.9;
-    height: 100%;
-}
-
-.recent-posts-card-img img,
-.recent-posts-card-img picture {
-    height: 100px;
-}
-
-.blog-post-page-main-content-image img,
-.blog-post-page-main-content-image picture {
-    height: 300px;
-}
-
-.equipo-card-image {
-    width: 230px;
-    height: 230px;
-}
-
-.equipo-card-image picture,
-.equipo-card-image img {
-    width: 230px;
-    height: 230px;
-    object-fit: cover;
-}
-
-.team-member-page-main-primary-avatar img,
-.team-member-page-main-primary-avatar picture {
-    width: 195px;
-    height: 195px;
-    border-radius: 50%;
-}
-
-/* Contentful sections are h4 in the source. They render as h2/h3 under the
-   page title, at the same size the old h4 rule used. */
-.rich-text h2,
-.rich-text h3 {
-    font-size: 1.563rem;
-    font-weight: 700;
-    margin-top: 1.25rem;
-    margin-bottom: 0.5rem;
-}
-
-.rich-text a {
-    color: inherit;
 }
 
 html {
     scroll-behavior: smooth;
-}
-
-#landing-services {
-    scroll-margin-top: var(--spacing-header);
-}
-
-@media (max-width: 768px) {
-    #landing-services {
-        scroll-margin-top: var(--spacing-header-sm);
-    }
-}
-
-.settings button.settings-content-themes-wrapper,
-.settings button.settings-content-text-icon,
-.settings button.settings-toggle-icon {
-    font: inherit;
-    color: inherit;
-    text-align: inherit;
-}
-
-/* White glyphs on the previous blue (#00a2ff, 2.76:1) and WhatsApp green
-   (#25d366, 1.98:1). These are the same hues, darkened just enough for 3:1. */
-.settings-toggle-icon {
-    background-color: var(--primitive-color-settings);
-}
-
-.layout .bubble {
-    background-color: var(--primitive-color-whatsapp);
 }
 
 .visually-hidden {
@@ -213,7 +82,7 @@ html {
     position: fixed;
     left: 16px;
     top: 12px;
-    z-index: 40;
+    z-index: 50;
     padding: 10px 16px;
     background: var(--component-skip-bg);
     color: var(--component-skip-text);
@@ -233,62 +102,13 @@ html {
     white-space: nowrap;
 }
 
-h2.social-title {
-    font-size: 1rem;
+.loader {
+    width: 72px;
+    height: 72px;
 }
 
-.footer-columns-column.links nav {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.modal-footer-icon {
-    width: 48px;
-    min-width: 48px;
-    min-height: 48px;
-}
-
-.team-member-page-main-secondary-items-icon,
-.settings-toggle-icon,
-.modal-header-close,
-.layout .bubble,
-.footer .social-icons-icon,
-.maintenance-social-icons-icon,
-.header-logo-menu {
-    min-width: 24px;
-    min-height: 24px;
-}
-
-.contact-required-note {
-    margin-bottom: 16px;
-}
-
-#contact-status:empty {
-    display: none;
-}
-
-#contact-status:not(:empty) {
-    margin: 0 0 16px;
-    color: #012651;
-    line-height: 1.4;
-}
-
-.contact-form-box-form-group .contact-field-error {
-    margin: 6px 0 0;
-    color: #012651;
-    font-size: 0.95rem;
-    line-height: 1.3;
-}
-
-.contact-form-box-form-group .contact-field-error:empty {
-    display: none;
-}
-
-.contact-form-box-form-group-input[aria-invalid='true'],
-.contact-form-box-form-group-textarea[aria-invalid='true'],
-.contact-form-box-form-group-select[aria-invalid='true'] {
-    border-width: 2px;
+.loader--primary {
+    fill: var(--semantic-color-brand);
 }
 
 .loader-spin {
@@ -319,7 +139,7 @@ textarea:focus,
 summary:focus {
     outline: 3px solid transparent;
     outline-offset: 3px;
-    scroll-margin-top: 140px;
+    scroll-margin-top: 8rem;
 }
 
 a:focus-visible,
@@ -331,12 +151,6 @@ summary:focus-visible {
     outline: var(--component-focus-width) solid var(--component-focus-color);
     outline-offset: var(--component-focus-offset);
     box-shadow: 0 0 0 var(--component-focus-width) var(--component-focus-halo);
-}
-
-@media (max-width: 768px) {
-    .footer-columns-column.links nav {
-        align-items: center;
-    }
 }
 
 @media (prefers-reduced-motion: reduce) {

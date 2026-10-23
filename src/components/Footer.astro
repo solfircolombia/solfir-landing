@@ -14,79 +14,73 @@ const year = new Date().getFullYear();
             <Logo variant="primary" />
         </span>
         <div class="footer-columns">
-            <div class="footer-columns-column">
-                <h2 class="footer-columns-column-title">Datos de contacto</h2>
-                <br />
-                <div class="contact-info">
-                    <span class="contact-info-title">
-                        <Icon name="mail" class="contact-info-title-icon" variant="light" />
+            <div>
+                <h2>Datos de contacto</h2>
+                <div class="contact-row">
+                    <span>
+                        <Icon name="mail" variant="light" />
                         Correo electrónico
                     </span>
-                    <a class="footer-link contact-info-link" href={`mailto:${CONTACT.mail}`}>
-                        {CONTACT.mail}
-                    </a>
+                    <a class="footer-link" href={`mailto:${CONTACT.mail}`}>{CONTACT.mail}</a>
                 </div>
-                <div class="contact-info">
-                    <span class="contact-info-title">
-                        <Icon name="phone" class="contact-info-title-icon" variant="light" />
+                <div class="contact-row">
+                    <span>
+                        <Icon name="phone" variant="light" />
                         Teléfono
                     </span>
-                    <a class="footer-link contact-info-link" href={`tel:${CONTACT.phone}`}>
-                        {CONTACT.phone}
-                    </a>
+                    <a class="footer-link" href={`tel:${CONTACT.phone}`}>{CONTACT.phone}</a>
                 </div>
-                <div class="contact-info">
-                    <span class="contact-info-title">
-                        <Icon name="place" class="contact-info-title-icon" variant="light" />
+                <div class="contact-row">
+                    <span>
+                        <Icon name="place" variant="light" />
                         Ubicación
                     </span>
-                    <a class="footer-link contact-info-link" href={CONTACT.maps}>
-                        {CONTACT.address}
-                    </a>
+                    <a class="footer-link" href={CONTACT.maps}>{CONTACT.address}</a>
                 </div>
             </div>
-            <div class="footer-columns-column links">
-                <h2 class="footer-columns-column-title">Enlaces</h2>
-                <br />
+            <div>
+                <h2>Enlaces</h2>
                 <nav aria-label="Pie de página">
-                    {NAV_LINKS.map((item) => (
-                        <a
-                            class:list={[
-                                'footer-link',
-                                isCurrentPath(pathname, item.href) && 'footer-link-active',
-                            ]}
-                            href={item.href}
-                        >
-                            {item.label}
-                        </a>
-                    ))}
+                    {
+                        NAV_LINKS.map((item) => (
+                            <a
+                                class:list={[
+                                    'footer-link',
+                                    isCurrentPath(pathname, item.href) && 'footer-link-active',
+                                ]}
+                                href={item.href}
+                            >
+                                {item.label}
+                            </a>
+                        ))
+                    }
                 </nav>
             </div>
         </div>
-        <div class="social">
-            <h2 class="social-title">Visitanos en nuestras redes sociales</h2>
-            <div class="social-icons">
-                <SocialLinks variant="secondary" itemClass="social-icons-icon" showTooltip />
+        <div>
+            <h2>Visitanos en nuestras redes sociales</h2>
+            <div class="social-row">
+                <SocialLinks variant="secondary" />
             </div>
         </div>
-        <span class="trademark">
-            <span>
-                {`SOLFIR - Soluciones financieras y reorganizaciones S.A.S © Todos los derechos reservados | ${year}`}
-            </span>
-        </span>
-        <span class="credits">
-            {CREDITS.map((credit) => (
-                <span>
-                    {credit.role}{' '}
-                    {credit.href ? (
-                        <a href={credit.href} target="_blank" rel="noopener noreferrer">
-                            {credit.label}
-                        </a>
-                    ) : (
-                        <span>{credit.label}</span>
-                    )}
-                </span>
-            ))}
-        </span>
+        <p class="fine-print">
+            {`SOLFIR - Soluciones financieras y reorganizaciones S.A.S © Todos los derechos reservados | ${year}`}
+        </p>
+        <p class="fine-print credits">
+            {
+                CREDITS.map((credit) => (
+                    <span>
+                        {credit.role}{' '}
+                        {credit.href ? (
+                            <a href={credit.href} target="_blank" rel="noopener noreferrer">
+                                {credit.label}
+                            </a>
+                        ) : (
+                            <span>{credit.label}</span>
+                        )}
+                    </span>
+                ))
+            }
+        </p>
     </div>
 </footer>

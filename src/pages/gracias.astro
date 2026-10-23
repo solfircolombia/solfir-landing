@@ -4,18 +4,11 @@ import { LABELS, PAGE_SEO, PATHS } from '../lib/site';
 ---
 
 <Layout seo={PAGE_SEO.thanks}>
-    <div class="gracias">
-        <div class="gracias-wrapper">
-            <div class="gracias-message-box">
-                <h1 class="gracias-message-box-title">¡Gracias por contactarnos!</h1>
-                <span class="gracias-message-box-text">
-                    Pronto nos estaremos comunicando contigo
-                </span>
-                <a
-                    class="gracias-message-box-back"
-                    href={PATHS.home}
-                >{`Volver al ${LABELS.home}`}</a>
-            </div>
+    <div class="container">
+        <div class="surface-card message">
+            <h1>¡Gracias por contactarnos!</h1>
+            <p>Pronto nos estaremos comunicando contigo</p>
+            <a href={PATHS.home}>{`Volver al ${LABELS.home}`}</a>
         </div>
     </div>
 </Layout>

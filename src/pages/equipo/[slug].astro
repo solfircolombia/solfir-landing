@@ -31,96 +31,98 @@ const description = renderRichText(member.description);
         ogType: 'website',
     }}
 >
-    <div class="team-member-page">
-        <div class="team-member-page-wrapper">
-            <div class="team-member-page-main">
-                <div class="team-member-page-main-primary">
-                    <div class="team-member-page-main-primary-avatar">
-                        {member.avatar && (
-                            <ContentImage
-                                image={member.avatar}
-                                alt={member.name}
-                                widths={[195, 400, 600]}
-                                sizes="195px"
-                                loading="eager"
-                            />
-                        )}
+    <div class="container band">
+        <div class="profile">
+            <aside class="profile-card">
+                <div class="profile-card-main">
+                    <div class="avatar">
+                        {
+                            member.avatar && (
+                                <ContentImage
+                                    image={member.avatar}
+                                    alt=""
+                                    widths={[195, 400]}
+                                    sizes="168px"
+                                    loading="eager"
+                                />
+                            )
+                        }
                     </div>
-                    <h1 class="team-member-page-main-primary-name">{member.name}</h1>
-                    <span class="team-member-page-main-primary-role">{member.role}</span>
+                    <h1>{member.name}</h1>
+                    <span>{member.role}</span>
                 </div>
-                <div class="team-member-page-main-secondary">
-                    <h2 class="team-member-page-main-secondary-contact">Contacto</h2>
-                    <div class="team-member-page-main-secondary-items">
-                        {member.cv.profiles.map((profile) => {
-                            if (profile.network === 'LinkedIn' && profile.url) {
-                                return (
-                                    <a
-                                        class="team-member-page-main-secondary-items-icon"
-                                        href={profile.url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        aria-label={`LinkedIn de ${member.name}`}
-                                    >
-                                        <Icon name="linkedin" variant="light" />
-                                    </a>
-                                );
-                            }
-                            if (profile.network === 'Email' && profile.url) {
-                                return (
-                                    <a
-                                        class="team-member-page-main-secondary-items-icon"
-                                        href={`mailto:${profile.url}`}
-                                        aria-label={`Enviar correo a ${member.name}`}
-                                    >
-                                        <Icon name="mail" variant="light" />
-                                    </a>
-                                );
-                            }
-                            return null;
-                        })}
+                <div class="profile-card-contact">
+                    <h2>Contacto</h2>
+                    <div class="profile-links">
+                        {
+                            member.cv.profiles.map((profile) => {
+                                if (profile.network === 'LinkedIn' && profile.url) {
+                                    return (
+                                        <a
+                                            href={profile.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            aria-label={`LinkedIn de ${member.name}`}
+                                        >
+                                            <Icon name="linkedin" />
+                                        </a>
+                                    );
+                                }
+                                if (profile.network === 'Email' && profile.url) {
+                                    return (
+                                        <a
+                                            href={`mailto:${profile.url}`}
+                                            aria-label={`Enviar correo a ${member.name}`}
+                                        >
+                                            <Icon name="mail" />
+                                        </a>
+                                    );
+                                }
+                                return null;
+                            })
+                        }
                     </div>
                 </div>
-            </div>
-            <div class="team-member-page-resume">
-                <div class="team-member-page-resume-description">
-                    <h2 class="team-member-page-resume-description-title">Perfil Profesional</h2>
-                    <div class="rich-text" set:html={description} />
-                </div>
-                <div class="team-member-page-resume-experience">
-                    <h2 class="team-member-page-resume-experience-title">Experiencia</h2>
-                    {member.cv.work.map((workItem) => (
-                        <div class="team-member-page-resume-section">
-                            <h3 class="team-member-page-resume-section-title">{workItem.name}</h3>
-                            <span class="team-member-page-resume-section-subtitle">
-                                {workItem.position} ( {workItem.startDate} - {workItem.endDate} )
-                            </span>
-                            {workItem.summary && (
-                                <div class="team-member-page-resume-section-description">
-                                    {workItem.summary}
-                                </div>
-                            )}
-                            {workItem.highlights && workItem.highlights.length > 0 && (
-                                <ul class="team-member-page-resume-section-highlights">
-                                    {workItem.highlights.map((highlight) => (
-                                        <li>{highlight}</li>
-                                    ))}
-                                </ul>
-                            )}
-                        </div>
-                    ))}
-                </div>
-                <div class="team-member-page-resume-education">
-                    <h2 class="team-member-page-resume-education-title">Educación</h2>
-                    {member.cv.education.map((item) => (
-                        <div class="team-member-page-resume-section">
-                            <h3 class="team-member-page-resume-section-title">{item.area}</h3>
-                            <span class="team-member-page-resume-section-subtitle">
-                                {item.institution} ( {item.startDate} - {item.endDate} )
-                            </span>
-                        </div>
-                    ))}
-                </div>
+            </aside>
+            <div class="surface-card" style="padding: 1.5rem">
+                <section class="resume-block">
+                    <h2>Perfil Profesional</h2>
+                    <div class="prose" set:html={description} />
+                </section>
+                <section class="resume-block">
+                    <h2>Experiencia</h2>
+                    {
+                        member.cv.work.map((workItem) => (
+                            <div class="resume-item">
+                                <h3>{workItem.name}</h3>
+                                <span class="resume-meta">
+                                    {workItem.position} ({workItem.startDate} – {workItem.endDate})
+                                </span>
+                                {workItem.summary && <p>{workItem.summary}</p>}
+                                {workItem.highlights && workItem.highlights.length > 0 && (
+                                    <ul>
+                                        {workItem.highlights.map((highlight) => (
+                                            <li>{highlight}</li>
+                                        ))}
+                                    </ul>
+                                )}
+                            </div>
+                        ))
+                    }
+                </section>
+                <section class="resume-block">
+                    <h2>Educación</h2>
+                    {
+                        member.cv.education.map((item) => (
+                            <div class="resume-item">
+                                <h3>{item.area}</h3>
+                                <span class="resume-meta">
+                                    {item.institution} ({item.startDate} – {item.endDate})
+                                </span>
+                            </div>
+                        ))
+                    }
+                </section>
             </div>
         </div>
     </div>
