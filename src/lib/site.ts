@@ -53,6 +53,8 @@ export interface SeoInput {
     pathname: string;
     image?: string;
     ogType?: 'website' | 'article';
+    /** Internal pages. Emits noindex and should also be excluded from the sitemap. */
+    noindex?: boolean;
 }
 
 export const PAGE_SEO: Record<string, SeoInput> = {
@@ -90,6 +92,7 @@ export const CREDITS: { role: string; label: string; href: string }[] = [
     { role: ' - Stock photos de', label: 'Unsplash', href: 'https://unsplash.com/license' },
 ];
 
+/** Historical brand palettes. The settings panel no longer switches these. */
 export const THEMES = {
     SOLFIR_1: {
         primary: 'hsla(212, 98%, 16%, 1)',

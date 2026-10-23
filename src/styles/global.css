@@ -1,56 +1,67 @@
 @layer theme, base, components, utilities;
 @import 'tailwindcss/theme.css' layer(theme);
 @import 'tailwindcss/utilities.css' layer(utilities);
+@import '@fontsource-variable/plus-jakarta-sans/wght.css';
+@import '@fontsource-variable/fraunces/wght.css';
+@import './tokens.css';
 @import './site.css';
+@import './components.css';
 
 /*
-  Design tokens ported from src/styles SCSS.
-  Runtime theme switches (the settings panel) write the --primary / --secondary /
-  --tertiary / --dark / --light variables. Component CSS reads those variables.
+  Tailwind utilities reference the token custom properties (`@theme inline`),
+  so a theme change on [data-theme] updates the utilities too.
+  Breakpoints stay fixed. Legacy --primary / --secondary / --light in site.css
+  stay on the light brand values; migrated surfaces read the semantic tokens.
 */
 @theme {
-    --color-prussian-blue: #012651;
-    --color-sun-yellow: #fab114;
-    --color-sugar-cane: #ffffff;
-    --color-el-paso: #141105;
-    --color-cerise-red: #de356e;
-    --color-finn: #742f5d;
-    --color-scorpion: #626062;
-    --color-whatsapp: #25d366;
-    --color-settings-toggle: hsl(202, 100%, 50%);
-
-    --font-sans: 'Champagne&Limousines', 'Segoe UI', sans-serif;
-
     --breakpoint-xs: 480px;
     --breakpoint-sm: 768px;
     --breakpoint-md: 1024px;
     --breakpoint-lg: 1200px;
     --breakpoint-xl: 1440px;
-
-    --shadow-1: 0 1px 3px rgb(0 0 0 / 0.12), 0 1px 2px rgb(0 0 0 / 0.24);
-    --shadow-2: 0 3px 6px rgb(0 0 0 / 0.16), 0 3px 6px rgb(0 0 0 / 0.23);
-    --shadow-3: 0 10px 20px rgb(0 0 0 / 0.19), 0 6px 6px rgb(0 0 0 / 0.23);
-    --shadow-4: 0 14px 28px rgb(0 0 0 / 0.25), 0 10px 10px rgb(0 0 0 / 0.22);
-    --shadow-5: 0 19px 38px rgb(0 0 0 / 0.3), 0 15px 12px rgb(0 0 0 / 0.22);
-
-    --text-h1: 3.052rem;
-    --text-h2: 2.441rem;
-    --text-h3: 1.953rem;
-    --text-h4: 1.563rem;
-    --text-h5: 1.25rem;
-    --text-small: 0.8rem;
-
-    --spacing-header: 120px;
-    --spacing-header-sm: 80px;
-    --spacing-footer: 400px;
 }
 
 @theme inline {
-    --color-primary: var(--primary);
-    --color-secondary: var(--secondary);
-    --color-tertiary: var(--tertiary);
-    --color-dark: var(--dark);
-    --color-light: var(--light);
+    --font-sans: var(--semantic-font-body);
+    --font-display: var(--semantic-font-display);
+
+    --color-canvas: var(--semantic-color-bg);
+    --color-text: var(--semantic-color-text);
+    --color-muted: var(--semantic-color-text-muted);
+    --color-brand: var(--semantic-color-brand);
+    --color-on-brand: var(--semantic-color-on-brand);
+    --color-accent: var(--semantic-color-accent);
+    --color-on-accent: var(--semantic-color-on-accent);
+    --color-action: var(--semantic-color-action-bg);
+    --color-on-action: var(--semantic-color-action-text);
+    --color-navy: var(--primitive-color-navy);
+    --color-yellow: var(--primitive-color-yellow);
+    --color-ink: var(--primitive-color-ink);
+
+    --text-xs: var(--primitive-font-size-xs);
+    --text-sm: var(--primitive-font-size-sm);
+    --text-body: var(--primitive-font-size-body);
+    --text-h1: var(--primitive-font-size-display);
+    --text-h2: var(--primitive-font-size-3xl);
+    --text-h3: var(--primitive-font-size-2xl);
+    --text-h4: var(--primitive-font-size-xl);
+    --text-h5: var(--primitive-font-size-lg);
+    --text-small: var(--primitive-font-size-xs);
+
+    --radius-sm: var(--primitive-radius-sm);
+    --radius-md: var(--primitive-radius-md);
+    --radius-lg: var(--primitive-radius-lg);
+    --radius-pill: var(--primitive-radius-pill);
+
+    --shadow-1: var(--primitive-shadow-1);
+    --shadow-2: var(--primitive-shadow-2);
+    --shadow-3: var(--primitive-shadow-3);
+    --shadow-4: var(--primitive-shadow-4);
+    --shadow-5: var(--primitive-shadow-5);
+
+    --spacing-header: var(--component-header-height);
+    --spacing-header-sm: var(--component-header-height-sm);
+    --spacing-footer: 400px;
 }
 
 /* Astro image output and interaction fixes layered on the ported stylesheet. */
@@ -179,11 +190,11 @@ html {
 /* White glyphs on the previous blue (#00a2ff, 2.76:1) and WhatsApp green
    (#25d366, 1.98:1). These are the same hues, darkened just enough for 3:1. */
 .settings-toggle-icon {
-    background-color: #0094e9;
+    background-color: var(--primitive-color-settings);
 }
 
 .layout .bubble {
-    background-color: #1ca24f;
+    background-color: var(--primitive-color-whatsapp);
 }
 
 .visually-hidden {
@@ -204,9 +215,9 @@ html {
     top: 12px;
     z-index: 40;
     padding: 10px 16px;
-    background: #fff;
-    color: #012651;
-    border: 2px solid #012651;
+    background: var(--component-skip-bg);
+    color: var(--component-skip-text);
+    border: 2px solid var(--component-focus-color);
     text-decoration: none;
     font-size: 1rem;
 }
@@ -317,9 +328,9 @@ input:focus-visible,
 select:focus-visible,
 textarea:focus-visible,
 summary:focus-visible {
-    outline: 3px solid #012651;
-    outline-offset: 3px;
-    box-shadow: 0 0 0 3px #fff;
+    outline: var(--component-focus-width) solid var(--component-focus-color);
+    outline-offset: var(--component-focus-offset);
+    box-shadow: 0 0 0 var(--component-focus-width) var(--component-focus-halo);
 }
 
 @media (max-width: 768px) {

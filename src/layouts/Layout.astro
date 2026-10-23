@@ -7,6 +7,8 @@ import Footer from '../components/Footer.astro';
 import Settings from '../components/Settings.astro';
 import Maintenance from '../components/Maintenance.astro';
 import Icon from '../components/Icon.astro';
+import jakartaLatin from '@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-normal.woff2?url';
+import frauncesLatin from '@fontsource-variable/fraunces/files/fraunces-latin-wght-normal.woff2?url';
 import '../styles/global.css';
 
 interface Props {
@@ -31,8 +33,32 @@ const maintenance = MAINTENANCE;
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script is:inline>
+            (function () {
+                var root = document.documentElement;
+                var mode = 'system';
+                var contrast = false;
+                var size = 'md';
+                try {
+                    mode = localStorage.getItem('solfir-theme') || 'system';
+                    contrast = localStorage.getItem('solfir-contrast') === 'high';
+                    size = localStorage.getItem('solfir-text-size') || 'md';
+                } catch (error) {}
+                if (mode !== 'light' && mode !== 'dark' && mode !== 'system') mode = 'system';
+                if (size !== 'sm' && size !== 'md' && size !== 'lg' && size !== 'xl') size = 'md';
+                var dark =
+                    mode === 'dark' ||
+                    (mode === 'system' &&
+                        window.matchMedia('(prefers-color-scheme: dark)').matches);
+                root.setAttribute('data-theme', dark ? 'dark' : 'light');
+                root.setAttribute('data-theme-mode', mode);
+                root.setAttribute('data-text-size', size);
+                if (contrast) root.setAttribute('data-contrast', 'high');
+            })();
+        </script>
         <title>{documentTitle}</title>
         <meta name="description" content={description} />
+        {seo.noindex && <meta name="robots" content="noindex, nofollow" />}
         <meta name="image" content={imageUrl} />
         <link rel="canonical" href={canonical} />
         <meta property="og:type" content={seo.ogType ?? 'website'} />
@@ -52,20 +78,8 @@ const maintenance = MAINTENANCE;
         <link rel="apple-touch-icon" href="/icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#012651" />
-        <link
-            rel="preload"
-            href="/fonts/Champagne&Limousines.ttf"
-            as="font"
-            type="font/ttf"
-            crossorigin
-        />
-        <link
-            rel="preload"
-            href="/fonts/Champagne&LimousinesBold.ttf"
-            as="font"
-            type="font/ttf"
-            crossorigin
-        />
+        <link rel="preload" href={jakartaLatin} as="font" type="font/woff2" crossorigin />
+        <link rel="preload" href={frauncesLatin} as="font" type="font/woff2" crossorigin />
         <meta name="generator" content={Astro.generator} />
         {gaId && (
             <>

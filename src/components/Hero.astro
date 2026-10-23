@@ -1,0 +1,33 @@
+---
+interface Props {
+    image?: {
+        src: string;
+        alt: string;
+    };
+}
+
+const { image } = Astro.props;
+---
+
+<section class="landing-banner hero" id="landing-banner" data-hero={image ? 'image' : 'type'}>
+    {
+        image && (
+            <img
+                class="hero-image"
+                src={image.src}
+                alt={image.alt}
+                width="1140"
+                height="640"
+                decoding="async"
+            />
+        )
+    }
+    <div class="landing-wrapper">
+        <h1 class="landing-banner-title hero-title">
+            <slot name="title" />
+        </h1>
+        <div class="landing-banner-buttons">
+            <slot />
+        </div>
+    </div>
+</section>

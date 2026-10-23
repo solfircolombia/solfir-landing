@@ -1,54 +1,65 @@
 ---
-import { THEMES } from '../lib/site';
 import Icon from './Icon.astro';
 
-const themeEntries = Object.entries(THEMES);
+const textSizes = [
+    { value: 'sm', label: 'A-', name: 'Texto pequeño' },
+    { value: 'md', label: 'A', name: 'Texto predeterminado' },
+    { value: 'lg', label: 'A+', name: 'Texto grande' },
+    { value: 'xl', label: 'A++', name: 'Texto muy grande' },
+] as const;
+
+const themeModes = [
+    { value: 'light', label: 'Claro' },
+    { value: 'dark', label: 'Oscuro' },
+    { value: 'system', label: 'Sistema' },
+] as const;
 ---
 
 <div class="settings settings--closed">
     <div class="settings-content" id="settings-content" inert aria-hidden="true">
-        <p>SELECCIONE PALETA DE COLORES</p>
-        <div class="settings-content-themes">
-            {themeEntries.map(([themeName, theme]) => (
-                <button
-                    type="button"
-                    class="settings-content-themes-wrapper"
-                    data-theme={JSON.stringify(theme)}
-                    aria-label={`Paleta ${themeName}`}
-                >
-                    <span class="settings-content-themes-box">
-                        {Object.entries(theme)
-                            .filter(([key]) => !key.includes('Contrast'))
-                            .map(([key, value]) => (
-                                <span
-                                    class="settings-content-themes-box-item"
-                                    style={`background-color:${value}`}
-                                    data-swatch={key}
-                                />
-                            ))}
-                    </span>
-                </button>
-            ))}
-        </div>
-        <p>TAMAÑO LETRA</p>
-        <div class="settings-content-text">
-            <button
-                type="button"
-                class="settings-content-text-icon"
-                data-text="decrease"
-                aria-label="Reducir tamaño de letra"
-            >
-                <Icon name="text-decrease" variant="dark" />
+        <fieldset class="settings-group">
+            <legend>Tamaño del texto</legend>
+            <div class="settings-choices">
+                {
+                    textSizes.map((size) => (
+                        <label class="settings-choice">
+                            <input
+                                type="radio"
+                                name="text-size"
+                                value={size.value}
+                                aria-label={size.name}
+                                checked={size.value === 'md'}
+                            />
+                            <span aria-hidden="true">{size.label}</span>
+                        </label>
+                    ))
+                }
+            </div>
+        </fieldset>
+        <fieldset class="settings-group">
+            <legend>Contraste</legend>
+            <button type="button" class="settings-choice settings-contrast" data-contrast-toggle aria-pressed="false">
+                Alto contraste
             </button>
-            <button
-                type="button"
-                class="settings-content-text-icon"
-                data-text="increase"
-                aria-label="Aumentar tamaño de letra"
-            >
-                <Icon name="text-increase" variant="dark" />
-            </button>
-        </div>
+        </fieldset>
+        <fieldset class="settings-group">
+            <legend>Tema</legend>
+            <div class="settings-choices">
+                {
+                    themeModes.map((mode) => (
+                        <label class="settings-choice">
+                            <input
+                                type="radio"
+                                name="theme-mode"
+                                value={mode.value}
+                                checked={mode.value === 'system'}
+                            />
+                            <span>{mode.label}</span>
+                        </label>
+                    ))
+                }
+            </div>
+        </fieldset>
     </div>
     <div class="settings-toggle">
         <button
@@ -66,9 +77,68 @@ const themeEntries = Object.entries(THEMES);
 
 <script>
     const root = document.querySelector<HTMLElement>('.settings');
+    const page = document.documentElement;
+
+    const themeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+    const read = (key: string) => {
+        try {
+            return localStorage.getItem(key);
+        } catch {
+            return null;
+        }
+    };
+
+    const write = (key: string, value: string) => {
+        try {
+            localStorage.setItem(key, value);
+        } catch {
+            /* Private mode can reject storage. The attribute still applies. */
+        }
+    };
+
+    const applyTheme = (mode: string) => {
+        const safe = mode === 'light' || mode === 'dark' || mode === 'system' ? mode : 'system';
+        const dark =
+            safe === 'dark' || (safe === 'system' && themeQuery.matches);
+        page.dataset.theme = dark ? 'dark' : 'light';
+        page.dataset.themeMode = safe;
+        const meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
+        if (meta) {
+            meta.content = dark ? '#07111c' : '#012651';
+        }
+    };
+
+    const applyContrast = (high: boolean) => {
+        if (high) {
+            page.dataset.contrast = 'high';
+        } else {
+            delete page.dataset.contrast;
+        }
+    };
+
+    const applySize = (size: string) => {
+        const safe = size === 'sm' || size === 'lg' || size === 'xl' ? size : 'md';
+        page.dataset.textSize = safe;
+    };
+
     if (root) {
         const toggle = root.querySelector<HTMLButtonElement>('[data-settings-toggle]');
         const panel = root.querySelector<HTMLElement>('#settings-content');
+        const contrastToggle = root.querySelector<HTMLButtonElement>('[data-contrast-toggle]');
+
+        const syncControls = () => {
+            const size = page.dataset.textSize || 'md';
+            const mode = page.dataset.themeMode || 'system';
+            const high = page.dataset.contrast === 'high';
+            root.querySelectorAll<HTMLInputElement>('input[name="text-size"]').forEach((input) => {
+                input.checked = input.value === size;
+            });
+            root.querySelectorAll<HTMLInputElement>('input[name="theme-mode"]').forEach((input) => {
+                input.checked = input.value === mode;
+            });
+            contrastToggle?.setAttribute('aria-pressed', String(high));
+        };
 
         const setOpen = (open: boolean) => {
             root.classList.toggle('settings--open', open);
@@ -87,7 +157,7 @@ const themeEntries = Object.entries(THEMES);
                 open ? 'Cerrar ajustes de visualización' : 'Abrir ajustes de visualización'
             );
             if (open) {
-                panel?.querySelector<HTMLElement>('button')?.focus();
+                panel?.querySelector<HTMLElement>('input, button')?.focus();
             } else {
                 toggle?.focus();
             }
@@ -104,30 +174,39 @@ const themeEntries = Object.entries(THEMES);
             }
         });
 
-        root.querySelectorAll<HTMLButtonElement>('[data-theme]').forEach((button) => {
-            button.addEventListener('click', () => {
-                const raw = button.dataset.theme;
-                if (!raw) {
+        root.querySelectorAll<HTMLInputElement>('input[name="text-size"]').forEach((input) => {
+            input.addEventListener('change', () => {
+                if (!input.checked) {
                     return;
                 }
-                const theme = JSON.parse(raw) as Record<string, string>;
-                Object.entries(theme).forEach(([key, value]) => {
-                    document.documentElement.style.setProperty(`--${key}`, value);
-                });
+                applySize(input.value);
+                write('solfir-text-size', page.dataset.textSize || 'md');
             });
         });
 
-        let size = 19;
-        const applySize = () => {
-            document.documentElement.style.setProperty('--base-font-size', `${size}px`);
-        };
-        root.querySelector('[data-text="decrease"]')?.addEventListener('click', () => {
-            size -= 1;
-            applySize();
+        root.querySelectorAll<HTMLInputElement>('input[name="theme-mode"]').forEach((input) => {
+            input.addEventListener('change', () => {
+                if (!input.checked) {
+                    return;
+                }
+                applyTheme(input.value);
+                write('solfir-theme', page.dataset.themeMode || 'system');
+            });
         });
-        root.querySelector('[data-text="increase"]')?.addEventListener('click', () => {
-            size += 1;
-            applySize();
+
+        contrastToggle?.addEventListener('click', () => {
+            const next = contrastToggle.getAttribute('aria-pressed') !== 'true';
+            applyContrast(next);
+            contrastToggle.setAttribute('aria-pressed', String(next));
+            write('solfir-contrast', next ? 'high' : 'default');
         });
+
+        themeQuery.addEventListener('change', () => {
+            if ((page.dataset.themeMode || 'system') === 'system') {
+                applyTheme('system');
+            }
+        });
+
+        syncControls();
     }
 </script>
