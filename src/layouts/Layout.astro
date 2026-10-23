@@ -52,7 +52,6 @@ const maintenance = MAINTENANCE;
         <link rel="apple-touch-icon" href="/icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#012651" />
-        <link rel="preload" href="/fonts/Modern20.ttf" as="font" type="font/ttf" crossorigin />
         <link
             rel="preload"
             href="/fonts/Champagne&Limousines.ttf"
@@ -63,20 +62,6 @@ const maintenance = MAINTENANCE;
         <link
             rel="preload"
             href="/fonts/Champagne&LimousinesBold.ttf"
-            as="font"
-            type="font/ttf"
-            crossorigin
-        />
-        <link
-            rel="preload"
-            href="/fonts/Champagne&LimousinesBoldItalic.ttf"
-            as="font"
-            type="font/ttf"
-            crossorigin
-        />
-        <link
-            rel="preload"
-            href="/fonts/Champagne&LimousinesItalic.ttf"
             as="font"
             type="font/ttf"
             crossorigin
@@ -100,11 +85,14 @@ const maintenance = MAINTENANCE;
         {maintenance ? (
             <Maintenance />
         ) : (
-            <main class="layout" id="layout">
+            <div class="layout" id="layout">
+                <a class="skip-link" href="#contenido">
+                    Saltar al contenido
+                </a>
                 <Header />
-                <div class="content">
+                <main class="content" id="contenido" tabindex="-1">
                     <slot />
-                </div>
+                </main>
                 <Footer />
                 <a
                     class="bubble"
@@ -116,7 +104,7 @@ const maintenance = MAINTENANCE;
                     <Icon class="icon" name="whatsapp" fill="white" />
                 </a>
                 <Settings />
-            </main>
+            </div>
         )}
     </body>
 </html>

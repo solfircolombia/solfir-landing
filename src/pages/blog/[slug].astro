@@ -32,7 +32,7 @@ const html = renderRichText(post.content);
     }}
 >
     <div class="blog-post-page">
-        <span class="blog-post-page-title">{post.title}</span>
+        <h1 class="blog-post-page-title">{post.title}</h1>
         <div class="blog-post-page-date-author">
             {post.date && formatLongDate(post.date)}
             {post.author && (

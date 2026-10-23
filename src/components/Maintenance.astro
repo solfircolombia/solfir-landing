@@ -5,16 +5,19 @@ import Settings from './Settings.astro';
 import SocialLinks from './SocialLinks.astro';
 ---
 
-<main class="maintenance">
+<a class="skip-link" href="#contenido">
+    Saltar al contenido
+</a>
+<main class="maintenance" id="contenido" tabindex="-1">
     <div class="maintenance-logo">
         <Logo variant="regular" />
     </div>
-    <div class="maintenance-message">
+    <h1 class="maintenance-message">
         Página en construccion
-        <div class="maintenance-message-loader">
+        <span class="maintenance-message-loader">
             <Loader fill="primary" />
-        </div>
-    </div>
+        </span>
+    </h1>
     <div class="maintenance-social">
         <span class="maintenance-social-message">
             Mientras tanto puedes visitarnos en nuestras redes sociales

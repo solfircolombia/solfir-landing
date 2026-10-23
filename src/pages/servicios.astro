@@ -14,7 +14,7 @@ const services = await getServices();
     <div class="servicios">
         <div class="servicios-header">
             <div class="servicios-wrapper">
-                <span class="servicios-header-title">Conoce nuestros servicios</span>
+                <h1 class="servicios-header-title">Conoce nuestros servicios</h1>
             </div>
         </div>
         <div class="servicios-wrapper">
@@ -24,7 +24,7 @@ const services = await getServices();
                         <span class="service-card-icon">
                             <Icon name={service.icon} size={48} />
                         </span>
-                        <span class="service-card-title">{service.title}</span>
+                        <h2 class="service-card-title">{service.title}</h2>
                         <Button
                             class="service-card-button"
                             size="small"
@@ -45,7 +45,7 @@ const services = await getServices();
         class="modal"
         role="dialog"
         aria-modal="true"
-        aria-label="Ventana modal menu"
+        aria-labelledby="service-modal-title"
         hidden
     >
         <div class="modal-wrapper service-modal">
@@ -62,7 +62,11 @@ const services = await getServices();
             </div>
             <div class="modal-content">
                 <div class="service-modal-content">
-                    <span class="service-modal-content-title" data-service-title></span>
+                    <h2
+                        class="service-modal-content-title"
+                        id="service-modal-title"
+                        data-service-title
+                    ></h2>
                     <p class="service-modal-content-text" data-service-text></p>
                     <p class="service-modal-content-contact">
                         ¿Te encuentras interesado en este servicio?
@@ -90,13 +94,20 @@ const services = await getServices();
 
     const modal = document.getElementById('service-modal');
     if (modal) {
-        const controller = bindModal(modal);
+        const openers = document.querySelectorAll<HTMLButtonElement>('[data-open-service]');
+        const controller = bindModal(modal, {
+            onClose: () => {
+                openers.forEach((button) => button.setAttribute('aria-expanded', 'false'));
+            },
+        });
         const title = modal.querySelector<HTMLElement>('[data-service-title]');
         const text = modal.querySelector<HTMLElement>('[data-service-text]');
-        document.querySelectorAll<HTMLButtonElement>('[data-open-service]').forEach((button) => {
+        openers.forEach((button) => {
             button.addEventListener('click', () => {
                 if (title) title.textContent = button.dataset.serviceName ?? '';
                 if (text) text.textContent = button.dataset.serviceText ?? '';
+                openers.forEach((other) => other.setAttribute('aria-expanded', 'false'));
+                button.setAttribute('aria-expanded', 'true');
                 controller.open();
             });
         });

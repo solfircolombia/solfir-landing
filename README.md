@@ -45,11 +45,14 @@ npm run dev        # http://localhost:4321
 npm run check      # astro check (strict TypeScript)
 npm run build      # production build
 npm run preview    # serve the production build
+npm run test:a11y  # axe (WCAG 2.2 AA) against the built pages
 npm run format:check
 npm run format:write
 ```
 
 Prettier runs on commit through husky and lint-staged.
+
+`npm run test:a11y` needs a finished `dist/`. It serves that build and checks the main pages with `@axe-core/playwright` (WCAG 2.2 AA) and a heading outline check. The same job runs on pull requests from `.github/workflows/a11y.yml`. That workflow needs `CONTENTFUL_SPACE_ID` and `CONTENTFUL_ACCESS_TOKEN` in the repository secrets so the build can read Contentful.
 
 ## Content
 
@@ -82,7 +85,7 @@ Trailing slashes match the current production URLs. `/api/sendgrid/` is not prer
 
 Remote Contentful images are optimized with Astro `<Picture>` (AVIF and WebP, widths up to the original Gatsby breakpoints). The favicon, web manifest, and social image live in `public/`. Each page sets Spanish `lang`, a title, description, canonical URL, Open Graph, and Twitter tags. `@astrojs/sitemap` writes the sitemap. Google Analytics loads only when `PUBLIC_GA_MEASUREMENT_ID` is set.
 
-Custom fonts from `public/fonts` are Champagne & Limousines (the UI face) and Modern20. Design colors, type scale, shadows, and breakpoints are declared in the Tailwind 4 `@theme` block in `src/styles/global.css`. The component rules in `src/styles/site.css` are the previous stylesheet, still driven by the `--primary`, `--secondary`, `--tertiary`, `--dark`, and `--light` variables that the settings panel updates.
+Custom fonts from `public/fonts` are Champagne & Limousines. The regular and bold faces are preloaded because they are used above the fold. The italic faces stay available for body text. Modern20 was not used by any rule, so the file and its preload are gone. Design colors, type scale, shadows, and breakpoints are declared in the Tailwind 4 `@theme` block in `src/styles/global.css`. The component rules in `src/styles/site.css` are the previous stylesheet, still driven by the `--primary`, `--secondary`, `--tertiary`, `--dark`, and `--light` variables that the settings panel updates.
 
 ## Deploy
 

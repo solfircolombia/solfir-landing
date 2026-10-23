@@ -6,7 +6,7 @@ const themeEntries = Object.entries(THEMES);
 ---
 
 <div class="settings settings--closed">
-    <div class="settings-content">
+    <div class="settings-content" id="settings-content" inert aria-hidden="true">
         <p>SELECCIONE PALETA DE COLORES</p>
         <div class="settings-content-themes">
             {themeEntries.map(([themeName, theme]) => (
@@ -55,6 +55,8 @@ const themeEntries = Object.entries(THEMES);
             type="button"
             class="settings-toggle-icon"
             data-settings-toggle
+            aria-expanded="false"
+            aria-controls="settings-content"
             aria-label="Abrir ajustes de visualización"
         >
             <Icon name="settings" variant="light" />
@@ -66,11 +68,40 @@ const themeEntries = Object.entries(THEMES);
     const root = document.querySelector<HTMLElement>('.settings');
     if (root) {
         const toggle = root.querySelector<HTMLButtonElement>('[data-settings-toggle]');
+        const panel = root.querySelector<HTMLElement>('#settings-content');
+
+        const setOpen = (open: boolean) => {
+            root.classList.toggle('settings--open', open);
+            root.classList.toggle('settings--closed', !open);
+            if (panel) {
+                panel.inert = !open;
+                if (open) {
+                    panel.removeAttribute('aria-hidden');
+                } else {
+                    panel.setAttribute('aria-hidden', 'true');
+                }
+            }
+            toggle?.setAttribute('aria-expanded', String(open));
+            toggle?.setAttribute(
+                'aria-label',
+                open ? 'Cerrar ajustes de visualización' : 'Abrir ajustes de visualización'
+            );
+            if (open) {
+                panel?.querySelector<HTMLElement>('button')?.focus();
+            } else {
+                toggle?.focus();
+            }
+        };
+
         toggle?.addEventListener('click', () => {
-            const open = root.classList.contains('settings--open');
-            root.classList.toggle('settings--open', !open);
-            root.classList.toggle('settings--closed', open);
-            toggle.setAttribute('aria-expanded', String(!open));
+            setOpen(root.classList.contains('settings--closed'));
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && root.classList.contains('settings--open')) {
+                event.preventDefault();
+                setOpen(false);
+            }
         });
 
         root.querySelectorAll<HTMLButtonElement>('[data-theme]').forEach((button) => {

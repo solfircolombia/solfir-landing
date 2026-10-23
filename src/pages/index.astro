@@ -18,11 +18,11 @@ if (!Array.isArray(media)) {
     <div class="landing">
         <section class="landing-banner" id="landing-banner">
             <div class="landing-wrapper">
-                <span class="landing-banner-title">
+                <h1 class="landing-banner-title">
                     Vuelve a la estabilidad financiera con{' '}
                     <b class="landing-banner-title-solfir">SOLFIR</b> expertos en insolvencia y
                     reorganización empresarial
-                </span>
+                </h1>
                 <div class="landing-banner-buttons">
                     <Button variant="primary" size="medium" href="#landing-services">
                         Quiero saber mas
@@ -37,14 +37,14 @@ if (!Array.isArray(media)) {
                     {services.map((service) => (
                         <div class="service-box">
                             <div class="service-box-content">
-                                <span class="service-box-content-title">
+                                <h3 class="service-box-content-title">
                                     <Icon
                                         name={service.icon}
                                         variant="dark"
                                         class="service-box-content-title-icon"
                                     />
                                     {service.title}
-                                </span>
+                                </h3>
                             </div>
                         </div>
                     ))}
@@ -56,7 +56,7 @@ if (!Array.isArray(media)) {
         </section>
         <section class="landing-blog">
             <div class="landing-wrapper">
-                <span class="landing-blog-title">Nuestro Blog</span>
+                <h2 class="landing-blog-title">Nuestro Blog</h2>
                 <p class="landing-blog-text">
                     Visita el blog de SOLFIR, donde encontrarás información útil y consejos
                     financieros para ayudarte a manejar mejor tus finanzas personales o
