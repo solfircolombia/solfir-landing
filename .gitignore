@@ -1,5 +1,9 @@
 node_modules/
-.cache/
-public
-src/gatsby-types.d.ts
+dist/
+.astro/
 .env
+.env.*
+!.env.example
+.DS_Store
+*.log
+.cache/

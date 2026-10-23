@@ -1,0 +1,127 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ContentImage from '../../components/ContentImage.astro';
+import Icon from '../../components/Icon.astro';
+import { getTeamMembers, type TeamMember } from '../../lib/contentful';
+import { renderRichText } from '../../lib/rich-text';
+import { teamPath } from '../../lib/site';
+
+export async function getStaticPaths() {
+    const members = await getTeamMembers();
+    return members.map((member) => ({
+        params: { slug: member.slug },
+        props: { member },
+    }));
+}
+
+interface Props {
+    member: TeamMember;
+}
+
+const { member } = Astro.props;
+const description = renderRichText(member.description);
+---
+
+<Layout
+    seo={{
+        title: member.name,
+        description: member.role,
+        pathname: teamPath(member.slug),
+        image: member.avatar?.url,
+        ogType: 'website',
+    }}
+>
+    <div class="team-member-page">
+        <div class="team-member-page-wrapper">
+            <div class="team-member-page-main">
+                <div class="team-member-page-main-primary">
+                    <div class="team-member-page-main-primary-avatar">
+                        {member.avatar && (
+                            <ContentImage
+                                image={member.avatar}
+                                alt={member.name}
+                                widths={[195, 400, 600]}
+                                sizes="195px"
+                                loading="eager"
+                            />
+                        )}
+                    </div>
+                    <span class="team-member-page-main-primary-name">{member.name}</span>
+                    <span class="team-member-page-main-primary-role">{member.role}</span>
+                </div>
+                <div class="team-member-page-main-secondary">
+                    <span class="team-member-page-main-secondary-contact">Contacto</span>
+                    <div class="team-member-page-main-secondary-items">
+                        {member.cv.profiles.map((profile) => {
+                            if (profile.network === 'LinkedIn' && profile.url) {
+                                return (
+                                    <a
+                                        class="team-member-page-main-secondary-items-icon"
+                                        href={profile.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <Icon name="linkedin" variant="light" />
+                                    </a>
+                                );
+                            }
+                            if (profile.network === 'Email' && profile.url) {
+                                return (
+                                    <a
+                                        class="team-member-page-main-secondary-items-icon"
+                                        href={`mailto:${profile.url}`}
+                                    >
+                                        <Icon name="mail" variant="light" />
+                                    </a>
+                                );
+                            }
+                            return null;
+                        })}
+                    </div>
+                </div>
+            </div>
+            <div class="team-member-page-resume">
+                <div class="team-member-page-resume-description">
+                    <div class="team-member-page-resume-description-title">Perfil Profesional</div>
+                    <div class="rich-text" set:html={description} />
+                </div>
+                <div class="team-member-page-resume-experience">
+                    <span class="team-member-page-resume-experience-title">Experiencia</span>
+                    {member.cv.work.map((workItem) => (
+                        <div class="team-member-page-resume-section">
+                            <span class="team-member-page-resume-section-title">
+                                {workItem.name}
+                            </span>
+                            <span class="team-member-page-resume-section-subtitle">
+                                {workItem.position} ( {workItem.startDate} - {workItem.endDate} )
+                            </span>
+                            {workItem.summary && (
+                                <div class="team-member-page-resume-section-description">
+                                    {workItem.summary}
+                                </div>
+                            )}
+                            {workItem.highlights && workItem.highlights.length > 0 && (
+                                <ul class="team-member-page-resume-section-highlights">
+                                    {workItem.highlights.map((highlight) => (
+                                        <li>{highlight}</li>
+                                    ))}
+                                </ul>
+                            )}
+                        </div>
+                    ))}
+                </div>
+                <div class="team-member-page-resume-education">
+                    <span class="team-member-page-resume-education-title">Educación</span>
+                    {member.cv.education.map((item) => (
+                        <div class="team-member-page-resume-section">
+                            <span class="team-member-page-resume-section-title">{item.area}</span>
+                            <span class="team-member-page-resume-section-subtitle">
+                                {item.institution} ( {item.startDate} - {item.endDate} )
+                            </span>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    </div>
+</Layout>

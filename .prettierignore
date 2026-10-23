@@ -1,5 +1,7 @@
-.cache
-package.json
-package-lock.json
-public
+dist
 node_modules
+.astro
+package-lock.json
+src/styles/site.css
+public/fonts
+public/images

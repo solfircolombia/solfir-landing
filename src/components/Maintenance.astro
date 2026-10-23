@@ -1,0 +1,27 @@
+---
+import Logo from './Logo.astro';
+import Loader from './Loader.astro';
+import Settings from './Settings.astro';
+import SocialLinks from './SocialLinks.astro';
+---
+
+<main class="maintenance">
+    <div class="maintenance-logo">
+        <Logo variant="regular" />
+    </div>
+    <div class="maintenance-message">
+        Página en construccion
+        <div class="maintenance-message-loader">
+            <Loader fill="primary" />
+        </div>
+    </div>
+    <div class="maintenance-social">
+        <span class="maintenance-social-message">
+            Mientras tanto puedes visitarnos en nuestras redes sociales
+        </span>
+        <div class="maintenance-social-icons">
+            <SocialLinks variant="primary" itemClass="maintenance-social-icons-icon" showTooltip />
+        </div>
+    </div>
+    <Settings />
+</main>

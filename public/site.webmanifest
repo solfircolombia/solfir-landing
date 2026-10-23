@@ -1,0 +1,25 @@
+{
+    "name": "SOLFIR COLOMBIA",
+    "short_name": "SOLFIR",
+    "description": "Soluciones Financieras, Insolvencias y Reorganizaciones",
+    "lang": "es",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#012651",
+    "icons": [
+        {
+            "src": "/favicon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any"
+        },
+        {
+            "src": "/icon.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ]
+}

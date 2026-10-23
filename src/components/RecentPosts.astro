@@ -1,0 +1,33 @@
+---
+import { getRecentPosts } from '../lib/contentful';
+import { blogPath } from '../lib/site';
+import ContentImage from './ContentImage.astro';
+import Icon from './Icon.astro';
+
+const posts = await getRecentPosts(3);
+---
+
+<div class="recent-posts">
+    <span class="recent-posts-title">Últimas publicaciones</span>
+    <div class="recent-posts-wrapper">
+        {posts.map((post) => (
+            <div class="recent-posts-card">
+                <div class="recent-posts-card-img">
+                    {post.image && (
+                        <ContentImage
+                            image={post.image}
+                            alt={post.title}
+                            widths={[200, 400]}
+                            sizes="200px"
+                        />
+                    )}
+                </div>
+                <span class="recent-posts-card-title">{post.title}</span>
+                <a class="recent-posts-card-link" href={blogPath(post.slug)}>
+                    Leer Post
+                    <Icon name="arrow-right" class="recent-posts-card-link-icon" />
+                </a>
+            </div>
+        ))}
+    </div>
+</div>

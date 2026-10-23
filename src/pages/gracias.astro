@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { LABELS, PAGE_SEO, PATHS } from '../lib/site';
+---
+
+<Layout seo={PAGE_SEO.thanks}>
+    <div class="gracias">
+        <div class="gracias-wrapper">
+            <div class="gracias-message-box">
+                <span class="gracias-message-box-title">¡Gracias por contactarnos!</span>
+                <span class="gracias-message-box-text">
+                    Pronto nos estaremos comunicando contigo
+                </span>
+                <a
+                    class="gracias-message-box-back"
+                    href={PATHS.home}
+                >{`Volver al ${LABELS.home}`}</a>
+            </div>
+        </div>
+    </div>
+</Layout>

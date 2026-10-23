@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { CONTACT, LABELS, PAGE_SEO, PATHS } from '../lib/site';
+---
+
+<Layout seo={PAGE_SEO.error}>
+    <div class="error">
+        <div class="error-wrapper">
+            <div class="error-message-box">
+                <span class="error-message-box-title">Ha ocurrido un error</span>
+                <span class="error-message-box-text">
+                    Si el error es persistente contactanos al siguiente correo electronico -
+                    <a class="error-message-box-text-mail" href={`mailto:${CONTACT.supportMail}`}>
+                        {CONTACT.supportMail}
+                    </a>
+                </span>
+                <a class="error-message-box-back" href={PATHS.home}>{`Volver al ${LABELS.home}`}</a>
+            </div>
+        </div>
+    </div>
+</Layout>

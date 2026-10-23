@@ -1,0 +1,91 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import BlogCard from '../components/BlogCard.astro';
+import { getBlogPosts, getMedia, getServices } from '../lib/contentful';
+import { LABELS, PAGE_SEO, PATHS } from '../lib/site';
+
+const posts = (await getBlogPosts()).slice(0, 10);
+const services = (await getServices()).slice(0, 3);
+const media = await getMedia();
+if (!Array.isArray(media)) {
+    throw new Error('Contentful Media entries could not be loaded.');
+}
+---
+
+<Layout seo={PAGE_SEO.home}>
+    <div class="landing">
+        <section class="landing-banner" id="landing-banner">
+            <div class="landing-wrapper">
+                <span class="landing-banner-title">
+                    Vuelve a la estabilidad financiera con{' '}
+                    <b class="landing-banner-title-solfir">SOLFIR</b> expertos en insolvencia y
+                    reorganización empresarial
+                </span>
+                <div class="landing-banner-buttons">
+                    <Button variant="primary" size="medium" href="#landing-services">
+                        Quiero saber mas
+                    </Button>
+                </div>
+            </div>
+        </section>
+        <section class="landing-services" id="landing-services">
+            <div class="landing-wrapper">
+                <h2 class="landing-services-title">Nuestros Servicios</h2>
+                <div class="landing-services-items">
+                    {services.map((service) => (
+                        <div class="service-box">
+                            <div class="service-box-content">
+                                <span class="service-box-content-title">
+                                    <Icon
+                                        name={service.icon}
+                                        variant="dark"
+                                        class="service-box-content-title-icon"
+                                    />
+                                    {service.title}
+                                </span>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                <Button class="landing-services-cta" variant="primary" href={PATHS.services}>
+                    Conoce todos nuestros servicios
+                </Button>
+            </div>
+        </section>
+        <section class="landing-blog">
+            <div class="landing-wrapper">
+                <span class="landing-blog-title">Nuestro Blog</span>
+                <p class="landing-blog-text">
+                    Visita el blog de SOLFIR, donde encontrarás información útil y consejos
+                    financieros para ayudarte a manejar mejor tus finanzas personales o
+                    empresariales. Además, te mantendremos informado sobre temas de actualidad
+                    relacionados con la insolvencia y otras cuestiones legales y financieras
+                    relevantes.
+                </p>
+                <div class="landing-blog-posts">
+                    {posts.map((post) => (
+                        <BlogCard post={post} />
+                    ))}
+                </div>
+                <Button class="landing-blog-cta" variant="primary" href={PATHS.blog}>
+                    Ver todas las publicaciones
+                </Button>
+            </div>
+        </section>
+        <section class="landing-hireus">
+            <div class="landing-wrapper">
+                <h2 class="landing-hireus-title">¡Contrátanos!</h2>
+                <p class="landing-hireus-text">
+                    Con un equipo de expertos dedicados y años de experiencia, nos aseguramos de
+                    brindar soluciones óptimas para cada situación única. Contáctanos hoy para ver
+                    cómo podemos ayudarte a lograr la estabilidad financiera.
+                </p>
+                <Button variant="primary" class="landing-hireus-cta" href={PATHS.contact}>
+                    {LABELS.contact}
+                </Button>
+            </div>
+        </section>
+    </div>
+</Layout>

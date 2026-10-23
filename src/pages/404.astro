@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { LABELS, PAGE_SEO, PATHS } from '../lib/site';
+---
+
+<Layout seo={PAGE_SEO.notFound}>
+    <div class="pagina-no-encontrada">
+        <div class="pagina-no-encontrada-wrapper">
+            <div class="pagina-no-encontrada-message-box">
+                <span class="pagina-no-encontrada-message-box-title">Pagina no encontrada</span>
+                <span class="pagina-no-encontrada-message-box-text">
+                    Lo siento, la página que estas buscando no existe
+                </span>
+                <a class="pagina-no-encontrada-message-box-back" href={PATHS.home}>
+                    {`Volver al ${LABELS.home}`}
+                </a>
+            </div>
+        </div>
+    </div>
+</Layout>

@@ -1,0 +1,24 @@
+---
+import { ICON_PATHS, type IconName } from '../lib/icons';
+
+interface Props {
+    name: IconName;
+    variant?: 'primary' | 'secondary' | 'tertiary' | 'dark' | 'light';
+    fill?: string;
+    size?: number;
+    class?: string;
+}
+
+const { name, variant, fill, size, class: className = '' } = Astro.props;
+const style = size ? `width:${size}px;height:${size}px` : 'width:100%;height:100%';
+---
+
+<svg
+    class:list={['icon', variant && `icon--variant-${variant}`, className]}
+    style={style}
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+    focusable="false"
+>
+    <path d={ICON_PATHS[name]} fill={fill}></path>
+</svg>

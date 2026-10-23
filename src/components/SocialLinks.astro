@@ -1,0 +1,25 @@
+---
+import { SOCIAL_LINKS } from '../lib/site';
+import Icon from './Icon.astro';
+
+interface Props {
+    variant?: 'primary' | 'secondary' | 'tertiary' | 'dark' | 'light';
+    itemClass?: string;
+    showTooltip?: boolean;
+}
+
+const { variant = 'primary', itemClass = '', showTooltip = false } = Astro.props;
+---
+
+{SOCIAL_LINKS.map((social) => (
+    <a
+        class:list={[itemClass, showTooltip && 'tooltip']}
+        href={social.href}
+        aria-label={`Click aqui para ir a nuestra cuenta de ${social.name}`}
+    >
+        {showTooltip && (
+            <span class="tooltiptext tooltiptext--tertiary">{social.name.toLocaleUpperCase()}</span>
+        )}
+        <Icon name={social.name} variant={variant} />
+    </a>
+))}
