@@ -1,57 +1,67 @@
 @layer theme, base, components, utilities;
 @import 'tailwindcss/theme.css' layer(theme);
 @import 'tailwindcss/utilities.css' layer(utilities);
+@import '@fontsource-variable/plus-jakarta-sans/wght.css';
+@import '@fontsource-variable/fraunces/wght.css';
+@import './tokens.css';
 @import './site.css';
+@import './components.css';
 
 /*
-  Design tokens ported from src/styles SCSS.
-  Runtime theme switches (the settings panel) write the --primary / --secondary /
-  --tertiary / --dark / --light variables. Component CSS reads those variables.
+  Tailwind utilities reference the token custom properties (`@theme inline`),
+  so a theme change on [data-theme] updates the utilities too.
+  Breakpoints stay fixed. Legacy --primary / --secondary / --light in site.css
+  stay on the light brand values; migrated surfaces read the semantic tokens.
 */
 @theme {
-    --color-prussian-blue: #012651;
-    --color-sun-yellow: #fab114;
-    --color-sugar-cane: #ffffff;
-    --color-el-paso: #141105;
-    --color-cerise-red: #de356e;
-    --color-finn: #742f5d;
-    --color-scorpion: #626062;
-    --color-whatsapp: #25d366;
-    --color-settings-toggle: hsl(202, 100%, 50%);
-
-    --font-sans: 'Champagne&Limousines', 'Segoe UI', sans-serif;
-    --font-display: 'Modern20', 'Champagne&Limousines', sans-serif;
-
     --breakpoint-xs: 480px;
     --breakpoint-sm: 768px;
     --breakpoint-md: 1024px;
     --breakpoint-lg: 1200px;
     --breakpoint-xl: 1440px;
-
-    --shadow-1: 0 1px 3px rgb(0 0 0 / 0.12), 0 1px 2px rgb(0 0 0 / 0.24);
-    --shadow-2: 0 3px 6px rgb(0 0 0 / 0.16), 0 3px 6px rgb(0 0 0 / 0.23);
-    --shadow-3: 0 10px 20px rgb(0 0 0 / 0.19), 0 6px 6px rgb(0 0 0 / 0.23);
-    --shadow-4: 0 14px 28px rgb(0 0 0 / 0.25), 0 10px 10px rgb(0 0 0 / 0.22);
-    --shadow-5: 0 19px 38px rgb(0 0 0 / 0.3), 0 15px 12px rgb(0 0 0 / 0.22);
-
-    --text-h1: 3.052rem;
-    --text-h2: 2.441rem;
-    --text-h3: 1.953rem;
-    --text-h4: 1.563rem;
-    --text-h5: 1.25rem;
-    --text-small: 0.8rem;
-
-    --spacing-header: 120px;
-    --spacing-header-sm: 80px;
-    --spacing-footer: 400px;
 }
 
 @theme inline {
-    --color-primary: var(--primary);
-    --color-secondary: var(--secondary);
-    --color-tertiary: var(--tertiary);
-    --color-dark: var(--dark);
-    --color-light: var(--light);
+    --font-sans: var(--semantic-font-body);
+    --font-display: var(--semantic-font-display);
+
+    --color-canvas: var(--semantic-color-bg);
+    --color-text: var(--semantic-color-text);
+    --color-muted: var(--semantic-color-text-muted);
+    --color-brand: var(--semantic-color-brand);
+    --color-on-brand: var(--semantic-color-on-brand);
+    --color-accent: var(--semantic-color-accent);
+    --color-on-accent: var(--semantic-color-on-accent);
+    --color-action: var(--semantic-color-action-bg);
+    --color-on-action: var(--semantic-color-action-text);
+    --color-navy: var(--primitive-color-navy);
+    --color-yellow: var(--primitive-color-yellow);
+    --color-ink: var(--primitive-color-ink);
+
+    --text-xs: var(--primitive-font-size-xs);
+    --text-sm: var(--primitive-font-size-sm);
+    --text-body: var(--primitive-font-size-body);
+    --text-h1: var(--primitive-font-size-display);
+    --text-h2: var(--primitive-font-size-3xl);
+    --text-h3: var(--primitive-font-size-2xl);
+    --text-h4: var(--primitive-font-size-xl);
+    --text-h5: var(--primitive-font-size-lg);
+    --text-small: var(--primitive-font-size-xs);
+
+    --radius-sm: var(--primitive-radius-sm);
+    --radius-md: var(--primitive-radius-md);
+    --radius-lg: var(--primitive-radius-lg);
+    --radius-pill: var(--primitive-radius-pill);
+
+    --shadow-1: var(--primitive-shadow-1);
+    --shadow-2: var(--primitive-shadow-2);
+    --shadow-3: var(--primitive-shadow-3);
+    --shadow-4: var(--primitive-shadow-4);
+    --shadow-5: var(--primitive-shadow-5);
+
+    --spacing-header: var(--component-header-height);
+    --spacing-header-sm: var(--component-header-height-sm);
+    --spacing-footer: 400px;
 }
 
 /* Astro image output and interaction fixes layered on the ported stylesheet. */
@@ -141,7 +151,11 @@
     border-radius: 50%;
 }
 
-.rich-text h4 {
+/* Contentful sections are h4 in the source. They render as h2/h3 under the
+   page title, at the same size the old h4 rule used. */
+.rich-text h2,
+.rich-text h3 {
+    font-size: 1.563rem;
     font-weight: 700;
     margin-top: 1.25rem;
     margin-bottom: 0.5rem;
@@ -171,4 +185,167 @@ html {
     font: inherit;
     color: inherit;
     text-align: inherit;
+}
+
+/* White glyphs on the previous blue (#00a2ff, 2.76:1) and WhatsApp green
+   (#25d366, 1.98:1). These are the same hues, darkened just enough for 3:1. */
+.settings-toggle-icon {
+    background-color: var(--primitive-color-settings);
+}
+
+.layout .bubble {
+    background-color: var(--primitive-color-whatsapp);
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+}
+
+.skip-link {
+    position: fixed;
+    left: 16px;
+    top: 12px;
+    z-index: 40;
+    padding: 10px 16px;
+    background: var(--component-skip-bg);
+    color: var(--component-skip-text);
+    border: 2px solid var(--component-focus-color);
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.skip-link:not(:focus):not(:focus-visible) {
+    clip-path: inset(50%);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    border: 0;
+    white-space: nowrap;
+}
+
+h2.social-title {
+    font-size: 1rem;
+}
+
+.footer-columns-column.links nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.modal-footer-icon {
+    width: 48px;
+    min-width: 48px;
+    min-height: 48px;
+}
+
+.team-member-page-main-secondary-items-icon,
+.settings-toggle-icon,
+.modal-header-close,
+.layout .bubble,
+.footer .social-icons-icon,
+.maintenance-social-icons-icon,
+.header-logo-menu {
+    min-width: 24px;
+    min-height: 24px;
+}
+
+.contact-required-note {
+    margin-bottom: 16px;
+}
+
+#contact-status:empty {
+    display: none;
+}
+
+#contact-status:not(:empty) {
+    margin: 0 0 16px;
+    color: #012651;
+    line-height: 1.4;
+}
+
+.contact-form-box-form-group .contact-field-error {
+    margin: 6px 0 0;
+    color: #012651;
+    font-size: 0.95rem;
+    line-height: 1.3;
+}
+
+.contact-form-box-form-group .contact-field-error:empty {
+    display: none;
+}
+
+.contact-form-box-form-group-input[aria-invalid='true'],
+.contact-form-box-form-group-textarea[aria-invalid='true'],
+.contact-form-box-form-group-select[aria-invalid='true'] {
+    border-width: 2px;
+}
+
+.loader-spin {
+    transform-box: view-box;
+    transform-origin: center;
+    animation: loader-spin 2s linear infinite;
+}
+
+.loader-spin--fast {
+    animation-duration: 1s;
+}
+
+.loader-spin--reverse {
+    animation-direction: reverse;
+}
+
+@keyframes loader-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus,
+summary:focus {
+    outline: 3px solid transparent;
+    outline-offset: 3px;
+    scroll-margin-top: 140px;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible {
+    outline: var(--component-focus-width) solid var(--component-focus-color);
+    outline-offset: var(--component-focus-offset);
+    box-shadow: 0 0 0 var(--component-focus-width) var(--component-focus-halo);
+}
+
+@media (max-width: 768px) {
+    .footer-columns-column.links nav {
+        align-items: center;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }

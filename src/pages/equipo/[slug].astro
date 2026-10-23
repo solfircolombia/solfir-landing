@@ -46,11 +46,11 @@ const description = renderRichText(member.description);
                             />
                         )}
                     </div>
-                    <span class="team-member-page-main-primary-name">{member.name}</span>
+                    <h1 class="team-member-page-main-primary-name">{member.name}</h1>
                     <span class="team-member-page-main-primary-role">{member.role}</span>
                 </div>
                 <div class="team-member-page-main-secondary">
-                    <span class="team-member-page-main-secondary-contact">Contacto</span>
+                    <h2 class="team-member-page-main-secondary-contact">Contacto</h2>
                     <div class="team-member-page-main-secondary-items">
                         {member.cv.profiles.map((profile) => {
                             if (profile.network === 'LinkedIn' && profile.url) {
@@ -60,6 +60,7 @@ const description = renderRichText(member.description);
                                         href={profile.url}
                                         target="_blank"
                                         rel="noopener noreferrer"
+                                        aria-label={`LinkedIn de ${member.name}`}
                                     >
                                         <Icon name="linkedin" variant="light" />
                                     </a>
@@ -70,6 +71,7 @@ const description = renderRichText(member.description);
                                     <a
                                         class="team-member-page-main-secondary-items-icon"
                                         href={`mailto:${profile.url}`}
+                                        aria-label={`Enviar correo a ${member.name}`}
                                     >
                                         <Icon name="mail" variant="light" />
                                     </a>
@@ -82,16 +84,14 @@ const description = renderRichText(member.description);
             </div>
             <div class="team-member-page-resume">
                 <div class="team-member-page-resume-description">
-                    <div class="team-member-page-resume-description-title">Perfil Profesional</div>
+                    <h2 class="team-member-page-resume-description-title">Perfil Profesional</h2>
                     <div class="rich-text" set:html={description} />
                 </div>
                 <div class="team-member-page-resume-experience">
-                    <span class="team-member-page-resume-experience-title">Experiencia</span>
+                    <h2 class="team-member-page-resume-experience-title">Experiencia</h2>
                     {member.cv.work.map((workItem) => (
                         <div class="team-member-page-resume-section">
-                            <span class="team-member-page-resume-section-title">
-                                {workItem.name}
-                            </span>
+                            <h3 class="team-member-page-resume-section-title">{workItem.name}</h3>
                             <span class="team-member-page-resume-section-subtitle">
                                 {workItem.position} ( {workItem.startDate} - {workItem.endDate} )
                             </span>
@@ -111,10 +111,10 @@ const description = renderRichText(member.description);
                     ))}
                 </div>
                 <div class="team-member-page-resume-education">
-                    <span class="team-member-page-resume-education-title">Educación</span>
+                    <h2 class="team-member-page-resume-education-title">Educación</h2>
                     {member.cv.education.map((item) => (
                         <div class="team-member-page-resume-section">
-                            <span class="team-member-page-resume-section-title">{item.area}</span>
+                            <h3 class="team-member-page-resume-section-title">{item.area}</h3>
                             <span class="team-member-page-resume-section-subtitle">
                                 {item.institution} ( {item.startDate} - {item.endDate} )
                             </span>

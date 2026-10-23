@@ -8,7 +8,7 @@ const posts = await getRecentPosts(3);
 ---
 
 <div class="recent-posts">
-    <span class="recent-posts-title">Últimas publicaciones</span>
+    <h2 class="recent-posts-title">Últimas publicaciones</h2>
     <div class="recent-posts-wrapper">
         {posts.map((post) => (
             <div class="recent-posts-card">
@@ -22,7 +22,7 @@ const posts = await getRecentPosts(3);
                         />
                     )}
                 </div>
-                <span class="recent-posts-card-title">{post.title}</span>
+                <h3 class="recent-posts-card-title">{post.title}</h3>
                 <a class="recent-posts-card-link" href={blogPath(post.slug)}>
                     Leer Post
                     <Icon name="arrow-right" class="recent-posts-card-link-icon" />

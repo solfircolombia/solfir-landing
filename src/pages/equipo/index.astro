@@ -11,7 +11,7 @@ const members = await getTeamMembers();
     <div class="equipo">
         <div class="equipo-header">
             <div class="equipo-wrapper">
-                <span class="equipo-header-title">Equipo de trabajo</span>
+                <h1 class="equipo-header-title">Equipo de trabajo</h1>
             </div>
         </div>
         <div class="equipo-wrapper">
@@ -62,7 +62,7 @@ const members = await getTeamMembers();
                         )}
                     </div>
                     <div class="equipo-card-data">
-                        <span class="equipo-card-data-name">{member.name}</span>
+                        <h2 class="equipo-card-data-name">{member.name}</h2>
                         <span class="equipo-card-data-role">{member.role}</span>
                         <a class="equipo-card-data-link" href={teamPath(member.slug)}>
                             Ver Perfil

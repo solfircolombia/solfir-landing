@@ -10,6 +10,7 @@ interface Props {
     ariaLabel?: string;
     id?: string;
     ariaExpanded?: boolean | 'true' | 'false';
+    ariaControls?: string;
     serviceName?: string;
     serviceText?: string;
     openService?: boolean;
@@ -26,6 +27,7 @@ const {
     ariaLabel,
     id,
     ariaExpanded,
+    ariaControls,
     serviceName,
     serviceText,
     openService,
@@ -46,6 +48,8 @@ const style =
     typeof size === 'number' && btnStyle === 'rounded'
         ? `height:${size}px;width:${size}px;border-radius:${size / 2}px`
         : undefined;
+const controls = ariaControls ?? (openService ? 'service-modal' : undefined);
+const expanded = ariaExpanded ?? (openService ? 'false' : undefined);
 ---
 
 {href ? (
@@ -59,7 +63,8 @@ const style =
         type={type}
         aria-label={ariaLabel}
         id={id}
-        aria-expanded={ariaExpanded}
+        aria-expanded={expanded}
+        aria-controls={controls}
         data-open-service={openService ? '' : undefined}
         data-service-name={serviceName}
         data-service-text={serviceText}

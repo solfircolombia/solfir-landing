@@ -20,6 +20,7 @@ const pathname = Astro.url.pathname;
                 size={50}
                 ariaLabel={LABELS.menu}
                 ariaExpanded="false"
+                ariaControls="nav-modal"
             >
                 <span data-icon="menu">
                     <Icon name="menu" variant="dark" size={30} />
@@ -30,7 +31,7 @@ const pathname = Astro.url.pathname;
             </Button>
         </div>
         <div class="header-links">
-            <div class="header-links-wrapper" aria-label="Menu Links">
+            <nav class="header-links-wrapper" aria-label="Principal">
                 {NAV_LINKS.map((item) => (
                     <a
                         class:list={[
@@ -42,7 +43,7 @@ const pathname = Astro.url.pathname;
                         {item.label}
                     </a>
                 ))}
-            </div>
+            </nav>
         </div>
     </div>
 </header>
@@ -52,7 +53,7 @@ const pathname = Astro.url.pathname;
     class="modal"
     role="dialog"
     aria-modal="true"
-    aria-label="Ventana modal menu"
+    aria-label="Menú principal"
     hidden
 >
     <div class="modal-wrapper">
@@ -68,7 +69,7 @@ const pathname = Astro.url.pathname;
             </button>
         </div>
         <div class="modal-content">
-            <div class="header-links-modal">
+            <nav class="header-links-modal" aria-label="Menú">
                 {NAV_LINKS.map((item) => (
                     <a
                         class:list={[
@@ -80,7 +81,7 @@ const pathname = Astro.url.pathname;
                         {item.label}
                     </a>
                 ))}
-            </div>
+            </nav>
         </div>
         <div class="modal-footer">
             <SocialLinks variant="primary" itemClass="modal-footer-icon" />
@@ -94,7 +95,7 @@ const pathname = Astro.url.pathname;
     const modal = document.getElementById('nav-modal');
     const button = document.getElementById('nav-toggle');
     if (modal && button) {
-        const controller = bindModal(modal);
+        const controller = bindModal(modal, { onClose: () => setOpen(false) });
         const menuIcon = button.querySelector<HTMLElement>('[data-icon="menu"]');
         const closeIcon = button.querySelector<HTMLElement>('[data-icon="close"]');
 
@@ -106,24 +107,11 @@ const pathname = Astro.url.pathname;
         };
 
         button.addEventListener('click', () => {
-            const willOpen = modal.hidden;
-            if (willOpen) {
+            if (modal.hidden) {
+                setOpen(true);
                 controller.open();
             } else {
                 controller.close();
-            }
-            setOpen(willOpen);
-        });
-
-        modal.querySelectorAll('[data-modal-close]').forEach((closeButton) => {
-            closeButton.addEventListener('click', () => {
-                setOpen(false);
-            });
-        });
-
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape') {
-                setOpen(false);
             }
         });
     }

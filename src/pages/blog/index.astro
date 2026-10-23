@@ -11,7 +11,7 @@ const posts = await getBlogPosts();
     <div class="blog">
         <div class="blog-header">
             <div class="blog-wrapper">
-                <span class="blog-header-title">Bienvenidos a nuestro Blog</span>
+                <h1 class="blog-header-title">Bienvenidos a nuestro Blog</h1>
             </div>
         </div>
         <div class="blog-wrapper">
@@ -27,7 +27,7 @@ const posts = await getBlogPosts();
         </div>
         <div class="blog-posts">
             <div class="blog-wrapper">
-                <span class="blog-posts-title">Últimas publicaciones</span>
+                <h2 class="blog-posts-title">Últimas publicaciones</h2>
                 <span class="blog-posts-items">
                     {posts.map((post) => (
                         <BlogCard post={post} layout="horizontal" class="blog-posts-items-card" />

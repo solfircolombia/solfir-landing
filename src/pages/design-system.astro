@@ -1,0 +1,335 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+import { contrastRatio, formatRatio, meetsAa } from '../lib/contrast';
+import { palette, themeSamples } from '../lib/palette';
+
+const typeSteps = [
+    { name: 'xs', size: 'var(--primitive-font-size-xs)', sample: 'Nota auxiliar' },
+    { name: 'sm', size: 'var(--primitive-font-size-sm)', sample: 'Texto pequeño' },
+    { name: 'body', size: 'var(--primitive-font-size-body)', sample: 'Texto de interfaz' },
+    { name: 'lg', size: 'var(--primitive-font-size-lg)', sample: 'Subtítulo' },
+    { name: 'xl', size: 'var(--primitive-font-size-xl)', sample: 'Título de sección menor' },
+    { name: '2xl', size: 'var(--primitive-font-size-2xl)', sample: 'Título de sección' },
+    { name: '3xl', size: 'var(--primitive-font-size-3xl)', sample: 'Título de página' },
+    { name: 'display', size: 'var(--primitive-font-size-display)', sample: 'Titular de portada' },
+];
+
+const spaces = [
+    ['1', 'var(--primitive-space-1)'],
+    ['2', 'var(--primitive-space-2)'],
+    ['3', 'var(--primitive-space-3)'],
+    ['4', 'var(--primitive-space-4)'],
+    ['5', 'var(--primitive-space-5)'],
+    ['6', 'var(--primitive-space-6)'],
+    ['8', 'var(--primitive-space-8)'],
+    ['10', 'var(--primitive-space-10)'],
+] as const;
+
+const primitives = [
+    ['Navy', palette.navy],
+    ['Amarillo', palette.yellow],
+    ['Blanco', palette.white],
+    ['Tinta', palette.ink],
+    ['Negro', palette.black],
+    ['Atenuado', palette.muted],
+    ['Lienzo oscuro', palette.canvasDark],
+    ['Texto oscuro', palette.textDark],
+] as const;
+---
+
+<Layout
+    seo={{
+        title: 'Sistema de diseño',
+        description: 'Tokens, tipografía y temas internos de SOLFIR.',
+        pathname: '/design-system/',
+        noindex: true,
+    }}
+>
+    <article class="ds">
+        <header class="ds-intro">
+            <h1>Sistema de diseño</h1>
+            <p>
+                Página interna. No está en el mapa del sitio. La paleta es Marino institucional:
+                el azul <span class="ds-code">{palette.navy}</span> es el color primario y el
+                amarillo <span class="ds-code">{palette.yellow}</span> es solo acento.
+            </p>
+        </header>
+
+        <section class="ds-section" aria-labelledby="ds-tokens">
+            <h2 id="ds-tokens">Tokens</h2>
+            <h3>Primitivos</h3>
+            <ul class="ds-swatches">
+                {
+                    primitives.map(([name, hex]) => (
+                        <li>
+                            <span class="ds-chip" style={`background:${hex}`} />
+                            <span>
+                                {name}
+                                <span class="ds-code">{hex}</span>
+                            </span>
+                        </li>
+                    ))
+                }
+            </ul>
+            <h3>Semánticos y de componente</h3>
+            <p>
+                Los tokens semánticos cambian con <span class="ds-code">data-theme</span> y
+                <span class="ds-code">data-contrast</span>. Los de componente
+                (<span class="ds-code">--component-button-bg</span>,
+                <span class="ds-code">--component-header-bg</span>,
+                <span class="ds-code">--component-footer-link</span>,
+                <span class="ds-code">--component-focus-color</span>) apuntan a esos valores.
+                Tailwind los expone con <span class="ds-code">@theme inline</span>.
+            </p>
+        </section>
+
+        <section class="ds-section" aria-labelledby="ds-type">
+            <h2 id="ds-type">Tipografía</h2>
+            <p>
+                Plus Jakarta Sans en interfaz y texto. Fraunces en titulares. La escala es fluida
+                con <span class="ds-code">clamp()</span>. El tamaño de texto A-, A, A+, A++ escala
+                la raíz.
+            </p>
+            <ul class="ds-type">
+                {
+                    typeSteps.map((step) => (
+                        <li>
+                            <span class="ds-code">{step.name}</span>
+                            <span
+                                style={`font-size:${step.size};font-family:${
+                                    step.name === 'display' || step.name === '3xl' || step.name === '2xl'
+                                        ? 'var(--semantic-font-display)'
+                                        : 'var(--semantic-font-body)'
+                                }`}
+                            >
+                                {step.sample}
+                            </span>
+                        </li>
+                    ))
+                }
+            </ul>
+        </section>
+
+        <section class="ds-section" aria-labelledby="ds-color">
+            <h2 id="ds-color">Color y contraste</h2>
+            <p>Los pares marcados como texto cumplen WCAG 2.2 AA (4.5:1). El acento sobre blanco no se usa como texto.</p>
+            {
+                themeSamples.map((sample) => (
+                    <div
+                        class="ds-theme"
+                        data-theme={sample.theme}
+                        data-contrast={sample.contrast}
+                    >
+                        <h3>{sample.name}</h3>
+                        <ul class="ds-pairs">
+                            {sample.pairs.map((pair) => {
+                                const ratio = contrastRatio(pair.foreground, pair.background);
+                                const pass = pair.forbidden ? false : meetsAa(ratio, pair.large);
+                                return (
+                                    <li>
+                                        <span
+                                            class="ds-pair-swatch"
+                                            style={`background:${pair.background}`}
+                                        />
+                                        <span>
+                                            {pair.label}
+                                            <span class="ds-code">
+                                                {pair.foreground} sobre {pair.background} ·{' '}
+                                                {formatRatio(ratio)} · {pass ? 'AA' : 'no AA'}
+                                            </span>
+                                        </span>
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                        <div class="ds-preview">
+                            <p>Texto de muestra sobre el fondo del tema.</p>
+                            <Button variant="primary">Acción</Button>
+                        </div>
+                    </div>
+                ))
+            }
+        </section>
+
+        <section class="ds-section" aria-labelledby="ds-components">
+            <h2 id="ds-components">Componentes</h2>
+            <h3>Botones</h3>
+            <div class="ds-row">
+                <Button variant="primary">Primario</Button>
+                <Button variant="secondary">Acento</Button>
+                <Button variant="light">Claro</Button>
+            </div>
+            <h3>Espacio, radio y sombra</h3>
+            <ul class="ds-spaces">
+                {
+                    spaces.map(([name, size]) => (
+                        <li>
+                            <span class="ds-space" style={`width:${size}`} />
+                            <span class="ds-code">{name}</span>
+                        </li>
+                    ))
+                }
+            </ul>
+            <div class="ds-row">
+                <span class="ds-radius ds-radius-sm">sm</span>
+                <span class="ds-radius ds-radius-md">md</span>
+                <span class="ds-radius ds-radius-lg">lg</span>
+                <span class="ds-radius ds-radius-pill">pill</span>
+            </div>
+            <p class="ds-shadow">Sombra 3, el mismo token que las tarjetas.</p>
+        </section>
+    </article>
+</Layout>
+
+<style>
+    .ds {
+        width: min(100% - 2rem, 1140px);
+        margin: 2rem auto 4rem;
+    }
+
+    .ds-intro,
+    .ds-section {
+        margin-bottom: var(--primitive-space-8);
+    }
+
+    .ds h1,
+    .ds h2,
+    .ds h3 {
+        margin-bottom: var(--primitive-space-3);
+    }
+
+    .ds h2 {
+        font-size: var(--primitive-font-size-3xl);
+    }
+
+    .ds h3 {
+        font-size: var(--primitive-font-size-xl);
+    }
+
+    .ds p,
+    .ds li {
+        font-family: var(--semantic-font-body);
+        font-size: var(--primitive-font-size-body);
+        font-weight: 400;
+        letter-spacing: 0;
+        line-height: 1.5;
+    }
+
+    .ds-code {
+        color: var(--semantic-color-text-muted);
+        font-family: ui-monospace, monospace;
+        font-size: var(--primitive-font-size-xs);
+    }
+
+    .ds-swatches .ds-code,
+    .ds-pairs .ds-code,
+    .ds-type .ds-code {
+        display: block;
+    }
+
+    .ds-swatches,
+    .ds-pairs,
+    .ds-type,
+    .ds-spaces {
+        display: grid;
+        gap: var(--primitive-space-3);
+        margin: 0 0 var(--primitive-space-5);
+        padding: 0;
+        list-style: none;
+    }
+
+    .ds-swatches,
+    .ds-pairs {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .ds-swatches li,
+    .ds-pairs li,
+    .ds-type li,
+    .ds-spaces li {
+        display: flex;
+        align-items: center;
+        gap: var(--primitive-space-3);
+    }
+
+    .ds-chip,
+    .ds-pair-swatch {
+        width: 3rem;
+        height: 3rem;
+        flex: none;
+        border: 1px solid var(--semantic-color-text);
+        border-radius: var(--primitive-radius-md);
+    }
+
+    .ds-theme {
+        margin: 0 0 var(--primitive-space-5);
+        padding: var(--primitive-space-5);
+        background: var(--semantic-color-bg);
+        color: var(--semantic-color-text);
+        border: 1px solid var(--semantic-color-text);
+        border-radius: var(--primitive-radius-lg);
+    }
+
+    .ds-theme .ds-code {
+        color: var(--semantic-color-text-muted);
+    }
+
+    .ds-preview {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--primitive-space-4);
+    }
+
+    .ds-preview p {
+        margin: 0;
+    }
+
+    .ds-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--primitive-space-3);
+        align-items: center;
+        margin-bottom: var(--primitive-space-5);
+    }
+
+    .ds-space {
+        display: block;
+        height: 1rem;
+        background: var(--semantic-color-brand);
+    }
+
+    .ds-radius {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 4.5rem;
+        min-height: 3rem;
+        padding: 0 var(--primitive-space-3);
+        background: var(--semantic-color-brand);
+        color: var(--semantic-color-on-brand);
+    }
+
+    .ds-radius-sm {
+        border-radius: var(--primitive-radius-sm);
+    }
+
+    .ds-radius-md {
+        border-radius: var(--primitive-radius-md);
+    }
+
+    .ds-radius-lg {
+        border-radius: var(--primitive-radius-lg);
+    }
+
+    .ds-radius-pill {
+        border-radius: var(--primitive-radius-pill);
+    }
+
+    .ds-shadow {
+        padding: var(--primitive-space-5);
+        border-radius: var(--primitive-radius-md);
+        box-shadow: var(--primitive-shadow-3);
+    }
+</style>

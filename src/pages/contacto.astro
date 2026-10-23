@@ -8,16 +8,21 @@ import { PAGE_SEO } from '../lib/site';
     <div class="contact">
         <div class="contact-header">
             <div class="contact-wrapper">
-                <span class="contact-header-title">Envianos un mensaje</span>
+                <h1 class="contact-header-title">Envianos un mensaje</h1>
             </div>
         </div>
         <div class="contact-form-section">
             <div class="contact-wrapper">
                 <div class="contact-form-box">
                     <form class="contact-form-box-form" action="/api/sendgrid/" method="POST">
-                        <span class="contact-form-box-title">
+                        <h2 class="contact-form-box-title">
                             Por favor ingrese los siguientes datos
-                        </span>
+                        </h2>
+                        <p class="contact-required-note" id="contact-required-note">
+                            Los campos marcados con <abbr title="obligatorio">*</abbr> son
+                            obligatorios.
+                        </p>
+                        <div id="contact-status" role="alert" aria-live="assertive"></div>
                         <div class="contact-form-box-form-group">
                             <label class="contact-form-box-form-group-label" for="service">
                                 Selecciona el servicio que requieres:
@@ -27,9 +32,7 @@ import { PAGE_SEO } from '../lib/site';
                                 name="clientService"
                                 id="service"
                             >
-                                <option value="" disabled selected hidden>
-                                    Selecciona un servicio
-                                </option>
+                                <option value="">Selecciona un servicio</option>
                                 <option value="Insolvencia">
                                     Insolvencia de persona natural no comerciante
                                 </option>
@@ -41,49 +44,73 @@ import { PAGE_SEO } from '../lib/site';
                         <div class="contact-form-box-form-group">
                             <label class="contact-form-box-form-group-label" for="name">
                                 Nombre:
+                                <abbr title="obligatorio">*</abbr>
+                                <span class="visually-hidden">obligatorio</span>
                             </label>
                             <input
                                 class="contact-form-box-form-group-input"
                                 name="clientName"
                                 id="name"
                                 type="text"
+                                autocomplete="name"
                                 required
+                                aria-required="true"
+                                aria-describedby="name-error"
                             />
+                            <p class="contact-field-error" id="name-error"></p>
                         </div>
                         <div class="contact-form-box-form-group">
                             <label class="contact-form-box-form-group-label" for="phone">
                                 Teléfono de contacto:
+                                <abbr title="obligatorio">*</abbr>
+                                <span class="visually-hidden">obligatorio</span>
                             </label>
                             <input
                                 class="contact-form-box-form-group-input"
                                 name="clientPhone"
                                 id="phone"
                                 type="tel"
+                                autocomplete="tel"
                                 required
+                                aria-required="true"
+                                aria-describedby="phone-error"
                             />
+                            <p class="contact-field-error" id="phone-error"></p>
                         </div>
                         <div class="contact-form-box-form-group">
                             <label class="contact-form-box-form-group-label" for="email">
                                 Correo electronico de contacto:
+                                <abbr title="obligatorio">*</abbr>
+                                <span class="visually-hidden">obligatorio</span>
                             </label>
                             <input
                                 class="contact-form-box-form-group-input"
                                 name="clientEmail"
                                 id="email"
                                 type="email"
+                                autocomplete="email"
                                 required
+                                aria-required="true"
+                                aria-describedby="email-error"
                             />
+                            <p class="contact-field-error" id="email-error"></p>
                         </div>
                         <div class="contact-form-box-form-group">
                             <label class="contact-form-box-form-group-label" for="text">
                                 Mensaje:
+                                <abbr title="obligatorio">*</abbr>
+                                <span class="visually-hidden">obligatorio</span>
                             </label>
                             <textarea
                                 class="contact-form-box-form-group-textarea"
                                 name="clientMessage"
                                 id="text"
+                                autocomplete="off"
                                 required
+                                aria-required="true"
+                                aria-describedby="text-error"
                             ></textarea>
+                            <p class="contact-field-error" id="text-error"></p>
                         </div>
                         <div class="contact-form-box-form-group">
                             <Button
@@ -100,3 +127,72 @@ import { PAGE_SEO } from '../lib/site';
         </div>
     </div>
 </Layout>
+
+<script>
+    const form = document.querySelector<HTMLFormElement>('.contact-form-box-form');
+    const status = document.querySelector<HTMLElement>('#contact-status');
+    if (form && status) {
+        const fields = ['name', 'phone', 'email', 'text']
+            .map((id) => document.getElementById(id))
+            .filter((field): field is HTMLInputElement | HTMLTextAreaElement => field !== null);
+
+        const messageFor = (field: HTMLInputElement | HTMLTextAreaElement) => {
+            if (field.validity.valueMissing) {
+                return 'Este campo es obligatorio.';
+            }
+            if (field.validity.typeMismatch) {
+                return 'Ingresa un correo electrónico válido.';
+            }
+            return field.validationMessage || 'Revisa este campo.';
+        };
+
+        const showError = (field: HTMLInputElement | HTMLTextAreaElement, message: string) => {
+            const error = document.getElementById(`${field.id}-error`);
+            if (error) {
+                error.textContent = message;
+            }
+            if (message) {
+                field.setAttribute('aria-invalid', 'true');
+            } else {
+                field.removeAttribute('aria-invalid');
+            }
+        };
+
+        let summarizing = false;
+        fields.forEach((field) => {
+            field.addEventListener('invalid', (event) => {
+                event.preventDefault();
+                showError(field, messageFor(field));
+                if (summarizing) {
+                    return;
+                }
+                summarizing = true;
+                queueMicrotask(() => {
+                    summarizing = false;
+                    const messages = fields.flatMap((item) => {
+                        if (item.validity.valid) {
+                            return [];
+                        }
+                        const error = document.getElementById(`${item.id}-error`);
+                        const label = form.querySelector(`label[for="${item.id}"]`);
+                        const name =
+                            Array.from(label?.childNodes ?? [])
+                                .filter((node) => node.nodeType === Node.TEXT_NODE)
+                                .map((node) => node.textContent ?? '')
+                                .join(' ')
+                                .replace(/\s+/g, ' ')
+                                .trim() || item.id;
+                        return [`${name} ${error?.textContent ?? ''}`];
+                    });
+                    status.textContent = messages.join(' ');
+                    fields.find((item) => !item.validity.valid)?.focus();
+                });
+            });
+            field.addEventListener('input', () => {
+                if (field.validity.valid) {
+                    showError(field, '');
+                }
+            });
+        });
+    }
+</script>

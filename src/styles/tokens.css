@@ -1,0 +1,233 @@
+/*
+  Three token layers.
+  Primitive values never change with the theme.
+  Semantic tokens are the theme: light, dark, and high contrast (Palette C).
+  Component tokens point at semantic tokens so a palette change stays in this file.
+
+  Yellow (#fab114) is an accent. It is never text on white (1.85:1).
+  Champagne & Limousines is not a UI font. The wordmark is the SVG logo.
+*/
+
+:root {
+    --primitive-color-navy: #012651;
+    --primitive-color-yellow: #fab114;
+    --primitive-color-white: #ffffff;
+    --primitive-color-ink: #141105;
+    --primitive-color-black: #000000;
+    --primitive-color-muted: #3e5168;
+    --primitive-color-canvas-dark: #07111c;
+    --primitive-color-surface-dark: #0e1c2e;
+    --primitive-color-footer-dark: #04101a;
+    --primitive-color-text-dark: #f4f7fb;
+    --primitive-color-muted-dark: #9fb0c4;
+    --primitive-color-emphasis-dark: #d6e4f5;
+    --primitive-color-whatsapp: #1ca24f;
+    --primitive-color-settings: #0094e9;
+
+    --primitive-font-body: 'Plus Jakarta Sans Variable', 'Segoe UI', sans-serif;
+    --primitive-font-display: 'Fraunces Variable', georgia, serif;
+    --primitive-font-scale: 1;
+
+    /* Fluid scale. The max sizes match the previous rem headings at a 19px root. */
+    --primitive-font-size-xs: clamp(0.75rem, 0.72rem + 0.15vw, 0.8rem);
+    --primitive-font-size-sm: clamp(0.875rem, 0.84rem + 0.18vw, 0.95rem);
+    --primitive-font-size-body: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+    --primitive-font-size-lg: clamp(1.125rem, 1.02rem + 0.45vw, 1.25rem);
+    --primitive-font-size-xl: clamp(1.25rem, 1.05rem + 0.85vw, 1.563rem);
+    --primitive-font-size-2xl: clamp(1.5rem, 1.15rem + 1.35vw, 1.953rem);
+    --primitive-font-size-3xl: clamp(1.75rem, 1.2rem + 2vw, 2.441rem);
+    --primitive-font-size-display: clamp(2rem, 1.15rem + 2.9vw, 3.052rem);
+
+    --primitive-space-1: 0.25rem;
+    --primitive-space-2: 0.5rem;
+    --primitive-space-3: 0.75rem;
+    --primitive-space-4: 1rem;
+    --primitive-space-5: 1.5rem;
+    --primitive-space-6: 2rem;
+    --primitive-space-8: 3rem;
+    --primitive-space-10: 4rem;
+
+    --primitive-radius-sm: 4px;
+    --primitive-radius-md: 8px;
+    --primitive-radius-lg: 16px;
+    --primitive-radius-pill: 999px;
+
+    --primitive-shadow-1: 0 1px 3px rgb(0 0 0 / 0.12), 0 1px 2px rgb(0 0 0 / 0.24);
+    --primitive-shadow-2: 0 3px 6px rgb(0 0 0 / 0.16), 0 3px 6px rgb(0 0 0 / 0.23);
+    --primitive-shadow-3: 0 10px 20px rgb(0 0 0 / 0.19), 0 6px 6px rgb(0 0 0 / 0.23);
+    --primitive-shadow-4: 0 14px 28px rgb(0 0 0 / 0.25), 0 10px 10px rgb(0 0 0 / 0.22);
+    --primitive-shadow-5: 0 19px 38px rgb(0 0 0 / 0.3), 0 15px 12px rgb(0 0 0 / 0.22);
+
+    --primitive-motion-fast: 150ms;
+    --primitive-motion-base: 250ms;
+    --primitive-motion-slow: 500ms;
+    --primitive-ease: cubic-bezier(0.2, 0, 0, 1);
+
+    --semantic-font-body: var(--primitive-font-body);
+    --semantic-font-display: var(--primitive-font-display);
+    --semantic-font-scale: var(--primitive-font-scale);
+}
+
+/* Light theme. Also the fallback before the theme attribute exists. */
+:root,
+[data-theme='light'] {
+    --semantic-color-bg: var(--primitive-color-white);
+    --semantic-color-text: var(--primitive-color-navy);
+    --semantic-color-text-muted: var(--primitive-color-muted);
+    --semantic-color-brand: var(--primitive-color-navy);
+    --semantic-color-on-brand: var(--primitive-color-white);
+    --semantic-color-accent: var(--primitive-color-yellow);
+    --semantic-color-on-accent: var(--primitive-color-ink);
+    --semantic-color-emphasis: var(--primitive-color-navy);
+    --semantic-color-action-bg: var(--primitive-color-navy);
+    --semantic-color-action-text: var(--primitive-color-white);
+    --semantic-color-header-bg: var(--primitive-color-white);
+    --semantic-color-header-text: var(--primitive-color-navy);
+    --semantic-color-nav-underline: var(--primitive-color-navy);
+    --semantic-color-footer-bg: var(--primitive-color-navy);
+    --semantic-color-footer-text: var(--primitive-color-white);
+    --semantic-color-footer-link: var(--primitive-color-yellow);
+    --semantic-color-focus: var(--primitive-color-navy);
+    --semantic-color-focus-halo: var(--primitive-color-white);
+    --semantic-color-on-light: var(--primitive-color-navy);
+    color-scheme: light;
+}
+
+[data-theme='dark'] {
+    --semantic-color-bg: var(--primitive-color-canvas-dark);
+    --semantic-color-text: var(--primitive-color-text-dark);
+    --semantic-color-text-muted: var(--primitive-color-muted-dark);
+    --semantic-color-brand: var(--primitive-color-emphasis-dark);
+    --semantic-color-on-brand: var(--primitive-color-canvas-dark);
+    --semantic-color-accent: var(--primitive-color-yellow);
+    --semantic-color-on-accent: var(--primitive-color-ink);
+    --semantic-color-emphasis: var(--primitive-color-yellow);
+    --semantic-color-action-bg: var(--primitive-color-yellow);
+    --semantic-color-action-text: var(--primitive-color-ink);
+    --semantic-color-header-bg: var(--primitive-color-canvas-dark);
+    --semantic-color-header-text: var(--primitive-color-text-dark);
+    --semantic-color-nav-underline: var(--primitive-color-yellow);
+    --semantic-color-footer-bg: var(--primitive-color-footer-dark);
+    --semantic-color-footer-text: var(--primitive-color-text-dark);
+    --semantic-color-footer-link: var(--primitive-color-yellow);
+    --semantic-color-focus: var(--primitive-color-yellow);
+    --semantic-color-focus-halo: var(--primitive-color-canvas-dark);
+    --semantic-color-on-light: var(--primitive-color-navy);
+    color-scheme: dark;
+}
+
+/* Palette C. High contrast layers on top of light or dark. */
+[data-contrast='high'][data-theme='light'] {
+    --semantic-color-bg: var(--primitive-color-white);
+    --semantic-color-text: var(--primitive-color-black);
+    --semantic-color-text-muted: var(--primitive-color-black);
+    --semantic-color-brand: var(--primitive-color-black);
+    --semantic-color-on-brand: var(--primitive-color-white);
+    --semantic-color-accent: var(--primitive-color-yellow);
+    --semantic-color-on-accent: var(--primitive-color-black);
+    --semantic-color-emphasis: var(--primitive-color-black);
+    --semantic-color-action-bg: var(--primitive-color-black);
+    --semantic-color-action-text: var(--primitive-color-white);
+    --semantic-color-header-bg: var(--primitive-color-white);
+    --semantic-color-header-text: var(--primitive-color-black);
+    --semantic-color-nav-underline: var(--primitive-color-black);
+    --semantic-color-footer-bg: var(--primitive-color-black);
+    --semantic-color-footer-text: var(--primitive-color-white);
+    --semantic-color-footer-link: var(--primitive-color-yellow);
+    --semantic-color-focus: var(--primitive-color-black);
+    --semantic-color-focus-halo: var(--primitive-color-white);
+    --semantic-color-on-light: var(--primitive-color-black);
+    color-scheme: light;
+}
+
+[data-contrast='high'][data-theme='dark'] {
+    --semantic-color-bg: var(--primitive-color-black);
+    --semantic-color-text: var(--primitive-color-white);
+    --semantic-color-text-muted: var(--primitive-color-white);
+    --semantic-color-brand: var(--primitive-color-white);
+    --semantic-color-on-brand: var(--primitive-color-black);
+    --semantic-color-accent: var(--primitive-color-yellow);
+    --semantic-color-on-accent: var(--primitive-color-black);
+    --semantic-color-emphasis: var(--primitive-color-yellow);
+    --semantic-color-action-bg: var(--primitive-color-yellow);
+    --semantic-color-action-text: var(--primitive-color-black);
+    --semantic-color-header-bg: var(--primitive-color-black);
+    --semantic-color-header-text: var(--primitive-color-white);
+    --semantic-color-nav-underline: var(--primitive-color-yellow);
+    --semantic-color-footer-bg: var(--primitive-color-black);
+    --semantic-color-footer-text: var(--primitive-color-white);
+    --semantic-color-footer-link: var(--primitive-color-yellow);
+    --semantic-color-focus: var(--primitive-color-white);
+    --semantic-color-focus-halo: var(--primitive-color-black);
+    --semantic-color-on-light: var(--primitive-color-black);
+    color-scheme: dark;
+}
+
+/* No-JS visitors still follow the operating system. The inline script sets
+   data-theme-mode, which opts the document out of this block. */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme-mode]) {
+        --semantic-color-bg: var(--primitive-color-canvas-dark);
+        --semantic-color-text: var(--primitive-color-text-dark);
+        --semantic-color-text-muted: var(--primitive-color-muted-dark);
+        --semantic-color-brand: var(--primitive-color-emphasis-dark);
+        --semantic-color-on-brand: var(--primitive-color-canvas-dark);
+        --semantic-color-accent: var(--primitive-color-yellow);
+        --semantic-color-on-accent: var(--primitive-color-ink);
+        --semantic-color-emphasis: var(--primitive-color-yellow);
+        --semantic-color-action-bg: var(--primitive-color-yellow);
+        --semantic-color-action-text: var(--primitive-color-ink);
+        --semantic-color-header-bg: var(--primitive-color-canvas-dark);
+        --semantic-color-header-text: var(--primitive-color-text-dark);
+        --semantic-color-nav-underline: var(--primitive-color-yellow);
+        --semantic-color-footer-bg: var(--primitive-color-footer-dark);
+        --semantic-color-footer-text: var(--primitive-color-text-dark);
+        --semantic-color-footer-link: var(--primitive-color-yellow);
+        --semantic-color-focus: var(--primitive-color-yellow);
+        --semantic-color-focus-halo: var(--primitive-color-canvas-dark);
+        --semantic-color-on-light: var(--primitive-color-navy);
+        color-scheme: dark;
+    }
+}
+
+html[data-text-size='sm'] {
+    --semantic-font-scale: 0.875;
+}
+
+html[data-text-size='md'] {
+    --semantic-font-scale: 1;
+}
+
+html[data-text-size='lg'] {
+    --semantic-font-scale: 1.125;
+}
+
+html[data-text-size='xl'] {
+    --semantic-font-scale: 1.25;
+}
+
+/* Redeclared on every themed element so nested previews resolve against
+   that element's semantic tokens instead of the root's computed color. */
+:root,
+[data-theme],
+[data-contrast='high'] {
+    --component-button-bg: var(--semantic-color-action-bg);
+    --component-button-text: var(--semantic-color-action-text);
+    --component-button-radius: var(--primitive-radius-pill);
+    --component-header-bg: var(--semantic-color-header-bg);
+    --component-header-text: var(--semantic-color-header-text);
+    --component-header-height: 120px;
+    --component-header-height-sm: 80px;
+    --component-nav-link: var(--semantic-color-header-text);
+    --component-nav-underline: var(--semantic-color-nav-underline);
+    --component-footer-bg: var(--semantic-color-footer-bg);
+    --component-footer-text: var(--semantic-color-footer-text);
+    --component-footer-link: var(--semantic-color-footer-link);
+    --component-focus-color: var(--semantic-color-focus);
+    --component-focus-halo: var(--semantic-color-focus-halo);
+    --component-focus-width: 3px;
+    --component-focus-offset: 3px;
+    --component-settings-width: 17.5rem;
+    --component-skip-bg: var(--semantic-color-bg);
+    --component-skip-text: var(--semantic-color-text);
+}

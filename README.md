@@ -45,11 +45,14 @@ npm run dev        # http://localhost:4321
 npm run check      # astro check (strict TypeScript)
 npm run build      # production build
 npm run preview    # serve the production build
+npm run test:a11y  # axe (WCAG 2.2 AA) against the built pages
 npm run format:check
 npm run format:write
 ```
 
 Prettier runs on commit through husky and lint-staged.
+
+`npm run test:a11y` needs a finished `dist/`. It serves that build and checks the main pages with `@axe-core/playwright` (WCAG 2.2 AA) and a heading outline check. The same job runs on pull requests from `.github/workflows/a11y.yml`. That workflow needs `CONTENTFUL_SPACE_ID` and `CONTENTFUL_ACCESS_TOKEN` in the repository secrets so the build can read Contentful.
 
 ## Content
 
@@ -82,7 +85,11 @@ Trailing slashes match the current production URLs. `/api/sendgrid/` is not prer
 
 Remote Contentful images are optimized with Astro `<Picture>` (AVIF and WebP, widths up to the original Gatsby breakpoints). The favicon, web manifest, and social image live in `public/`. Each page sets Spanish `lang`, a title, description, canonical URL, Open Graph, and Twitter tags. `@astrojs/sitemap` writes the sitemap. Google Analytics loads only when `PUBLIC_GA_MEASUREMENT_ID` is set.
 
-Custom fonts from `public/fonts` are Champagne & Limousines (the UI face) and Modern20. Design colors, type scale, shadows, and breakpoints are declared in the Tailwind 4 `@theme` block in `src/styles/global.css`. The component rules in `src/styles/site.css` are the previous stylesheet, still driven by the `--primary`, `--secondary`, `--tertiary`, `--dark`, and `--light` variables that the settings panel updates.
+UI text uses self-hosted variable fonts: Plus Jakarta Sans for body and interface, Fraunces for display headings (`@fontsource-variable`, `font-display: swap`). Only the latin weight files are preloaded. Champagne & Limousines stays in `public/fonts` for the logo artwork; the wordmark is an SVG, so those files are not preloaded and are not applied to UI text.
+
+Design tokens live in `src/styles/tokens.css` (primitive, semantic, component) and are wired into Tailwind 4 with `@theme inline`. Light, dark, and high-contrast themes use `data-theme` and `data-contrast`. The settings panel stores the theme, text size, and high-contrast choice in `localStorage`. An inline script in the document head applies them before paint. Header, navigation, buttons, focus, footer, and global type read those tokens. The rest of `src/styles/site.css` still uses the legacy `--primary`, `--secondary`, `--tertiary`, `--dark`, and `--light` variables, which stay on the light brand values.
+
+`/design-system/` documents the tokens. It is `noindex` and excluded from the sitemap.
 
 ## Deploy
 

@@ -3,8 +3,13 @@ export interface ModalController {
     close: () => void;
 }
 
-export function bindModal(modal: HTMLElement): ModalController {
+interface ModalOptions {
+    onClose?: () => void;
+}
+
+export function bindModal(modal: HTMLElement, options: ModalOptions = {}): ModalController {
     let index = 0;
+    let restore: HTMLElement | null = null;
 
     const focusable = (): HTMLElement[] =>
         Array.from(modal.querySelectorAll<HTMLElement>('button, a[href]')).filter(
@@ -35,6 +40,7 @@ export function bindModal(modal: HTMLElement): ModalController {
     }
 
     function open(): void {
+        restore = document.activeElement instanceof HTMLElement ? document.activeElement : null;
         modal.hidden = false;
         document.body.style.overflow = 'hidden';
         const items = focusable();
@@ -50,6 +56,8 @@ export function bindModal(modal: HTMLElement): ModalController {
         modal.hidden = true;
         document.body.style.overflow = '';
         document.removeEventListener('keydown', onKey);
+        options.onClose?.();
+        restore?.focus();
     }
 
     modal.querySelectorAll<HTMLElement>('[data-modal-close]').forEach((button) => {

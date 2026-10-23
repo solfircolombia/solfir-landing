@@ -15,7 +15,7 @@ const year = new Date().getFullYear();
         </span>
         <div class="footer-columns">
             <div class="footer-columns-column">
-                <span class="footer-columns-column-title">Datos de contacto</span>
+                <h2 class="footer-columns-column-title">Datos de contacto</h2>
                 <br />
                 <div class="contact-info">
                     <span class="contact-info-title">
@@ -46,23 +46,25 @@ const year = new Date().getFullYear();
                 </div>
             </div>
             <div class="footer-columns-column links">
-                <span class="footer-columns-column-title">Enlaces</span>
+                <h2 class="footer-columns-column-title">Enlaces</h2>
                 <br />
-                {NAV_LINKS.map((item) => (
-                    <a
-                        class:list={[
-                            'footer-link',
-                            isCurrentPath(pathname, item.href) && 'footer-link-active',
-                        ]}
-                        href={item.href}
-                    >
-                        {item.label}
-                    </a>
-                ))}
+                <nav aria-label="Pie de página">
+                    {NAV_LINKS.map((item) => (
+                        <a
+                            class:list={[
+                                'footer-link',
+                                isCurrentPath(pathname, item.href) && 'footer-link-active',
+                            ]}
+                            href={item.href}
+                        >
+                            {item.label}
+                        </a>
+                    ))}
+                </nav>
             </div>
         </div>
         <div class="social">
-            <span class="social-title">Visitanos en nuestras redes sociales</span>
+            <h2 class="social-title">Visitanos en nuestras redes sociales</h2>
             <div class="social-icons">
                 <SocialLinks variant="secondary" itemClass="social-icons-icon" showTooltip />
             </div>
