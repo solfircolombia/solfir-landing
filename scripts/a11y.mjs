@@ -110,6 +110,7 @@ if (!existsSync(join(root, 'index.html'))) {
 const paths = [
     '/',
     '/servicios/',
+    firstSlug('servicios'),
     '/quienes-somos/',
     '/equipo/',
     firstSlug('equipo'),

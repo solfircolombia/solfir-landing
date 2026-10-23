@@ -1,11 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/Button.astro';
-import Modal from '../components/Modal.astro';
 import PageHeader from '../components/PageHeader.astro';
 import ServiceCard from '../components/ServiceCard.astro';
 import { getServices } from '../lib/contentful';
-import { PAGE_SEO, PATHS } from '../lib/site';
+import { PAGE_SEO, servicePath } from '../lib/site';
 
 const services = await getServices();
 ---
@@ -21,12 +20,7 @@ const services = await getServices();
                         description={service.description}
                         icon={service.icon}
                     >
-                        <Button
-                            size="small"
-                            openService
-                            serviceName={service.title}
-                            serviceText={service.description}
-                        >
+                        <Button size="small" href={servicePath(service.slug)}>
                             Leer más
                         </Button>
                     </ServiceCard>
@@ -34,35 +28,4 @@ const services = await getServices();
             }
         </div>
     </div>
-    <Modal id="service-modal" labelledBy="service-modal-title">
-        <h2 id="service-modal-title" data-service-title></h2>
-        <p data-service-text></p>
-        <p>¿Te encuentras interesado en este servicio?</p>
-        <Button variant="primary" size="small" href={PATHS.contact}>Contáctanos</Button>
-    </Modal>
 </Layout>
-
-<script>
-    import { bindModal } from '../scripts/modal';
-
-    const modal = document.getElementById('service-modal');
-    if (modal) {
-        const openers = document.querySelectorAll<HTMLButtonElement>('[data-open-service]');
-        const controller = bindModal(modal, {
-            onClose: () => {
-                openers.forEach((button) => button.setAttribute('aria-expanded', 'false'));
-            },
-        });
-        const title = modal.querySelector<HTMLElement>('[data-service-title]');
-        const text = modal.querySelector<HTMLElement>('[data-service-text]');
-        openers.forEach((button) => {
-            button.addEventListener('click', () => {
-                if (title) title.textContent = button.dataset.serviceName ?? '';
-                if (text) text.textContent = button.dataset.serviceText ?? '';
-                openers.forEach((other) => other.setAttribute('aria-expanded', 'false'));
-                button.setAttribute('aria-expanded', 'true');
-                controller.open();
-            });
-        });
-    }
-</script>
