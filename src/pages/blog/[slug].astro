@@ -31,35 +31,37 @@ const html = renderRichText(post.content);
         ogType: 'article',
     }}
 >
-    <div class="blog-post-page">
-        <h1 class="blog-post-page-title">{post.title}</h1>
-        <div class="blog-post-page-date-author">
+    <article class="container band">
+        <h1 class="section-title">{post.title}</h1>
+        <p class="meta">
             {post.date && formatLongDate(post.date)}
-            {post.author && (
-                <>
-                    {' '}
-                    | Autor - <a href={teamPath(post.author.slug)}>{post.author.name}</a>
-                </>
-            )}
-        </div>
-        <div class="blog-post-page-main">
-            <div class="blog-post-page-main-content">
-                <div class="blog-post-page-main-content-image">
-                    {post.image && (
-                        <ContentImage
-                            image={post.image}
-                            alt={post.title}
-                            widths={[480, 768, 1024, 1200, 1440]}
-                            sizes="(max-width: 1024px) 100vw, 720px"
-                            loading="eager"
-                        />
-                    )}
-                </div>
-                <div class="blog-post-page-content-text rich-text" set:html={html} />
+            {
+                post.author && (
+                    <>
+                        {' '}
+                        | Autor — <a href={teamPath(post.author.slug)}>{post.author.name}</a>
+                    </>
+                )
+            }
+        </p>
+        <div class="post-layout">
+            <div>
+                {
+                    post.image && (
+                        <div class="post-hero">
+                            <ContentImage
+                                image={post.image}
+                                alt={post.title}
+                                widths={[480, 768, 1024, 1200]}
+                                sizes="(max-width: 1024px) 100vw, 720px"
+                                loading="eager"
+                            />
+                        </div>
+                    )
+                }
+                <div class="prose" set:html={html} />
             </div>
-            <div class="blog-post-page-recent-posts">
-                <RecentPosts />
-            </div>
+            <RecentPosts />
         </div>
-    </div>
+    </article>
 </Layout>

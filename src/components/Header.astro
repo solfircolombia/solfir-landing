@@ -3,7 +3,7 @@ import { LABELS, NAV_LINKS, isCurrentPath } from '../lib/site';
 import Button from './Button.astro';
 import Icon from './Icon.astro';
 import Logo from './Logo.astro';
-import SocialLinks from './SocialLinks.astro';
+import Modal from './Modal.astro';
 
 const pathname = Astro.url.pathname;
 ---
@@ -17,60 +17,44 @@ const pathname = Astro.url.pathname;
                 class="header-logo-menu"
                 variant="light"
                 btnStyle="rounded"
-                size={50}
+                size={48}
                 ariaLabel={LABELS.menu}
                 ariaExpanded="false"
                 ariaControls="nav-modal"
             >
                 <span data-icon="menu">
-                    <Icon name="menu" variant="dark" size={30} />
+                    <Icon name="menu" size={26} />
                 </span>
                 <span data-icon="close" hidden>
-                    <Icon name="close" variant="dark" size={30} />
+                    <Icon name="close" size={26} />
                 </span>
             </Button>
         </div>
         <div class="header-links">
             <nav class="header-links-wrapper" aria-label="Principal">
-                {NAV_LINKS.map((item) => (
-                    <a
-                        class:list={[
-                            'header-links-item',
-                            isCurrentPath(pathname, item.href) && 'header-links-item-active',
-                        ]}
-                        href={item.href}
-                    >
-                        {item.label}
-                    </a>
-                ))}
+                {
+                    NAV_LINKS.map((item) => (
+                        <a
+                            class:list={[
+                                'header-links-item',
+                                isCurrentPath(pathname, item.href) && 'header-links-item-active',
+                            ]}
+                            href={item.href}
+                        >
+                            {item.label}
+                        </a>
+                    ))
+                }
             </nav>
         </div>
     </div>
 </header>
 
-<div
-    id="nav-modal"
-    class="modal"
-    role="dialog"
-    aria-modal="true"
-    aria-label="Menú principal"
-    hidden
->
-    <div class="modal-wrapper">
-        <div class="modal-header">
-            <Logo class="modal-header-logo" />
-            <button
-                class="modal-header-close"
-                type="button"
-                aria-label={LABELS.closeMenu}
-                data-modal-close
-            >
-                <Icon name="close" fill="black" />
-            </button>
-        </div>
-        <div class="modal-content">
-            <nav class="header-links-modal" aria-label="Menú">
-                {NAV_LINKS.map((item) => (
+<Modal id="nav-modal" label="Menú principal">
+    <nav aria-label="Menú">
+        <div class="header-links-modal">
+            {
+                NAV_LINKS.map((item) => (
                     <a
                         class:list={[
                             'header-links-modal-item',
@@ -80,14 +64,11 @@ const pathname = Astro.url.pathname;
                     >
                         {item.label}
                     </a>
-                ))}
-            </nav>
+                ))
+            }
         </div>
-        <div class="modal-footer">
-            <SocialLinks variant="primary" itemClass="modal-footer-icon" />
-        </div>
-    </div>
-</div>
+    </nav>
+</Modal>
 
 <script>
     import { bindModal } from '../scripts/modal';

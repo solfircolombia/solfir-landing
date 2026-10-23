@@ -2,32 +2,34 @@
 import { getRecentPosts } from '../lib/contentful';
 import { blogPath } from '../lib/site';
 import ContentImage from './ContentImage.astro';
-import Icon from './Icon.astro';
 
 const posts = await getRecentPosts(3);
 ---
 
-<div class="recent-posts">
-    <h2 class="recent-posts-title">Últimas publicaciones</h2>
-    <div class="recent-posts-wrapper">
-        {posts.map((post) => (
-            <div class="recent-posts-card">
-                <div class="recent-posts-card-img">
+<aside class="recent-posts">
+    <h2 class="section-title">Últimas publicaciones</h2>
+    <div class="card-grid">
+        {
+            posts.map((post) => (
+                <article class="surface-card">
                     {post.image && (
-                        <ContentImage
-                            image={post.image}
-                            alt={post.title}
-                            widths={[200, 400]}
-                            sizes="200px"
-                        />
+                        <div class="card-media">
+                            <ContentImage
+                                image={post.image}
+                                alt=""
+                                widths={[200, 400]}
+                                sizes="280px"
+                            />
+                        </div>
                     )}
-                </div>
-                <h3 class="recent-posts-card-title">{post.title}</h3>
-                <a class="recent-posts-card-link" href={blogPath(post.slug)}>
-                    Leer Post
-                    <Icon name="arrow-right" class="recent-posts-card-link-icon" />
-                </a>
-            </div>
-        ))}
+                    <div class="card-body">
+                        <h3 class="card-title">{post.title}</h3>
+                        <a class="card-link" href={blogPath(post.slug)}>
+                            Leer post
+                        </a>
+                    </div>
+                </article>
+            ))
+        }
     </div>
-</div>
+</aside>

@@ -4,17 +4,11 @@ import { LABELS, PAGE_SEO, PATHS } from '../lib/site';
 ---
 
 <Layout seo={PAGE_SEO.notFound}>
-    <div class="pagina-no-encontrada">
-        <div class="pagina-no-encontrada-wrapper">
-            <div class="pagina-no-encontrada-message-box">
-                <h1 class="pagina-no-encontrada-message-box-title">Pagina no encontrada</h1>
-                <span class="pagina-no-encontrada-message-box-text">
-                    Lo siento, la página que estas buscando no existe
-                </span>
-                <a class="pagina-no-encontrada-message-box-back" href={PATHS.home}>
-                    {`Volver al ${LABELS.home}`}
-                </a>
-            </div>
+    <div class="container">
+        <div class="surface-card message">
+            <h1>Pagina no encontrada</h1>
+            <p>Lo siento, la página que estas buscando no existe</p>
+            <a href={PATHS.home}>{`Volver al ${LABELS.home}`}</a>
         </div>
     </div>
 </Layout>

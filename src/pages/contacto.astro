@@ -1,135 +1,107 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/Button.astro';
+import PageHeader from '../components/PageHeader.astro';
 import { PAGE_SEO } from '../lib/site';
 ---
 
 <Layout seo={PAGE_SEO.contact}>
-    <div class="contact">
-        <div class="contact-header">
-            <div class="contact-wrapper">
-                <h1 class="contact-header-title">Envianos un mensaje</h1>
+    <PageHeader title="Envianos un mensaje" />
+    <div class="container" style="margin-bottom: 3rem">
+        <form class="surface-card form-card contact-form" action="/api/sendgrid/" method="POST">
+            <h2>Por favor ingrese los siguientes datos</h2>
+            <p id="contact-required-note">
+                Los campos marcados con <abbr title="obligatorio">*</abbr> son obligatorios.
+            </p>
+            <div id="contact-status" role="alert" aria-live="assertive"></div>
+            <div class="field">
+                <label class="field-label" for="service">Selecciona el servicio que requieres:</label>
+                <select class="field-control" name="clientService" id="service">
+                    <option value="">Selecciona un servicio</option>
+                    <option value="Insolvencia">Insolvencia de persona natural no comerciante</option>
+                    <option value="Reorganizacion">Reorganización Empresarial</option>
+                    <option value="Liquidacion">Liquidacion Patrimonial</option>
+                    <option value="Otro">Otros Servicios</option>
+                </select>
             </div>
-        </div>
-        <div class="contact-form-section">
-            <div class="contact-wrapper">
-                <div class="contact-form-box">
-                    <form class="contact-form-box-form" action="/api/sendgrid/" method="POST">
-                        <h2 class="contact-form-box-title">
-                            Por favor ingrese los siguientes datos
-                        </h2>
-                        <p class="contact-required-note" id="contact-required-note">
-                            Los campos marcados con <abbr title="obligatorio">*</abbr> son
-                            obligatorios.
-                        </p>
-                        <div id="contact-status" role="alert" aria-live="assertive"></div>
-                        <div class="contact-form-box-form-group">
-                            <label class="contact-form-box-form-group-label" for="service">
-                                Selecciona el servicio que requieres:
-                            </label>
-                            <select
-                                class="contact-form-box-form-group-select"
-                                name="clientService"
-                                id="service"
-                            >
-                                <option value="">Selecciona un servicio</option>
-                                <option value="Insolvencia">
-                                    Insolvencia de persona natural no comerciante
-                                </option>
-                                <option value="Reorganizacion">Reorganización Empresarial</option>
-                                <option value="Liquidacion">Liquidacion Patrimonial</option>
-                                <option value="Otro">Otros Servicios</option>
-                            </select>
-                        </div>
-                        <div class="contact-form-box-form-group">
-                            <label class="contact-form-box-form-group-label" for="name">
-                                Nombre:
-                                <abbr title="obligatorio">*</abbr>
-                                <span class="visually-hidden">obligatorio</span>
-                            </label>
-                            <input
-                                class="contact-form-box-form-group-input"
-                                name="clientName"
-                                id="name"
-                                type="text"
-                                autocomplete="name"
-                                required
-                                aria-required="true"
-                                aria-describedby="name-error"
-                            />
-                            <p class="contact-field-error" id="name-error"></p>
-                        </div>
-                        <div class="contact-form-box-form-group">
-                            <label class="contact-form-box-form-group-label" for="phone">
-                                Teléfono de contacto:
-                                <abbr title="obligatorio">*</abbr>
-                                <span class="visually-hidden">obligatorio</span>
-                            </label>
-                            <input
-                                class="contact-form-box-form-group-input"
-                                name="clientPhone"
-                                id="phone"
-                                type="tel"
-                                autocomplete="tel"
-                                required
-                                aria-required="true"
-                                aria-describedby="phone-error"
-                            />
-                            <p class="contact-field-error" id="phone-error"></p>
-                        </div>
-                        <div class="contact-form-box-form-group">
-                            <label class="contact-form-box-form-group-label" for="email">
-                                Correo electronico de contacto:
-                                <abbr title="obligatorio">*</abbr>
-                                <span class="visually-hidden">obligatorio</span>
-                            </label>
-                            <input
-                                class="contact-form-box-form-group-input"
-                                name="clientEmail"
-                                id="email"
-                                type="email"
-                                autocomplete="email"
-                                required
-                                aria-required="true"
-                                aria-describedby="email-error"
-                            />
-                            <p class="contact-field-error" id="email-error"></p>
-                        </div>
-                        <div class="contact-form-box-form-group">
-                            <label class="contact-form-box-form-group-label" for="text">
-                                Mensaje:
-                                <abbr title="obligatorio">*</abbr>
-                                <span class="visually-hidden">obligatorio</span>
-                            </label>
-                            <textarea
-                                class="contact-form-box-form-group-textarea"
-                                name="clientMessage"
-                                id="text"
-                                autocomplete="off"
-                                required
-                                aria-required="true"
-                                aria-describedby="text-error"
-                            ></textarea>
-                            <p class="contact-field-error" id="text-error"></p>
-                        </div>
-                        <div class="contact-form-box-form-group">
-                            <Button
-                                class="contact-form-box-form-group-submit"
-                                type="submit"
-                                variant="primary"
-                            >
-                                Enviar Mensaje
-                            </Button>
-                        </div>
-                    </form>
-                </div>
+            <div class="field">
+                <label class="field-label" for="name">
+                    Nombre:
+                    <abbr title="obligatorio">*</abbr>
+                    <span class="visually-hidden">obligatorio</span>
+                </label>
+                <input
+                    class="field-control"
+                    name="clientName"
+                    id="name"
+                    type="text"
+                    autocomplete="name"
+                    required
+                    aria-required="true"
+                    aria-describedby="name-error"
+                />
+                <p class="field-error" id="name-error"></p>
             </div>
-        </div>
+            <div class="field">
+                <label class="field-label" for="phone">
+                    Teléfono de contacto:
+                    <abbr title="obligatorio">*</abbr>
+                    <span class="visually-hidden">obligatorio</span>
+                </label>
+                <input
+                    class="field-control"
+                    name="clientPhone"
+                    id="phone"
+                    type="tel"
+                    autocomplete="tel"
+                    required
+                    aria-required="true"
+                    aria-describedby="phone-error"
+                />
+                <p class="field-error" id="phone-error"></p>
+            </div>
+            <div class="field">
+                <label class="field-label" for="email">
+                    Correo electronico de contacto:
+                    <abbr title="obligatorio">*</abbr>
+                    <span class="visually-hidden">obligatorio</span>
+                </label>
+                <input
+                    class="field-control"
+                    name="clientEmail"
+                    id="email"
+                    type="email"
+                    autocomplete="email"
+                    required
+                    aria-required="true"
+                    aria-describedby="email-error"
+                />
+                <p class="field-error" id="email-error"></p>
+            </div>
+            <div class="field">
+                <label class="field-label" for="text">
+                    Mensaje:
+                    <abbr title="obligatorio">*</abbr>
+                    <span class="visually-hidden">obligatorio</span>
+                </label>
+                <textarea
+                    class="field-control"
+                    name="clientMessage"
+                    id="text"
+                    autocomplete="off"
+                    required
+                    aria-required="true"
+                    aria-describedby="text-error"
+                ></textarea>
+                <p class="field-error" id="text-error"></p>
+            </div>
+            <Button type="submit" variant="primary">Enviar Mensaje</Button>
+        </form>
     </div>
 </Layout>
 
 <script>
-    const form = document.querySelector<HTMLFormElement>('.contact-form-box-form');
+    const form = document.querySelector<HTMLFormElement>('.contact-form');
     const status = document.querySelector<HTMLElement>('#contact-status');
     if (form && status) {
         const fields = ['name', 'phone', 'email', 'text']

@@ -1,13 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/Button.astro';
-import Icon from '../components/Icon.astro';
 import BlogCard from '../components/BlogCard.astro';
 import Hero from '../components/Hero.astro';
+import ServiceCard from '../components/ServiceCard.astro';
 import { getBlogPosts, getMedia, getServices } from '../lib/contentful';
 import { LABELS, PAGE_SEO, PATHS } from '../lib/site';
 
-const posts = (await getBlogPosts()).slice(0, 10);
+const posts = (await getBlogPosts()).slice(0, 6);
 const services = (await getServices()).slice(0, 3);
 const media = await getMedia();
 if (!Array.isArray(media)) {
@@ -16,73 +16,59 @@ if (!Array.isArray(media)) {
 ---
 
 <Layout seo={PAGE_SEO.home}>
-    <div class="landing">
-        <Hero>
-            <Fragment slot="title">
-                Vuelve a la estabilidad financiera con{' '}
-                <b class="landing-banner-title-solfir">SOLFIR</b> expertos en insolvencia y
-                reorganización empresarial
-            </Fragment>
-            <Button variant="primary" size="medium" href="#landing-services">
-                Quiero saber mas
-            </Button>
-        </Hero>
-        <section class="landing-services" id="landing-services">
-            <div class="landing-wrapper">
-                <h2 class="landing-services-title">Nuestros Servicios</h2>
-                <div class="landing-services-items">
-                    {services.map((service) => (
-                        <div class="service-box">
-                            <div class="service-box-content">
-                                <h3 class="service-box-content-title">
-                                    <Icon
-                                        name={service.icon}
-                                        variant="dark"
-                                        class="service-box-content-title-icon"
-                                    />
-                                    {service.title}
-                                </h3>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-                <Button class="landing-services-cta" variant="primary" href={PATHS.services}>
+    <Hero>
+        <Fragment slot="title">
+            Vuelve a la estabilidad financiera con{' '}
+            <b class="landing-banner-title-solfir">SOLFIR</b> expertos en insolvencia y
+            reorganización empresarial
+        </Fragment>
+        <Button variant="primary" href="#landing-services">Quiero saber mas</Button>
+    </Hero>
+    <section class="band band-accent" id="landing-services">
+        <div class="container">
+            <h2 class="section-title">Nuestros Servicios</h2>
+            <div class="card-grid">
+                {
+                    services.map((service) => (
+                        <ServiceCard title={service.title} icon={service.icon} heading="h3" />
+                    ))
+                }
+            </div>
+            <div class="hero-actions" style="margin-top: 1.75rem">
+                <Button variant="inverse" href={PATHS.services}>
                     Conoce todos nuestros servicios
                 </Button>
             </div>
-        </section>
-        <section class="landing-blog">
-            <div class="landing-wrapper">
-                <h2 class="landing-blog-title">Nuestro Blog</h2>
-                <p class="landing-blog-text">
-                    Visita el blog de SOLFIR, donde encontrarás información útil y consejos
-                    financieros para ayudarte a manejar mejor tus finanzas personales o
-                    empresariales. Además, te mantendremos informado sobre temas de actualidad
-                    relacionados con la insolvencia y otras cuestiones legales y financieras
-                    relevantes.
-                </p>
-                <div class="landing-blog-posts">
-                    {posts.map((post) => (
-                        <BlogCard post={post} />
-                    ))}
-                </div>
-                <Button class="landing-blog-cta" variant="primary" href={PATHS.blog}>
-                    Ver todas las publicaciones
-                </Button>
+        </div>
+    </section>
+    <section class="band">
+        <div class="container">
+            <h2 class="section-title">Nuestro Blog</h2>
+            <p class="prose">
+                Visita el blog de SOLFIR, donde encontrarás información útil y consejos financieros
+                para ayudarte a manejar mejor tus finanzas personales o empresariales. Además, te
+                mantendremos informado sobre temas de actualidad relacionados con la insolvencia y
+                otras cuestiones legales y financieras relevantes.
+            </p>
+            <div class="card-grid">
+                {posts.map((post) => <BlogCard post={post} />)}
             </div>
-        </section>
-        <section class="landing-hireus">
-            <div class="landing-wrapper">
-                <h2 class="landing-hireus-title">¡Contrátanos!</h2>
-                <p class="landing-hireus-text">
-                    Con un equipo de expertos dedicados y años de experiencia, nos aseguramos de
-                    brindar soluciones óptimas para cada situación única. Contáctanos hoy para ver
-                    cómo podemos ayudarte a lograr la estabilidad financiera.
-                </p>
-                <Button variant="primary" class="landing-hireus-cta" href={PATHS.contact}>
-                    {LABELS.contact}
-                </Button>
+            <div class="hero-actions" style="margin-top: 1.75rem">
+                <Button variant="primary" href={PATHS.blog}>Ver todas las publicaciones</Button>
             </div>
-        </section>
-    </div>
+        </div>
+    </section>
+    <section class="band band-accent">
+        <div class="container">
+            <h2 class="section-title">¡Contrátanos!</h2>
+            <p>
+                Con un equipo de expertos dedicados y años de experiencia, nos aseguramos de
+                brindar soluciones óptimas para cada situación única. Contáctanos hoy para ver cómo
+                podemos ayudarte a lograr la estabilidad financiera.
+            </p>
+            <div class="hero-actions" style="margin-top: 1.5rem">
+                <Button variant="inverse" href={PATHS.contact}>{LABELS.contact}</Button>
+            </div>
+        </div>
+    </section>
 </Layout>

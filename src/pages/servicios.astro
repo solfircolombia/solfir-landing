@@ -1,92 +1,45 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/Button.astro';
-import Icon from '../components/Icon.astro';
-import Logo from '../components/Logo.astro';
-import SocialLinks from '../components/SocialLinks.astro';
+import Modal from '../components/Modal.astro';
+import PageHeader from '../components/PageHeader.astro';
+import ServiceCard from '../components/ServiceCard.astro';
 import { getServices } from '../lib/contentful';
-import { LABELS, PAGE_SEO, PATHS } from '../lib/site';
+import { PAGE_SEO, PATHS } from '../lib/site';
 
 const services = await getServices();
 ---
 
 <Layout seo={PAGE_SEO.services}>
-    <div class="servicios">
-        <div class="servicios-header">
-            <div class="servicios-wrapper">
-                <h1 class="servicios-header-title">Conoce nuestros servicios</h1>
-            </div>
-        </div>
-        <div class="servicios-wrapper">
-            <div class="card-wrapper">
-                {services.map((service) => (
-                    <div class="card service-card">
-                        <span class="service-card-icon">
-                            <Icon name={service.icon} size={48} />
-                        </span>
-                        <h2 class="service-card-title">{service.title}</h2>
+    <PageHeader title="Conoce nuestros servicios" />
+    <div class="container band" style="padding-top: 0">
+        <div class="card-grid">
+            {
+                services.map((service) => (
+                    <ServiceCard
+                        title={service.title}
+                        description={service.description}
+                        icon={service.icon}
+                    >
                         <Button
-                            class="service-card-button"
                             size="small"
                             openService
                             serviceName={service.title}
                             serviceText={service.description}
                         >
-                            Leer Mas
+                            Leer más
                         </Button>
-                    </div>
-                ))}
-            </div>
+                    </ServiceCard>
+                ))
+            }
         </div>
     </div>
-
-    <div
-        id="service-modal"
-        class="modal"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="service-modal-title"
-        hidden
-    >
-        <div class="modal-wrapper service-modal">
-            <div class="modal-header">
-                <Logo class="modal-header-logo" />
-                <button
-                    class="modal-header-close"
-                    type="button"
-                    aria-label={LABELS.closeMenu}
-                    data-modal-close
-                >
-                    <Icon name="close" fill="black" />
-                </button>
-            </div>
-            <div class="modal-content">
-                <div class="service-modal-content">
-                    <h2
-                        class="service-modal-content-title"
-                        id="service-modal-title"
-                        data-service-title
-                    ></h2>
-                    <p class="service-modal-content-text" data-service-text></p>
-                    <p class="service-modal-content-contact">
-                        ¿Te encuentras interesado en este servicio?
-                    </p>
-                    <Button
-                        class="service-modal-content-contact-btn"
-                        variant="primary"
-                        size="small"
-                        href={PATHS.contact}
-                    >
-                        Contáctanos
-                    </Button>
-                    <span class="service-modal-content-gap"></span>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <SocialLinks variant="primary" itemClass="modal-footer-icon" />
-            </div>
-        </div>
-    </div>
+    <Modal id="service-modal" labelledBy="service-modal-title">
+        <h2 id="service-modal-title" data-service-title></h2>
+        <p data-service-text></p>
+        <p>¿Te encuentras interesado en este servicio?</p>
+        <Button variant="primary" size="small" href={PATHS.contact}>Contáctanos</Button>
+    </Modal>
 </Layout>
 
 <script>

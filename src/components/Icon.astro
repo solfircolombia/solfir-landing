@@ -10,7 +10,7 @@ interface Props {
 }
 
 const { name, variant, fill, size, class: className = '' } = Astro.props;
-const style = size ? `width:${size}px;height:${size}px` : 'width:100%;height:100%';
+const style = size ? `width:${size}px;height:${size}px` : undefined;
 ---
 
 <svg

@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import ContentImage from '../../components/ContentImage.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import TeamCard from '../../components/TeamCard.astro';
 import { getTeamMembers } from '../../lib/contentful';
 import { PAGE_SEO, teamPath } from '../../lib/site';
 
@@ -8,68 +9,53 @@ const members = await getTeamMembers();
 ---
 
 <Layout seo={PAGE_SEO.team}>
-    <div class="equipo">
-        <div class="equipo-header">
-            <div class="equipo-wrapper">
-                <h1 class="equipo-header-title">Equipo de trabajo</h1>
-            </div>
-        </div>
-        <div class="equipo-wrapper">
-            <p>
-                Conoce a nuestro equipo de trabajo. En SOLFIR, nos enorgullece contar con un grupo
-                de profesionales altamente capacitados y comprometidos en brindar servicios legales
-                excepcionales a nuestros clientes. Nuestro equipo está formado por abogados con una
-                amplia experiencia en diversas áreas del derecho, quienes trabajan de manera
-                colaborativa y enfocada en los mejores intereses de quienes confían en nosotros.
-            </p>
-            <p>
-                Cada miembro de nuestro equipo posee un profundo conocimiento de su especialización
-                legal, lo que nos permite ofrecer un asesoramiento integral y estratégico en cada
-                caso que atendemos. Además, nos mantenemos actualizados con los cambios y
-                desarrollos en la legislación para asegurarnos de proporcionar soluciones jurídicas
-                efectivas y adaptadas a las necesidades particulares de nuestros clientes.
-            </p>
-            <p>
-                No solo nos distingue nuestra experiencia y conocimiento jurídico, sino también
-                nuestra dedicación a la excelencia en el servicio al cliente. Valoramos la confianza
-                que nuestros clientes depositan en nosotros y nos esforzamos por establecer
-                relaciones sólidas y duraderas basadas en la transparencia, la comunicación abierta
-                y el respeto mutuo.
-            </p>
-            <p>
-                Estamos comprometidos con la defensa de los derechos y los intereses de nuestros
-                clientes, y nuestro equipo está aquí para ofrecerte un respaldo legal sólido y un
-                apoyo integral en tus asuntos legales.
-            </p>
-            <p>
-                Gracias por visitar nuestra página y conocer a nuestro equipo de trabajo. Esperamos
-                tener la oportunidad de servirte y ayudarte en tus necesidades legales. No dudes en
-                contactarnos para obtener más información o programar una consulta. Estaremos
-                encantados de ayudarte.
-            </p>
-        </div>
-        <div class="equipo-wrapper">
-            {members.map((member) => (
-                <div class="equipo-card">
-                    <div class="equipo-card-image">
-                        {member.avatar && (
-                            <ContentImage
-                                image={member.avatar}
-                                alt={member.name}
-                                widths={[250, 400, 600]}
-                                sizes="250px"
-                            />
-                        )}
-                    </div>
-                    <div class="equipo-card-data">
-                        <h2 class="equipo-card-data-name">{member.name}</h2>
-                        <span class="equipo-card-data-role">{member.role}</span>
-                        <a class="equipo-card-data-link" href={teamPath(member.slug)}>
-                            Ver Perfil
-                        </a>
-                    </div>
-                </div>
-            ))}
-        </div>
+    <PageHeader title="Equipo de trabajo" />
+    <div class="container prose">
+        <p>
+            Conoce a nuestro equipo de trabajo. En SOLFIR, nos enorgullece contar con un grupo de
+            profesionales altamente capacitados y comprometidos en brindar servicios legales
+            excepcionales a nuestros clientes. Nuestro equipo está formado por abogados con una
+            amplia experiencia en diversas áreas del derecho, quienes trabajan de manera
+            colaborativa y enfocada en los mejores intereses de quienes confían en nosotros.
+        </p>
+        <p>
+            Cada miembro de nuestro equipo posee un profundo conocimiento de su especialización
+            legal, lo que nos permite ofrecer un asesoramiento integral y estratégico en cada caso
+            que atendemos. Además, nos mantenemos actualizados con los cambios y desarrollos en la
+            legislación para asegurarnos de proporcionar soluciones jurídicas efectivas y adaptadas
+            a las necesidades particulares de nuestros clientes.
+        </p>
+        <p>
+            No solo nos distingue nuestra experiencia y conocimiento jurídico, sino también nuestra
+            dedicación a la excelencia en el servicio al cliente. Valoramos la confianza que
+            nuestros clientes depositan en nosotros y nos esforzamos por establecer relaciones
+            sólidas y duraderas basadas en la transparencia, la comunicación abierta y el respeto
+            mutuo.
+        </p>
+        <p>
+            Estamos comprometidos con la defensa de los derechos y los intereses de nuestros
+            clientes, y nuestro equipo está aquí para ofrecerte un respaldo legal sólido y un apoyo
+            integral en tus asuntos legales.
+        </p>
+        <p>
+            Gracias por visitar nuestra página y conocer a nuestro equipo de trabajo. Esperamos
+            tener la oportunidad de servirte y ayudarte en tus necesidades legales. No dudes en
+            contactarnos para obtener más información o programar una consulta. Estaremos
+            encantados de ayudarte.
+        </p>
     </div>
+    <section class="band">
+        <div class="container card-grid">
+            {
+                members.map((member) => (
+                    <TeamCard
+                        name={member.name}
+                        role={member.role}
+                        href={teamPath(member.slug)}
+                        avatar={member.avatar}
+                    />
+                ))
+            }
+        </div>
+    </section>
 </Layout>
