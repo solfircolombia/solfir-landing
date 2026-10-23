@@ -1,0 +1,130 @@
+---
+import { LABELS, NAV_LINKS, isCurrentPath } from '../lib/site';
+import Button from './Button.astro';
+import Icon from './Icon.astro';
+import Logo from './Logo.astro';
+import SocialLinks from './SocialLinks.astro';
+
+const pathname = Astro.url.pathname;
+---
+
+<header class="header">
+    <div class="wrapper">
+        <div class="header-logo">
+            <Logo class="header-logo-solfir" />
+            <Button
+                id="nav-toggle"
+                class="header-logo-menu"
+                variant="light"
+                btnStyle="rounded"
+                size={50}
+                ariaLabel={LABELS.menu}
+                ariaExpanded="false"
+            >
+                <span data-icon="menu">
+                    <Icon name="menu" variant="dark" size={30} />
+                </span>
+                <span data-icon="close" hidden>
+                    <Icon name="close" variant="dark" size={30} />
+                </span>
+            </Button>
+        </div>
+        <div class="header-links">
+            <div class="header-links-wrapper" aria-label="Menu Links">
+                {NAV_LINKS.map((item) => (
+                    <a
+                        class:list={[
+                            'header-links-item',
+                            isCurrentPath(pathname, item.href) && 'header-links-item-active',
+                        ]}
+                        href={item.href}
+                    >
+                        {item.label}
+                    </a>
+                ))}
+            </div>
+        </div>
+    </div>
+</header>
+
+<div
+    id="nav-modal"
+    class="modal"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Ventana modal menu"
+    hidden
+>
+    <div class="modal-wrapper">
+        <div class="modal-header">
+            <Logo class="modal-header-logo" />
+            <button
+                class="modal-header-close"
+                type="button"
+                aria-label={LABELS.closeMenu}
+                data-modal-close
+            >
+                <Icon name="close" fill="black" />
+            </button>
+        </div>
+        <div class="modal-content">
+            <div class="header-links-modal">
+                {NAV_LINKS.map((item) => (
+                    <a
+                        class:list={[
+                            'header-links-modal-item',
+                            isCurrentPath(pathname, item.href) && 'header-links-modal-item-active',
+                        ]}
+                        href={item.href}
+                    >
+                        {item.label}
+                    </a>
+                ))}
+            </div>
+        </div>
+        <div class="modal-footer">
+            <SocialLinks variant="primary" itemClass="modal-footer-icon" />
+        </div>
+    </div>
+</div>
+
+<script>
+    import { bindModal } from '../scripts/modal';
+
+    const modal = document.getElementById('nav-modal');
+    const button = document.getElementById('nav-toggle');
+    if (modal && button) {
+        const controller = bindModal(modal);
+        const menuIcon = button.querySelector<HTMLElement>('[data-icon="menu"]');
+        const closeIcon = button.querySelector<HTMLElement>('[data-icon="close"]');
+
+        const setOpen = (open: boolean) => {
+            if (menuIcon) menuIcon.hidden = open;
+            if (closeIcon) closeIcon.hidden = !open;
+            button.setAttribute('aria-expanded', String(open));
+            button.setAttribute('aria-label', open ? 'Cerrar menú' : 'Menú');
+        };
+
+        button.addEventListener('click', () => {
+            const willOpen = modal.hidden;
+            if (willOpen) {
+                controller.open();
+            } else {
+                controller.close();
+            }
+            setOpen(willOpen);
+        });
+
+        modal.querySelectorAll('[data-modal-close]').forEach((closeButton) => {
+            closeButton.addEventListener('click', () => {
+                setOpen(false);
+            });
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                setOpen(false);
+            }
+        });
+    }
+</script>

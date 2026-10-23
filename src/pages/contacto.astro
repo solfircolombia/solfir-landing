@@ -1,0 +1,102 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+import { PAGE_SEO } from '../lib/site';
+---
+
+<Layout seo={PAGE_SEO.contact}>
+    <div class="contact">
+        <div class="contact-header">
+            <div class="contact-wrapper">
+                <span class="contact-header-title">Envianos un mensaje</span>
+            </div>
+        </div>
+        <div class="contact-form-section">
+            <div class="contact-wrapper">
+                <div class="contact-form-box">
+                    <form class="contact-form-box-form" action="/api/sendgrid/" method="POST">
+                        <span class="contact-form-box-title">
+                            Por favor ingrese los siguientes datos
+                        </span>
+                        <div class="contact-form-box-form-group">
+                            <label class="contact-form-box-form-group-label" for="service">
+                                Selecciona el servicio que requieres:
+                            </label>
+                            <select
+                                class="contact-form-box-form-group-select"
+                                name="clientService"
+                                id="service"
+                            >
+                                <option value="" disabled selected hidden>
+                                    Selecciona un servicio
+                                </option>
+                                <option value="Insolvencia">
+                                    Insolvencia de persona natural no comerciante
+                                </option>
+                                <option value="Reorganizacion">Reorganización Empresarial</option>
+                                <option value="Liquidacion">Liquidacion Patrimonial</option>
+                                <option value="Otro">Otros Servicios</option>
+                            </select>
+                        </div>
+                        <div class="contact-form-box-form-group">
+                            <label class="contact-form-box-form-group-label" for="name">
+                                Nombre:
+                            </label>
+                            <input
+                                class="contact-form-box-form-group-input"
+                                name="clientName"
+                                id="name"
+                                type="text"
+                                required
+                            />
+                        </div>
+                        <div class="contact-form-box-form-group">
+                            <label class="contact-form-box-form-group-label" for="phone">
+                                Teléfono de contacto:
+                            </label>
+                            <input
+                                class="contact-form-box-form-group-input"
+                                name="clientPhone"
+                                id="phone"
+                                type="tel"
+                                required
+                            />
+                        </div>
+                        <div class="contact-form-box-form-group">
+                            <label class="contact-form-box-form-group-label" for="email">
+                                Correo electronico de contacto:
+                            </label>
+                            <input
+                                class="contact-form-box-form-group-input"
+                                name="clientEmail"
+                                id="email"
+                                type="email"
+                                required
+                            />
+                        </div>
+                        <div class="contact-form-box-form-group">
+                            <label class="contact-form-box-form-group-label" for="text">
+                                Mensaje:
+                            </label>
+                            <textarea
+                                class="contact-form-box-form-group-textarea"
+                                name="clientMessage"
+                                id="text"
+                                required
+                            ></textarea>
+                        </div>
+                        <div class="contact-form-box-form-group">
+                            <Button
+                                class="contact-form-box-form-group-submit"
+                                type="submit"
+                                variant="primary"
+                            >
+                                Enviar Mensaje
+                            </Button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</Layout>

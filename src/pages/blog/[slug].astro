@@ -1,0 +1,65 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ContentImage from '../../components/ContentImage.astro';
+import RecentPosts from '../../components/RecentPosts.astro';
+import { getBlogPosts, type BlogPost } from '../../lib/contentful';
+import { renderRichText } from '../../lib/rich-text';
+import { blogPath, formatLongDate, teamPath } from '../../lib/site';
+
+export async function getStaticPaths() {
+    const posts = await getBlogPosts();
+    return posts.map((post) => ({
+        params: { slug: post.slug },
+        props: { post },
+    }));
+}
+
+interface Props {
+    post: BlogPost;
+}
+
+const { post } = Astro.props;
+const html = renderRichText(post.content);
+---
+
+<Layout
+    seo={{
+        title: post.title,
+        description: post.summary,
+        pathname: blogPath(post.slug),
+        image: post.image?.url,
+        ogType: 'article',
+    }}
+>
+    <div class="blog-post-page">
+        <span class="blog-post-page-title">{post.title}</span>
+        <div class="blog-post-page-date-author">
+            {post.date && formatLongDate(post.date)}
+            {post.author && (
+                <>
+                    {' '}
+                    | Autor - <a href={teamPath(post.author.slug)}>{post.author.name}</a>
+                </>
+            )}
+        </div>
+        <div class="blog-post-page-main">
+            <div class="blog-post-page-main-content">
+                <div class="blog-post-page-main-content-image">
+                    {post.image && (
+                        <ContentImage
+                            image={post.image}
+                            alt={post.title}
+                            widths={[480, 768, 1024, 1200, 1440]}
+                            sizes="(max-width: 1024px) 100vw, 720px"
+                            loading="eager"
+                        />
+                    )}
+                </div>
+                <div class="blog-post-page-content-text rich-text" set:html={html} />
+            </div>
+            <div class="blog-post-page-recent-posts">
+                <RecentPosts />
+            </div>
+        </div>
+    </div>
+</Layout>

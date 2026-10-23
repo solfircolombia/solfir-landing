@@ -1,0 +1,48 @@
+---
+import type { BlogPost } from '../lib/contentful';
+import { blogPath } from '../lib/site';
+import ContentImage from './ContentImage.astro';
+import Icon from './Icon.astro';
+
+interface Props {
+    post: BlogPost;
+    layout?: 'horizontal';
+    class?: string;
+}
+
+const { post, layout, class: className = '' } = Astro.props;
+const horizontal = layout === 'horizontal';
+---
+
+<div class:list={['blog-card', horizontal && 'blog-card--horizontal', className]}>
+    <div class="blog-card-image">
+        {post.image && (
+            <ContentImage
+                image={post.image}
+                alt={post.title}
+                widths={horizontal ? [320, 480, 640] : [300, 480, 640]}
+                sizes={
+                    horizontal
+                        ? '(max-width: 768px) 100vw, 300px'
+                        : '(max-width: 768px) 90vw, 300px'
+                }
+            />
+        )}
+    </div>
+    <div class="blog-card-summary">
+        <p class="blog-card-summary-title">{post.title}</p>
+        <p class="blog-card-summary-text">{post.summary}</p>
+        <p class="blog-card-summary-actions">
+            <a class="blog-card-summary-actions-link" href={blogPath(post.slug)}>
+                Leer Mas
+                <Icon name="arrow-right" class="blog-card-summary-actions-link-icon" />
+            </a>
+        </p>
+    </div>
+    <div class="blog-card-actions">
+        <a class="blog-card-actions-link" href={blogPath(post.slug)}>
+            Leer Mas
+            <Icon name="arrow-right" class="blog-card-actions-link-icon" />
+        </a>
+    </div>
+</div>

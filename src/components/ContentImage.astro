@@ -1,0 +1,32 @@
+---
+import { Picture } from 'astro:assets';
+import type { ContentImage as ContentImageData } from '../lib/contentful';
+
+interface Props {
+    image: ContentImageData;
+    alt?: string;
+    widths: number[];
+    sizes: string;
+    loading?: 'lazy' | 'eager';
+    class?: string;
+}
+
+const { image, alt, widths, sizes, loading = 'lazy', class: className } = Astro.props;
+const usableWidths = widths.filter((width) => width <= image.width);
+const resolvedWidths =
+    usableWidths.length > 0 ? usableWidths : [Math.min(image.width, widths[0] ?? image.width)];
+---
+
+<Picture
+    src={image.url}
+    alt={alt || image.alt}
+    width={image.width}
+    height={image.height}
+    widths={resolvedWidths}
+    sizes={sizes}
+    formats={['avif', 'webp']}
+    fallbackFormat="webp"
+    quality={65}
+    loading={loading}
+    class={className}
+/>

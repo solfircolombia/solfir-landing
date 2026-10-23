@@ -1,0 +1,102 @@
+---
+import { THEMES } from '../lib/site';
+import Icon from './Icon.astro';
+
+const themeEntries = Object.entries(THEMES);
+---
+
+<div class="settings settings--closed">
+    <div class="settings-content">
+        <p>SELECCIONE PALETA DE COLORES</p>
+        <div class="settings-content-themes">
+            {themeEntries.map(([themeName, theme]) => (
+                <button
+                    type="button"
+                    class="settings-content-themes-wrapper"
+                    data-theme={JSON.stringify(theme)}
+                    aria-label={`Paleta ${themeName}`}
+                >
+                    <span class="settings-content-themes-box">
+                        {Object.entries(theme)
+                            .filter(([key]) => !key.includes('Contrast'))
+                            .map(([key, value]) => (
+                                <span
+                                    class="settings-content-themes-box-item"
+                                    style={`background-color:${value}`}
+                                    data-swatch={key}
+                                />
+                            ))}
+                    </span>
+                </button>
+            ))}
+        </div>
+        <p>TAMAÑO LETRA</p>
+        <div class="settings-content-text">
+            <button
+                type="button"
+                class="settings-content-text-icon"
+                data-text="decrease"
+                aria-label="Reducir tamaño de letra"
+            >
+                <Icon name="text-decrease" variant="dark" />
+            </button>
+            <button
+                type="button"
+                class="settings-content-text-icon"
+                data-text="increase"
+                aria-label="Aumentar tamaño de letra"
+            >
+                <Icon name="text-increase" variant="dark" />
+            </button>
+        </div>
+    </div>
+    <div class="settings-toggle">
+        <button
+            type="button"
+            class="settings-toggle-icon"
+            data-settings-toggle
+            aria-label="Abrir ajustes de visualización"
+        >
+            <Icon name="settings" variant="light" />
+        </button>
+    </div>
+</div>
+
+<script>
+    const root = document.querySelector<HTMLElement>('.settings');
+    if (root) {
+        const toggle = root.querySelector<HTMLButtonElement>('[data-settings-toggle]');
+        toggle?.addEventListener('click', () => {
+            const open = root.classList.contains('settings--open');
+            root.classList.toggle('settings--open', !open);
+            root.classList.toggle('settings--closed', open);
+            toggle.setAttribute('aria-expanded', String(!open));
+        });
+
+        root.querySelectorAll<HTMLButtonElement>('[data-theme]').forEach((button) => {
+            button.addEventListener('click', () => {
+                const raw = button.dataset.theme;
+                if (!raw) {
+                    return;
+                }
+                const theme = JSON.parse(raw) as Record<string, string>;
+                Object.entries(theme).forEach(([key, value]) => {
+                    document.documentElement.style.setProperty(`--${key}`, value);
+                });
+            });
+        });
+
+        let size = 19;
+        const applySize = () => {
+            document.documentElement.style.setProperty('--base-font-size', `${size}px`);
+        };
+        root.querySelector('[data-text="decrease"]')?.addEventListener('click', () => {
+            size -= 1;
+            applySize();
+        });
+        root.querySelector('[data-text="increase"]')?.addEventListener('click', () => {
+            size += 1;
+            applySize();
+        });
+    }
+</script>

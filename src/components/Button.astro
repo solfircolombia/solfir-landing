@@ -1,0 +1,69 @@
+---
+interface Props {
+    variant?: 'primary' | 'secondary' | 'tertiary' | 'dark' | 'light';
+    textVariant?: 'primary' | 'secondary' | 'tertiary' | 'dark' | 'light';
+    btnStyle?: 'regular' | 'rounded';
+    size?: 'small' | 'medium' | 'large' | number;
+    class?: string;
+    href?: string;
+    type?: 'button' | 'submit' | 'reset';
+    ariaLabel?: string;
+    id?: string;
+    ariaExpanded?: boolean | 'true' | 'false';
+    serviceName?: string;
+    serviceText?: string;
+    openService?: boolean;
+}
+
+const {
+    variant = 'primary',
+    textVariant,
+    btnStyle = 'regular',
+    size = 'medium',
+    class: className = '',
+    href,
+    type = 'button',
+    ariaLabel,
+    id,
+    ariaExpanded,
+    serviceName,
+    serviceText,
+    openService,
+} = Astro.props;
+
+const classes = [
+    'button',
+    `button--style-${btnStyle}`,
+    `button--variant-${variant}`,
+    `button--size-${typeof size === 'number' ? 'medium' : size}`,
+    textVariant ? `button--variant-text-${textVariant}` : '',
+    className,
+]
+    .filter(Boolean)
+    .join(' ');
+
+const style =
+    typeof size === 'number' && btnStyle === 'rounded'
+        ? `height:${size}px;width:${size}px;border-radius:${size / 2}px`
+        : undefined;
+---
+
+{href ? (
+    <a class={classes} style={style} href={href} aria-label={ariaLabel} id={id}>
+        <slot />
+    </a>
+) : (
+    <button
+        class={classes}
+        style={style}
+        type={type}
+        aria-label={ariaLabel}
+        id={id}
+        aria-expanded={ariaExpanded}
+        data-open-service={openService ? '' : undefined}
+        data-service-name={serviceName}
+        data-service-text={serviceText}
+    >
+        <slot />
+    </button>
+)}

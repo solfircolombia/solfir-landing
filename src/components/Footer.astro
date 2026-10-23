@@ -1,0 +1,90 @@
+---
+import { CONTACT, CREDITS, NAV_LINKS, isCurrentPath } from '../lib/site';
+import Icon from './Icon.astro';
+import Logo from './Logo.astro';
+import SocialLinks from './SocialLinks.astro';
+
+const pathname = Astro.url.pathname;
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+    <div class="footer-wrapper">
+        <span class="footer-logo">
+            <Logo variant="primary" />
+        </span>
+        <div class="footer-columns">
+            <div class="footer-columns-column">
+                <span class="footer-columns-column-title">Datos de contacto</span>
+                <br />
+                <div class="contact-info">
+                    <span class="contact-info-title">
+                        <Icon name="mail" class="contact-info-title-icon" variant="light" />
+                        Correo electrónico
+                    </span>
+                    <a class="footer-link contact-info-link" href={`mailto:${CONTACT.mail}`}>
+                        {CONTACT.mail}
+                    </a>
+                </div>
+                <div class="contact-info">
+                    <span class="contact-info-title">
+                        <Icon name="phone" class="contact-info-title-icon" variant="light" />
+                        Teléfono
+                    </span>
+                    <a class="footer-link contact-info-link" href={`tel:${CONTACT.phone}`}>
+                        {CONTACT.phone}
+                    </a>
+                </div>
+                <div class="contact-info">
+                    <span class="contact-info-title">
+                        <Icon name="place" class="contact-info-title-icon" variant="light" />
+                        Ubicación
+                    </span>
+                    <a class="footer-link contact-info-link" href={CONTACT.maps}>
+                        {CONTACT.address}
+                    </a>
+                </div>
+            </div>
+            <div class="footer-columns-column links">
+                <span class="footer-columns-column-title">Enlaces</span>
+                <br />
+                {NAV_LINKS.map((item) => (
+                    <a
+                        class:list={[
+                            'footer-link',
+                            isCurrentPath(pathname, item.href) && 'footer-link-active',
+                        ]}
+                        href={item.href}
+                    >
+                        {item.label}
+                    </a>
+                ))}
+            </div>
+        </div>
+        <div class="social">
+            <span class="social-title">Visitanos en nuestras redes sociales</span>
+            <div class="social-icons">
+                <SocialLinks variant="secondary" itemClass="social-icons-icon" showTooltip />
+            </div>
+        </div>
+        <span class="trademark">
+            <span>
+                {`SOLFIR - Soluciones financieras y reorganizaciones S.A.S © Todos los derechos reservados | ${year}`}
+            </span>
+        </span>
+        <span class="credits">
+            {CREDITS.map((credit) => (
+                <span>
+                    {credit.role}{' '}
+                    {credit.href ? (
+                        <a href={credit.href} target="_blank" rel="noopener noreferrer">
+                            {credit.label}
+                        </a>
+                    ) : (
+                        <span>{credit.label}</span>
+                    )}
+                </span>
+            ))}
+        </span>
+    </div>
+</footer>

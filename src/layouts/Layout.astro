@@ -1,0 +1,122 @@
+---
+import { MAINTENANCE } from 'astro:env/server';
+import { PUBLIC_GA_MEASUREMENT_ID } from 'astro:env/client';
+import { CONTACT, SITE, type SeoInput } from '../lib/site';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Settings from '../components/Settings.astro';
+import Maintenance from '../components/Maintenance.astro';
+import Icon from '../components/Icon.astro';
+import '../styles/global.css';
+
+interface Props {
+    seo: SeoInput;
+}
+
+const { seo } = Astro.props;
+const siteUrl = (Astro.site ?? new URL(SITE.url)).toString().replace(/\/$/, '');
+const description = seo.description || SITE.description;
+const imageSource = seo.image || SITE.image;
+const imageUrl = imageSource.startsWith('http')
+    ? imageSource
+    : new URL(imageSource, `${siteUrl}/`).toString();
+const canonical = new URL(seo.pathname || Astro.url.pathname, `${siteUrl}/`).toString();
+const documentTitle = `${SITE.name} - ${seo.title}`;
+const gaId = PUBLIC_GA_MEASUREMENT_ID?.trim() ?? '';
+const maintenance = MAINTENANCE;
+---
+
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{documentTitle}</title>
+        <meta name="description" content={description} />
+        <meta name="image" content={imageUrl} />
+        <link rel="canonical" href={canonical} />
+        <meta property="og:type" content={seo.ogType ?? 'website'} />
+        <meta property="og:locale" content="es_CO" />
+        <meta property="og:site_name" content={SITE.title} />
+        <meta property="og:title" content={seo.title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={canonical} />
+        <meta property="og:image" content={imageUrl} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={seo.title} />
+        <meta name="twitter:url" content={canonical} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={imageUrl} />
+        <meta name="twitter:creator" content={SITE.twitter} />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/icon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+        <meta name="theme-color" content="#012651" />
+        <link rel="preload" href="/fonts/Modern20.ttf" as="font" type="font/ttf" crossorigin />
+        <link
+            rel="preload"
+            href="/fonts/Champagne&Limousines.ttf"
+            as="font"
+            type="font/ttf"
+            crossorigin
+        />
+        <link
+            rel="preload"
+            href="/fonts/Champagne&LimousinesBold.ttf"
+            as="font"
+            type="font/ttf"
+            crossorigin
+        />
+        <link
+            rel="preload"
+            href="/fonts/Champagne&LimousinesBoldItalic.ttf"
+            as="font"
+            type="font/ttf"
+            crossorigin
+        />
+        <link
+            rel="preload"
+            href="/fonts/Champagne&LimousinesItalic.ttf"
+            as="font"
+            type="font/ttf"
+            crossorigin
+        />
+        <meta name="generator" content={Astro.generator} />
+        {gaId && (
+            <>
+                <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
+                <script is:inline define:vars={{ gaId }}>
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag() {
+                        window.dataLayer.push(arguments);
+                    }
+                    gtag('js', new Date());
+                    gtag('config', gaId);
+                </script>
+            </>
+        )}
+    </head>
+    <body>
+        {maintenance ? (
+            <Maintenance />
+        ) : (
+            <main class="layout" id="layout">
+                <Header />
+                <div class="content">
+                    <slot />
+                </div>
+                <Footer />
+                <a
+                    class="bubble"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href={CONTACT.whatsapp}
+                    aria-label="Click aqui para abrir un chat con uno de nuestros asesores"
+                >
+                    <Icon class="icon" name="whatsapp" fill="white" />
+                </a>
+                <Settings />
+            </main>
+        )}
+    </body>
+</html>
