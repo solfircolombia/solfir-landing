@@ -1,5 +1,7 @@
 ---
+import type { ContentImage as ContentImageData } from '../lib/contentful';
 import type { IconName } from '../lib/icons';
+import ContentImage from './ContentImage.astro';
 import Icon from './Icon.astro';
 
 interface Props {
@@ -7,17 +9,29 @@ interface Props {
     description?: string;
     icon: IconName;
     heading?: 'h2' | 'h3';
+    image?: ContentImageData | null;
 }
 
-const { title, description, icon, heading = 'h2' } = Astro.props;
+const { title, description, icon, heading = 'h2', image = null } = Astro.props;
 const Heading = heading;
 ---
 
 <article class="surface-card service-card">
-    <Icon name={icon} />
-    <Heading class="card-title">{title}</Heading>
-    {description && <p class="card-text">{description}</p>}
-    <div>
-        <slot />
+    {image && (
+        <div class="card-media">
+            <ContentImage
+                image={image}
+                widths={[360, 480, 720]}
+                sizes="(max-width: 768px) 90vw, 360px"
+            />
+        </div>
+    )}
+    <div class="service-card-body">
+        <Icon name={icon} />
+        <Heading class="card-title">{title}</Heading>
+        {description && <p class="card-text">{description}</p>}
+        <div class="service-card-action">
+            <slot />
+        </div>
     </div>
 </article>

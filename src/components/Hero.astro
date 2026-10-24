@@ -1,33 +1,112 @@
 ---
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import fallbackImage from '../assets/hero/centre-ageing-better-calculator.jpg';
+import type { HomePage } from '../lib/contentful';
+import {
+    HERO_FALLBACK_CREDIT,
+    HERO_FALLBACK_PRIMARY_LABEL,
+    HERO_FALLBACK_PRIMARY_URL,
+    HERO_FALLBACK_TITLE,
+    HERO_OBJECT_POSITION,
+    creditLine,
+    heroTitleParts,
+    photoCredit,
+} from '../lib/hero';
+import Button from './Button.astro';
+
 interface Props {
-    image?: {
-        src: string;
-        alt: string;
-    };
+    page?: HomePage | null;
+    image?: ImageMetadata;
 }
 
-const { image } = Astro.props;
+const { page = null, image } = Astro.props;
+const title = page?.title || HERO_FALLBACK_TITLE;
+const eyebrow = page?.eyebrow ?? '';
+const subtitle = page?.subtitle ?? '';
+const primaryLabel = page?.primaryCtaLabel || HERO_FALLBACK_PRIMARY_LABEL;
+const primaryUrl = page?.primaryCtaUrl || HERO_FALLBACK_PRIMARY_URL;
+const secondaryLabel = page?.secondaryCtaLabel ?? '';
+const secondaryUrl = page?.secondaryCtaUrl ?? '';
+const parts = heroTitleParts(title);
+const remote = page?.image ?? null;
+const localImage = image ?? fallbackImage;
+const position = page?.imagePosition ?? 'right';
+const showImage = Boolean(remote || localImage);
+const credit = creditLine(
+    remote ? photoCredit(remote.title, remote.description) : showImage ? HERO_FALLBACK_CREDIT : ''
+);
+const widths = [480, 768, 1280, 1920, 2400];
+const sourceWidth = remote?.width ?? localImage.width;
+const usableWidths = widths.filter((width) => width <= sourceWidth);
+const resolvedWidths = usableWidths.length > 0 ? usableWidths : [Math.min(sourceWidth, widths[0])];
 ---
 
-<section class="hero" id="landing-banner" data-hero={image ? 'image' : 'type'}>
-    {
-        image && (
-            <img
-                class="hero-image"
-                src={image.src}
-                alt={image.alt}
-                width="1140"
-                height="640"
-                decoding="async"
-            />
-        )
-    }
+<section
+    class="hero"
+    id="landing-banner"
+    data-hero={showImage ? 'image' : 'type'}
+    style={showImage ? `--hero-object-position: ${HERO_OBJECT_POSITION[position]}` : undefined}
+>
+    {remote && (
+        <Picture
+            src={remote.url}
+            alt=""
+            width={remote.width}
+            height={remote.height}
+            widths={resolvedWidths}
+            sizes="100vw"
+            formats={['avif', 'webp']}
+            fallbackFormat="webp"
+            quality={65}
+            loading="eager"
+            fetchpriority="high"
+            class="hero-image"
+            pictureAttributes={{ class: 'hero-media' }}
+        />
+    )}
+    {!remote && showImage && (
+        <Picture
+            src={localImage}
+            alt=""
+            widths={resolvedWidths}
+            sizes="100vw"
+            formats={['avif', 'webp']}
+            fallbackFormat="webp"
+            quality={65}
+            loading="eager"
+            fetchpriority="high"
+            class="hero-image"
+            pictureAttributes={{ class: 'hero-media' }}
+        />
+    )}
     <div class="container">
-        <h1 class="hero-title">
-            <slot name="title" />
-        </h1>
+        <div class="hero-copy">
+            {eyebrow && <p class="hero-eyebrow">{eyebrow}</p>}
+            <h1 class="hero-title">
+                {parts.map((part) =>
+                    part.emphasis ? (
+                        <b class="landing-banner-title-solfir">{part.text}</b>
+                    ) : (
+                        part.text
+                    )
+                )}
+            </h1>
+            {subtitle && <p class="hero-subtitle">{subtitle}</p>}
+        </div>
         <div class="hero-actions">
+            {primaryLabel && primaryUrl && (
+                <Button variant="primary" href={primaryUrl}>
+                    {primaryLabel}
+                </Button>
+            )}
+            {secondaryLabel && secondaryUrl && (
+                <Button variant="secondary" href={secondaryUrl}>
+                    {secondaryLabel}
+                </Button>
+            )}
             <slot />
         </div>
     </div>
+    {credit && <p class="hero-credit">{credit}</p>}
 </section>
