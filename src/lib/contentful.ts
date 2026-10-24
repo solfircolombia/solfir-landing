@@ -47,11 +47,13 @@ export interface Service {
     title: string;
     slug: string;
     description: string;
+    metaDescription: string;
     icon: IconName;
     image: ContentImage | null;
     benefits: ServicePoint[];
     steps: ServicePoint[];
     faq: ServiceFaq[];
+    relatedPosts: BlogPost[];
 }
 
 export interface CvProfile {
@@ -146,13 +148,16 @@ interface BlogPostFields {
 interface ServiceFields {
     title?: string;
     description?: string;
+    metaDescription?: string;
     icon?: string;
     image?: ContentfulLink;
     slug?: string;
     benefits?: unknown;
+    /** Older name. `steps` is the field on the content type. */
     process?: unknown;
     steps?: unknown;
     faq?: unknown;
+    relatedPosts?: ContentfulLink[];
     [key: string]: unknown;
 }
 
@@ -301,11 +306,27 @@ function stringField(record: Record<string, unknown>, keys: string[]): string {
     return '';
 }
 
+function asArray(value: unknown): unknown[] {
+    if (Array.isArray(value)) {
+        return value;
+    }
+    if (typeof value === 'string' && value.trim().startsWith('[')) {
+        try {
+            const parsed = JSON.parse(value) as unknown;
+            return Array.isArray(parsed) ? parsed : [];
+        } catch {
+            return [];
+        }
+    }
+    return [];
+}
+
 function pointList(value: unknown, titleKeys: string[], textKeys: string[]): ServicePoint[] {
-    if (!Array.isArray(value)) {
+    const items = asArray(value);
+    if (items.length === 0) {
         return [];
     }
-    return value.flatMap((item) => {
+    return items.flatMap((item) => {
         if (!item || typeof item !== 'object') {
             return [];
         }
@@ -319,11 +340,64 @@ function pointList(value: unknown, titleKeys: string[], textKeys: string[]): Ser
     });
 }
 
-function faqList(value: unknown): ServiceFaq[] {
+function asLink(value: unknown): ContentfulLink | undefined {
+    if (!value || typeof value !== 'object') {
+        return undefined;
+    }
+    const sys = (value as { sys?: ContentfulLink['sys'] }).sys;
+    if (!sys?.id || sys.type !== 'Link') {
+        return undefined;
+    }
+    return { sys };
+}
+
+function mapRelatedPost(
+    entry: ContentfulEntry<Record<string, unknown>> | undefined,
+    assets: Map<string, ContentfulAsset>,
+    entries: Map<string, ContentfulEntry<Record<string, unknown>>>
+): BlogPost | null {
+    if (!entry) {
+        return null;
+    }
+    const title = typeof entry.fields.title === 'string' ? entry.fields.title.trim() : '';
+    const slug = typeof entry.fields.slug === 'string' ? entry.fields.slug.trim() : '';
+    if (!title || !slug) {
+        return null;
+    }
+    const authorEntry = asLink(entry.fields.author);
+    const author = authorEntry ? entries.get(authorEntry.sys.id) : undefined;
+    const authorName = typeof author?.fields.name === 'string' ? author.fields.name : '';
+    const authorSlug = typeof author?.fields.slug === 'string' ? author.fields.slug : '';
+    const content = entry.fields.content;
+    return {
+        id: entry.sys.id,
+        title,
+        slug,
+        summary: typeof entry.fields.summary === 'string' ? entry.fields.summary : '',
+        date: typeof entry.fields.date === 'string' ? entry.fields.date : '',
+        content: content && typeof content === 'object' ? (content as Document) : null,
+        image: resolveAsset(asLink(entry.fields.image), assets, title),
+        author: authorName && authorSlug ? { name: authorName, slug: authorSlug } : null,
+    };
+}
+
+function relatedPostList(
+    value: unknown,
+    assets: Map<string, ContentfulAsset>,
+    entries: Map<string, ContentfulEntry<Record<string, unknown>>>
+): BlogPost[] {
     if (!Array.isArray(value)) {
         return [];
     }
     return value.flatMap((item) => {
+        const link = asLink(item);
+        const post = link ? mapRelatedPost(entries.get(link.sys.id), assets, entries) : null;
+        return post ? [post] : [];
+    });
+}
+
+function faqList(value: unknown): ServiceFaq[] {
+    return asArray(value).flatMap((item) => {
         if (!item || typeof item !== 'object') {
             return [];
         }
@@ -340,6 +414,7 @@ function faqList(value: unknown): ServiceFaq[] {
 const loadServices = once(async (): Promise<Service[]> => {
     const collection = await fetchCollection<ServiceFields>('service', '-sys.updatedAt');
     const assets = assetMap(collection);
+    const entries = entryMap(collection);
     const used = new Map<string, number>();
 
     return collection.items.flatMap((item) => {
@@ -360,15 +435,19 @@ const loadServices = once(async (): Promise<Service[]> => {
                 title,
                 slug,
                 description: item.fields.description ?? '',
+                metaDescription:
+                    typeof item.fields.metaDescription === 'string'
+                        ? item.fields.metaDescription.trim()
+                        : '',
                 icon: isIconName(item.fields.icon) ? item.fields.icon : 'arrow-right',
                 image: resolveAsset(item.fields.image, assets, title),
-                benefits: pointList(item.fields.benefits, ['title', 'name'], ['text', 'description']),
-                steps: pointList(
-                    item.fields.process ?? item.fields.steps,
-                    ['title', 'name'],
-                    ['text', 'description']
-                ),
+                benefits: pointList(item.fields.benefits, ['title', 'text'], ['text', 'description']),
+                steps: pointList(item.fields.steps ?? item.fields.process, ['title', 'text'], [
+                    'text',
+                    'description',
+                ]),
                 faq: faqList(item.fields.faq),
+                relatedPosts: relatedPostList(item.fields.relatedPosts, assets, entries),
             },
         ];
     });

@@ -54,6 +54,10 @@ const maintenance = MAINTENANCE;
                 root.setAttribute('data-theme-mode', mode);
                 root.setAttribute('data-text-size', size);
                 if (contrast) root.setAttribute('data-contrast', 'high');
+                var scale = size === 'xl' ? 1.25 : size === 'lg' ? 1.125 : size === 'sm' ? 0.875 : 1;
+                if (window.innerWidth < 768 || window.innerWidth < 860 * scale + 280) {
+                    root.setAttribute('data-nav', 'compact');
+                }
             })();
         </script>
         <title>{documentTitle}</title>

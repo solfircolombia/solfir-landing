@@ -23,8 +23,10 @@ const posts = await getBlogPosts();
 const siteUrl = (Astro.site ?? new URL(SITE.url)).toString().replace(/\/$/, '');
 const pageUrl = new URL(servicePath(service.slug), `${siteUrl}/`).toString();
 const description = service.description.replace(/\s+/g, ' ').trim();
-const metaDescription =
+const truncatedDescription =
     description.length > 160 ? `${description.slice(0, 157).replace(/\s+\S*$/, '')}...` : description;
+const metaDescription = service.metaDescription || truncatedDescription;
+const faqEntries = service.faq.filter((item) => item.question && item.answer);
 
 const jsonLd = JSON.stringify({
     '@context': 'https://schema.org',
@@ -32,7 +34,7 @@ const jsonLd = JSON.stringify({
         {
             '@type': 'Service',
             name: service.title,
-            description,
+            description: metaDescription || description,
             url: pageUrl,
             ...(service.image ? { image: service.image.url } : {}),
             provider: {
@@ -68,6 +70,21 @@ const jsonLd = JSON.stringify({
                 },
             ],
         },
+        ...(faqEntries.length > 0
+            ? [
+                  {
+                      '@type': 'FAQPage',
+                      mainEntity: faqEntries.map((item) => ({
+                          '@type': 'Question',
+                          name: item.question,
+                          acceptedAnswer: {
+                              '@type': 'Answer',
+                              text: item.answer,
+                          },
+                      })),
+                  },
+              ]
+            : []),
     ],
 }).replace(/</g, '\\u003c');
 ---
@@ -155,10 +172,16 @@ const jsonLd = JSON.stringify({
             }
         </div>
         {
-            posts.length > 0 && (
+            service.relatedPosts.length > 0 ? (
                 <div class="container">
-                    <RecentPosts />
+                    <RecentPosts posts={service.relatedPosts} title="Publicaciones relacionadas" />
                 </div>
+            ) : (
+                posts.length > 0 && (
+                    <div class="container">
+                        <RecentPosts />
+                    </div>
+                )
             )
         }
         <section class="band band-accent" aria-labelledby="service-cta">

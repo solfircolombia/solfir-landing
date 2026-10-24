@@ -95,5 +95,66 @@ const pathname = Astro.url.pathname;
                 controller.close();
             }
         });
+
+        const root = document.documentElement;
+        const header = document.querySelector<HTMLElement>('.header');
+        const links = header?.querySelector<HTMLElement>('.header-links');
+
+        const inlineFits = () => {
+            if (!header || !links) {
+                return true;
+            }
+            root.dataset.nav = 'inline';
+            const items = Array.from(links.querySelectorAll<HTMLElement>('.header-links-item'));
+            if (window.innerWidth < 768) {
+                return false;
+            }
+            const visible = items.filter((item) => item.getClientRects().length > 0);
+            if (visible.length !== items.length) {
+                return false;
+            }
+            const headerBox = header.getBoundingClientRect();
+            const rects = visible.map((item) => item.getBoundingClientRect());
+            const clipped = rects.some(
+                (rect) =>
+                    rect.left < headerBox.left - 0.5 ||
+                    rect.right > headerBox.right + 0.5 ||
+                    rect.top < headerBox.top - 0.5 ||
+                    rect.bottom > headerBox.bottom + 0.5
+            );
+            const ordered = [...rects].sort((a, b) => a.left - b.left || a.top - b.top);
+            const overlap = ordered.some((rect, index) => {
+                const previous = ordered[index - 1];
+                if (!previous) {
+                    return false;
+                }
+                const sameRow = rect.top < previous.bottom - 1 && previous.top < rect.bottom - 1;
+                return sameRow && rect.left < previous.right - 1;
+            });
+            const pageOverflow =
+                document.documentElement.scrollWidth > document.documentElement.clientWidth + 1;
+            return !clipped && !overlap && !pageOverflow;
+        };
+
+        let frame = 0;
+        const syncNav = () => {
+            cancelAnimationFrame(frame);
+            frame = requestAnimationFrame(() => {
+                const open = !modal.hidden;
+                const fits = inlineFits();
+                root.dataset.nav = fits ? 'inline' : 'compact';
+                if (fits && open) {
+                    controller.close();
+                }
+            });
+        };
+
+        syncNav();
+        window.addEventListener('resize', syncNav);
+        document.fonts?.ready.then(syncNav);
+        new MutationObserver(syncNav).observe(root, {
+            attributes: true,
+            attributeFilter: ['data-text-size'],
+        });
     }
 </script>
