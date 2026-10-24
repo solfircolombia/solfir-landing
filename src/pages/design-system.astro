@@ -2,9 +2,11 @@
 import Layout from '../layouts/Layout.astro';
 import BlogCard from '../components/BlogCard.astro';
 import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
 import ServiceCard from '../components/ServiceCard.astro';
 import TeamCard from '../components/TeamCard.astro';
 import { getBlogPosts, getServices, getTeamMembers } from '../lib/contentful';
+import type { IconName } from '../lib/icons';
 import { teamPath } from '../lib/site';
 import { contrastRatio, formatRatio, meetsAa } from '../lib/contrast';
 import { palette, themeSamples } from '../lib/palette';
@@ -35,6 +37,54 @@ const samplePost = (await getBlogPosts())[0];
 const sampleService = (await getServices())[0];
 const sampleMember = (await getTeamMembers())[0];
 
+const serviceIcons: { name: IconName; source: string }[] = [
+    { name: 'shield-check', source: 'GppGood' },
+    { name: 'handshake', source: 'Handshake' },
+    { name: 'trending-up', source: 'TrendingUp' },
+    { name: 'savings', source: 'Savings' },
+];
+
+/** High-contrast dark cards use this surface. It matches tokens.css. */
+const highContrastDarkSurface = '#141414';
+
+const serviceIconPairs = [
+    {
+        label: 'Claro, icono sobre tarjeta',
+        foreground: palette.navy,
+        background: palette.white,
+    },
+    {
+        label: 'Oscuro, icono sobre tarjeta',
+        foreground: palette.emphasisDark,
+        background: palette.surfaceDark,
+    },
+    {
+        label: 'Alto contraste claro, icono sobre tarjeta',
+        foreground: palette.black,
+        background: palette.white,
+    },
+    {
+        label: 'Alto contraste oscuro, icono sobre tarjeta',
+        foreground: palette.white,
+        background: highContrastDarkSurface,
+    },
+    {
+        label: 'Claro, icono en cabecera',
+        foreground: palette.white,
+        background: palette.navy,
+    },
+    {
+        label: 'Oscuro, icono en cabecera',
+        foreground: palette.textDark,
+        background: palette.footerDark,
+    },
+    {
+        label: 'Alto contraste, icono en cabecera',
+        foreground: palette.white,
+        background: palette.black,
+    },
+];
+
 const primitives = [
     ['Navy', palette.navy],
     ['Amarillo', palette.yellow],
@@ -59,9 +109,9 @@ const primitives = [
         <header class="ds-intro">
             <h1>Sistema de diseño</h1>
             <p>
-                Página interna. No está en el mapa del sitio. La paleta es Marino institucional:
-                el azul <span class="ds-code">{palette.navy}</span> es el color primario y el
-                amarillo <span class="ds-code">{palette.yellow}</span> es solo acento.
+                Página interna. No está en el mapa del sitio. La paleta es Marino institucional: el
+                azul <span class="ds-code">{palette.navy}</span> es el color primario y el amarillo{' '}
+                <span class="ds-code">{palette.yellow}</span> es solo acento.
             </p>
         </header>
 
@@ -69,23 +119,21 @@ const primitives = [
             <h2 id="ds-tokens">Tokens</h2>
             <h3>Primitivos</h3>
             <ul class="ds-swatches">
-                {
-                    primitives.map(([name, hex]) => (
-                        <li>
-                            <span class="ds-chip" style={`background:${hex}`} />
-                            <span>
-                                {name}
-                                <span class="ds-code">{hex}</span>
-                            </span>
-                        </li>
-                    ))
-                }
+                {primitives.map(([name, hex]) => (
+                    <li>
+                        <span class="ds-chip" style={`background:${hex}`} />
+                        <span>
+                            {name}
+                            <span class="ds-code">{hex}</span>
+                        </span>
+                    </li>
+                ))}
             </ul>
             <h3>Semánticos y de componente</h3>
             <p>
                 Los tokens semánticos cambian con <span class="ds-code">data-theme</span> y
-                <span class="ds-code">data-contrast</span>. Los de componente
-                (<span class="ds-code">--component-button-bg</span>,
+                <span class="ds-code">data-contrast</span>. Los de componente (
+                <span class="ds-code">--component-button-bg</span>,
                 <span class="ds-code">--component-header-bg</span>,
                 <span class="ds-code">--component-footer-link</span>,
                 <span class="ds-code">--component-focus-color</span>) apuntan a esos valores.
@@ -101,64 +149,61 @@ const primitives = [
                 la raíz.
             </p>
             <ul class="ds-type">
-                {
-                    typeSteps.map((step) => (
-                        <li>
-                            <span class="ds-code">{step.name}</span>
-                            <span
-                                style={`font-size:${step.size};font-family:${
-                                    step.name === 'display' || step.name === '3xl' || step.name === '2xl'
-                                        ? 'var(--semantic-font-display)'
-                                        : 'var(--semantic-font-body)'
-                                }`}
-                            >
-                                {step.sample}
-                            </span>
-                        </li>
-                    ))
-                }
+                {typeSteps.map((step) => (
+                    <li>
+                        <span class="ds-code">{step.name}</span>
+                        <span
+                            style={`font-size:${step.size};font-family:${
+                                step.name === 'display' ||
+                                step.name === '3xl' ||
+                                step.name === '2xl'
+                                    ? 'var(--semantic-font-display)'
+                                    : 'var(--semantic-font-body)'
+                            }`}
+                        >
+                            {step.sample}
+                        </span>
+                    </li>
+                ))}
             </ul>
         </section>
 
         <section class="ds-section" aria-labelledby="ds-color">
             <h2 id="ds-color">Color y contraste</h2>
-            <p>Los pares marcados como texto cumplen WCAG 2.2 AA (4.5:1). El acento sobre blanco no se usa como texto.</p>
-            {
-                themeSamples.map((sample) => (
-                    <div
-                        class="ds-theme"
-                        data-theme={sample.theme}
-                        data-contrast={sample.contrast}
-                    >
-                        <h3>{sample.name}</h3>
-                        <ul class="ds-pairs">
-                            {sample.pairs.map((pair) => {
-                                const ratio = contrastRatio(pair.foreground, pair.background);
-                                const pass = pair.forbidden ? false : meetsAa(ratio, pair.large);
-                                return (
-                                    <li>
-                                        <span
-                                            class="ds-pair-swatch"
-                                            style={`background:${pair.background}`}
-                                        />
-                                        <span>
-                                            {pair.label}
-                                            <span class="ds-code">
-                                                {pair.foreground} sobre {pair.background} ·{' '}
-                                                {formatRatio(ratio)} · {pass ? 'AA' : 'no AA'}
-                                            </span>
+            <p>
+                Los pares marcados como texto cumplen WCAG 2.2 AA (4.5:1). El acento sobre blanco no
+                se usa como texto.
+            </p>
+            {themeSamples.map((sample) => (
+                <div class="ds-theme" data-theme={sample.theme} data-contrast={sample.contrast}>
+                    <h3>{sample.name}</h3>
+                    <ul class="ds-pairs">
+                        {sample.pairs.map((pair) => {
+                            const ratio = contrastRatio(pair.foreground, pair.background);
+                            const pass = pair.forbidden ? false : meetsAa(ratio, pair.large);
+                            return (
+                                <li>
+                                    <span
+                                        class="ds-pair-swatch"
+                                        style={`background:${pair.background}`}
+                                    />
+                                    <span>
+                                        {pair.label}
+                                        <span class="ds-code">
+                                            {pair.foreground} sobre {pair.background} ·{' '}
+                                            {formatRatio(ratio)} · {pass ? 'AA' : 'no AA'}
                                         </span>
-                                    </li>
-                                );
-                            })}
-                        </ul>
-                        <div class="ds-preview">
-                            <p>Texto de muestra sobre el fondo del tema.</p>
-                            <Button variant="primary">Acción</Button>
-                        </div>
+                                    </span>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                    <div class="ds-preview">
+                        <p>Texto de muestra sobre el fondo del tema.</p>
+                        <Button variant="primary">Acción</Button>
                     </div>
-                ))
-            }
+                </div>
+            ))}
         </section>
 
         <section class="ds-section" aria-labelledby="ds-components">
@@ -171,14 +216,12 @@ const primitives = [
             </div>
             <h3>Espacio, radio y sombra</h3>
             <ul class="ds-spaces">
-                {
-                    spaces.map(([name, size]) => (
-                        <li>
-                            <span class="ds-space" style={`width:${size}`} />
-                            <span class="ds-code">{name}</span>
-                        </li>
-                    ))
-                }
+                {spaces.map(([name, size]) => (
+                    <li>
+                        <span class="ds-space" style={`width:${size}`} />
+                        <span class="ds-code">{name}</span>
+                    </li>
+                ))}
             </ul>
             <div class="ds-row">
                 <span class="ds-radius ds-radius-sm">sm</span>
@@ -197,29 +240,75 @@ const primitives = [
             </p>
             <h3>Tarjeta de blog</h3>
             {samplePost && <BlogCard post={samplePost} />}
+            <h3>Iconos de servicio</h3>
+            <p>
+                Cuatro iconos Material 24px, los mismos trazos que
+                <span class="ds-code">@mui/icons-material</span>: shield-check, handshake,
+                trending-up y savings. En la tarjeta el icono usa el color de marca sobre la
+                superficie. En la cabecera de cada servicio usa el texto del encabezado. El umbral
+                de contraste no textual es 3:1.
+            </p>
+            <div class="ds-icon-stage ds-icon-stage-card">
+                {serviceIcons.map((icon) => (
+                    <span class="ds-icon-item">
+                        <Icon name={icon.name} />
+                        <span>
+                            {icon.name}
+                            <span class="ds-code">{icon.source}</span>
+                        </span>
+                    </span>
+                ))}
+            </div>
+            <div class="ds-icon-stage ds-icon-stage-header">
+                {serviceIcons.map((icon) => (
+                    <span class="ds-icon-item">
+                        <Icon name={icon.name} />
+                        <span>{icon.name}</span>
+                    </span>
+                ))}
+            </div>
+            <ul class="ds-pairs">
+                {serviceIconPairs.map((pair) => {
+                    const ratio = contrastRatio(pair.foreground, pair.background);
+                    const pass = ratio >= 3;
+                    return (
+                        <li>
+                            <span
+                                class="ds-pair-swatch"
+                                style={`background:${pair.background};color:${pair.foreground}`}
+                            >
+                                <Icon name="shield-check" />
+                            </span>
+                            <span>
+                                {pair.label}
+                                <span class="ds-code">
+                                    {pair.foreground} sobre {pair.background} · {formatRatio(ratio)}{' '}
+                                    · {pass ? '3:1' : 'bajo 3:1'}
+                                </span>
+                            </span>
+                        </li>
+                    );
+                })}
+            </ul>
             <h3>Tarjeta de servicio</h3>
-            {
-                sampleService && (
-                    <ServiceCard
-                        title={sampleService.title}
-                        description={sampleService.description}
-                        icon={sampleService.icon}
-                        heading="h3"
-                    />
-                )
-            }
+            {sampleService && (
+                <ServiceCard
+                    title={sampleService.title}
+                    description={sampleService.description}
+                    icon={sampleService.icon}
+                    heading="h3"
+                />
+            )}
             <h3>Tarjeta de equipo</h3>
-            {
-                sampleMember && (
-                    <TeamCard
-                        name={sampleMember.name}
-                        role={sampleMember.role}
-                        href={teamPath(sampleMember.slug)}
-                        avatar={sampleMember.avatar}
-                        heading="h3"
-                    />
-                )
-            }
+            {sampleMember && (
+                <TeamCard
+                    name={sampleMember.name}
+                    role={sampleMember.role}
+                    href={teamPath(sampleMember.slug)}
+                    avatar={sampleMember.avatar}
+                    heading="h3"
+                />
+            )}
             <h3>Prosa</h3>
             <div class="prose">
                 <p>
@@ -244,7 +333,9 @@ const primitives = [
                         aria-invalid="true"
                         aria-describedby="ds-email-error"
                     />
-                    <p class="field-error" id="ds-email-error">Ingresa un correo electrónico válido.</p>
+                    <p class="field-error" id="ds-email-error">
+                        Ingresa un correo electrónico válido.
+                    </p>
                 </div>
             </form>
             <h3>Banda de acento</h3>
@@ -329,6 +420,9 @@ const primitives = [
 
     .ds-chip,
     .ds-pair-swatch {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         width: 3rem;
         height: 3rem;
         flex: none;
@@ -405,5 +499,47 @@ const primitives = [
         padding: var(--primitive-space-5);
         border-radius: var(--primitive-radius-md);
         box-shadow: var(--primitive-shadow-3);
+    }
+
+    .ds-icon-stage {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--primitive-space-4);
+        margin: 0 0 var(--primitive-space-4);
+        padding: var(--primitive-space-4);
+        border-radius: var(--primitive-radius-lg);
+    }
+
+    .ds-icon-stage-card {
+        background: var(--semantic-color-surface);
+        color: var(--semantic-color-text);
+        border: 1px solid color-mix(in srgb, var(--semantic-color-border) 28%, transparent);
+    }
+
+    .ds-icon-stage-card .icon {
+        color: var(--semantic-color-brand);
+    }
+
+    .ds-icon-stage-header {
+        background: var(--component-footer-bg);
+        color: var(--component-footer-text);
+    }
+
+    .ds-icon-stage-header .icon,
+    .ds-pair-swatch .icon {
+        color: currentColor;
+    }
+
+    .ds-icon-item {
+        display: flex;
+        align-items: center;
+        gap: var(--primitive-space-2);
+        min-width: 12rem;
+    }
+
+    .ds-icon-stage .icon,
+    .ds-pair-swatch .icon {
+        width: 2.5rem;
+        height: 2.5rem;
     }
 </style>
