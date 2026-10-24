@@ -128,6 +128,7 @@ export interface MediaItem {
 
 interface ContentfulSys {
     id: string;
+    createdAt?: string;
 }
 
 interface ContentfulLink {
@@ -328,40 +329,97 @@ function resolveAsset(
     return mapImage(assets.get(link.sys.id), fallbackAlt, descriptionOnly);
 }
 
+/** Date-only values stay on that calendar day. Anything else is parsed as a timestamp. */
+function parsePublicationDate(value: string): number | null {
+    const trimmed = value.trim();
+    if (!trimmed) {
+        return null;
+    }
+    if (/^\d{4}-\d{2}-\d{2}$/.test(trimmed)) {
+        const [year, month, day] = trimmed.split('-').map(Number);
+        if (!year || month < 1 || month > 12 || day < 1 || day > 31) {
+            return null;
+        }
+        const time = Date.UTC(year, month - 1, day);
+        const check = new Date(time);
+        if (
+            check.getUTCFullYear() !== year ||
+            check.getUTCMonth() !== month - 1 ||
+            check.getUTCDate() !== day
+        ) {
+            return null;
+        }
+        return time;
+    }
+    const time = Date.parse(trimmed);
+    return Number.isNaN(time) ? null : time;
+}
+
+/** Contentful `date` when it parses; otherwise the entry's sys.createdAt. */
+function publicationDate(fieldDate: unknown, createdAt: string | undefined): string {
+    if (typeof fieldDate === 'string' && parsePublicationDate(fieldDate) !== null) {
+        return fieldDate.trim();
+    }
+    if (createdAt && parsePublicationDate(createdAt) !== null) {
+        return createdAt;
+    }
+    return '';
+}
+
+function compareNewestFirst(a: BlogPost, b: BlogPost): number {
+    const left = a.date ? parsePublicationDate(a.date) : null;
+    const right = b.date ? parsePublicationDate(b.date) : null;
+    if (left === null && right === null) {
+        return a.title.localeCompare(b.title, 'es');
+    }
+    if (left === null) {
+        return 1;
+    }
+    if (right === null) {
+        return -1;
+    }
+    if (left !== right) {
+        return right - left;
+    }
+    return a.title.localeCompare(b.title, 'es');
+}
+
 const loadBlogPosts = once(async (): Promise<BlogPost[]> => {
-    const collection = await fetchCollection<BlogPostFields>('blogPost', '-sys.updatedAt');
+    const collection = await fetchCollection<BlogPostFields>('blogPost');
     const assets = assetMap(collection);
     const entries = entryMap(collection);
 
-    return collection.items.flatMap((item) => {
-        const slug = item.fields.slug?.trim();
-        const title = item.fields.title?.trim();
-        if (!slug || !title) {
-            return [];
-        }
-        const authorEntry = item.fields.author?.sys.id
-            ? entries.get(item.fields.author.sys.id)
-            : undefined;
-        const authorName = authorEntry?.fields.name;
-        const authorSlug = authorEntry?.fields.slug;
-        const author =
-            typeof authorName === 'string' && typeof authorSlug === 'string'
-                ? { name: authorName, slug: authorSlug }
-                : null;
+    return collection.items
+        .flatMap((item) => {
+            const slug = item.fields.slug?.trim();
+            const title = item.fields.title?.trim();
+            if (!slug || !title) {
+                return [];
+            }
+            const authorEntry = item.fields.author?.sys.id
+                ? entries.get(item.fields.author.sys.id)
+                : undefined;
+            const authorName = authorEntry?.fields.name;
+            const authorSlug = authorEntry?.fields.slug;
+            const author =
+                typeof authorName === 'string' && typeof authorSlug === 'string'
+                    ? { name: authorName, slug: authorSlug }
+                    : null;
 
-        return [
-            {
-                id: item.sys.id,
-                title,
-                slug,
-                summary: item.fields.summary ?? '',
-                date: item.fields.date ?? '',
-                content: item.fields.content ?? null,
-                image: resolveAsset(item.fields.image, assets, title),
-                author,
-            },
-        ];
-    });
+            return [
+                {
+                    id: item.sys.id,
+                    title,
+                    slug,
+                    summary: item.fields.summary ?? '',
+                    date: publicationDate(item.fields.date, item.sys.createdAt),
+                    content: item.fields.content ?? null,
+                    image: resolveAsset(item.fields.image, assets, title),
+                    author,
+                },
+            ];
+        })
+        .sort(compareNewestFirst);
 });
 
 function stringField(record: Record<string, unknown>, keys: string[]): string {
@@ -442,7 +500,7 @@ function mapRelatedPost(
         title,
         slug,
         summary: typeof entry.fields.summary === 'string' ? entry.fields.summary : '',
-        date: typeof entry.fields.date === 'string' ? entry.fields.date : '',
+        date: publicationDate(entry.fields.date, entry.sys.createdAt),
         content: content && typeof content === 'object' ? (content as Document) : null,
         image: resolveAsset(asLink(entry.fields.image), assets, title),
         author: authorName && authorSlug ? { name: authorName, slug: authorSlug } : null,
@@ -457,11 +515,13 @@ function relatedPostList(
     if (!Array.isArray(value)) {
         return [];
     }
-    return value.flatMap((item) => {
-        const link = asLink(item);
-        const post = link ? mapRelatedPost(entries.get(link.sys.id), assets, entries) : null;
-        return post ? [post] : [];
-    });
+    return value
+        .flatMap((item) => {
+            const link = asLink(item);
+            const post = link ? mapRelatedPost(entries.get(link.sys.id), assets, entries) : null;
+            return post ? [post] : [];
+        })
+        .sort(compareNewestFirst);
 }
 
 function faqList(value: unknown): ServiceFaq[] {
@@ -631,8 +691,5 @@ export function getMedia(): Promise<MediaItem[]> {
 
 export async function getRecentPosts(limit = 3): Promise<BlogPost[]> {
     const posts = await getBlogPosts();
-    return [...posts]
-        .filter((post) => post.date)
-        .sort((a, b) => b.date.localeCompare(a.date))
-        .slice(0, limit);
+    return posts.slice(0, limit);
 }
