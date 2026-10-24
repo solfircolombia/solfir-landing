@@ -1,13 +1,19 @@
 ---
-import { getRecentPosts } from '../lib/contentful';
+import { getRecentPosts, type BlogPost } from '../lib/contentful';
 import { blogPath } from '../lib/site';
 import ContentImage from './ContentImage.astro';
 
-const posts = await getRecentPosts(3);
+interface Props {
+    posts?: BlogPost[];
+    title?: string;
+}
+
+const { posts: provided, title = 'Últimas publicaciones' } = Astro.props;
+const posts = provided ?? (await getRecentPosts(3));
 ---
 
 <aside class="recent-posts">
-    <h2 class="section-title">Últimas publicaciones</h2>
+    <h2 class="section-title">{title}</h2>
     <div class="card-grid">
         {
             posts.map((post) => (

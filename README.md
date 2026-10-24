@@ -59,7 +59,7 @@ Prettier runs on commit through husky and lint-staged.
 Contentful content types used at build time:
 
 - `blogPost` — `/blog/` and `/blog/<slug>/`
-- `service` — home (first three) and `/servicios/`
+- `service` — home (first three), `/servicios/`, and `/servicios/<slug>/`
 - `teamMember` — `/equipo/` and `/equipo/<slug>/`, ordered by `position`
 - `media` — loaded on the home page so the model stays part of the build. No current page renders these entries; the previous site did not either.
 
@@ -70,7 +70,7 @@ Blog and service lists follow Contentful’s last-updated order, which matches t
 | Path                             | Notes                               |
 | -------------------------------- | ----------------------------------- |
 | `/`                              | Home                                |
-| `/servicios/`                    | Service cards and detail modal      |
+| `/servicios/` and `/servicios/<slug>/` | Service index and one page per service |
 | `/quienes-somos/`                | About                               |
 | `/equipo/` and `/equipo/<slug>/` | Team                                |
 | `/blog/` and `/blog/<slug>/`     | Blog                                |
