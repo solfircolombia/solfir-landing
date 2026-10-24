@@ -248,6 +248,42 @@
     color-scheme: dark;
 }
 
+/* The photo hero opts into the dark theme on its own element, so a light
+   page still gets the navy scrim, light type, and yellow SOLFIR. High contrast
+   on the document wins: the hero inherits Palette C instead of keeping the
+   regular dark tokens. */
+html[data-contrast='high'] .hero[data-theme='dark'] {
+    color-scheme: inherit;
+    --semantic-color-bg: inherit;
+    --semantic-color-text: inherit;
+    --semantic-color-text-muted: inherit;
+    --semantic-color-brand: inherit;
+    --semantic-color-on-brand: inherit;
+    --semantic-color-accent: inherit;
+    --semantic-color-on-accent: inherit;
+    --semantic-color-emphasis: inherit;
+    --semantic-color-action-bg: inherit;
+    --semantic-color-action-text: inherit;
+    --semantic-color-header-bg: inherit;
+    --semantic-color-header-text: inherit;
+    --semantic-color-nav-underline: inherit;
+    --semantic-color-footer-bg: inherit;
+    --semantic-color-footer-text: inherit;
+    --semantic-color-footer-link: inherit;
+    --semantic-color-focus: inherit;
+    --semantic-color-focus-halo: inherit;
+    --semantic-color-on-light: inherit;
+    --semantic-color-surface: inherit;
+    --semantic-color-border: inherit;
+    --semantic-color-pattern: inherit;
+    --semantic-pattern-opacity: inherit;
+    --semantic-hero-text: inherit;
+    --semantic-hero-emphasis: inherit;
+    --semantic-hero-credit: inherit;
+    --semantic-hero-overlay: inherit;
+    --semantic-hero-overlay-mobile: inherit;
+}
+
 /* No-JS visitors still follow the operating system. The inline script sets
    data-theme-mode, which opts the document out of this block. */
 @media (prefers-color-scheme: dark) {

@@ -46,6 +46,7 @@ const resolvedWidths = usableWidths.length > 0 ? usableWidths : [Math.min(source
     class="hero"
     id="landing-banner"
     data-hero={showImage ? 'image' : 'type'}
+    data-theme={showImage ? 'dark' : undefined}
     style={showImage ? `--hero-object-position: ${HERO_OBJECT_POSITION[position]}` : undefined}
 >
     {remote && (

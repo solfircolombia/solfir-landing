@@ -3,6 +3,7 @@ import { createServer } from 'node:http';
 import { extname, join, normalize, sep } from 'node:path';
 import { chromium } from 'playwright';
 import AxeBuilder from '@axe-core/playwright';
+import sharp from 'sharp';
 
 const root = join(process.cwd(), 'dist');
 const port = Number(process.env.A11Y_PORT || 4173);
@@ -83,6 +84,158 @@ function listen() {
     return new Promise((resolve) => {
         server.listen(port, '127.0.0.1', () => resolve(server));
     });
+}
+
+function channel(value) {
+    const normalized = value / 255;
+    return normalized <= 0.04045 ? normalized / 12.92 : ((normalized + 0.055) / 1.055) ** 2.4;
+}
+
+function luminance(red, green, blue) {
+    return 0.2126 * channel(red) + 0.7152 * channel(green) + 0.0722 * channel(blue);
+}
+
+function contrastRatio(foreground, background) {
+    const first = luminance(foreground[0], foreground[1], foreground[2]);
+    const second = luminance(background[0], background[1], background[2]);
+    const lighter = Math.max(first, second);
+    const darker = Math.min(first, second);
+    return (lighter + 0.05) / (darker + 0.05);
+}
+
+function parseColor(value) {
+    const match = value.match(/rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)/);
+    if (!match) {
+        return null;
+    }
+    return [Number(match[1]), Number(match[2]), Number(match[3])];
+}
+
+async function backgroundRange(buffer) {
+    const { data, info } = await sharp(buffer)
+        .ensureAlpha()
+        .raw()
+        .toBuffer({ resolveWithObject: true });
+    let darkest = null;
+    let lightest = null;
+    let darkLum = Infinity;
+    let lightLum = -1;
+    for (let index = 0; index < data.length; index += info.channels) {
+        const pixel = [data[index], data[index + 1], data[index + 2]];
+        const level = luminance(pixel[0], pixel[1], pixel[2]);
+        if (level < darkLum) {
+            darkLum = level;
+            darkest = pixel;
+        }
+        if (level > lightLum) {
+            lightLum = level;
+            lightest = pixel;
+        }
+    }
+    return { darkest, lightest };
+}
+
+async function heroContrast(page) {
+    const targets = [
+        { name: 'title', selector: '.hero-title', minimum: 'body' },
+        { name: 'solfir', selector: '.landing-banner-title-solfir', minimum: 'large' },
+        { name: 'credit', selector: '.hero-credit', minimum: 'body' },
+        { name: 'button', selector: '.hero-actions .button', minimum: 'solid' },
+    ];
+    const results = [];
+    for (const target of targets) {
+        const measured = await page.evaluate((selector) => {
+            const element = document.querySelector(selector);
+            if (!element) {
+                return null;
+            }
+            const rect = element.getBoundingClientRect();
+            const style = getComputedStyle(element);
+            const fontSize = Number.parseFloat(style.fontSize);
+            const weight = Number.parseInt(style.fontWeight, 10);
+            const large = fontSize >= 24 || (weight >= 700 && fontSize >= 18.67);
+            return {
+                color: style.color,
+                background: style.backgroundColor,
+                fontSize,
+                weight,
+                large,
+                x: rect.x,
+                y: rect.y,
+                width: rect.width,
+                height: rect.height,
+            };
+        }, target.selector);
+        if (!measured || measured.width < 1 || measured.height < 1) {
+            results.push({ name: target.name, worst: 0, light: 0, dark: 0, large: false });
+            continue;
+        }
+        const foreground = parseColor(measured.color);
+        if (target.minimum === 'solid') {
+            const background = parseColor(measured.background);
+            const ratio = foreground && background ? contrastRatio(foreground, background) : 0;
+            results.push({
+                name: target.name,
+                worst: ratio,
+                light: ratio,
+                dark: ratio,
+                large: false,
+            });
+            continue;
+        }
+        await page.evaluate(() => {
+            const settings = document.querySelector('.settings');
+            if (settings) {
+                settings.dataset.contrastHidden = 'true';
+                settings.style.setProperty('visibility', 'hidden', 'important');
+            }
+            const hero = document.querySelector('.hero');
+            const nodes = hero.querySelectorAll(
+                '.hero-title, .hero-title *, .hero-credit, .hero-eyebrow, .hero-subtitle'
+            );
+            for (const node of nodes) {
+                node.style.setProperty('color', 'transparent', 'important');
+                node.style.setProperty('-webkit-text-fill-color', 'transparent', 'important');
+            }
+        });
+        const viewport = page.viewportSize();
+        const clip = {
+            x: Math.max(0, Math.floor(measured.x)),
+            y: Math.max(0, Math.floor(measured.y)),
+            width: Math.max(1, Math.floor(Math.min(measured.width, viewport.width - measured.x))),
+            height: Math.max(
+                1,
+                Math.floor(Math.min(measured.height, viewport.height - measured.y))
+            ),
+        };
+        const buffer = await page.screenshot({ clip, type: 'png' });
+        await page.evaluate(() => {
+            const settings = document.querySelector('.settings');
+            if (settings?.dataset.contrastHidden) {
+                settings.style.removeProperty('visibility');
+                delete settings.dataset.contrastHidden;
+            }
+            const hero = document.querySelector('.hero');
+            const nodes = hero.querySelectorAll(
+                '.hero-title, .hero-title *, .hero-credit, .hero-eyebrow, .hero-subtitle'
+            );
+            for (const node of nodes) {
+                node.style.removeProperty('color');
+                node.style.removeProperty('-webkit-text-fill-color');
+            }
+        });
+        const range = await backgroundRange(buffer);
+        const light = contrastRatio(foreground, range.lightest);
+        const dark = contrastRatio(foreground, range.darkest);
+        results.push({
+            name: target.name,
+            worst: Math.min(light, dark),
+            light,
+            dark,
+            large: target.minimum === 'large' && measured.large,
+        });
+    }
+    return results;
 }
 
 function headingProblems(levels) {
@@ -384,6 +537,86 @@ try {
         }
     }
     await overflowContext.close();
+
+    const heroCases = [
+        { width: 360, theme: 'light', contrast: 'default', scheme: 'light' },
+        { width: 390, theme: 'light', contrast: 'default', scheme: 'light' },
+        { width: 1024, theme: 'light', contrast: 'default', scheme: 'light' },
+        { width: 1280, theme: 'light', contrast: 'default', scheme: 'light' },
+        { width: 360, theme: 'light', contrast: 'high', scheme: 'light' },
+        { width: 390, theme: 'light', contrast: 'high', scheme: 'light' },
+        { width: 1024, theme: 'light', contrast: 'high', scheme: 'light' },
+        { width: 1280, theme: 'light', contrast: 'high', scheme: 'light' },
+        { width: 390, theme: 'dark', contrast: 'high', scheme: 'dark' },
+        { width: 1280, theme: 'dark', contrast: 'high', scheme: 'dark' },
+    ];
+    for (const heroCase of heroCases) {
+        const heroContext = await browser.newContext({
+            viewport: { width: heroCase.width, height: 900 },
+            deviceScaleFactor: 1,
+            colorScheme: heroCase.scheme,
+        });
+        await heroContext.addInitScript(`
+            localStorage.setItem('solfir-theme', ${JSON.stringify(heroCase.theme)});
+            localStorage.setItem('solfir-text-size', 'md');
+            localStorage.setItem('solfir-contrast', ${JSON.stringify(heroCase.contrast)});
+        `);
+        const heroPage = await heroContext.newPage();
+        const label = `hero contrast ${heroCase.theme}${heroCase.contrast === 'high' ? ' high-contrast' : ''} ${heroCase.width}px`;
+        await heroPage.goto(`http://127.0.0.1:${port}/`, { waitUntil: 'networkidle' });
+        await heroPage.evaluate(() => document.fonts?.ready);
+        const theme = await heroPage.evaluate(() => ({
+            page: document.documentElement.dataset.theme,
+            contrast: document.documentElement.dataset.contrast || 'default',
+            hero: document.querySelector('.hero')?.getAttribute('data-theme') || '',
+            header: getComputedStyle(document.querySelector('.header')).backgroundColor,
+            solfir: getComputedStyle(document.querySelector('.landing-banner-title-solfir')).color,
+        }));
+        const expectedSolfir =
+            heroCase.contrast === 'high' && heroCase.theme === 'light'
+                ? 'rgb(0, 0, 0)'
+                : 'rgb(250, 177, 20)';
+        const expectedHeader =
+            heroCase.contrast === 'high' && heroCase.theme === 'dark'
+                ? 'rgb(0, 0, 0)'
+                : 'rgb(255, 255, 255)';
+        if (
+            theme.page !== heroCase.theme ||
+            theme.contrast !== heroCase.contrast ||
+            theme.hero !== 'dark' ||
+            theme.solfir !== expectedSolfir ||
+            theme.header !== expectedHeader
+        ) {
+            failures.push(
+                `${label}: page=${theme.page} contrast=${theme.contrast} hero=${theme.hero} solfir=${theme.solfir} header=${theme.header}`
+            );
+            await heroContext.close();
+            continue;
+        }
+        const samples = await heroContrast(heroPage);
+        const problems = [];
+        for (const sample of samples) {
+            const minimum = sample.large ? 3 : 4.5;
+            if (sample.worst < minimum) {
+                problems.push(
+                    `${sample.name} ${sample.worst.toFixed(2)}:1 (need ${minimum}:1, light ${sample.light.toFixed(2)}, dark ${sample.dark.toFixed(2)})`
+                );
+            }
+        }
+        if (problems.length > 0) {
+            failures.push(`${label}: ${problems.join('; ')}`);
+        } else {
+            console.log(
+                `${label}: ${samples
+                    .map(
+                        (sample) =>
+                            `${sample.name} light ${sample.light.toFixed(2)} dark ${sample.dark.toFixed(2)}`
+                    )
+                    .join(', ')}`
+            );
+        }
+        await heroContext.close();
+    }
 } finally {
     await browser.close();
     await new Promise((resolve) => server.close(resolve));

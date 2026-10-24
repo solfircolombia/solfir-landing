@@ -391,6 +391,7 @@ main {
     min-height: 36rem;
     padding: 4.75rem 0 1.75rem;
     overflow: hidden;
+    background-color: var(--semantic-color-bg);
     color: var(--semantic-hero-text);
     isolation: isolate;
 }
@@ -527,6 +528,12 @@ main {
         justify-content: flex-end;
         min-height: min(40rem, calc(100svh - var(--component-header-height-sm)));
         padding-bottom: 1.25rem;
+        --semantic-hero-overlay: var(--semantic-hero-overlay-mobile);
+    }
+
+    /* The high-contrast rule resets the scrim to the desktop gradient.
+       This wins on small screens so the stacked palette-C scrim stays behind the title. */
+    html[data-contrast='high'] section.hero[data-hero='image'][data-theme='dark'] {
         --semantic-hero-overlay: var(--semantic-hero-overlay-mobile);
     }
 
