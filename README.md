@@ -79,7 +79,7 @@ Contentful content types used at build time:
 
 Service photos use the Contentful asset description as the image alt text. The same image is shown on the home service cards and on `/servicios/`. The same notes are on `/design-system/`.
 
-Blog and service lists follow Contentful’s last-updated order, which matches the previous site. Rich text is rendered from the Contentful document (paragraphs, headings, bold). There are no MDX files, so MDX is not installed.
+Blog listings (the index, the home “Nuestro Blog” cards, latest posts, and related posts) use the Contentful `date` field, newest first. If that field is missing or not a date, the sort falls back to `sys.createdAt`. Service lists still follow Contentful’s last-updated order. The favicon is the Solfir isotype from `src/images/favicon.svg` in commit `79b827f` (the icon `gatsby-plugin-manifest` used before the Astro migration). The Gatsby starter `icon.png` is not used. Rich text is rendered from the Contentful document (paragraphs, headings, bold). There are no MDX files, so MDX is not installed.
 
 ## Routes
 
