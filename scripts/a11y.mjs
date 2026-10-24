@@ -139,7 +139,6 @@ async function heroContrast(page) {
     const targets = [
         { name: 'title', selector: '.hero-title', minimum: 'body' },
         { name: 'solfir', selector: '.landing-banner-title-solfir', minimum: 'large' },
-        { name: 'credit', selector: '.hero-credit', minimum: 'body' },
         { name: 'button', selector: '.hero-actions .button', minimum: 'solid' },
     ];
     const results = [];
@@ -191,7 +190,7 @@ async function heroContrast(page) {
             }
             const hero = document.querySelector('.hero');
             const nodes = hero.querySelectorAll(
-                '.hero-title, .hero-title *, .hero-credit, .hero-eyebrow, .hero-subtitle'
+                '.hero-title, .hero-title *, .hero-eyebrow, .hero-subtitle'
             );
             for (const node of nodes) {
                 node.style.setProperty('color', 'transparent', 'important');
@@ -217,7 +216,7 @@ async function heroContrast(page) {
             }
             const hero = document.querySelector('.hero');
             const nodes = hero.querySelectorAll(
-                '.hero-title, .hero-title *, .hero-credit, .hero-eyebrow, .hero-subtitle'
+                '.hero-title, .hero-title *, .hero-eyebrow, .hero-subtitle'
             );
             for (const node of nodes) {
                 node.style.removeProperty('color');

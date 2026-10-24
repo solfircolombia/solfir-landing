@@ -389,7 +389,7 @@ main {
     align-items: flex-start;
     justify-content: center;
     min-height: 36rem;
-    padding: 4.75rem 0 1.75rem;
+    padding: 4.75rem 0 2.25rem;
     overflow: hidden;
     background-color: var(--semantic-color-bg);
     color: var(--semantic-hero-text);
@@ -460,16 +460,6 @@ main {
     text-align: left;
 }
 
-.hero-credit {
-    margin: 0;
-    max-width: 22rem;
-    color: var(--semantic-hero-credit);
-    font-family: var(--semantic-font-body);
-    font-size: var(--primitive-font-size-xs);
-    font-weight: 500;
-    line-height: 1.35;
-}
-
 .hero-title {
     margin: 0;
     color: var(--semantic-color-text);
@@ -527,7 +517,7 @@ main {
     .hero[data-hero='image'] {
         justify-content: flex-end;
         min-height: min(40rem, calc(100svh - var(--component-header-height-sm)));
-        padding-bottom: 1.25rem;
+        padding-bottom: 1.75rem;
         --semantic-hero-overlay: var(--semantic-hero-overlay-mobile);
     }
 
@@ -1166,6 +1156,24 @@ main {
 
 .fine-print {
     font-size: var(--primitive-font-size-sm);
+}
+
+.photo-credit {
+    margin: -0.75rem 0 0;
+    max-width: 100%;
+    color: var(--component-footer-text);
+    font-family: var(--semantic-font-body);
+    font-size: var(--primitive-font-size-xs);
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.photo-credit a {
+    color: var(--component-footer-link);
+    font-weight: 650;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15rem;
 }
 
 .bubble {

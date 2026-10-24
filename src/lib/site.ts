@@ -89,7 +89,6 @@ export const CREDITS: { role: string; label: string; href: string }[] = [
     { role: 'Creado por', label: 'R2N', href: 'https://r2n.dev' },
     { role: ' - Diseño por', label: 'Leidy Zuñiga', href: 'https://www.behance.net/leidyZ' },
     { role: ' - Producciones audiovisuales por', label: 'Alexis Madroñero', href: '' },
-    { role: ' - Stock photos de', label: 'Unsplash', href: 'https://unsplash.com/license' },
 ];
 
 /** Historical brand palettes. The settings panel no longer switches these. */
