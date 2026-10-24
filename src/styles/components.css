@@ -350,6 +350,13 @@ p {
     font-size: var(--primitive-font-size-3xl);
 }
 
+.page-header-icon {
+    width: 2.75rem;
+    height: 2.75rem;
+    margin: 0 auto 0.85rem;
+    color: var(--component-footer-text);
+}
+
 .band {
     padding: 4rem 0;
 }

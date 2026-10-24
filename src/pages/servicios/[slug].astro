@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Button from '../../components/Button.astro';
 import ContentImage from '../../components/ContentImage.astro';
+import Icon from '../../components/Icon.astro';
 import RecentPosts from '../../components/RecentPosts.astro';
 import { getBlogPosts, getServices, type Service } from '../../lib/contentful';
 import { LABELS, PATHS, SITE, servicePath } from '../../lib/site';
@@ -24,7 +25,9 @@ const siteUrl = (Astro.site ?? new URL(SITE.url)).toString().replace(/\/$/, '');
 const pageUrl = new URL(servicePath(service.slug), `${siteUrl}/`).toString();
 const description = service.description.replace(/\s+/g, ' ').trim();
 const truncatedDescription =
-    description.length > 160 ? `${description.slice(0, 157).replace(/\s+\S*$/, '')}...` : description;
+    description.length > 160
+        ? `${description.slice(0, 157).replace(/\s+\S*$/, '')}...`
+        : description;
 const metaDescription = service.metaDescription || truncatedDescription;
 const faqEntries = service.faq.filter((item) => item.question && item.answer);
 
@@ -107,88 +110,87 @@ const jsonLd = JSON.stringify({
                     <span aria-hidden="true">/</span>
                     <span aria-current="page">{service.title}</span>
                 </nav>
+                <Icon class="page-header-icon" name={service.icon} />
                 <h1>{service.title}</h1>
             </div>
         </header>
         <div class="container band service-detail">
-            {
-                service.image && (
-                    <div class="post-hero">
-                        <ContentImage
-                            image={service.image}
-                            alt=""
-                            widths={[640, 960, 1100]}
-                            sizes="(max-width: 768px) 100vw, 1100px"
-                            loading="eager"
-                        />
-                    </div>
-                )
-            }
-            {description && <div class="prose"><p>{description}</p></div>}
-            {
-                service.benefits.length > 0 && (
-                    <section aria-labelledby="service-benefits">
-                        <h2 id="service-benefits">Beneficios</h2>
-                        <ul class="point-list">
-                            {service.benefits.map((benefit) => (
-                                <li class="surface-card point">
-                                    <h3>{benefit.title}</h3>
-                                    {benefit.text && benefit.text !== benefit.title && <p>{benefit.text}</p>}
-                                </li>
-                            ))}
-                        </ul>
-                    </section>
-                )
-            }
-            {
-                service.steps.length > 0 && (
-                    <section aria-labelledby="service-steps">
-                        <h2 id="service-steps">El proceso</h2>
-                        <ol class="steps">
-                            {service.steps.map((step) => (
-                                <li>
-                                    <h3>{step.title}</h3>
-                                    {step.text && step.text !== step.title && <p>{step.text}</p>}
-                                </li>
-                            ))}
-                        </ol>
-                    </section>
-                )
-            }
-            {
-                service.faq.length > 0 && (
-                    <section aria-labelledby="service-faq">
-                        <h2 id="service-faq">Preguntas frecuentes</h2>
-                        <div class="faq">
-                            {service.faq.map((item) => (
-                                <details>
-                                    <summary>{item.question}</summary>
-                                    {item.answer && <p>{item.answer}</p>}
-                                </details>
-                            ))}
-                        </div>
-                    </section>
-                )
-            }
-        </div>
-        {
-            service.relatedPosts.length > 0 ? (
-                <div class="container">
-                    <RecentPosts posts={service.relatedPosts} title="Publicaciones relacionadas" />
+            {service.image && (
+                <div class="post-hero">
+                    <ContentImage
+                        image={service.image}
+                        alt=""
+                        widths={[640, 960, 1100]}
+                        sizes="(max-width: 768px) 100vw, 1100px"
+                        loading="eager"
+                    />
                 </div>
-            ) : (
-                posts.length > 0 && (
-                    <div class="container">
-                        <RecentPosts />
+            )}
+            {description && (
+                <div class="prose">
+                    <p>{description}</p>
+                </div>
+            )}
+            {service.benefits.length > 0 && (
+                <section aria-labelledby="service-benefits">
+                    <h2 id="service-benefits">Beneficios</h2>
+                    <ul class="point-list">
+                        {service.benefits.map((benefit) => (
+                            <li class="surface-card point">
+                                <h3>{benefit.title}</h3>
+                                {benefit.text && benefit.text !== benefit.title && (
+                                    <p>{benefit.text}</p>
+                                )}
+                            </li>
+                        ))}
+                    </ul>
+                </section>
+            )}
+            {service.steps.length > 0 && (
+                <section aria-labelledby="service-steps">
+                    <h2 id="service-steps">El proceso</h2>
+                    <ol class="steps">
+                        {service.steps.map((step) => (
+                            <li>
+                                <h3>{step.title}</h3>
+                                {step.text && step.text !== step.title && <p>{step.text}</p>}
+                            </li>
+                        ))}
+                    </ol>
+                </section>
+            )}
+            {service.faq.length > 0 && (
+                <section aria-labelledby="service-faq">
+                    <h2 id="service-faq">Preguntas frecuentes</h2>
+                    <div class="faq">
+                        {service.faq.map((item) => (
+                            <details>
+                                <summary>{item.question}</summary>
+                                {item.answer && <p>{item.answer}</p>}
+                            </details>
+                        ))}
                     </div>
-                )
+                </section>
+            )}
+        </div>
+        {service.relatedPosts.length > 0 ? (
+            <div class="container">
+                <RecentPosts posts={service.relatedPosts} title="Publicaciones relacionadas" />
+            </div>
+        ) : (
+            posts.length > 0 && (
+                <div class="container">
+                    <RecentPosts />
+                </div>
             )
-        }
+        )}
         <section class="band band-accent" aria-labelledby="service-cta">
             <div class="container">
                 <h2 id="service-cta">¿Te encuentras interesado en este servicio?</h2>
                 <div class="hero-actions">
-                    <Button variant="inverse" href={PATHS.contact}>{LABELS.contact}</Button>
+                    <Button variant="inverse" href={PATHS.contact}>
+                        {LABELS.contact}
+                    </Button>
                 </div>
             </div>
         </section>

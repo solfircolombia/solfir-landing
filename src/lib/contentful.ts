@@ -243,7 +243,7 @@ function mapImage(asset: ContentfulAsset | undefined, fallbackAlt: string): Cont
     }
     return {
         url: file.url.startsWith('//') ? `https:${file.url}` : file.url,
-        alt: asset?.fields.title || asset?.fields.description || fallbackAlt,
+        alt: asset?.fields.description?.trim() || asset?.fields.title?.trim() || fallbackAlt,
         width,
         height,
     };
@@ -411,6 +411,21 @@ function faqList(value: unknown): ServiceFaq[] {
     });
 }
 
+/** arrow-right in Contentful means the service has no chosen icon. */
+const SERVICE_ICON_DEFAULTS: Partial<Record<string, IconName>> = {
+    'evitar-remates-y-perdida-de-su-patrimonio': 'shield-check',
+    'acuerdos-privados-y-liquidaciones-patrimoniales': 'handshake',
+    'recuperar-su-estabilidad-financiera-y-tranquilidad': 'trending-up',
+    'negociacion-de-deudas': 'savings',
+};
+
+function serviceIcon(field: string | undefined, slug: string): IconName {
+    if (isIconName(field) && field !== 'arrow-right') {
+        return field;
+    }
+    return SERVICE_ICON_DEFAULTS[slug] ?? 'arrow-right';
+}
+
 const loadServices = once(async (): Promise<Service[]> => {
     const collection = await fetchCollection<ServiceFields>('service', '-sys.updatedAt');
     const assets = assetMap(collection);
@@ -439,13 +454,18 @@ const loadServices = once(async (): Promise<Service[]> => {
                     typeof item.fields.metaDescription === 'string'
                         ? item.fields.metaDescription.trim()
                         : '',
-                icon: isIconName(item.fields.icon) ? item.fields.icon : 'arrow-right',
+                icon: serviceIcon(item.fields.icon, slug),
                 image: resolveAsset(item.fields.image, assets, title),
-                benefits: pointList(item.fields.benefits, ['title', 'text'], ['text', 'description']),
-                steps: pointList(item.fields.steps ?? item.fields.process, ['title', 'text'], [
-                    'text',
-                    'description',
-                ]),
+                benefits: pointList(
+                    item.fields.benefits,
+                    ['title', 'text'],
+                    ['text', 'description']
+                ),
+                steps: pointList(
+                    item.fields.steps ?? item.fields.process,
+                    ['title', 'text'],
+                    ['text', 'description']
+                ),
                 faq: faqList(item.fields.faq),
                 relatedPosts: relatedPostList(item.fields.relatedPosts, assets, entries),
             },
