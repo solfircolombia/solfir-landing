@@ -131,8 +131,21 @@ export function isCurrentPath(pathname: string, href: string): boolean {
     return normalizePath(pathname) === normalizePath(href);
 }
 
+export function slugify(value: string): string {
+    return value
+        .normalize('NFD')
+        .replace(/\p{M}/gu, '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+}
+
 export function blogPath(slug: string): string {
     return `/blog/${slug}/`;
+}
+
+export function servicePath(slug: string): string {
+    return `/servicios/${slug}/`;
 }
 
 export function teamPath(slug: string): string {

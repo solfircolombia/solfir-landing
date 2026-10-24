@@ -1,5 +1,6 @@
 import type { Document } from '@contentful/rich-text-types';
 import { isIconName, type IconName } from './icons';
+import { slugify } from './site';
 
 // Read at build time from the process environment (Astro loads `.env` for
 // `astro build`). These stay out of the Astro env schema so the on-demand
@@ -31,12 +32,26 @@ export interface BlogPost {
     author: AuthorRef | null;
 }
 
+export interface ServicePoint {
+    title: string;
+    text: string;
+}
+
+export interface ServiceFaq {
+    question: string;
+    answer: string;
+}
+
 export interface Service {
     id: string;
     title: string;
+    slug: string;
     description: string;
     icon: IconName;
     image: ContentImage | null;
+    benefits: ServicePoint[];
+    steps: ServicePoint[];
+    faq: ServiceFaq[];
 }
 
 export interface CvProfile {
@@ -133,6 +148,12 @@ interface ServiceFields {
     description?: string;
     icon?: string;
     image?: ContentfulLink;
+    slug?: string;
+    benefits?: unknown;
+    process?: unknown;
+    steps?: unknown;
+    faq?: unknown;
+    [key: string]: unknown;
 }
 
 interface TeamMemberFields {
@@ -270,22 +291,84 @@ const loadBlogPosts = once(async (): Promise<BlogPost[]> => {
     });
 });
 
+function stringField(record: Record<string, unknown>, keys: string[]): string {
+    for (const key of keys) {
+        const value = record[key];
+        if (typeof value === 'string' && value.trim()) {
+            return value.trim();
+        }
+    }
+    return '';
+}
+
+function pointList(value: unknown, titleKeys: string[], textKeys: string[]): ServicePoint[] {
+    if (!Array.isArray(value)) {
+        return [];
+    }
+    return value.flatMap((item) => {
+        if (!item || typeof item !== 'object') {
+            return [];
+        }
+        const record = item as Record<string, unknown>;
+        const title = stringField(record, titleKeys);
+        const text = stringField(record, textKeys);
+        if (!title && !text) {
+            return [];
+        }
+        return [{ title: title || text, text }];
+    });
+}
+
+function faqList(value: unknown): ServiceFaq[] {
+    if (!Array.isArray(value)) {
+        return [];
+    }
+    return value.flatMap((item) => {
+        if (!item || typeof item !== 'object') {
+            return [];
+        }
+        const record = item as Record<string, unknown>;
+        const question = stringField(record, ['question', 'title', 'name']);
+        const answer = stringField(record, ['answer', 'text', 'description']);
+        if (!question && !answer) {
+            return [];
+        }
+        return [{ question: question || answer, answer }];
+    });
+}
+
 const loadServices = once(async (): Promise<Service[]> => {
     const collection = await fetchCollection<ServiceFields>('service', '-sys.updatedAt');
     const assets = assetMap(collection);
+    const used = new Map<string, number>();
 
     return collection.items.flatMap((item) => {
         const title = item.fields.title?.trim();
         if (!title) {
             return [];
         }
+        const requested =
+            (typeof item.fields.slug === 'string' ? item.fields.slug.trim() : '') ||
+            slugify(title) ||
+            item.sys.id.toLowerCase();
+        const seen = used.get(requested) ?? 0;
+        used.set(requested, seen + 1);
+        const slug = seen === 0 ? requested : `${requested}-${seen + 1}`;
         return [
             {
                 id: item.sys.id,
                 title,
+                slug,
                 description: item.fields.description ?? '',
                 icon: isIconName(item.fields.icon) ? item.fields.icon : 'arrow-right',
                 image: resolveAsset(item.fields.image, assets, title),
+                benefits: pointList(item.fields.benefits, ['title', 'name'], ['text', 'description']),
+                steps: pointList(
+                    item.fields.process ?? item.fields.steps,
+                    ['title', 'name'],
+                    ['text', 'description']
+                ),
+                faq: faqList(item.fields.faq),
             },
         ];
     });
