@@ -21,39 +21,43 @@ const year = new Date().getFullYear();
                         <Icon name="mail" variant="light" />
                         Correo electrónico
                     </span>
-                    <a class="footer-link" href={`mailto:${CONTACT.mail}`}>{CONTACT.mail}</a>
+                    <a class="footer-link" href={`mailto:${CONTACT.mail}`}>
+                        {CONTACT.mail}
+                    </a>
                 </div>
                 <div class="contact-row">
                     <span>
                         <Icon name="phone" variant="light" />
                         Teléfono
                     </span>
-                    <a class="footer-link" href={`tel:${CONTACT.phone}`}>{CONTACT.phone}</a>
+                    <a class="footer-link" href={`tel:${CONTACT.phone}`}>
+                        {CONTACT.phone}
+                    </a>
                 </div>
                 <div class="contact-row">
                     <span>
                         <Icon name="place" variant="light" />
                         Ubicación
                     </span>
-                    <a class="footer-link" href={CONTACT.maps}>{CONTACT.address}</a>
+                    <a class="footer-link" href={CONTACT.maps}>
+                        {CONTACT.address}
+                    </a>
                 </div>
             </div>
             <div>
                 <h2>Enlaces</h2>
                 <nav aria-label="Pie de página">
-                    {
-                        NAV_LINKS.map((item) => (
-                            <a
-                                class:list={[
-                                    'footer-link',
-                                    isCurrentPath(pathname, item.href) && 'footer-link-active',
-                                ]}
-                                href={item.href}
-                            >
-                                {item.label}
-                            </a>
-                        ))
-                    }
+                    {NAV_LINKS.map((item) => (
+                        <a
+                            class:list={[
+                                'footer-link',
+                                isCurrentPath(pathname, item.href) && 'footer-link-active',
+                            ]}
+                            href={item.href}
+                        >
+                            {item.label}
+                        </a>
+                    ))}
                 </nav>
             </div>
         </div>
@@ -67,20 +71,25 @@ const year = new Date().getFullYear();
             {`SOLFIR - Soluciones financieras y reorganizaciones S.A.S © Todos los derechos reservados | ${year}`}
         </p>
         <p class="fine-print credits">
-            {
-                CREDITS.map((credit) => (
-                    <span>
-                        {credit.role}{' '}
-                        {credit.href ? (
-                            <a href={credit.href} target="_blank" rel="noopener noreferrer">
-                                {credit.label}
-                            </a>
-                        ) : (
-                            <span>{credit.label}</span>
-                        )}
-                    </span>
-                ))
-            }
+            {CREDITS.map((credit) => (
+                <span>
+                    {credit.role}{' '}
+                    {credit.href ? (
+                        <a href={credit.href} target="_blank" rel="noopener noreferrer">
+                            {credit.label}
+                        </a>
+                    ) : (
+                        <span>{credit.label}</span>
+                    )}
+                </span>
+            ))}
+        </p>
+        <p class="photo-credit">
+            Fotografías:{' '}
+            <a href="https://unsplash.com" target="_blank" rel="noopener noreferrer">
+                Unsplash
+                <span class="visually-hidden"> (se abre en una pestaña nueva)</span>
+            </a>
         </p>
     </div>
 </footer>

@@ -25,18 +25,19 @@
     --primitive-color-settings: #0094e9;
 
     --primitive-font-body: 'Plus Jakarta Sans Variable', 'Segoe UI', sans-serif;
-    --primitive-font-display: 'Fraunces Variable', georgia, serif;
+    --primitive-font-display: 'Literata Variable', georgia, serif;
     --primitive-font-scale: 1;
 
-    /* Fluid scale. The max sizes match the previous rem headings at a 19px root. */
+    /* Fluid scale. Max sizes match the previous rem headings at a 19px root.
+       The lower bounds let Literata headings shrink on small screens. */
     --primitive-font-size-xs: clamp(0.75rem, 0.72rem + 0.15vw, 0.8rem);
     --primitive-font-size-sm: clamp(0.875rem, 0.84rem + 0.18vw, 0.95rem);
     --primitive-font-size-body: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
-    --primitive-font-size-lg: clamp(1.125rem, 1.02rem + 0.45vw, 1.25rem);
-    --primitive-font-size-xl: clamp(1.25rem, 1.05rem + 0.85vw, 1.563rem);
-    --primitive-font-size-2xl: clamp(1.5rem, 1.15rem + 1.35vw, 1.953rem);
-    --primitive-font-size-3xl: clamp(1.75rem, 1.2rem + 2vw, 2.441rem);
-    --primitive-font-size-display: clamp(2rem, 1.15rem + 2.9vw, 3.052rem);
+    --primitive-font-size-lg: clamp(1.02rem, 0.88rem + 0.7vw, 1.25rem);
+    --primitive-font-size-xl: clamp(1.12rem, 0.9rem + 1.15vw, 1.563rem);
+    --primitive-font-size-2xl: clamp(1.28rem, 0.9rem + 1.8vw, 1.953rem);
+    --primitive-font-size-3xl: clamp(1.4rem, 0.95rem + 2.35vw, 2.441rem);
+    --primitive-font-size-display: clamp(1.65rem, 0.7rem + 3.6vw, 3.052rem);
 
     --primitive-space-1: 0.25rem;
     --primitive-space-2: 0.5rem;
@@ -96,7 +97,6 @@
     --semantic-pattern-opacity: 0.07;
     --semantic-hero-text: var(--primitive-color-navy);
     --semantic-hero-emphasis: var(--primitive-color-navy);
-    --semantic-hero-credit: var(--primitive-color-navy);
     --semantic-hero-overlay: linear-gradient(
         90deg,
         rgb(255 255 255 / 0.97) 0%,
@@ -140,7 +140,6 @@
     --semantic-pattern-opacity: 0.045;
     --semantic-hero-text: var(--primitive-color-text-dark);
     --semantic-hero-emphasis: var(--primitive-color-yellow);
-    --semantic-hero-credit: var(--primitive-color-text-dark);
     --semantic-hero-overlay: linear-gradient(
         90deg,
         rgb(4 16 26 / 0.96) 0%,
@@ -185,7 +184,6 @@
     --semantic-pattern-opacity: 0.08;
     --semantic-hero-text: var(--primitive-color-black);
     --semantic-hero-emphasis: var(--primitive-color-black);
-    --semantic-hero-credit: var(--primitive-color-black);
     --semantic-hero-overlay: linear-gradient(
         90deg,
         rgb(255 255 255 / 0.98) 0%,
@@ -229,7 +227,6 @@
     --semantic-pattern-opacity: 0.05;
     --semantic-hero-text: var(--primitive-color-white);
     --semantic-hero-emphasis: var(--primitive-color-yellow);
-    --semantic-hero-credit: var(--primitive-color-white);
     --semantic-hero-overlay: linear-gradient(
         90deg,
         rgb(0 0 0 / 0.96) 0%,
@@ -245,6 +242,41 @@
         rgb(0 0 0 / 0.98) 100%
     );
     color-scheme: dark;
+}
+
+/* The photo hero opts into the dark theme on its own element, so a light
+   page still gets the navy scrim, light type, and yellow SOLFIR. High contrast
+   on the document wins: the hero inherits Palette C instead of keeping the
+   regular dark tokens. */
+html[data-contrast='high'] .hero[data-theme='dark'] {
+    color-scheme: inherit;
+    --semantic-color-bg: inherit;
+    --semantic-color-text: inherit;
+    --semantic-color-text-muted: inherit;
+    --semantic-color-brand: inherit;
+    --semantic-color-on-brand: inherit;
+    --semantic-color-accent: inherit;
+    --semantic-color-on-accent: inherit;
+    --semantic-color-emphasis: inherit;
+    --semantic-color-action-bg: inherit;
+    --semantic-color-action-text: inherit;
+    --semantic-color-header-bg: inherit;
+    --semantic-color-header-text: inherit;
+    --semantic-color-nav-underline: inherit;
+    --semantic-color-footer-bg: inherit;
+    --semantic-color-footer-text: inherit;
+    --semantic-color-footer-link: inherit;
+    --semantic-color-focus: inherit;
+    --semantic-color-focus-halo: inherit;
+    --semantic-color-on-light: inherit;
+    --semantic-color-surface: inherit;
+    --semantic-color-border: inherit;
+    --semantic-color-pattern: inherit;
+    --semantic-pattern-opacity: inherit;
+    --semantic-hero-text: inherit;
+    --semantic-hero-emphasis: inherit;
+    --semantic-hero-overlay: inherit;
+    --semantic-hero-overlay-mobile: inherit;
 }
 
 /* No-JS visitors still follow the operating system. The inline script sets
@@ -276,7 +308,6 @@
         --semantic-pattern-opacity: 0.045;
         --semantic-hero-text: var(--primitive-color-text-dark);
         --semantic-hero-emphasis: var(--primitive-color-yellow);
-        --semantic-hero-credit: var(--primitive-color-text-dark);
         --semantic-hero-overlay: linear-gradient(
             90deg,
             rgb(4 16 26 / 0.96) 0%,

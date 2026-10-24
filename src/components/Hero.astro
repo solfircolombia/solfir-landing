@@ -4,14 +4,11 @@ import type { ImageMetadata } from 'astro';
 import fallbackImage from '../assets/hero/centre-ageing-better-calculator.jpg';
 import type { HomePage } from '../lib/contentful';
 import {
-    HERO_FALLBACK_CREDIT,
     HERO_FALLBACK_PRIMARY_LABEL,
     HERO_FALLBACK_PRIMARY_URL,
     HERO_FALLBACK_TITLE,
     HERO_OBJECT_POSITION,
-    creditLine,
     heroTitleParts,
-    photoCredit,
 } from '../lib/hero';
 import Button from './Button.astro';
 
@@ -33,9 +30,6 @@ const remote = page?.image ?? null;
 const localImage = image ?? fallbackImage;
 const position = page?.imagePosition ?? 'right';
 const showImage = Boolean(remote || localImage);
-const credit = creditLine(
-    remote ? photoCredit(remote.title, remote.description) : showImage ? HERO_FALLBACK_CREDIT : ''
-);
 const widths = [480, 768, 1280, 1920, 2400];
 const sourceWidth = remote?.width ?? localImage.width;
 const usableWidths = widths.filter((width) => width <= sourceWidth);
@@ -46,6 +40,7 @@ const resolvedWidths = usableWidths.length > 0 ? usableWidths : [Math.min(source
     class="hero"
     id="landing-banner"
     data-hero={showImage ? 'image' : 'type'}
+    data-theme={showImage ? 'dark' : undefined}
     style={showImage ? `--hero-object-position: ${HERO_OBJECT_POSITION[position]}` : undefined}
 >
     {remote && (
@@ -107,6 +102,5 @@ const resolvedWidths = usableWidths.length > 0 ? usableWidths : [Math.min(source
             )}
             <slot />
         </div>
-        {credit && <p class="hero-credit">{credit}</p>}
     </div>
 </section>

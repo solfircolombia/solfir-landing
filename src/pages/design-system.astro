@@ -144,9 +144,9 @@ const primitives = [
         <section class="ds-section" aria-labelledby="ds-type">
             <h2 id="ds-type">Tipografía</h2>
             <p>
-                Plus Jakarta Sans en interfaz y texto. Fraunces en titulares. La escala es fluida
-                con <span class="ds-code">clamp()</span>. El tamaño de texto A-, A, A+, A++ escala
-                la raíz.
+                Plus Jakarta Sans en interfaz y texto. Literata en titulares, con Georgia como
+                respaldo. La escala es fluida con <span class="ds-code">clamp()</span> y se reduce
+                en pantallas pequeñas. El tamaño de texto A-, A, A+, A++ escala la raíz.
             </p>
             <ul class="ds-type">
                 {typeSteps.map((step) => (
@@ -317,7 +317,7 @@ const primitives = [
                     subrayados del color del texto.
                 </p>
                 <h4>Un subtítulo de artículo</h4>
-                <p>Fraunces queda en los títulos. El amarillo no se usa como color de texto.</p>
+                <p>Literata queda en los títulos. El amarillo no se usa como color de texto.</p>
             </div>
             <h3>Campo con error</h3>
             <form class="surface-card form-card" action="#ds-library">
@@ -361,9 +361,8 @@ const primitives = [
                 </li>
                 <li>
                     <span class="ds-code">heroImage</span> — foto. Es decorativa: el alt queda
-                    vacío. El crédito es el texto del título del asset después de «Foto:». Si ese
-                    texto no está, se usa la descripción del asset. Si ambos están vacíos, no hay
-                    crédito.
+                    vacío. No hay crédito por foto. El pie de todas las páginas dice «Fotografías:
+                    Unsplash».
                 </li>
                 <li>
                     <span class="ds-code">heroImagePosition</span> —
@@ -384,9 +383,18 @@ const primitives = [
             </ul>
             <p>
                 En <span class="ds-code">heroTitle</span>, lo que va entre doble asterisco se pinta
-                con la negrita del nombre. El resto se escapa: no hay HTML. Si el título no trae
-                asteriscos, la palabra SOLFIR se marca sola. Ejemplo:
-                <span class="ds-code">con **SOLFIR** expertos</span>.
+                con la negrita del nombre, en el acento <span class="ds-code">#fab114</span>. El
+                resto se escapa: no hay HTML. Si el título no trae asteriscos, la palabra SOLFIR se
+                marca sola. Ejemplo: <span class="ds-code">con **SOLFIR** expertos</span>.
+            </p>
+            <p>
+                La portada con foto lleva <span class="ds-code">data-theme="dark"</span> en la
+                sección, aunque el resto de la página esté en claro. El velo navy, el texto claro y
+                el botón usan ese tema. El encabezado sigue el tema elegido. En pantallas chicas el
+                velo se apila desde abajo: la foto queda visible arriba y el título, sobre navy
+                opaco. Si el documento está en alto contraste, la portada hereda la paleta C — velo
+                blanco con texto negro, o velo negro con texto blanco y SOLFIR en
+                <span class="ds-code">#fab114</span> — en lugar del tema oscuro normal.
             </p>
             <p>
                 La foto de cada servicio usa la descripción del asset como texto alternativo. Las

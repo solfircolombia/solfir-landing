@@ -18,7 +18,7 @@ export interface ContentImage {
 
 export type HeroImagePosition = 'left' | 'center' | 'right';
 
-/** Hero photo. `title` and `description` feed the credit line; the picture itself is decorative. */
+/** Hero photo. The picture is decorative. Photo attribution is the generic footer line. */
 export interface HeroAsset {
     url: string;
     width: number;
