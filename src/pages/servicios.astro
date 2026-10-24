@@ -13,19 +13,18 @@ const services = await getServices();
     <PageHeader title="Conoce nuestros servicios" />
     <div class="container band" style="padding-top: 0">
         <div class="card-grid">
-            {
-                services.map((service) => (
-                    <ServiceCard
-                        title={service.title}
-                        description={service.description}
-                        icon={service.icon}
-                    >
-                        <Button size="small" href={servicePath(service.slug)}>
-                            Leer más
-                        </Button>
-                    </ServiceCard>
-                ))
-            }
+            {services.map((service) => (
+                <ServiceCard
+                    title={service.title}
+                    description={service.description}
+                    icon={service.icon}
+                    image={service.image}
+                >
+                    <Button size="small" href={servicePath(service.slug)}>
+                        Leer más
+                    </Button>
+                </ServiceCard>
+            ))}
         </div>
     </div>
 </Layout>

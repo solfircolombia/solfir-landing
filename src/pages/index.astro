@@ -4,39 +4,36 @@ import Button from '../components/Button.astro';
 import BlogCard from '../components/BlogCard.astro';
 import Hero from '../components/Hero.astro';
 import ServiceCard from '../components/ServiceCard.astro';
-import { getBlogPosts, getMedia, getServices } from '../lib/contentful';
+import { getBlogPosts, getHomePage, getMedia, getServices } from '../lib/contentful';
 import { LABELS, PAGE_SEO, PATHS, servicePath } from '../lib/site';
 
 const posts = (await getBlogPosts()).slice(0, 6);
 const services = (await getServices()).slice(0, 3);
 const media = await getMedia();
+const homePage = await getHomePage();
 if (!Array.isArray(media)) {
     throw new Error('Contentful Media entries could not be loaded.');
 }
 ---
 
 <Layout seo={PAGE_SEO.home}>
-    <Hero>
-        <Fragment slot="title">
-            Vuelve a la estabilidad financiera con{' '}
-            <b class="landing-banner-title-solfir">SOLFIR</b> expertos en insolvencia y
-            reorganización empresarial
-        </Fragment>
-        <Button variant="primary" href="#landing-services">Quiero saber mas</Button>
-    </Hero>
+    <Hero page={homePage} />
     <section class="band band-accent" id="landing-services">
         <div class="container">
             <h2 class="section-title">Nuestros Servicios</h2>
             <div class="card-grid">
-                {
-                    services.map((service) => (
-                        <ServiceCard title={service.title} icon={service.icon} heading="h3">
-                            <Button variant="inverse" size="small" href={servicePath(service.slug)}>
-                                Ver servicio
-                            </Button>
-                        </ServiceCard>
-                    ))
-                }
+                {services.map((service) => (
+                    <ServiceCard
+                        title={service.title}
+                        icon={service.icon}
+                        image={service.image}
+                        heading="h3"
+                    >
+                        <Button variant="inverse" size="small" href={servicePath(service.slug)}>
+                            Ver servicio
+                        </Button>
+                    </ServiceCard>
+                ))}
             </div>
             <div class="hero-actions" style="margin-top: 1.75rem">
                 <Button variant="inverse" href={PATHS.services}>
@@ -55,10 +52,14 @@ if (!Array.isArray(media)) {
                 otras cuestiones legales y financieras relevantes.
             </p>
             <div class="card-grid">
-                {posts.map((post) => <BlogCard post={post} />)}
+                {posts.map((post) => (
+                    <BlogCard post={post} />
+                ))}
             </div>
             <div class="hero-actions" style="margin-top: 1.75rem">
-                <Button variant="primary" href={PATHS.blog}>Ver todas las publicaciones</Button>
+                <Button variant="primary" href={PATHS.blog}>
+                    Ver todas las publicaciones
+                </Button>
             </div>
         </div>
     </section>
@@ -66,12 +67,14 @@ if (!Array.isArray(media)) {
         <div class="container">
             <h2 class="section-title">¡Contrátanos!</h2>
             <p>
-                Con un equipo de expertos dedicados y años de experiencia, nos aseguramos de
-                brindar soluciones óptimas para cada situación única. Contáctanos hoy para ver cómo
-                podemos ayudarte a lograr la estabilidad financiera.
+                Con un equipo de expertos dedicados y años de experiencia, nos aseguramos de brindar
+                soluciones óptimas para cada situación única. Contáctanos hoy para ver cómo podemos
+                ayudarte a lograr la estabilidad financiera.
             </p>
             <div class="hero-actions" style="margin-top: 1.5rem">
-                <Button variant="inverse" href={PATHS.contact}>{LABELS.contact}</Button>
+                <Button variant="inverse" href={PATHS.contact}>
+                    {LABELS.contact}
+                </Button>
             </div>
         </div>
     </section>

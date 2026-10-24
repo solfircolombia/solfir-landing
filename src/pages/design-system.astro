@@ -296,6 +296,7 @@ const primitives = [
                     title={sampleService.title}
                     description={sampleService.description}
                     icon={sampleService.icon}
+                    image={sampleService.image}
                     heading="h3"
                 />
             )}
@@ -338,6 +339,60 @@ const primitives = [
                     </p>
                 </div>
             </form>
+            <h3>Portada en Contentful</h3>
+            <p>
+                El hero de inicio sale de la primera entrada publicada de
+                <span class="ds-code">homePage</span>. Si no hay entrada, o un campo está vacío, la
+                página conserva el texto fijo y la foto local de reserva.
+            </p>
+            <ul>
+                <li>
+                    <span class="ds-code">internalName</span> — nombre interno. No se muestra.
+                </li>
+                <li>
+                    <span class="ds-code">heroEyebrow</span> — línea corta sobre el título.
+                    Opcional.
+                </li>
+                <li>
+                    <span class="ds-code">heroTitle</span> — título. Obligatorio en Contentful.
+                </li>
+                <li>
+                    <span class="ds-code">heroSubtitle</span> — párrafo bajo el título. Opcional.
+                </li>
+                <li>
+                    <span class="ds-code">heroImage</span> — foto. Es decorativa: el alt queda
+                    vacío. El crédito es el texto del título del asset después de «Foto:». Si ese
+                    texto no está, se usa la descripción del asset. Si ambos están vacíos, no hay
+                    crédito.
+                </li>
+                <li>
+                    <span class="ds-code">heroImagePosition</span> —
+                    <span class="ds-code">left</span>, <span class="ds-code">center</span> o
+                    <span class="ds-code">right</span>. Pasa a
+                    <span class="ds-code">object-position</span>.
+                </li>
+                <li>
+                    <span class="ds-code">heroPrimaryCtaLabel</span> y
+                    <span class="ds-code">heroPrimaryCtaUrl</span> — botón principal. Si faltan, el
+                    texto fijo es «Quiero saber más» hacia
+                    <span class="ds-code">#landing-services</span>.
+                </li>
+                <li>
+                    <span class="ds-code">heroSecondaryCtaLabel</span> y
+                    <span class="ds-code">heroSecondaryCtaUrl</span> — segundo botón. Opcional.
+                </li>
+            </ul>
+            <p>
+                En <span class="ds-code">heroTitle</span>, lo que va entre doble asterisco se pinta
+                con la negrita del nombre. El resto se escapa: no hay HTML. Si el título no trae
+                asteriscos, la palabra SOLFIR se marca sola. Ejemplo:
+                <span class="ds-code">con **SOLFIR** expertos</span>.
+            </p>
+            <p>
+                La foto de cada servicio usa la descripción del asset como texto alternativo. Las
+                tarjetas de inicio y de <span class="ds-code">/servicios/</span> muestran esa
+                imagen.
+            </p>
             <h3>Banda de acento</h3>
             <div class="band band-accent">
                 <p>Texto de tinta sobre el acento. El botón inverso sigue en navy.</p>

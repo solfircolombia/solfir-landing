@@ -16,6 +16,30 @@ export interface ContentImage {
     height: number;
 }
 
+export type HeroImagePosition = 'left' | 'center' | 'right';
+
+/** Hero photo. `title` and `description` feed the credit line; the picture itself is decorative. */
+export interface HeroAsset {
+    url: string;
+    width: number;
+    height: number;
+    title: string;
+    description: string;
+}
+
+export interface HomePage {
+    id: string;
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    image: HeroAsset | null;
+    imagePosition: HeroImagePosition;
+    primaryCtaLabel: string;
+    primaryCtaUrl: string;
+    secondaryCtaLabel: string;
+    secondaryCtaUrl: string;
+}
+
 export interface AuthorRef {
     name: string;
     slug: string;
@@ -181,6 +205,18 @@ interface MediaFields {
     description?: string;
 }
 
+interface HomePageFields {
+    heroEyebrow?: string;
+    heroTitle?: string;
+    heroSubtitle?: string;
+    heroImage?: ContentfulLink;
+    heroImagePosition?: string;
+    heroPrimaryCtaLabel?: string;
+    heroPrimaryCtaUrl?: string;
+    heroSecondaryCtaLabel?: string;
+    heroSecondaryCtaUrl?: string;
+}
+
 function once<T>(loader: () => Promise<T>): () => Promise<T> {
     let pending: Promise<T> | undefined;
     return () => {
@@ -191,7 +227,8 @@ function once<T>(loader: () => Promise<T>): () => Promise<T> {
 
 async function fetchCollection<TFields>(
     contentType: string,
-    order?: string
+    order?: string,
+    limit = 1000
 ): Promise<ContentfulCollection<TFields>> {
     if (!CONTENTFUL_SPACE_ID || !CONTENTFUL_ACCESS_TOKEN) {
         throw new Error(
@@ -202,7 +239,7 @@ async function fetchCollection<TFields>(
     const params = new URLSearchParams({
         content_type: contentType,
         include: '2',
-        limit: '1000',
+        limit: String(limit),
     });
     if (order) {
         params.set('order', order);
@@ -234,7 +271,29 @@ function entryMap(collection: {
     return new Map((collection.includes?.Entry ?? []).map((entry) => [entry.sys.id, entry]));
 }
 
-function mapImage(asset: ContentfulAsset | undefined, fallbackAlt: string): ContentImage | null {
+function mapImage(
+    asset: ContentfulAsset | undefined,
+    fallbackAlt: string,
+    descriptionOnly = false
+): ContentImage | null {
+    const file = asset?.fields.file;
+    const width = file?.details?.image?.width;
+    const height = file?.details?.image?.height;
+    if (!file?.url || !width || !height) {
+        return null;
+    }
+    const description = asset?.fields.description?.trim() ?? '';
+    return {
+        url: file.url.startsWith('//') ? `https:${file.url}` : file.url,
+        alt: descriptionOnly
+            ? description
+            : description || asset?.fields.title?.trim() || fallbackAlt,
+        width,
+        height,
+    };
+}
+
+function mapHeroAsset(asset: ContentfulAsset | undefined): HeroAsset | null {
     const file = asset?.fields.file;
     const width = file?.details?.image?.width;
     const height = file?.details?.image?.height;
@@ -243,21 +302,30 @@ function mapImage(asset: ContentfulAsset | undefined, fallbackAlt: string): Cont
     }
     return {
         url: file.url.startsWith('//') ? `https:${file.url}` : file.url,
-        alt: asset?.fields.description?.trim() || asset?.fields.title?.trim() || fallbackAlt,
         width,
         height,
+        title: asset?.fields.title?.trim() ?? '',
+        description: asset?.fields.description?.trim() ?? '',
     };
+}
+
+function heroImagePosition(value: string | undefined): HeroImagePosition {
+    if (value === 'left' || value === 'center' || value === 'right') {
+        return value;
+    }
+    return 'right';
 }
 
 function resolveAsset(
     link: ContentfulLink | undefined,
     assets: Map<string, ContentfulAsset>,
-    fallbackAlt: string
+    fallbackAlt: string,
+    descriptionOnly = false
 ): ContentImage | null {
     if (!link?.sys?.id) {
         return null;
     }
-    return mapImage(assets.get(link.sys.id), fallbackAlt);
+    return mapImage(assets.get(link.sys.id), fallbackAlt, descriptionOnly);
 }
 
 const loadBlogPosts = once(async (): Promise<BlogPost[]> => {
@@ -455,7 +523,7 @@ const loadServices = once(async (): Promise<Service[]> => {
                         ? item.fields.metaDescription.trim()
                         : '',
                 icon: serviceIcon(item.fields.icon, slug),
-                image: resolveAsset(item.fields.image, assets, title),
+                image: resolveAsset(item.fields.image, assets, '', true),
                 benefits: pointList(
                     item.fields.benefits,
                     ['title', 'text'],
@@ -519,8 +587,34 @@ const loadMedia = once(async (): Promise<MediaItem[]> => {
     });
 });
 
+const loadHomePage = once(async (): Promise<HomePage | null> => {
+    const collection = await fetchCollection<HomePageFields>('homePage', undefined, 1);
+    const item = collection.items[0];
+    if (!item) {
+        return null;
+    }
+    const assets = assetMap(collection);
+    const imageLink = item.fields.heroImage;
+    return {
+        id: item.sys.id,
+        eyebrow: item.fields.heroEyebrow?.trim() ?? '',
+        title: item.fields.heroTitle?.trim() ?? '',
+        subtitle: item.fields.heroSubtitle?.trim() ?? '',
+        image: mapHeroAsset(imageLink?.sys?.id ? assets.get(imageLink.sys.id) : undefined),
+        imagePosition: heroImagePosition(item.fields.heroImagePosition),
+        primaryCtaLabel: item.fields.heroPrimaryCtaLabel?.trim() ?? '',
+        primaryCtaUrl: item.fields.heroPrimaryCtaUrl?.trim() ?? '',
+        secondaryCtaLabel: item.fields.heroSecondaryCtaLabel?.trim() ?? '',
+        secondaryCtaUrl: item.fields.heroSecondaryCtaUrl?.trim() ?? '',
+    };
+});
+
 export function getBlogPosts(): Promise<BlogPost[]> {
     return loadBlogPosts();
+}
+
+export function getHomePage(): Promise<HomePage | null> {
+    return loadHomePage();
 }
 
 export function getServices(): Promise<Service[]> {
