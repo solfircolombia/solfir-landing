@@ -107,6 +107,6 @@ const resolvedWidths = usableWidths.length > 0 ? usableWidths : [Math.min(source
             )}
             <slot />
         </div>
+        {credit && <p class="hero-credit">{credit}</p>}
     </div>
-    {credit && <p class="hero-credit">{credit}</p>}
 </section>
