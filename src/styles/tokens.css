@@ -5,7 +5,8 @@
   Component tokens point at semantic tokens so a palette change stays in this file.
 
   Yellow (#fab114) is an accent. It is never text on white (1.85:1).
-  Champagne & Limousines is not a UI font. The wordmark is the SVG logo.
+  Body and headings use Champagne & Limousines, the family from before the
+  redesign. The wordmark stays the SVG logo.
 */
 
 :root {
@@ -24,8 +25,8 @@
     --primitive-color-whatsapp: #1ca24f;
     --primitive-color-settings: #0094e9;
 
-    --primitive-font-body: 'Plus Jakarta Sans Variable', 'Segoe UI', sans-serif;
-    --primitive-font-display: 'Fraunces Variable', georgia, serif;
+    --primitive-font-body: 'Champagne&Limousines', 'Segoe UI', sans-serif;
+    --primitive-font-display: 'Champagne&Limousines', 'Segoe UI', sans-serif;
     --primitive-font-scale: 1;
 
     /* Fluid scale. The max sizes match the previous rem headings at a 19px root. */

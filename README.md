@@ -101,7 +101,7 @@ Trailing slashes match the current production URLs. `/api/sendgrid/` is not prer
 
 Remote Contentful images are optimized with Astro `<Picture>` (AVIF and WebP, widths up to the original Gatsby breakpoints). The home hero uses the same pipeline: responsive widths, AVIF and WebP, eager loading, and high fetch priority. The favicon, web manifest, and social image live in `public/`. Each page sets Spanish `lang`, a title, description, canonical URL, Open Graph, and Twitter tags. `@astrojs/sitemap` writes the sitemap. Google Analytics loads only when `PUBLIC_GA_MEASUREMENT_ID` is set.
 
-UI text uses self-hosted variable fonts: Plus Jakarta Sans for body and interface, Fraunces for display headings (`@fontsource-variable`, `font-display: swap`). Only the latin weight files are preloaded. The wordmark is an SVG, so Champagne & Limousines is not part of the UI.
+UI text uses self-hosted Champagne & Limousines for body, interface, and headings (`font-display: swap`). Regular and bold are preloaded as Latin WOFF2. Italic faces load only when used. `--font-sans` and `--font-display` both point at that family through the design tokens. The wordmark stays the SVG logo.
 
 Design tokens live in `src/styles/tokens.css` (primitive, semantic, component) and are wired into Tailwind 4 with `@theme inline`. Light, dark, and high-contrast themes use `data-theme` and `data-contrast`. The settings panel stores the theme, text size, and high-contrast choice in `localStorage`. An inline script in the document head applies them before paint. Components in `src/styles/components.css` and Tailwind utilities on the Astro components consume those tokens. The legacy `site.css` stylesheet has been removed.
 
