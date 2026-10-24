@@ -217,89 +217,173 @@ try {
     for (const textSize of ['lg', 'xl']) {
         for (const width of [1280, 1024]) {
             for (const pass of headerThemes) {
-            const headerContext = await browser.newContext({
-                viewport: { width, height: 900 },
-                colorScheme: 'light',
-            });
-            await headerContext.addInitScript((prefs) => {
-                localStorage.setItem('solfir-text-size', prefs.textSize);
-                localStorage.setItem('solfir-theme', prefs.theme);
-                localStorage.setItem('solfir-contrast', prefs.contrast);
-            }, { ...pass, textSize });
-            const headerPage = await headerContext.newPage();
-            const label = `header ${textSize} ${width}px ${pass.name}`;
-            await headerPage.goto(`http://127.0.0.1:${port}/`, { waitUntil: 'networkidle' });
-            await headerPage.waitForTimeout(300);
-            const fit = await headerPage.evaluate(() => {
-                const root = document.documentElement;
-                const header = document.querySelector('.header');
-                const toggle = document.querySelector('#nav-toggle');
-                if (!header || !toggle) {
-                    return { missing: true };
-                }
-                const headerBox = header.getBoundingClientRect();
-                const links = Array.from(document.querySelectorAll('.header-links-item')).filter(
-                    (item) => getComputedStyle(item).display !== 'none' && item.getClientRects().length > 0
-                );
-                const rects = links.map((item) => item.getBoundingClientRect());
-                const clipped = rects.filter(
-                    (rect) =>
-                        rect.left < headerBox.left - 0.5 ||
-                        rect.right > headerBox.right + 0.5 ||
-                        rect.top < headerBox.top - 0.5 ||
-                        rect.bottom > headerBox.bottom + 0.5
-                ).length;
-                const ordered = [...rects].sort((a, b) => a.left - b.left);
-                const overlap = ordered.some((rect, index) => {
-                    const previous = ordered[index - 1];
-                    return previous && rect.top < previous.bottom - 1 && rect.left < previous.right - 1;
+                const headerContext = await browser.newContext({
+                    viewport: { width, height: 900 },
+                    colorScheme: 'light',
                 });
-                const toggleStyle = getComputedStyle(toggle);
-                const toggleBox = toggle.getBoundingClientRect();
-                const toggleVisible = toggleStyle.display !== 'none' && toggleBox.width > 0;
-                return {
-                    missing: false,
-                    textSize: root.dataset.textSize,
-                    nav: root.dataset.nav || 'inline',
-                    scroll: root.scrollWidth - root.clientWidth,
-                    clipped,
-                    overlap,
-                    linkCount: links.length,
-                    linkMin: rects.reduce((min, rect) => Math.min(min, rect.width, rect.height), 999),
-                    toggleVisible,
-                    toggleExpanded: toggle.getAttribute('aria-expanded'),
-                    toggleControls: toggle.getAttribute('aria-controls'),
-                    toggleW: toggleBox.width,
-                    toggleH: toggleBox.height,
-                };
-            });
-            if (fit.missing) {
-                failures.push(`${label}: header or toggle missing`);
-            } else if (fit.textSize !== textSize) {
-                failures.push(`${label}: text size is ${fit.textSize}`);
-            } else if (fit.scroll > 1) {
-                failures.push(`${label}: horizontal scroll ${fit.scroll}px`);
-            } else if (fit.clipped || fit.overlap) {
-                failures.push(`${label}: nav clipped=${fit.clipped} overlap=${fit.overlap}`);
-            } else if (fit.toggleExpanded !== 'false') {
-                failures.push(`${label}: aria-expanded is ${fit.toggleExpanded}`);
-            } else if (fit.toggleControls !== 'nav-modal') {
-                failures.push(`${label}: aria-controls is ${fit.toggleControls}`);
-            } else if (fit.linkCount === 0 && !fit.toggleVisible) {
-                failures.push(`${label}: compact nav has no visible toggle`);
-            } else if (fit.linkCount > 0 && fit.linkMin < 43.5) {
-                failures.push(`${label}: nav target is ${fit.linkMin}px`);
-            } else if (fit.toggleVisible && (fit.toggleW < 44 || fit.toggleH < 44)) {
-                failures.push(`${label}: toggle is ${fit.toggleW}x${fit.toggleH}`);
-            } else {
-                console.log(
-                    `${label}: nav=${fit.nav} links=${fit.linkCount} toggle=${fit.toggleVisible}`
+                await headerContext.addInitScript(
+                    (prefs) => {
+                        localStorage.setItem('solfir-text-size', prefs.textSize);
+                        localStorage.setItem('solfir-theme', prefs.theme);
+                        localStorage.setItem('solfir-contrast', prefs.contrast);
+                    },
+                    { ...pass, textSize }
                 );
-            }
-            await headerContext.close();
+                const headerPage = await headerContext.newPage();
+                const label = `header ${textSize} ${width}px ${pass.name}`;
+                await headerPage.goto(`http://127.0.0.1:${port}/`, { waitUntil: 'networkidle' });
+                await headerPage.waitForTimeout(300);
+                const fit = await headerPage.evaluate(() => {
+                    const root = document.documentElement;
+                    const header = document.querySelector('.header');
+                    const toggle = document.querySelector('#nav-toggle');
+                    if (!header || !toggle) {
+                        return { missing: true };
+                    }
+                    const headerBox = header.getBoundingClientRect();
+                    const links = Array.from(
+                        document.querySelectorAll('.header-links-item')
+                    ).filter(
+                        (item) =>
+                            getComputedStyle(item).display !== 'none' &&
+                            item.getClientRects().length > 0
+                    );
+                    const rects = links.map((item) => item.getBoundingClientRect());
+                    const clipped = rects.filter(
+                        (rect) =>
+                            rect.left < headerBox.left - 0.5 ||
+                            rect.right > headerBox.right + 0.5 ||
+                            rect.top < headerBox.top - 0.5 ||
+                            rect.bottom > headerBox.bottom + 0.5
+                    ).length;
+                    const ordered = [...rects].sort((a, b) => a.left - b.left);
+                    const overlap = ordered.some((rect, index) => {
+                        const previous = ordered[index - 1];
+                        return (
+                            previous &&
+                            rect.top < previous.bottom - 1 &&
+                            rect.left < previous.right - 1
+                        );
+                    });
+                    const toggleStyle = getComputedStyle(toggle);
+                    const toggleBox = toggle.getBoundingClientRect();
+                    const toggleVisible = toggleStyle.display !== 'none' && toggleBox.width > 0;
+                    return {
+                        missing: false,
+                        textSize: root.dataset.textSize,
+                        nav: root.dataset.nav || 'inline',
+                        scroll: root.scrollWidth - root.clientWidth,
+                        clipped,
+                        overlap,
+                        linkCount: links.length,
+                        linkMin: rects.reduce(
+                            (min, rect) => Math.min(min, rect.width, rect.height),
+                            999
+                        ),
+                        toggleVisible,
+                        toggleExpanded: toggle.getAttribute('aria-expanded'),
+                        toggleControls: toggle.getAttribute('aria-controls'),
+                        toggleW: toggleBox.width,
+                        toggleH: toggleBox.height,
+                    };
+                });
+                if (fit.missing) {
+                    failures.push(`${label}: header or toggle missing`);
+                } else if (fit.textSize !== textSize) {
+                    failures.push(`${label}: text size is ${fit.textSize}`);
+                } else if (fit.scroll > 1) {
+                    failures.push(`${label}: horizontal scroll ${fit.scroll}px`);
+                } else if (fit.clipped || fit.overlap) {
+                    failures.push(`${label}: nav clipped=${fit.clipped} overlap=${fit.overlap}`);
+                } else if (fit.toggleExpanded !== 'false') {
+                    failures.push(`${label}: aria-expanded is ${fit.toggleExpanded}`);
+                } else if (fit.toggleControls !== 'nav-modal') {
+                    failures.push(`${label}: aria-controls is ${fit.toggleControls}`);
+                } else if (fit.linkCount === 0 && !fit.toggleVisible) {
+                    failures.push(`${label}: compact nav has no visible toggle`);
+                } else if (fit.linkCount > 0 && fit.linkMin < 43.5) {
+                    failures.push(`${label}: nav target is ${fit.linkMin}px`);
+                } else if (fit.toggleVisible && (fit.toggleW < 44 || fit.toggleH < 44)) {
+                    failures.push(`${label}: toggle is ${fit.toggleW}x${fit.toggleH}`);
+                } else {
+                    console.log(
+                        `${label}: nav=${fit.nav} links=${fit.linkCount} toggle=${fit.toggleVisible}`
+                    );
+                }
+                await headerContext.close();
             }
         }
     }
+
+    const overflowContext = await browser.newContext({
+        viewport: { width: 360, height: 800 },
+        colorScheme: 'light',
+    });
+    await overflowContext.addInitScript(() => {
+        localStorage.setItem('solfir-text-size', 'xl');
+        localStorage.setItem('solfir-theme', 'light');
+        localStorage.setItem('solfir-contrast', 'default');
+    });
+    const overflowPage = await overflowContext.newPage();
+    for (const path of paths) {
+        const label = `overflow 360px xl ${path}`;
+        await overflowPage.goto(`http://127.0.0.1:${port}${path}`, { waitUntil: 'networkidle' });
+        await overflowPage.evaluate(() => document.fonts?.ready);
+        const fit = await overflowPage.evaluate(() => {
+            const root = document.documentElement;
+            const vw = root.clientWidth;
+            const offenders = [];
+            for (const el of document.body.querySelectorAll('*')) {
+                if (el.closest('[hidden], [inert], .settings, .skip-link')) {
+                    continue;
+                }
+                const style = getComputedStyle(el);
+                if (style.display === 'none' || style.visibility === 'hidden') {
+                    continue;
+                }
+                const rect = el.getBoundingClientRect();
+                if (rect.width < 1 || rect.height < 1) {
+                    continue;
+                }
+                const right = rect.right - vw;
+                const left = -rect.left;
+                if (right > 1 || left > 1) {
+                    const text = (el.textContent || el.getAttribute('aria-label') || el.tagName)
+                        .replace(/\s+/g, ' ')
+                        .trim()
+                        .slice(0, 70);
+                    offenders.push({
+                        cls: String(el.className || el.tagName).slice(0, 60),
+                        text,
+                        right: Math.round(right),
+                        left: Math.round(left),
+                    });
+                    if (offenders.length >= 4) {
+                        break;
+                    }
+                }
+            }
+            return {
+                lang: root.lang,
+                textSize: root.dataset.textSize,
+                scroll: root.scrollWidth - vw,
+                offenders,
+            };
+        });
+        if (fit.lang !== 'es') {
+            failures.push(`${label}: html lang is ${fit.lang || 'missing'}`);
+        } else if (fit.textSize !== 'xl') {
+            failures.push(`${label}: text size is ${fit.textSize}`);
+        } else if (fit.scroll > 1 || fit.offenders.length > 0) {
+            const detail = fit.offenders
+                .map((item) => `${item.cls} right=${item.right} left=${item.left} "${item.text}"`)
+                .join('; ');
+            failures.push(`${label}: scroll=${Math.round(fit.scroll)}px ${detail}`);
+        } else {
+            console.log(`${label}: no horizontal overflow`);
+        }
+    }
+    await overflowContext.close();
 } finally {
     await browser.close();
     await new Promise((resolve) => server.close(resolve));

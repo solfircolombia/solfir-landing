@@ -3,6 +3,12 @@
   Layout grids that are one-off live as Tailwind utilities on the components.
 */
 
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 :root {
     --base-font-size: calc(19px * var(--semantic-font-scale, 1));
 }
@@ -11,6 +17,9 @@ html {
     font-family: var(--semantic-font-body);
     font-size: var(--base-font-size);
     background: var(--semantic-color-bg);
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    overflow-wrap: break-word;
 }
 
 body {
@@ -37,13 +46,80 @@ h1,
 h2,
 h3 {
     font-family: var(--semantic-font-display);
-    font-weight: 560;
-    letter-spacing: -0.02em;
-    line-height: 1.15;
+    font-weight: 520;
+    letter-spacing: -0.015em;
+    line-height: 1.22;
 }
 
-p {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    min-width: 0;
+    max-width: 100%;
+    hyphens: none;
+    -webkit-hyphens: none;
+    text-wrap: balance;
     overflow-wrap: break-word;
+}
+
+p,
+li,
+dd,
+figcaption,
+blockquote {
+    min-width: 0;
+    max-width: 100%;
+    text-wrap: pretty;
+    overflow-wrap: anywhere;
+}
+
+a {
+    overflow-wrap: anywhere;
+}
+
+.button,
+button,
+input,
+textarea,
+select,
+.header-links-item,
+.header-links-modal-item,
+.header-logo {
+    hyphens: none;
+    -webkit-hyphens: none;
+    overflow-wrap: normal;
+}
+
+.layout,
+.container,
+.card-grid,
+.surface-card,
+.post-layout,
+.prose,
+.form-card,
+.hero,
+.hero-copy,
+.band,
+.stack,
+.field,
+main {
+    min-width: 0;
+}
+
+.card-grid > *,
+.post-layout > *,
+.stack > *,
+.prose > *,
+.form-card > *,
+.service-card-body > *,
+.card-body > *,
+.hero-copy > *,
+.field > * {
+    min-width: 0;
+    max-width: 100%;
 }
 
 .layout {
@@ -138,7 +214,7 @@ p {
     align-items: center;
     box-sizing: border-box;
     min-height: 44px;
-    padding: 0.55rem 0.7rem;
+    padding: 0.55rem 0.5rem;
     border-bottom: 3px solid transparent;
     color: var(--component-nav-link);
     font-weight: 650;
@@ -242,6 +318,7 @@ p {
     align-items: center;
     justify-content: center;
     gap: 0.4rem;
+    max-width: 100%;
     min-height: 48px;
     padding: 0.65rem 1.35rem;
     border: 2px solid transparent;
@@ -342,7 +419,7 @@ p {
 
 .hero[data-hero='image'] .container {
     align-items: flex-start;
-    width: min(22rem, 40%);
+    width: min(34rem, 48%);
     margin-left: max(1rem, calc((100% - 1140px) / 2));
     margin-right: auto;
 }
@@ -397,9 +474,9 @@ p {
     color: var(--semantic-color-text);
     font-family: var(--semantic-font-display);
     font-size: var(--primitive-font-size-display);
-    font-weight: 560;
-    letter-spacing: -0.03em;
-    line-height: 1.12;
+    font-weight: 520;
+    letter-spacing: -0.02em;
+    line-height: 1.18;
     text-align: center;
 }
 
@@ -410,7 +487,7 @@ p {
 
 .hero-title .landing-banner-title-solfir {
     color: var(--semantic-color-emphasis);
-    font-weight: 650;
+    font-weight: 640;
 }
 
 .hero[data-hero='image'] .hero-title .landing-banner-title-solfir {
@@ -503,7 +580,7 @@ p {
 
 .card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
     gap: 1.25rem;
 }
 
@@ -546,9 +623,9 @@ p {
     color: inherit;
     font-family: var(--semantic-font-display);
     font-size: var(--primitive-font-size-lg);
-    font-weight: 560;
-    letter-spacing: -0.02em;
-    line-height: 1.25;
+    font-weight: 520;
+    letter-spacing: -0.015em;
+    line-height: 1.28;
 }
 
 .card-text {
@@ -605,13 +682,14 @@ p {
     display: flex;
     flex: 1;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 0.75rem;
     width: 100%;
     padding: 1.25rem;
 }
 
 .service-card .icon {
+    align-self: flex-start;
     width: 2.5rem;
     height: 2.5rem;
     color: var(--semantic-color-brand);
@@ -702,9 +780,9 @@ p {
 .prose h3,
 .prose h4 {
     font-family: var(--semantic-font-display);
-    font-weight: 560;
-    letter-spacing: -0.02em;
-    line-height: 1.25;
+    font-weight: 520;
+    letter-spacing: -0.015em;
+    line-height: 1.28;
     margin: 1.5rem 0 0.45rem;
 }
 

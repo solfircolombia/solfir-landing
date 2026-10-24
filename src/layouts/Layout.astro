@@ -8,7 +8,7 @@ import Settings from '../components/Settings.astro';
 import Maintenance from '../components/Maintenance.astro';
 import Icon from '../components/Icon.astro';
 import jakartaLatin from '@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-normal.woff2?url';
-import frauncesLatin from '@fontsource-variable/fraunces/files/fraunces-latin-wght-normal.woff2?url';
+import literataLatin from '@fontsource-variable/literata/files/literata-latin-wght-normal.woff2?url';
 import '../styles/global.css';
 
 interface Props {
@@ -54,7 +54,8 @@ const maintenance = MAINTENANCE;
                 root.setAttribute('data-theme-mode', mode);
                 root.setAttribute('data-text-size', size);
                 if (contrast) root.setAttribute('data-contrast', 'high');
-                var scale = size === 'xl' ? 1.25 : size === 'lg' ? 1.125 : size === 'sm' ? 0.875 : 1;
+                var scale =
+                    size === 'xl' ? 1.25 : size === 'lg' ? 1.125 : size === 'sm' ? 0.875 : 1;
                 if (window.innerWidth < 768 || window.innerWidth < 860 * scale + 280) {
                     root.setAttribute('data-nav', 'compact');
                 }
@@ -83,7 +84,7 @@ const maintenance = MAINTENANCE;
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#012651" />
         <link rel="preload" href={jakartaLatin} as="font" type="font/woff2" crossorigin />
-        <link rel="preload" href={frauncesLatin} as="font" type="font/woff2" crossorigin />
+        <link rel="preload" href={literataLatin} as="font" type="font/woff2" crossorigin />
         <meta name="generator" content={Astro.generator} />
         {gaId && (
             <>

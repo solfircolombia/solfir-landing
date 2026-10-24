@@ -25,18 +25,19 @@
     --primitive-color-settings: #0094e9;
 
     --primitive-font-body: 'Plus Jakarta Sans Variable', 'Segoe UI', sans-serif;
-    --primitive-font-display: 'Fraunces Variable', georgia, serif;
+    --primitive-font-display: 'Literata Variable', georgia, serif;
     --primitive-font-scale: 1;
 
-    /* Fluid scale. The max sizes match the previous rem headings at a 19px root. */
+    /* Fluid scale. Max sizes match the previous rem headings at a 19px root.
+       The lower bounds let Literata headings shrink on small screens. */
     --primitive-font-size-xs: clamp(0.75rem, 0.72rem + 0.15vw, 0.8rem);
     --primitive-font-size-sm: clamp(0.875rem, 0.84rem + 0.18vw, 0.95rem);
     --primitive-font-size-body: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
-    --primitive-font-size-lg: clamp(1.125rem, 1.02rem + 0.45vw, 1.25rem);
-    --primitive-font-size-xl: clamp(1.25rem, 1.05rem + 0.85vw, 1.563rem);
-    --primitive-font-size-2xl: clamp(1.5rem, 1.15rem + 1.35vw, 1.953rem);
-    --primitive-font-size-3xl: clamp(1.75rem, 1.2rem + 2vw, 2.441rem);
-    --primitive-font-size-display: clamp(2rem, 1.15rem + 2.9vw, 3.052rem);
+    --primitive-font-size-lg: clamp(1.02rem, 0.88rem + 0.7vw, 1.25rem);
+    --primitive-font-size-xl: clamp(1.12rem, 0.9rem + 1.15vw, 1.563rem);
+    --primitive-font-size-2xl: clamp(1.28rem, 0.9rem + 1.8vw, 1.953rem);
+    --primitive-font-size-3xl: clamp(1.4rem, 0.95rem + 2.35vw, 2.441rem);
+    --primitive-font-size-display: clamp(1.65rem, 0.7rem + 3.6vw, 3.052rem);
 
     --primitive-space-1: 0.25rem;
     --primitive-space-2: 0.5rem;

@@ -2,7 +2,7 @@
 @import 'tailwindcss/theme.css' layer(theme);
 @import 'tailwindcss/utilities.css' layer(utilities);
 @import '@fontsource-variable/plus-jakarta-sans/wght.css';
-@import '@fontsource-variable/fraunces/wght.css';
+@import '@fontsource-variable/literata/wght.css';
 @import './tokens.css';
 @import './components.css';
 
