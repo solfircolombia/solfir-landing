@@ -72,8 +72,8 @@ export const PAGE_SEO: Record<string, SeoInput> = {
 export const CONTACT = {
     mail: 'contacto@solfir.com.co',
     supportMail: 'andres.artunduaga@solfir.com.co',
-    /** Shown to people. */
-    phone: '+57 311 274 4436',
+    /** Shown to people, without a country code or spaces. */
+    phone: '3112744436',
     /** E.164, used by tel: links, WhatsApp, and JSON-LD. */
     phoneE164: '+573112744436',
     address: 'Cl. 30a #6-22, Oficina 2502, Edificio San Martín Bloque B, Bogotá D.C.',
