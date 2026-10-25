@@ -25,7 +25,12 @@ const { id, label, labelledBy } = Astro.props;
     <div class="modal-panel">
         <div class="modal-header">
             <Logo />
-            <button type="button" class="modal-close" data-modal-close aria-label={LABELS.closeMenu}>
+            <button
+                type="button"
+                class="modal-close"
+                data-modal-close
+                aria-label={LABELS.closeMenu}
+            >
                 <Icon name="close" />
             </button>
         </div>
@@ -33,7 +38,9 @@ const { id, label, labelledBy } = Astro.props;
             <slot />
         </div>
         <div class="modal-footer">
-            <SocialLinks variant="primary" />
+            <div class="icon-row">
+                <SocialLinks variant="primary" />
+            </div>
         </div>
     </div>
 </div>
