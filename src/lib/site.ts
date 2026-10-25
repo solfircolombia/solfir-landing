@@ -108,6 +108,7 @@ export const SOCIAL_LINKS: { name: 'instagram' | 'linkedin' | 'twitter'; href: s
 
 export const CREDITS: { role: string; label: string; href: string }[] = [
     { role: 'Creado por', label: 'R2N', href: 'https://r2n.dev' },
+    { role: 'Fotografías por', label: 'Unsplash', href: 'https://unsplash.com' },
 ];
 
 /** Historical brand palettes. The settings panel no longer switches these. */

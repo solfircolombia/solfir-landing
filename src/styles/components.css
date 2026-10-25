@@ -1084,6 +1084,21 @@ main {
 }
 
 .footer-link,
+.footer .credits {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    line-height: 1.5;
+}
+
+.footer .credits .credit {
+    white-space: nowrap;
+}
+
+.footer .credits .credit:not(:last-child)::after {
+    content: ' · ';
+}
+
 .footer .credits a {
     color: var(--component-footer-link);
     font-weight: 650;
@@ -1156,24 +1171,6 @@ main {
 
 .fine-print {
     font-size: var(--primitive-font-size-sm);
-}
-
-.photo-credit {
-    margin: -0.75rem 0 0;
-    max-width: 100%;
-    color: var(--component-footer-text);
-    font-family: var(--semantic-font-body);
-    font-size: var(--primitive-font-size-xs);
-    font-weight: 500;
-    line-height: 1.4;
-}
-
-.photo-credit a {
-    color: var(--component-footer-link);
-    font-weight: 650;
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.15rem;
 }
 
 .bubble {
