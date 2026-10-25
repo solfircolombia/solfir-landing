@@ -16,6 +16,24 @@ function pageUrl(path) {
     return new URL(path, `${baseUrl}/`).toString();
 }
 
+/** Netlify adds a deploy-preview drawer. Keep it out of the page and out of axe. */
+async function hideDeployPreviewDrawer(context) {
+    await context.addInitScript(() => {
+        try {
+            sessionStorage.setItem('ntl-drawer-initial-state', 'hidden');
+        } catch {
+            // sessionStorage can throw in a locked-down browser. Axe also skips the drawer.
+        }
+    });
+}
+
+function axe(page) {
+    return new AxeBuilder({ page })
+        .exclude('[data-netlify-site-id]')
+        .exclude('iframe[title="Netlify Drawer"]')
+        .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']);
+}
+
 const types = {
     '.html': 'text/html; charset=utf-8',
     '.css': 'text/css; charset=utf-8',
@@ -337,6 +355,7 @@ const failures = [];
 
 try {
     const context = await browser.newContext({ colorScheme: 'light' });
+    await hideDeployPreviewDrawer(context);
     const page = await context.newPage();
     for (const path of paths) {
         const url = pageUrl(path);
@@ -375,9 +394,7 @@ try {
         }
 
         const report = async (label) => {
-            const results = await new AxeBuilder({ page })
-                .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
-                .analyze();
+            const results = await axe(page).analyze();
             for (const violation of results.violations) {
                 const nodes = violation.nodes
                     .slice(0, 3)
@@ -422,6 +439,7 @@ try {
                     viewport: { width, height: 900 },
                     colorScheme: 'light',
                 });
+                await hideDeployPreviewDrawer(headerContext);
                 await headerContext.addInitScript(
                     (prefs) => {
                         localStorage.setItem('solfir-text-size', prefs.textSize);
@@ -520,6 +538,7 @@ try {
         viewport: { width: 360, height: 800 },
         colorScheme: 'light',
     });
+    await hideDeployPreviewDrawer(overflowContext);
     await overflowContext.addInitScript(() => {
         localStorage.setItem('solfir-text-size', 'xl');
         localStorage.setItem('solfir-theme', 'light');
@@ -604,6 +623,7 @@ try {
             deviceScaleFactor: 1,
             colorScheme: heroCase.scheme,
         });
+        await hideDeployPreviewDrawer(heroContext);
         await heroContext.addInitScript(`
             localStorage.setItem('solfir-theme', ${JSON.stringify(heroCase.theme)});
             localStorage.setItem('solfir-text-size', 'md');
