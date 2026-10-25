@@ -28,16 +28,39 @@ function previewFromStatus(status) {
     return fallbackUrl();
 }
 
+const githubHeaders = {
+    Accept: 'application/vnd.github+json',
+    Authorization: `Bearer ${token}`,
+    'X-GitHub-Api-Version': '2022-11-28',
+    'User-Agent': 'solfir-a11y',
+};
+
+async function discoverPullRequestNumber() {
+    if (/^\d+$/.test(prNumber)) {
+        return prNumber;
+    }
+    const branch = process.env.GITHUB_REF_NAME || '';
+    const owner = repository.split('/')[0];
+    if (!branch || !owner) {
+        return '';
+    }
+    const response = await fetch(
+        `https://api.github.com/repos/${repository}/pulls?head=${owner}:${encodeURIComponent(branch)}&state=all&per_page=20`,
+        { headers: githubHeaders }
+    );
+    if (!response.ok) {
+        return '';
+    }
+    const pulls = await response.json();
+    const match = Array.isArray(pulls) ? pulls.find((item) => item?.head?.ref === branch) : null;
+    return match ? String(match.number) : '';
+}
+
 async function readStatus() {
     const response = await fetch(
         `https://api.github.com/repos/${repository}/commits/${sha}/status`,
         {
-            headers: {
-                Accept: 'application/vnd.github+json',
-                Authorization: `Bearer ${token}`,
-                'X-GitHub-Api-Version': '2022-11-28',
-                'User-Agent': 'solfir-a11y',
-            },
+            headers: githubHeaders,
         }
     );
     if (!response.ok) {
@@ -61,12 +84,33 @@ async function main() {
     }
 
     let chosen = '';
+    let sawActivity = false;
+    const resolvedPr = await discoverPullRequestNumber();
     for (let attempt = 1; attempt <= attempts; attempt += 1) {
         const status = await readStatus();
         const state = status?.state || 'missing';
         console.log(
             `Netlify deploy-preview status for ${sha.slice(0, 7)}: ${state} (attempt ${attempt}/${attempts})`
         );
+        if (
+            state === 'pending' ||
+            state === 'success' ||
+            state === 'failure' ||
+            state === 'error'
+        ) {
+            sawActivity = true;
+        }
+        if (!sawActivity && attempt >= 8 && resolvedPr) {
+            const existing = `https://deploy-preview-${resolvedPr}--${site}.netlify.app`;
+            const code = await probe(existing);
+            console.log(
+                `No Netlify status on ${sha.slice(0, 7)}. Existing preview ${existing}/ -> HTTP ${code}`
+            );
+            if (code >= 200 && code < 400) {
+                chosen = existing;
+                break;
+            }
+        }
         if (state === 'failure' || state === 'error') {
             throw new Error(
                 `Netlify deploy preview failed${status.target_url ? `: ${status.target_url}` : ''}.`

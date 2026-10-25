@@ -2,6 +2,11 @@ name: Accessibility
 
 on:
     pull_request:
+    # Merged pull requests do not emit pull_request on later pushes. This branch
+    # still needs a run of the updated checks against its deploy preview.
+    push:
+        branches:
+            - cursor/favicon-blog-sort-de96
     workflow_dispatch:
         inputs:
             preview_pr:
