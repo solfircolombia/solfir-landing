@@ -72,7 +72,7 @@ const year = new Date().getFullYear();
         </p>
         <p class="fine-print credits">
             {CREDITS.map((credit) => (
-                <span>
+                <span class="credit">
                     {credit.role}{' '}
                     {credit.href ? (
                         <a href={credit.href} target="_blank" rel="noopener noreferrer">
@@ -83,13 +83,6 @@ const year = new Date().getFullYear();
                     )}
                 </span>
             ))}
-        </p>
-        <p class="photo-credit">
-            Fotografías:{' '}
-            <a href="https://unsplash.com" target="_blank" rel="noopener noreferrer">
-                Unsplash
-                <span class="visually-hidden"> (se abre en una pestaña nueva)</span>
-            </a>
         </p>
     </div>
 </footer>

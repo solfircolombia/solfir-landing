@@ -108,8 +108,7 @@ export const SOCIAL_LINKS: { name: 'instagram' | 'linkedin' | 'twitter'; href: s
 
 export const CREDITS: { role: string; label: string; href: string }[] = [
     { role: 'Creado por', label: 'R2N', href: 'https://r2n.dev' },
-    { role: ' - Diseño por', label: 'Leidy Zuñiga', href: 'https://www.behance.net/leidyZ' },
-    { role: ' - Producciones audiovisuales por', label: 'Alexis Madroñero', href: '' },
+    { role: 'Fotografías por', label: 'Unsplash', href: 'https://unsplash.com' },
 ];
 
 /** Historical brand palettes. The settings panel no longer switches these. */
