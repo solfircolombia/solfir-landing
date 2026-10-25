@@ -2,6 +2,20 @@ name: Accessibility
 
 on:
     pull_request:
+    workflow_dispatch:
+        inputs:
+            preview_pr:
+                description: Pull request number whose Netlify preview to test
+                required: false
+                type: string
+
+permissions:
+    contents: read
+    statuses: read
+
+concurrency:
+    group: a11y-${{ github.event.pull_request.number || github.ref }}
+    cancel-in-progress: true
 
 jobs:
     a11y:
@@ -13,12 +27,42 @@ jobs:
                   node-version: 24
                   cache: npm
             - run: npm ci
+
+            - name: Choose the site under test
+              id: target
+              env:
+                  EVENT_NAME: ${{ github.event_name }}
+                  CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
+                  CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
+              run: |
+                  if [ "$EVENT_NAME" != "pull_request" ] && [ -n "$CONTENTFUL_SPACE_ID" ] && [ -n "$CONTENTFUL_ACCESS_TOKEN" ]; then
+                    echo "mode=local" >> "$GITHUB_OUTPUT"
+                  else
+                    echo "mode=preview" >> "$GITHUB_OUTPUT"
+                  fi
+
             - name: Build the static site
+              if: steps.target.outputs.mode == 'local'
               run: npm run build
               env:
                   CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
                   CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
                   CONTENTFUL_ENVIRONMENT: ${{ secrets.CONTENTFUL_ENVIRONMENT }}
                   PUBLIC_SITE_URL: https://solfir.com.co
+
+            - name: Wait for the Netlify deploy preview
+              if: steps.target.outputs.mode == 'preview'
+              id: preview
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  GITHUB_REPOSITORY: ${{ github.repository }}
+                  PREVIEW_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+                  PR_NUMBER: ${{ github.event.pull_request.number || github.event.inputs.preview_pr }}
+              run: node scripts/wait-netlify-preview.mjs
+
             - run: npx playwright install --with-deps chromium
-            - run: npm run test:a11y
+
+            - name: Accessibility checks
+              run: npm run test:a11y
+              env:
+                  A11Y_BASE_URL: ${{ steps.preview.outputs.url }}

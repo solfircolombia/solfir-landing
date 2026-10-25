@@ -4,7 +4,7 @@ import ContentImage from '../../components/ContentImage.astro';
 import Icon from '../../components/Icon.astro';
 import { getTeamMembers, type TeamMember } from '../../lib/contentful';
 import { renderRichText } from '../../lib/rich-text';
-import { teamPath } from '../../lib/site';
+import { COMPANY_LINKEDIN_ENABLED, isCompanyLinkedIn, teamPath } from '../../lib/site';
 
 export async function getStaticPaths() {
     const members = await getTeamMembers();
@@ -36,17 +36,15 @@ const description = renderRichText(member.description);
             <aside class="profile-card">
                 <div class="profile-card-main">
                     <div class="avatar">
-                        {
-                            member.avatar && (
-                                <ContentImage
-                                    image={member.avatar}
-                                    alt=""
-                                    widths={[195, 400]}
-                                    sizes="168px"
-                                    loading="eager"
-                                />
-                            )
-                        }
+                        {member.avatar && (
+                            <ContentImage
+                                image={member.avatar}
+                                alt=""
+                                widths={[195, 400]}
+                                sizes="168px"
+                                loading="eager"
+                            />
+                        )}
                     </div>
                     <h1>{member.name}</h1>
                     <span>{member.role}</span>
@@ -54,33 +52,35 @@ const description = renderRichText(member.description);
                 <div class="profile-card-contact">
                     <h2>Contacto</h2>
                     <div class="profile-links">
-                        {
-                            member.cv.profiles.map((profile) => {
-                                if (profile.network === 'LinkedIn' && profile.url) {
-                                    return (
-                                        <a
-                                            href={profile.url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            aria-label={`LinkedIn de ${member.name}`}
-                                        >
-                                            <Icon name="linkedin" />
-                                        </a>
-                                    );
-                                }
-                                if (profile.network === 'Email' && profile.url) {
-                                    return (
-                                        <a
-                                            href={`mailto:${profile.url}`}
-                                            aria-label={`Enviar correo a ${member.name}`}
-                                        >
-                                            <Icon name="mail" />
-                                        </a>
-                                    );
-                                }
-                                return null;
-                            })
-                        }
+                        {member.cv.profiles.map((profile) => {
+                            if (
+                                profile.network === 'LinkedIn' &&
+                                profile.url &&
+                                (COMPANY_LINKEDIN_ENABLED || !isCompanyLinkedIn(profile.url))
+                            ) {
+                                return (
+                                    <a
+                                        href={profile.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label={`LinkedIn de ${member.name}`}
+                                    >
+                                        <Icon name="linkedin" />
+                                    </a>
+                                );
+                            }
+                            if (profile.network === 'Email' && profile.url) {
+                                return (
+                                    <a
+                                        href={`mailto:${profile.url}`}
+                                        aria-label={`Enviar correo a ${member.name}`}
+                                    >
+                                        <Icon name="mail" />
+                                    </a>
+                                );
+                            }
+                            return null;
+                        })}
                     </div>
                 </div>
             </aside>
@@ -91,37 +91,33 @@ const description = renderRichText(member.description);
                 </section>
                 <section class="resume-block">
                     <h2>Experiencia</h2>
-                    {
-                        member.cv.work.map((workItem) => (
-                            <div class="resume-item">
-                                <h3>{workItem.name}</h3>
-                                <span class="resume-meta">
-                                    {workItem.position} ({workItem.startDate} – {workItem.endDate})
-                                </span>
-                                {workItem.summary && <p>{workItem.summary}</p>}
-                                {workItem.highlights && workItem.highlights.length > 0 && (
-                                    <ul>
-                                        {workItem.highlights.map((highlight) => (
-                                            <li>{highlight}</li>
-                                        ))}
-                                    </ul>
-                                )}
-                            </div>
-                        ))
-                    }
+                    {member.cv.work.map((workItem) => (
+                        <div class="resume-item">
+                            <h3>{workItem.name}</h3>
+                            <span class="resume-meta">
+                                {workItem.position} ({workItem.startDate} – {workItem.endDate})
+                            </span>
+                            {workItem.summary && <p>{workItem.summary}</p>}
+                            {workItem.highlights && workItem.highlights.length > 0 && (
+                                <ul>
+                                    {workItem.highlights.map((highlight) => (
+                                        <li>{highlight}</li>
+                                    ))}
+                                </ul>
+                            )}
+                        </div>
+                    ))}
                 </section>
                 <section class="resume-block">
                     <h2>Educación</h2>
-                    {
-                        member.cv.education.map((item) => (
-                            <div class="resume-item">
-                                <h3>{item.area}</h3>
-                                <span class="resume-meta">
-                                    {item.institution} ({item.startDate} – {item.endDate})
-                                </span>
-                            </div>
-                        ))
-                    }
+                    {member.cv.education.map((item) => (
+                        <div class="resume-item">
+                            <h3>{item.area}</h3>
+                            <span class="resume-meta">
+                                {item.institution} ({item.startDate} – {item.endDate})
+                            </span>
+                        </div>
+                    ))}
                 </section>
             </div>
         </div>

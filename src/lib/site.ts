@@ -79,9 +79,30 @@ export const CONTACT = {
         'https://wa.me/+573008178461?text=Hola%21%0A%0AEstoy%20interesado%20en%20obtener%20m%C3%A1s%20informaci%C3%B3n%20sobre%20los%20servicios%20de%20insolvencia%20y%20reorganizaci%C3%B3n%20que%20ofrece%20%2ASOLFIR%2A.%0A%0A%C2%BFPodr%C3%ADa%20proporcionarme%20m%C3%A1s%20detalles%20o%20programar%20una%20consulta%20para%20discutir%20mis%20opciones%3F%20Gracias%20por%20su%20tiempo.%0A%0AMuchas%20gracias%21%21',
 } as const;
 
+/** Flip this when the company LinkedIn profile is public again. */
+export const COMPANY_LINKEDIN_ENABLED = false;
+
+export const COMPANY_LINKEDIN_URL = 'https://www.linkedin.com/in/solfir-colombia-80663a267/';
+
+/** True when `url` is the company profile, ignoring www, case, and a trailing slash. */
+export function isCompanyLinkedIn(url: string): boolean {
+    let candidate: URL;
+    let company: URL;
+    try {
+        candidate = new URL(url);
+        company = new URL(COMPANY_LINKEDIN_URL);
+    } catch {
+        return false;
+    }
+    const host = (value: URL) => value.hostname.replace(/^www\./, '').toLowerCase();
+    const path = (value: URL) =>
+        decodeURIComponent(value.pathname).replace(/\/+$/, '').toLowerCase();
+    return host(candidate) === host(company) && path(candidate) === path(company);
+}
+
 export const SOCIAL_LINKS: { name: 'instagram' | 'linkedin' | 'twitter'; href: string }[] = [
     { name: 'instagram', href: 'https://instagram.com/solfircolombia' },
-    { name: 'linkedin', href: 'https://www.linkedin.com/in/solfir-colombia-80663a267/' },
+    { name: 'linkedin', href: COMPANY_LINKEDIN_URL },
     { name: 'twitter', href: 'https://twitter.com/solfircolombia' },
 ];
 

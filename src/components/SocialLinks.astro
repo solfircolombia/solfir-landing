@@ -1,5 +1,5 @@
 ---
-import { SOCIAL_LINKS } from '../lib/site';
+import { COMPANY_LINKEDIN_ENABLED, SOCIAL_LINKS } from '../lib/site';
 import Icon from './Icon.astro';
 
 interface Props {
@@ -9,9 +9,12 @@ interface Props {
 }
 
 const { variant = 'primary', itemClass = '', showTooltip = false } = Astro.props;
+const links = SOCIAL_LINKS.filter(
+    (social) => social.name !== 'linkedin' || COMPANY_LINKEDIN_ENABLED
+);
 ---
 
-{SOCIAL_LINKS.map((social) => (
+{links.map((social) => (
     <a
         class:list={[itemClass, showTooltip && 'tooltip']}
         href={social.href}
