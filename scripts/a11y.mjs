@@ -7,6 +7,14 @@ import sharp from 'sharp';
 
 const root = join(process.cwd(), 'dist');
 const port = Number(process.env.A11Y_PORT || 4173);
+const baseUrl = (process.env.A11Y_BASE_URL || '').replace(/\/$/, '');
+
+function pageUrl(path) {
+    if (!baseUrl) {
+        return `http://127.0.0.1:${port}${path}`;
+    }
+    return new URL(path, `${baseUrl}/`).toString();
+}
 
 const types = {
     '.html': 'text/html; charset=utf-8',
@@ -254,26 +262,67 @@ function headingProblems(levels) {
     return problems;
 }
 
-if (!existsSync(join(root, 'index.html'))) {
-    console.error('dist/index.html is missing. Run npm run build before npm run test:a11y.');
-    process.exit(1);
+async function remotePaths() {
+    const sitemapUrl = `${baseUrl}/sitemap-0.xml`;
+    const response = await fetch(sitemapUrl);
+    if (!response.ok) {
+        throw new Error(`Could not read ${sitemapUrl} (HTTP ${response.status}).`);
+    }
+    const xml = await response.text();
+    const published = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => {
+        const pathname = new URL(match[1].trim()).pathname;
+        return pathname.endsWith('/') ? pathname : `${pathname}/`;
+    });
+    const first = (section) =>
+        published
+            .filter((item) => item.startsWith(`/${section}/`) && item !== `/${section}/`)
+            .sort()[0];
+    return [
+        '/',
+        '/servicios/',
+        first('servicios'),
+        '/quienes-somos/',
+        '/equipo/',
+        first('equipo'),
+        '/blog/',
+        first('blog'),
+        '/contacto/',
+        '/gracias/',
+        '/error/',
+        '/404/',
+        '/design-system/',
+    ].filter(Boolean);
 }
 
-const paths = [
-    '/',
-    '/servicios/',
-    firstSlug('servicios'),
-    '/quienes-somos/',
-    '/equipo/',
-    firstSlug('equipo'),
-    '/blog/',
-    firstSlug('blog'),
-    '/contacto/',
-    '/gracias/',
-    '/error/',
-    '/404/',
-    '/design-system/',
-].filter(Boolean);
+let paths;
+if (baseUrl) {
+    try {
+        paths = await remotePaths();
+    } catch (error) {
+        console.error(error instanceof Error ? error.message : error);
+        process.exit(1);
+    }
+    console.log(`Checking ${baseUrl}`);
+} else if (!existsSync(join(root, 'index.html'))) {
+    console.error('dist/index.html is missing. Run npm run build before npm run test:a11y.');
+    process.exit(1);
+} else {
+    paths = [
+        '/',
+        '/servicios/',
+        firstSlug('servicios'),
+        '/quienes-somos/',
+        '/equipo/',
+        firstSlug('equipo'),
+        '/blog/',
+        firstSlug('blog'),
+        '/contacto/',
+        '/gracias/',
+        '/error/',
+        '/404/',
+        '/design-system/',
+    ].filter(Boolean);
+}
 
 const themePasses = [
     { name: 'dark', theme: 'dark', contrast: '' },
@@ -282,7 +331,7 @@ const themePasses = [
 ];
 const themePaths = new Set(['/', '/contacto/', '/design-system/']);
 
-const server = await listen();
+const server = baseUrl ? null : await listen();
 const browser = await chromium.launch();
 const failures = [];
 
@@ -290,7 +339,7 @@ try {
     const context = await browser.newContext({ colorScheme: 'light' });
     const page = await context.newPage();
     for (const path of paths) {
-        const url = `http://127.0.0.1:${port}${path}`;
+        const url = pageUrl(path);
         const response = await page.goto(url, { waitUntil: 'networkidle' });
         if (!response || response.status() >= 400) {
             failures.push(`${path}: HTTP ${response ? response.status() : 'no response'}`);
@@ -383,7 +432,7 @@ try {
                 );
                 const headerPage = await headerContext.newPage();
                 const label = `header ${textSize} ${width}px ${pass.name}`;
-                await headerPage.goto(`http://127.0.0.1:${port}/`, { waitUntil: 'networkidle' });
+                await headerPage.goto(pageUrl('/'), { waitUntil: 'networkidle' });
                 await headerPage.waitForTimeout(300);
                 const fit = await headerPage.evaluate(() => {
                     const root = document.documentElement;
@@ -479,7 +528,7 @@ try {
     const overflowPage = await overflowContext.newPage();
     for (const path of paths) {
         const label = `overflow 360px xl ${path}`;
-        await overflowPage.goto(`http://127.0.0.1:${port}${path}`, { waitUntil: 'networkidle' });
+        await overflowPage.goto(pageUrl(path), { waitUntil: 'networkidle' });
         await overflowPage.evaluate(() => document.fonts?.ready);
         const fit = await overflowPage.evaluate(() => {
             const root = document.documentElement;
@@ -562,7 +611,7 @@ try {
         `);
         const heroPage = await heroContext.newPage();
         const label = `hero contrast ${heroCase.theme}${heroCase.contrast === 'high' ? ' high-contrast' : ''} ${heroCase.width}px`;
-        await heroPage.goto(`http://127.0.0.1:${port}/`, { waitUntil: 'networkidle' });
+        await heroPage.goto(pageUrl('/'), { waitUntil: 'networkidle' });
         await heroPage.evaluate(() => document.fonts?.ready);
         const theme = await heroPage.evaluate(() => ({
             page: document.documentElement.dataset.theme,
@@ -618,7 +667,9 @@ try {
     }
 } finally {
     await browser.close();
-    await new Promise((resolve) => server.close(resolve));
+    if (server) {
+        await new Promise((resolve) => server.close(resolve));
+    }
 }
 
 if (failures.length > 0) {

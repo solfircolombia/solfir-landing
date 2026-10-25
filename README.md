@@ -52,7 +52,7 @@ npm run format:write
 
 Prettier runs on commit through husky and lint-staged.
 
-`npm run test:a11y` needs a finished `dist/`. It serves that build and checks the main pages with `@axe-core/playwright` (WCAG 2.2 AA) and a heading outline check. The same job runs on pull requests from `.github/workflows/a11y.yml`. That workflow needs `CONTENTFUL_SPACE_ID` and `CONTENTFUL_ACCESS_TOKEN` in the repository secrets so the build can read Contentful.
+`npm run test:a11y` checks the main pages with `@axe-core/playwright` (WCAG 2.2 AA), the heading outline, header fit, hero contrast, and horizontal overflow at 360px. With a finished `dist/` it serves that build. Set `A11Y_BASE_URL` to run the same checks against an already deployed site. On pull requests, `.github/workflows/a11y.yml` waits for the Netlify deploy preview and tests that URL, because GitHub Actions has no Contentful secrets. Outside a pull request, when `CONTENTFUL_SPACE_ID` and `CONTENTFUL_ACCESS_TOKEN` are available, the workflow still builds the site and tests the local build.
 
 ## Content
 
