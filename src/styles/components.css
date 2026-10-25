@@ -830,6 +830,25 @@ main {
     padding: 1.5rem;
 }
 
+.contact-details {
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+}
+
+.contact-details h2,
+.contact-details p {
+    margin: 0;
+}
+
+.contact-details a {
+    color: var(--semantic-color-brand);
+    font-weight: 650;
+    overflow-wrap: anywhere;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.15rem;
+}
+
 .form-card h2 {
     margin-top: 0;
     font-size: var(--primitive-font-size-xl);

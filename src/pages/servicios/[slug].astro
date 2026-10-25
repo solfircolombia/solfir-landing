@@ -5,7 +5,7 @@ import ContentImage from '../../components/ContentImage.astro';
 import Icon from '../../components/Icon.astro';
 import RecentPosts from '../../components/RecentPosts.astro';
 import { getBlogPosts, getServices, type Service } from '../../lib/contentful';
-import { LABELS, PATHS, SITE, servicePath } from '../../lib/site';
+import { LABELS, PATHS, SITE, organizationLd, servicePath } from '../../lib/site';
 
 export async function getStaticPaths() {
     const services = await getServices();
@@ -40,11 +40,7 @@ const jsonLd = JSON.stringify({
             description: metaDescription || description,
             url: pageUrl,
             ...(service.image ? { image: service.image.url } : {}),
-            provider: {
-                '@type': 'Organization',
-                name: SITE.name,
-                url: `${siteUrl}/`,
-            },
+            provider: organizationLd(siteUrl),
             areaServed: {
                 '@type': 'Country',
                 name: 'Colombia',
