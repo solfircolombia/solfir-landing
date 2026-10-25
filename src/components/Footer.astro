@@ -30,7 +30,7 @@ const year = new Date().getFullYear();
                         <Icon name="phone" variant="light" />
                         Teléfono
                     </span>
-                    <a class="footer-link" href={`tel:${CONTACT.phone}`}>
+                    <a class="footer-link" href={`tel:${CONTACT.phoneE164}`}>
                         {CONTACT.phone}
                     </a>
                 </div>
@@ -39,8 +39,16 @@ const year = new Date().getFullYear();
                         <Icon name="place" variant="light" />
                         Ubicación
                     </span>
-                    <a class="footer-link" href={CONTACT.maps}>
+                    <a
+                        class="footer-link"
+                        href={CONTACT.maps}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
                         {CONTACT.address}
+                        <span class="visually-hidden">
+                            (Cómo llegar, se abre en una pestaña nueva)
+                        </span>
                     </a>
                 </div>
             </div>

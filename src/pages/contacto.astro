@@ -2,12 +2,30 @@
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/Button.astro';
 import PageHeader from '../components/PageHeader.astro';
-import { PAGE_SEO } from '../lib/site';
+import { CONTACT, PAGE_SEO } from '../lib/site';
 ---
 
 <Layout seo={PAGE_SEO.contact}>
     <PageHeader title="Envianos un mensaje" />
     <div class="container" style="margin-bottom: 3rem">
+        <section
+            class="surface-card form-card contact-details"
+            aria-labelledby="contact-details-title"
+        >
+            <h2 id="contact-details-title">Datos de contacto</h2>
+            <p>
+                <a href={`tel:${CONTACT.phoneE164}`}>{CONTACT.phone}</a>
+            </p>
+            <p>
+                <a href={CONTACT.maps} target="_blank" rel="noopener noreferrer">
+                    {CONTACT.address}
+                    <span class="visually-hidden">(Cómo llegar, se abre en una pestaña nueva)</span>
+                </a>
+            </p>
+            <p>
+                <a href={`mailto:${CONTACT.mail}`}>{CONTACT.mail}</a>
+            </p>
+        </section>
         <form class="surface-card form-card contact-form" action="/api/sendgrid/" method="POST">
             <h2>Por favor ingrese los siguientes datos</h2>
             <p id="contact-required-note">
@@ -15,10 +33,14 @@ import { PAGE_SEO } from '../lib/site';
             </p>
             <div id="contact-status" role="alert" aria-live="assertive"></div>
             <div class="field">
-                <label class="field-label" for="service">Selecciona el servicio que requieres:</label>
+                <label class="field-label" for="service">
+                    Selecciona el servicio que requieres:
+                </label>
                 <select class="field-control" name="clientService" id="service">
                     <option value="">Selecciona un servicio</option>
-                    <option value="Insolvencia">Insolvencia de persona natural no comerciante</option>
+                    <option value="Insolvencia">
+                        Insolvencia de persona natural no comerciante
+                    </option>
                     <option value="Reorganizacion">Reorganización Empresarial</option>
                     <option value="Liquidacion">Liquidacion Patrimonial</option>
                     <option value="Otro">Otros Servicios</option>
@@ -95,7 +117,9 @@ import { PAGE_SEO } from '../lib/site';
                 ></textarea>
                 <p class="field-error" id="text-error"></p>
             </div>
-            <Button type="submit" variant="primary">Enviar Mensaje</Button>
+            <Button type="submit" variant="primary">
+                Enviar Mensaje
+            </Button>
         </form>
     </div>
 </Layout>

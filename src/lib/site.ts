@@ -72,12 +72,48 @@ export const PAGE_SEO: Record<string, SeoInput> = {
 export const CONTACT = {
     mail: 'contacto@solfir.com.co',
     supportMail: 'andres.artunduaga@solfir.com.co',
-    phone: '3008178461',
-    address: 'Calle 98 # 15-17 Oficina 301, Edificio Manhattan Center, Bogota DC',
-    maps: 'https://www.google.com/maps/place/EDIFICIO%E2%80%A2MANHATTAN.CENTER,+Cl.+98+%2315-17,+Localidad+de+Chapinero,+Bogot%C3%A1/@4.6830466,-74.0515491,17z/data=!3m1!4b1!4m6!3m5!1s0x8e3f9a9437b4fabd:0xc537c7c5276ae064!8m2!3d4.6830413!4d-74.0489688!16s%2Fg%2F11f3tvjv8m?entry=ttu',
+    /** Shown to people. */
+    phone: '+57 311 274 4436',
+    /** E.164, used by tel: links, WhatsApp, and JSON-LD. */
+    phoneE164: '+573112744436',
+    address: 'Cl. 30a #6-22, Oficina 2502, Edificio San Martín Bloque B, Bogotá D.C.',
+    streetAddress: 'Cl. 30a #6-22, Oficina 2502, Edificio San Martín Bloque B',
+    addressLocality: 'Bogotá',
+    addressRegion: 'Bogotá D.C.',
+    addressCountry: 'CO',
+    /** Edificio San Martín, Calle 30A #6-22. Resolved from the maps link via OpenStreetMap. */
+    geo: {
+        latitude: 4.6168793,
+        longitude: -74.0677816,
+    },
+    maps: 'https://maps.app.goo.gl/JZssCQ9qRdVDyAMH7',
     whatsapp:
-        'https://wa.me/+573008178461?text=Hola%21%0A%0AEstoy%20interesado%20en%20obtener%20m%C3%A1s%20informaci%C3%B3n%20sobre%20los%20servicios%20de%20insolvencia%20y%20reorganizaci%C3%B3n%20que%20ofrece%20%2ASOLFIR%2A.%0A%0A%C2%BFPodr%C3%ADa%20proporcionarme%20m%C3%A1s%20detalles%20o%20programar%20una%20consulta%20para%20discutir%20mis%20opciones%3F%20Gracias%20por%20su%20tiempo.%0A%0AMuchas%20gracias%21%21',
+        'https://wa.me/573112744436?text=Hola%21%0A%0AEstoy%20interesado%20en%20obtener%20m%C3%A1s%20informaci%C3%B3n%20sobre%20los%20servicios%20de%20insolvencia%20y%20reorganizaci%C3%B3n%20que%20ofrece%20%2ASOLFIR%2A.%0A%0A%C2%BFPodr%C3%ADa%20proporcionarme%20m%C3%A1s%20detalles%20o%20programar%20una%20consulta%20para%20discutir%20mis%20opciones%3F%20Gracias%20por%20su%20tiempo.%0A%0AMuchas%20gracias%21%21',
 } as const;
+
+/** Organization node shared by page JSON-LD. */
+export function organizationLd(siteUrl: string) {
+    return {
+        '@type': 'Organization',
+        name: SITE.name,
+        url: `${siteUrl}/`,
+        email: CONTACT.mail,
+        telephone: CONTACT.phoneE164,
+        address: {
+            '@type': 'PostalAddress',
+            streetAddress: CONTACT.streetAddress,
+            addressLocality: CONTACT.addressLocality,
+            addressRegion: CONTACT.addressRegion,
+            addressCountry: CONTACT.addressCountry,
+        },
+        geo: {
+            '@type': 'GeoCoordinates',
+            latitude: CONTACT.geo.latitude,
+            longitude: CONTACT.geo.longitude,
+        },
+        hasMap: CONTACT.maps,
+    };
+}
 
 /** Flip this when the company LinkedIn profile is public again. */
 export const COMPANY_LINKEDIN_ENABLED = false;
