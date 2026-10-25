@@ -1083,7 +1083,6 @@ main {
     letter-spacing: 0;
 }
 
-.footer-link,
 .footer .credits {
     display: flex;
     flex-wrap: wrap;
@@ -1099,6 +1098,7 @@ main {
     content: ' · ';
 }
 
+.footer-link,
 .footer .credits a {
     color: var(--component-footer-link);
     font-weight: 650;
